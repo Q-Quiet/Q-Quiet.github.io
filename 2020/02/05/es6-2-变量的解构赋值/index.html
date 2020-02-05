@@ -5,16 +5,20 @@
   
 
   
-  <title>Q-Quiet</title>
+  <title>es6-2-变量的解构赋值 | Q-Quiet</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="keywords" content="note">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Q-Quiet">
-<meta property="og:url" content="https://Q-Quiet.github.io/index.html">
+  <meta name="description" content="变量的解构赋值1.数组的解构赋值ES6 允许按照一定模式，从数组和对象中提取值，对变量进行赋值，这被称为==解构==123456let a = 1;let b = 2;let c = 3;ES6允许写成这样：let [a, b, c] = [1, 2, 3]; 如果解构不成功，那么变量的值就等于undefined不完全解构123let [x, y] = [1, 2, 3];x // 1y // 2">
+<meta name="keywords" content="es6">
+<meta property="og:type" content="article">
+<meta property="og:title" content="es6-2-变量的解构赋值">
+<meta property="og:url" content="https://Q-Quiet.github.io/2020/02/05/es6-2-变量的解构赋值/index.html">
 <meta property="og:site_name" content="Q-Quiet">
+<meta property="og:description" content="变量的解构赋值1.数组的解构赋值ES6 允许按照一定模式，从数组和对象中提取值，对变量进行赋值，这被称为==解构==123456let a = 1;let b = 2;let c = 3;ES6允许写成这样：let [a, b, c] = [1, 2, 3]; 如果解构不成功，那么变量的值就等于undefined不完全解构123let [x, y] = [1, 2, 3];x // 1y // 2">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-02-05T07:05:37.885Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Q-Quiet">
+<meta name="twitter:title" content="es6-2-变量的解构赋值">
+<meta name="twitter:description" content="变量的解构赋值1.数组的解构赋值ES6 允许按照一定模式，从数组和对象中提取值，对变量进行赋值，这被称为==解构==123456let a = 1;let b = 2;let c = 3;ES6允许写成这样：let [a, b, c] = [1, 2, 3]; 如果解构不成功，那么变量的值就等于undefined不完全解构123let [x, y] = [1, 2, 3];x // 1y // 2">
   
     <link rel="alternate" href="/atom.xml" title="Q-Quiet" type="application/atom+xml">
   
@@ -66,9 +70,7 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-    <article id="post-es6-2-变量的解构赋值" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-es6-2-变量的解构赋值" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2020/02/05/es6-2-变量的解构赋值/" class="article-date">
   <time datetime="2020-02-05T07:02:32.000Z" itemprop="datePublished">2020-02-05</time>
@@ -81,8 +83,8 @@
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/02/05/es6-2-变量的解构赋值/">es6-2-变量的解构赋值</a>
+    <h1 class="article-title" itemprop="name">
+      es6-2-变量的解构赋值
     </h1>
   
 
@@ -149,129 +151,19 @@
     </footer>
   </div>
   
-</article>
-
-
+    
+<nav id="article-nav">
   
-    <article id="post-es6-1-let和const" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/05/06/es6-1-let和const/" class="article-date">
-  <time datetime="2019-05-06T12:13:17.000Z" itemprop="datePublished">2019-05-06</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/05/06/es6-1-let和const/">es6-1-let和const</a>
-    </h1>
+    <a href="/2019/05/06/es6-1-let和const/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">es6-1-let和const</div>
+    </a>
   
+</nav>
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="let"><a href="#let" class="headerlink" title="let"></a>let</h3><h5 id="1-let只能在let命令所在的代码块内有效。"><a href="#1-let只能在let命令所在的代码块内有效。" class="headerlink" title="1.let只能在let命令所在的代码块内有效。"></a>1.let只能在let命令所在的代码块内有效。</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">     <span class="keyword">let</span> a = <span class="number">1</span>;</span><br><span class="line">     <span class="keyword">var</span> b = <span class="number">2</span>;</span><br><span class="line"> &#125;</span><br><span class="line"> a</span><br><span class="line"> b</span><br></pre></td></tr></table></figure>
-<h6 id="结果显示：b：2；a不存在；"><a href="#结果显示：b：2；a不存在；" class="headerlink" title="结果显示：b：2；a不存在；"></a>结果显示：b：2；a不存在；</h6><h5 id="2-不存在变量提升，let一定要先声明再使用"><a href="#2-不存在变量提升，let一定要先声明再使用" class="headerlink" title="2.不存在变量提升，let一定要先声明再使用"></a>2.不存在变量提升，let一定要先声明再使用</h5><h5 id="3-暂时性死区：在这个代码块里存在let命令的话，那么他所声明的变量就不受外部的影响"><a href="#3-暂时性死区：在这个代码块里存在let命令的话，那么他所声明的变量就不受外部的影响" class="headerlink" title="3.暂时性死区：在这个代码块里存在let命令的话，那么他所声明的变量就不受外部的影响"></a>3.暂时性死区：在这个代码块里存在let命令的话，那么他所声明的变量就不受外部的影响</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> tmp = <span class="number">123</span>;</span><br><span class="line"><span class="keyword">if</span>(<span class="literal">true</span>) &#123;</span><br><span class="line">	temp = <span class="string">'abc'</span>;  <span class="comment">//ReferenceError</span></span><br><span class="line">	<span class="keyword">let</span> tmp;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h5 id="4-不允许在相同作用域内重复声明"><a href="#4-不允许在相同作用域内重复声明" class="headerlink" title="4.不允许在相同作用域内重复声明"></a>4.不允许在相同作用域内重复声明</h5><h5 id="5-块级作用域及声明："><a href="#5-块级作用域及声明：" class="headerlink" title="5.块级作用域及声明："></a>5.块级作用域及声明：</h5><pre><code>- 允许在块级作用域内声明函数
-- 函数声明会提升到全局作用域或函数作用域头部
-- 函数声明会提升到所在块级作用域的头部
-</code></pre><h3 id="const"><a href="#const" class="headerlink" title="const"></a>const</h3><h5 id="1-声明一个只读常量，一旦声明，则不可改变，一旦声明必须立刻初始化，不能留到以后赋值"><a href="#1-声明一个只读常量，一旦声明，则不可改变，一旦声明必须立刻初始化，不能留到以后赋值" class="headerlink" title="1.声明一个只读常量，一旦声明，则不可改变，一旦声明必须立刻初始化，不能留到以后赋值"></a>1.声明一个只读常量，一旦声明，则不可改变，一旦声明必须立刻初始化，不能留到以后赋值</h5><h5 id="2-与let相同：只能在声明的块级作用域内有效"><a href="#2-与let相同：只能在声明的块级作用域内有效" class="headerlink" title="2.与let相同：只能在声明的块级作用域内有效"></a>2.与let相同：只能在声明的块级作用域内有效</h5><h5 id="3-存在暂时性死区"><a href="#3-存在暂时性死区" class="headerlink" title="3.存在暂时性死区"></a>3.存在暂时性死区</h5><h5 id="4-不可重复声明"><a href="#4-不可重复声明" class="headerlink" title="4.不可重复声明"></a>4.不可重复声明</h5><h5 id="5-可以使用-Object-freeze的方法将对象冻结const-foo-Object-freeze-这样就无法给foo对象里加东西了"><a href="#5-可以使用-Object-freeze的方法将对象冻结const-foo-Object-freeze-这样就无法给foo对象里加东西了" class="headerlink" title="5.可以使用 Object.freeze的方法将对象冻结const foo = Object.freeze({});这样就无法给foo对象里加东西了"></a>5.可以使用 Object.freeze的方法将对象冻结<code>const foo = Object.freeze({});</code>这样就无法给foo对象里加东西了</h5><h4 id="es6有六种声明方式"><a href="#es6有六种声明方式" class="headerlink" title="==es6有六种声明方式=="></a>==es6有六种声明方式==</h4><ul>
-<li>var</li>
-<li>function</li>
-<li>let</li>
-<li>const</li>
-<li>import</li>
-<li>class<blockquote>
-<p>var命令和function命令声明的全局变量，依旧是顶层对象的属性<br>另一方面规定，let命令、const命令、class命令声明的全局变量，不属于顶层对象的属性</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">1</span>;</span><br><span class="line"><span class="built_in">window</span>.a <span class="comment">// 1</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> b = <span class="number">1</span>;</span><br><span class="line"><span class="built_in">window</span>.b <span class="comment">// undefined</span></span><br></pre></td></tr></table></figure>
-</blockquote>
-</li>
-</ul>
-<h4 id="globalThis-对象-这段不是完全明白：借鉴阮一峰的es6）"><a href="#globalThis-对象-这段不是完全明白：借鉴阮一峰的es6）" class="headerlink" title="globalThis 对象(这段不是完全明白：借鉴阮一峰的es6）"></a>globalThis 对象(这段不是完全明白：借鉴阮一峰的es6）</h4><p>JavaScript 语言存在一个顶层对象，它提供全局环境（即全局作用域），所有代码都是在这个环境中运行。但是，顶层对象在各种实现里面是不统一的。</p>
-<ul>
-<li><ul>
-<li>浏览器里面，顶层对象是window，但 Node 和 Web Worker 没有window。</li>
-<li>浏览器和 Web Worker 里面，self也指向顶层对象，但是 Node 没有self。</li>
-<li>Node 里面，顶层对象是global，但其他环境都不支持。</li>
-</ul>
-</li>
-</ul>
-<p>同一段代码为了能够在各种环境，都能取到顶层对象，现在一般是使用this变量，但是有局限性。</p>
-<ul>
-<li><ul>
-<li>全局环境中，this会返回顶层对象。但是，Node 模块和 ES6 模块中，this返回的是当前模块。</li>
-<li>函数里面的this，如果函数不是作为对象的方法运行，而是单纯作为函数运行，this会指向顶层对象。但是，严格模式下，这时this会返回undefined。</li>
-<li>不管是严格模式，还是普通模式，new Function(‘return this’)()，总是会返回全局对象。但是，如果浏览器用了 CSP（Content Security Policy，内容安全策略），那么eval、new Function这些方法都可能无法使用。</li>
-</ul>
-</li>
-</ul>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2019/05/06/es6-1-let和const/" data-id="ck68yzxpr000080upmfsgmzat" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/es6/">es6</a></li></ul>
-
-    </footer>
-  </div>
   
 </article>
-
-
-  
-    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/05/05/hello-world/" class="article-date">
-  <time datetime="2019-05-05T11:52:57.449Z" itemprop="datePublished">2019-05-05</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/05/05/hello-world/">Hello World</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2019/05/05/hello-world/" data-id="ck68yzxq1000380upyztc99xg" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-
 
 </section>
         
