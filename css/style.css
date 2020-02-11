@@ -1100,13 +1100,13 @@ a.article-title:hover {
   border-color: #ddd;
   border-width: 1px 0;
   overflow: auto;
-  color: #ccc;
+  color: #f2777a;
   line-height: 22.400000000000002px;
 }
 .article-entry .highlight .gutter pre,
 .article-entry .gist .gist-file .gist-data .line-numbers {
   color: #666;
-  font-size: 0.85em;
+  font-size: 1em;
 }
 .article-entry pre,
 .article-entry code {
@@ -1261,7 +1261,7 @@ pre .coffeescript .title {
   color: #69c;
 }
 pre .keyword,
-pre .javascript .function {
+pre .javascript .functio21n {
   color: #c9c;
 }
 @media screen and (max-width: 479px) {
