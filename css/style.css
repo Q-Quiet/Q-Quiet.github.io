@@ -1137,7 +1137,7 @@ a.article-title:hover {
 }
 .article-entry .highlight figcaption {
   font-size: 0.85em;
-  color: #999;
+  color: #fc6;
   line-height: 1em;
   margin-bottom: 1em;
 }
@@ -1160,7 +1160,7 @@ a.article-title:hover {
   height: 22.400000000000002px;
 }
 .article-entry .highlight .line.marked {
-  background: #515151;
+  background: #fc6;
 }
 .article-entry .gist {
   margin: 0 -20px;
