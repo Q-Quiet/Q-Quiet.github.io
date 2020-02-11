@@ -523,7 +523,7 @@ body {
 }
 .article-category {
   float: left;
-  line-height: 1em;
+  line-height: 2em;
   color: #ccc;
   text-shadow: 0 1px #fff;
   margin-left: 8px;
@@ -653,7 +653,7 @@ a.article-title:hover {
 .article-entry .caption {
   color: #999;
   display: block;
-  font-size: 0.9em;
+  font-size: 1em;
   margin-top: 0.5em;
   position: relative;
   text-align: center;
@@ -676,7 +676,7 @@ a.article-title:hover {
 }
 .article-more-link a {
   display: inline-block;
-  line-height: 1em;
+  line-height: 2em;
   padding: 6px 15px;
   border-radius: 15px;
   background: #eee;
@@ -691,7 +691,7 @@ a.article-title:hover {
   text-shadow: 0 1px #1e7293;
 }
 .article-footer {
-  font-size: 0.85em;
+  font-size: 1em;
   line-height: 1.6em;
   border-top: 1px solid #ddd;
   padding-top: 1.6em;
