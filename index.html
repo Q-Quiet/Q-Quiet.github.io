@@ -93,7 +93,7 @@
         <h1 id="1-扩展运算符"><a href="#1-扩展运算符" class="headerlink" title="1.扩展运算符"></a>1.扩展运算符</h1><blockquote>
 <p>扩展运算符（spread）是三个点（…）。它好比 rest 参数的逆运算，将一个数组转为用逗号分隔的参数序列。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(...[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>])</span><br><span class="line"><span class="comment">// 1 2 3</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="number">1</span>, ...[<span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>], <span class="number">5</span>)</span><br><span class="line"><span class="comment">// 1 2 3 4 5</span></span><br><span class="line"></span><br><span class="line">[...document.querySelectorAll(<span class="string">'div'</span>)]</span><br><span class="line"><span class="comment">// [&lt;div&gt;, &lt;div&gt;, &lt;div&gt;]</span></span><br></pre></td></tr></table></figure></p>
 </blockquote>
-<font size="4rem">该运算符主要用于函数调用。</font>
+<font color="red" size="20px">该运算符主要用于函数调用。</font>
 
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">push</span>(<span class="params">array, ...items</span>) </span>&#123;</span><br><span class="line">  array.push(...items);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">x, y</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> x + y;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> numbers = [<span class="number">4</span>, <span class="number">38</span>];</span><br><span class="line">add(...numbers) <span class="comment">// 42</span></span><br></pre></td></tr></table></figure>
 <p>上面代码中，array.push(…items)和add(…numbers)这两行，都是函数的调用，它们都使用了扩展运算符。<br>该运算符将一个数组，变为参数序列。</p>
@@ -119,7 +119,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/02/11/es6-8-数组的扩展/" data-id="ck6hk1zpm0003aoupbb50jgaq" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/02/11/es6-8-数组的扩展/" data-id="ck6hk3vnm0004uwupezqmcx5h" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/es6/">es6</a></li></ul>
@@ -217,7 +217,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/02/11/es6-7-函数的扩展/" data-id="ck6hk1zqm000daoupx8b4n0bo" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/02/11/es6-7-函数的扩展/" data-id="ck6hk3vo4000cuwup1n1xu927" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/es6/">es6</a></li></ul>
@@ -377,7 +377,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/02/10/es6-6-数值的扩展/" data-id="ck6hk1zrc000iaoupyhr0rrmb" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/02/10/es6-6-数值的扩展/" data-id="ck6hk3vom000huwup9jbu8y34" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/es6/">es6</a></li></ul>
@@ -514,7 +514,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/02/07/es6-5-正则的扩展/" data-id="ck6hk1zr4000gaoupkx190lfp" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/02/07/es6-5-正则的扩展/" data-id="ck6hk3vof000fuwupn5qx1msp" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/es6/">es6</a></li></ul>
@@ -612,7 +612,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/02/05/es6-4-字符串的新增方法/" data-id="ck6hk1zqg000aaoupnbg3d8yh" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/02/05/es6-4-字符串的新增方法/" data-id="ck6hk3vo10009uwupe7raslba" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/es6/">es6</a></li></ul>
@@ -707,7 +707,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/02/05/es6-3-字符串的扩展/" data-id="ck6hk1zqj000baoupaxf3v4il" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/02/05/es6-3-字符串的扩展/" data-id="ck6hk3vo3000auwuphjyiojbp" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/es6/">es6</a></li></ul>
@@ -792,7 +792,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/02/05/es6-2-变量的解构赋值/" data-id="ck6hk1zpe0001aoupw8exo8p2" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/02/05/es6-2-变量的解构赋值/" data-id="ck6hk3vng0001uwupo283bcnp" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/es6/">es6</a></li></ul>
@@ -865,7 +865,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2019/05/06/es6-1-let和const/" data-id="ck6hk1zoy0000aoupdlhjkmik" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2019/05/06/es6-1-let和const/" data-id="ck6hk3vna0000uwupsil56qfx" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/es6/">es6</a></li></ul>
@@ -912,7 +912,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2019/05/05/hello-world/" data-id="ck6hk1zqc0009aoup861hqdhc" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2019/05/05/hello-world/" data-id="ck6hk3vnk0003uwupirnfs7ig" class="article-share-link">Share</a>
       
       
     </footer>
