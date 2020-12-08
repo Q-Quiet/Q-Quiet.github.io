@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>js-数组扁平化 | Q-Quiet</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="toString &amp;amp; splitjoin &amp;amp; splitreduce扩展运算符递归es6提供的新方法 flat(depth)使用 stack 无限反嵌套多层嵌套数组flatMap()方法一 toString &amp;amp; splitlet arr = [1, [2, 3, [4, 5]]]// 经过数组扁平化之后变为[1, 2, 3, 4, 5]对于 arr 调用 toString">
+<meta name="keywords" content="js">
+<meta property="og:type" content="article">
+<meta property="og:title" content="js-数组扁平化">
+<meta property="og:url" content="https://Q-Quiet.github.io/2020/12/08/js-数组扁平化/index.html">
+<meta property="og:site_name" content="Q-Quiet">
+<meta property="og:description" content="toString &amp;amp; splitjoin &amp;amp; splitreduce扩展运算符递归es6提供的新方法 flat(depth)使用 stack 无限反嵌套多层嵌套数组flatMap()方法一 toString &amp;amp; splitlet arr = [1, [2, 3, [4, 5]]]// 经过数组扁平化之后变为[1, 2, 3, 4, 5]对于 arr 调用 toString">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-12-08T09:19:29.191Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="js-数组扁平化">
+<meta name="twitter:description" content="toString &amp;amp; splitjoin &amp;amp; splitreduce扩展运算符递归es6提供的新方法 flat(depth)使用 stack 无限反嵌套多层嵌套数组flatMap()方法一 toString &amp;amp; splitlet arr = [1, [2, 3, [4, 5]]]// 经过数组扁平化之后变为[1, 2, 3, 4, 5]对于 arr 调用 toString">
+  
+    <link rel="alternate" href="/atom.xml" title="Q-Quiet" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="shortcut icon" href="ban.jpeg" type="image/x-icon">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Q-Quiet</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">言语笑靥迎来情</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://Q-Quiet.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-js-数组扁平化" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/12/08/js-数组扁平化/" class="article-date">
+  <time datetime="2020-12-08T09:15:34.000Z" itemprop="datePublished">2020-12-08</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      js-数组扁平化
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>toString &amp; split<br>join &amp; split<br>reduce<br>扩展运算符<br>递归<br>es6提供的新方法 flat(depth)<br>使用 stack 无限反嵌套多层嵌套数组<br>flatMap()<br>方法一 toString &amp; split<br>let arr = [1, [2, 3, [4, 5]]]<br>// 经过数组扁平化之后变为<br>[1, 2, 3, 4, 5]<br>对于 arr 调用 toString 方法后会得到<br>‘1, 2, 3, 4, 5’<br>因此我们可以利用 split 方法再将其转换为数组，然后再将其变成 Number 类型即可。<br>//toString &amp; split<br>function flatten (arr) {<br>  return arr.toString().split(‘,’).map(item =&gt; {<br>    return parseInt(item)<br>  })<br>}</p>
+<p>方法二  join &amp; split<br>和上面的toString一样，join也可以将数组转换为字符串<br>function flatten(arr) {<br>    return arr.join(‘,’).split(‘,’).map(function(item) {<br>        return parseInt(item);<br>    })<br>}</p>
+<p>方法三 reduce<br>利用递归结合 reduce 方法，如果遍历的每一个元素中还有数组，那么就进行递归将这些数组再进行扁平化操作。<br>function flatten(arr) {<br>  return arr.reduce((result, item)=&gt; {<br>    // 递归终止条件 Array.isArray(item) ? flatten(item) : item<br>    return result.concat(Array.isArray(item) ? flatten(item) : item);<br>  }, []);<br>}</p>
+<p>方法四 扩展运算符<br>利用数组的 some 方法，数组的 some 方法作用是遍历数组的每一项直到回调函数中返回的是 true。<br>如果是数组，sone 方法的回调返回 true，some 遍历就截止，进入 while 循环利用扩展运算符将数组进行扁平化，注意扩展运算符只能拆一层<br>let arr = [1, [2, [3, 4]]]<br>…arr // [1, 2, [3, 4]]</p>
+<p>此时会利用改变后的 arr 执行 some 方法。<br>如果不是数组，some 方法回调的返回值是 false，会继续执行 some 方法，此时不会进入 while 循环。</p>
+<p>function flatte (arr) {<br>  while(arr.some(item =&gt; Array.isArray(item))) {<br>    arr = [].concat(…arr);<br>  }<br>  return arr;<br>}</p>
+<p>方法五 递归<br>递归的遍历每一项，若为数组则继续遍历，否则concat<br>function flatten(arr) {<br>    var res = [];<br>    arr.map(item =&gt; {<br>        if(Array.isArray(item)) {<br>            res = res.concat(flatten(item));<br>        } else {<br>            res.push(item);<br>        }<br>    });<br>    return res;<br>}</p>
+<p>方法六 es6提供的新方法 flat(depth)<br>flat(depth) 方法中的参数depth，代表展开嵌套数组的深度，默认是1    如果我们可以提前知道数组的维度，对这个数组进行扁平化处理，参数depth的值就是数组的维度减一。<br>let a = [1,[2,3,[4,[5]]]];<br>a.flat(4-1); // [1,2,3,4,5]  a是4维数组</p>
+<p>depth的值设置为Infinity。<br>let a = [1,[2,3,[4,[5]]]];<br>a.flat(Infinity); // [1,2,3,4,5]  a是4维数组</p>
+<p>方法七 使用 stack 无限反嵌套多层嵌套数组<br>  var arr1 = [1, 2, [3], [1, 2, 3, [4, [2, 3, 4]]]];<br>  function flatten(input) {<br>      const stack = […input]; //保证不会破坏原数组<br>      const result = [];<br>      while (stack.length) {<br>        const first = stack.shift();<br>        if (Array.isArray(first)) {<br>          stack.unshift(…first);<br>        } else {<br>          result.push(first);<br>        }<br>      }<br>      return result;<br>      }<br>    flatten(arr1); //[1, 2, 3, 1, 2, 3, 4, 2, 3, 4]</p>
+<p>方法八 flatMap()<br>数组的es6的新方法flatMap();可以用来展开2维数组。 flatMap()方法类似先执行数组的map()（相当于执行Array.prototype.map()），然后对返回值组成的数组执行flat()方法（展开一层）。<br>  var arr = [[“今”, “天”, “天”, “气”, “不”, “错”],[“”],[“早”, “上”, “好”]];<br>  arr.flatMap(item =&gt; item);<br>  //[“今”, “天”, “天”, “气”, “不”, “错”, “”, “早”, “上”, “好”]</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://Q-Quiet.github.io/2020/12/08/js-数组扁平化/" data-id="ckifrvj5y0009z0upzlwi7o8x" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2020/10/11/1-Vue复习/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">1-Vue复习</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vue/">Vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/es6/">es6</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Vue/" style="font-size: 10px;">Vue</a> <a href="/tags/es6/" style="font-size: 20px;">es6</a> <a href="/tags/js/" style="font-size: 10px;">js</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">十月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">三月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/12/08/js-数组扁平化/">js-数组扁平化</a>
+          </li>
+        
+          <li>
+            <a href="/2020/10/11/1-Vue复习/">1-Vue复习</a>
+          </li>
+        
+          <li>
+            <a href="/2020/03/06/es6-12-Set和Map/">es6-12-Set和Map</a>
+          </li>
+        
+          <li>
+            <a href="/2020/03/03/es6-11-Symbol/">es6-11-Symbol</a>
+          </li>
+        
+          <li>
+            <a href="/2020/02/12/es6-8-数组的扩展/">es6-8-数组的扩展</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 Q-Quiet<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
