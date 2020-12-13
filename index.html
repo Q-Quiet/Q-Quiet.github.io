@@ -68,6 +68,47 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-浏览器-渲染机制" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/12/13/浏览器-渲染机制/" class="article-date">
+  <time datetime="2020-12-13T15:28:12.000Z" itemprop="datePublished">2020-12-13</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/12/13/浏览器-渲染机制/">浏览器-渲染机制</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>一、浏览器渲染<br>将载入的HTML文件解析成DOM树<br>当浏览器接收到这些字节数据以后，它会将这些字节数据转换为字符串，也就是我们写的代码。<br>当数据转换为字符串以后，浏览器会先将这些字符串通过词法分析转换为标记（token），这一过程在词法分析中叫做标记化（tokenization）。<br>当结束标记化后，这些标记会紧接着转换为 Node，最后这些 Node 会根据不同 Node 之前的联系构建为一颗 DOM 树。</p>
+<p>将解析成的DOM树和CSS规则进行关联生成渲染树（Render Tree<br>进入布局阶段，为DOM树的每个节点分配在屏幕上出现的确切坐标<br>进入绘制阶段，对渲染树的每个节点进行绘制，呈现出页面效果<br>不同内核浏览器的DOM解析的差异性</p>
+<p>Webkit内核的浏览器：chrome、Safari<br>Gecko内核的浏览器：Firefox<br>二、客户端渲染渲染CSR<br>html仅仅作为静态文件，客户端在请求时，服务端不做任何处理，直接以原文件的形式返回给客户端，然后根据html上的JavaScript，生成DOM插入html。<br>好处：网络传输数据量小、减少了服务端压力、前后端分离、局部刷新、无需每次请求完整页面、交互好可实现各种效果。<br>坏处：不利于SEO、爬虫看不到完整的程序源码、首屏渲染慢（渲染前需要下载一堆js和css等）<br>三、服务端渲染SSR<br>服务端渲染的模式下，当用户第一次请求页面时，由服务端把需要的组件或页面渲染成HTML字符串，然后把它返回给客户端。客户端拿到手的，是可以直接渲染然后呈现给用户的HTML内容，不需要为了成为DOM内容自己再去跑一遍JS代码。使用服务端渲染的网站，页面上呈现的内容，我们在html源文件里也能找到。<br>好处：首屏渲染快、利于SEO、可以生成缓存片段，生成静态化文件、节能（对比客户端渲染的耗电）<br>坏处：用户体验较差、不容易维护，通常前端改了部分html或者css，后端也需要修改。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://Q-Quiet.github.io/2020/12/13/浏览器-渲染机制/" data-id="ckina9oi6000fb0uply7kh24u" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/浏览器/">浏览器</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-js-函数柯里化" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2020/12/09/js-函数柯里化/" class="article-date">
@@ -108,7 +149,7 @@ return function (...args2) {
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/12/09/js-函数柯里化/" data-id="ckih4caqq000dpgup4onwwvpo" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/12/09/js-函数柯里化/" data-id="ckina9oi5000db0up6zz2xhwv" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
@@ -157,7 +198,7 @@ return function (...args2) {
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/12/08/js-数组扁平化/" data-id="ckih4caqn000apgupb6rzftv5" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/12/08/js-数组扁平化/" data-id="ckina9oi1000ab0up8n8xi8dn" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
@@ -215,7 +256,7 @@ return function (...args2) {
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/10/11/1-Vue复习/" data-id="ckih4caqa0001pgupg5t25g5o" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/10/11/1-Vue复习/" data-id="ckina9ohp0001b0upfx69xgwy" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Vue/">Vue</a></li></ul>
@@ -271,7 +312,7 @@ return function (...args2) {
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/03/06/es6-12-Set和Map/" data-id="ckih4caqg0004pgupfrepir1c" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/03/06/es6-12-Set和Map/" data-id="ckina9ohh0000b0upfz4pwxb1" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/es6/">es6</a></li></ul>
@@ -374,7 +415,7 @@ return function (...args2) {
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/03/03/es6-11-Symbol/" data-id="ckih4caqe0003pgupsvu24jg9" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/03/03/es6-11-Symbol/" data-id="ckina9ohv0004b0uprmlr9vhj" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/es6/">es6</a></li></ul>
@@ -509,7 +550,7 @@ return function (...args2) {
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/02/12/es6-8-数组的扩展/" data-id="ckih4car4000lpgupgcweo6ag" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/02/12/es6-8-数组的扩展/" data-id="ckina9oip000ob0updq0wjw79" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/es6/">es6</a></li></ul>
@@ -607,7 +648,7 @@ return function (...args2) {
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/02/11/es6-7-函数的扩展/" data-id="ckih4cara000ppgupwbi586k2" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/02/11/es6-7-函数的扩展/" data-id="ckina9ois000sb0up6adb1ca0" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/es6/">es6</a></li></ul>
@@ -767,7 +808,7 @@ return function (...args2) {
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/02/10/es6-6-数值的扩展/" data-id="ckih4carv000upgupwjc63b4p" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/02/10/es6-6-数值的扩展/" data-id="ckina9oje000xb0upokvyksun" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/es6/">es6</a></li></ul>
@@ -904,105 +945,7 @@ return function (...args2) {
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/02/07/es6-5-正则的扩展/" data-id="ckih4carr000spgup4f4kv3yv" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/es6/">es6</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-es6-4-字符串的新增方法" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/02/05/es6-4-字符串的新增方法/" class="article-date">
-  <time datetime="2020-02-05T07:24:22.000Z" itemprop="datePublished">2020-02-05</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/02/05/es6-4-字符串的新增方法/">es6-4-字符串的新增方法</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="1-String-fromCodePoint"><a href="#1-String-fromCodePoint" class="headerlink" title="1.String.fromCodePoint()"></a>1.String.fromCodePoint()</h1><h4 id="ES5提供的String-fromCharCode-的方法，用于Unicode码点返回对应字符，但是这个方法不能识别码点大于0xFFFF的字符"><a href="#ES5提供的String-fromCharCode-的方法，用于Unicode码点返回对应字符，但是这个方法不能识别码点大于0xFFFF的字符" class="headerlink" title="ES5提供的String.fromCharCode()的方法，用于Unicode码点返回对应字符，但是这个方法不能识别码点大于0xFFFF的字符"></a>ES5提供的<code>String.fromCharCode()</code>的方法，用于Unicode码点返回对应字符，但是这个方法不能识别码点大于<code>0xFFFF</code>的字符</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">String</span>.fromCharCode(<span class="number">0x20BB7</span>)</span><br><span class="line"><span class="comment">//"ஷ"</span></span><br></pre></td></tr></table></figure>
-<h4 id="因为不能识别码点大于0xFFFF的字符，所以0x20BB7发生了溢出，最高位2被舍弃，最后返回码点U-0BB7对应的字符。"><a href="#因为不能识别码点大于0xFFFF的字符，所以0x20BB7发生了溢出，最高位2被舍弃，最后返回码点U-0BB7对应的字符。" class="headerlink" title="因为不能识别码点大于0xFFFF的字符，所以0x20BB7发生了溢出，最高位2被舍弃，最后返回码点U+0BB7对应的字符。"></a>因为不能识别码点大于<code>0xFFFF</code>的字符，所以<code>0x20BB7</code>发生了溢出，最高位2被舍弃，最后返回码点<code>U+0BB7</code>对应的字符。</h4><h4 id="ES6-的String-fromCodePoint-方法，可以识别大于0xFFFF的字符。"><a href="#ES6-的String-fromCodePoint-方法，可以识别大于0xFFFF的字符。" class="headerlink" title="ES6 的String.fromCodePoint()方法，可以识别大于0xFFFF的字符。"></a>ES6 的String.fromCodePoint()方法，可以识别大于0xFFFF的字符。</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">String</span>.fromCodePoint(<span class="number">0x20BB7</span>)</span><br><span class="line"><span class="comment">// "𠮷"</span></span><br><span class="line"><span class="built_in">String</span>.fromCodePoint(<span class="number">0x78</span>, <span class="number">0x1f680</span>, <span class="number">0x79</span>) === <span class="string">'x\uD83D\uDE80y'</span></span><br><span class="line"><span class="comment">// true</span></span><br></pre></td></tr></table></figure>
-<h4 id="在作用上，正好与codePointAt-方法相反。"><a href="#在作用上，正好与codePointAt-方法相反。" class="headerlink" title="在作用上，正好与codePointAt()方法相反。"></a>在作用上，正好与codePointAt()方法相反。</h4><h4 id="注意，fromCodePoint方法定义在String对象上，而codePointAt方法定义在字符串的实例对象上。"><a href="#注意，fromCodePoint方法定义在String对象上，而codePointAt方法定义在字符串的实例对象上。" class="headerlink" title="注意，fromCodePoint方法定义在String对象上，而codePointAt方法定义在字符串的实例对象上。"></a>注意，fromCodePoint方法定义在String对象上，而codePointAt方法定义在字符串的实例对象上。</h4><hr>
-<h1 id="2-String-raw"><a href="#2-String-raw" class="headerlink" title="2.String.raw()"></a>2.String.raw()</h1><h4 id="该方法返回一个斜杠都被转义（即斜杠前面再加一个斜杠）的字符串，往往用于模板字符串的处理方法。"><a href="#该方法返回一个斜杠都被转义（即斜杠前面再加一个斜杠）的字符串，往往用于模板字符串的处理方法。" class="headerlink" title="该方法返回一个斜杠都被转义（即斜杠前面再加一个斜杠）的字符串，往往用于模板字符串的处理方法。"></a>该方法返回一个斜杠都被转义（即斜杠前面再加一个斜杠）的字符串，往往用于模板字符串的处理方法。</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">String</span>.raw<span class="string">`Hi\n<span class="subst">$&#123;<span class="number">2</span>+<span class="number">3</span>&#125;</span>!`</span></span><br><span class="line"><span class="comment">// 实际返回 "Hi\\n5!"，显示的是转义后的结果 "Hi\n5!"</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">String</span>.raw<span class="string">`Hi\u000A!`</span>;</span><br><span class="line"><span class="comment">// 实际返回 "Hi\\u000A!"，显示的是转义后的结果 "Hi\u000A!"</span></span><br></pre></td></tr></table></figure>
-<h4 id="如果原字符串的斜杠已经转义，那么String-raw-会进行再次转义。"><a href="#如果原字符串的斜杠已经转义，那么String-raw-会进行再次转义。" class="headerlink" title="如果原字符串的斜杠已经转义，那么String.raw()会进行再次转义。"></a>如果原字符串的斜杠已经转义，那么String.raw()会进行再次转义。</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">String</span>.raw<span class="string">`Hi\\n`</span></span><br><span class="line"><span class="comment">// 返回 "Hi\\\\n"</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">String</span>.raw<span class="string">`Hi\\n`</span> === <span class="string">"Hi\\\\n"</span> <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
-<h4 id="String-raw-本质上是一个正常的函数，只是专用于模板字符串的-标签函数-。如果写成正常函数的形式，它的第一个参数，应该是一个具有raw属性的对象，且raw属性的值应该是一个数组，对应模板字符串解析后的值。"><a href="#String-raw-本质上是一个正常的函数，只是专用于模板字符串的-标签函数-。如果写成正常函数的形式，它的第一个参数，应该是一个具有raw属性的对象，且raw属性的值应该是一个数组，对应模板字符串解析后的值。" class="headerlink" title="String.raw()本质上是一个正常的函数，只是专用于模板字符串的==标签函数==。如果写成正常函数的形式，它的第一个参数，应该是一个具有raw属性的对象，且raw属性的值应该是一个数组，对应模板字符串解析后的值。"></a>String.raw()本质上是一个正常的函数，只是专用于模板字符串的==标签函数==。如果写成正常函数的形式，它的第一个参数，应该是一个具有raw属性的对象，且raw属性的值应该是一个数组，对应模板字符串解析后的值。</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// `foo$&#123;1 + 2&#125;bar`</span></span><br><span class="line"><span class="comment">// 等同于</span></span><br><span class="line"><span class="built_in">String</span>.raw(&#123; <span class="attr">raw</span>: [<span class="string">'foo'</span>, <span class="string">'bar'</span>] &#125;, <span class="number">1</span> + <span class="number">2</span>) <span class="comment">// "foo3bar"</span></span><br></pre></td></tr></table></figure>
-<h4 id="上面代码中，String-raw-方法的第一个参数是一个对象，它的raw属性等同于原始的模板字符串解析后得到的数组。"><a href="#上面代码中，String-raw-方法的第一个参数是一个对象，它的raw属性等同于原始的模板字符串解析后得到的数组。" class="headerlink" title="上面代码中，String.raw()方法的第一个参数是一个对象，它的raw属性等同于原始的模板字符串解析后得到的数组。"></a>上面代码中，String.raw()方法的第一个参数是一个对象，它的raw属性等同于原始的模板字符串解析后得到的数组。</h4><h4 id="作为函数，String-raw-的代码实现基本如下。"><a href="#作为函数，String-raw-的代码实现基本如下。" class="headerlink" title="作为函数，String.raw()的代码实现基本如下。"></a>作为函数，String.raw()的代码实现基本如下。</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">String</span>.raw = <span class="function"><span class="keyword">function</span> (<span class="params">strings, ...values</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> output = <span class="string">''</span>;</span><br><span class="line">  <span class="keyword">let</span> index;</span><br><span class="line">  <span class="keyword">for</span> (index = <span class="number">0</span>; index &lt; values.length; index++) &#123;</span><br><span class="line">    output += strings.raw[index] + values[index];</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  output += strings.raw[index]</span><br><span class="line">  <span class="keyword">return</span> output;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<hr>
-<h1 id="3-实例方法：codePointAt"><a href="#3-实例方法：codePointAt" class="headerlink" title="3.实例方法：codePointAt()"></a>3.实例方法：codePointAt()</h1><h4 id="在JavaScript内部，字符以UTF-16-的格式存储，每个字符固定为2个字符。对于那些需要四个字节储存的字符-Unicode码点大于0xFFFF的字符-，JavaScript会认为他们是两个字符。"><a href="#在JavaScript内部，字符以UTF-16-的格式存储，每个字符固定为2个字符。对于那些需要四个字节储存的字符-Unicode码点大于0xFFFF的字符-，JavaScript会认为他们是两个字符。" class="headerlink" title="在JavaScript内部，字符以UTF-16 的格式存储，每个字符固定为2个字符。对于那些需要四个字节储存的字符(Unicode码点大于0xFFFF的字符)，JavaScript会认为他们是两个字符。"></a>在JavaScript内部，字符以UTF-16 的格式存储，每个字符固定为2个字符。对于那些需要四个字节储存的字符(Unicode码点大于0xFFFF的字符)，JavaScript会认为他们是两个字符。</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> s = <span class="string">"𠮷"</span>;</span><br><span class="line"></span><br><span class="line">s.length <span class="comment">// 2</span></span><br><span class="line">s.charAt(<span class="number">0</span>) <span class="comment">// ''</span></span><br><span class="line">s.charAt(<span class="number">1</span>) <span class="comment">// ''</span></span><br><span class="line">s.charCodeAt(<span class="number">0</span>) <span class="comment">// 55362</span></span><br><span class="line">s.charCodeAt(<span class="number">1</span>) <span class="comment">// 57271</span></span><br></pre></td></tr></table></figure>
-<h4 id="上面代码中，汉字“𠮷”（注意，这个字不是“吉祥”的“吉”）的码点是0x20BB7，UTF-16-编码为0xD842-0xDFB7（十进制为55362-57271），需要4个字节储存。对于这种4个字节的字符，JavaScript-不能正确处理，字符串长度会误判为2，而且charAt-方法无法读取整个字符，charCodeAt-方法只能分别返回前两个字节和后两个字节的值。"><a href="#上面代码中，汉字“𠮷”（注意，这个字不是“吉祥”的“吉”）的码点是0x20BB7，UTF-16-编码为0xD842-0xDFB7（十进制为55362-57271），需要4个字节储存。对于这种4个字节的字符，JavaScript-不能正确处理，字符串长度会误判为2，而且charAt-方法无法读取整个字符，charCodeAt-方法只能分别返回前两个字节和后两个字节的值。" class="headerlink" title="上面代码中，汉字“𠮷”（注意，这个字不是“吉祥”的“吉”）的码点是0x20BB7，UTF-16 编码为0xD842 0xDFB7（十进制为55362 57271），需要4个字节储存。对于这种4个字节的字符，JavaScript 不能正确处理，字符串长度会误判为2，而且charAt()方法无法读取整个字符，charCodeAt()方法只能分别返回前两个字节和后两个字节的值。"></a>上面代码中，汉字“𠮷”（注意，这个字不是“吉祥”的“吉”）的码点是0x20BB7，UTF-16 编码为0xD842 0xDFB7（十进制为55362 57271），需要4个字节储存。对于这种4个字节的字符，JavaScript 不能正确处理，字符串长度会误判为2，而且charAt()方法无法读取整个字符，charCodeAt()方法只能分别返回前两个字节和后两个字节的值。</h4><h4 id="ES6提供了codePointAt-方法，能够正确处理4个字节存储的字符，返回一个字符的码点。"><a href="#ES6提供了codePointAt-方法，能够正确处理4个字节存储的字符，返回一个字符的码点。" class="headerlink" title="ES6提供了codePointAt()方法，能够正确处理4个字节存储的字符，返回一个字符的码点。"></a>ES6提供了codePointAt()方法，能够正确处理4个字节存储的字符，返回一个字符的码点。</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> s = <span class="string">'𠮷a'</span>;</span><br><span class="line"></span><br><span class="line">s.codePointAt(<span class="number">0</span>) <span class="comment">// 134071</span></span><br><span class="line">s.codePointAt(<span class="number">1</span>) <span class="comment">// 57271</span></span><br><span class="line"></span><br><span class="line">s.codePointAt(<span class="number">2</span>) <span class="comment">// 97</span></span><br></pre></td></tr></table></figure>
-<h4 id="codePointAt-方法的参数，是字符在字符串中的位置（从-0-开始）。上面代码中，JavaScript-将“𠮷a”视为三个字符，codePointAt-方法在第一个字符上，正确地识别了“𠮷”，返回了它的十进制码点-134071（即十六进制的20BB7）。在第二个字符（即“𠮷”的后两个字节）和第三个字符“a”上，codePointAt-方法的结果与charCodeAt-方法相同。"><a href="#codePointAt-方法的参数，是字符在字符串中的位置（从-0-开始）。上面代码中，JavaScript-将“𠮷a”视为三个字符，codePointAt-方法在第一个字符上，正确地识别了“𠮷”，返回了它的十进制码点-134071（即十六进制的20BB7）。在第二个字符（即“𠮷”的后两个字节）和第三个字符“a”上，codePointAt-方法的结果与charCodeAt-方法相同。" class="headerlink" title="codePointAt()方法的参数，是字符在字符串中的位置（从 0 开始）。上面代码中，JavaScript 将“𠮷a”视为三个字符，codePointAt 方法在第一个字符上，正确地识别了“𠮷”，返回了它的十进制码点 134071（即十六进制的20BB7）。在第二个字符（即“𠮷”的后两个字节）和第三个字符“a”上，codePointAt()方法的结果与charCodeAt()方法相同。"></a>codePointAt()方法的参数，是字符在字符串中的位置（从 0 开始）。上面代码中，JavaScript 将“𠮷a”视为三个字符，codePointAt 方法在第一个字符上，正确地识别了“𠮷”，返回了它的十进制码点 134071（即十六进制的20BB7）。在第二个字符（即“𠮷”的后两个字节）和第三个字符“a”上，codePointAt()方法的结果与charCodeAt()方法相同。</h4><h4 id="因为，codePointAt-返回的是码点的十进制值，如果想要十六进制的值，可以使用，toString-方法转换一下。"><a href="#因为，codePointAt-返回的是码点的十进制值，如果想要十六进制的值，可以使用，toString-方法转换一下。" class="headerlink" title="因为，codePointAt()返回的是码点的十进制值，如果想要十六进制的值，可以使用，toString()方法转换一下。"></a>因为，codePointAt()返回的是码点的十进制值，如果想要十六进制的值，可以使用，toString()方法转换一下。</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> s = <span class="string">'𠮷a'</span>;</span><br><span class="line"></span><br><span class="line">s.codePointAt(<span class="number">0</span>).toString(<span class="number">16</span>) <span class="comment">// "20bb7"</span></span><br><span class="line">s.codePointAt(<span class="number">2</span>).toString(<span class="number">16</span>) <span class="comment">// "61"</span></span><br></pre></td></tr></table></figure>
-<h4 id="你可能注意到了，codePointAt-方法的参数，仍然是不正确的。比如，上面代码中，字符a在字符串s的正确位置序号应该是-1，但是必须向codePointAt-方法传入-2。解决这个问题的一个办法是使用-for…of-循环，因为它会正确识别-32-位的-UTF-16-字符。"><a href="#你可能注意到了，codePointAt-方法的参数，仍然是不正确的。比如，上面代码中，字符a在字符串s的正确位置序号应该是-1，但是必须向codePointAt-方法传入-2。解决这个问题的一个办法是使用-for…of-循环，因为它会正确识别-32-位的-UTF-16-字符。" class="headerlink" title="你可能注意到了，codePointAt()方法的参数，仍然是不正确的。比如，上面代码中，字符a在字符串s的正确位置序号应该是 1，但是必须向codePointAt()方法传入 2。解决这个问题的一个办法是使用==for…of==循环，因为它会正确识别 32 位的 UTF-16 字符。"></a>你可能注意到了，codePointAt()方法的参数，仍然是不正确的。比如，上面代码中，字符a在字符串s的正确位置序号应该是 1，但是必须向codePointAt()方法传入 2。解决这个问题的一个办法是使用==for…of==循环，因为它会正确识别 32 位的 UTF-16 字符。</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> s = <span class="string">'𠮷a'</span>;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> ch <span class="keyword">of</span> s) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(ch.codePointAt(<span class="number">0</span>).toString(<span class="number">16</span>));</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 20bb7</span></span><br><span class="line"><span class="comment">// 61</span></span><br></pre></td></tr></table></figure>
-<h4 id="另一种方法也可以，使用扩展运算符（…）进行展开运算。"><a href="#另一种方法也可以，使用扩展运算符（…）进行展开运算。" class="headerlink" title="另一种方法也可以，使用扩展运算符（…）进行展开运算。"></a>另一种方法也可以，使用扩展运算符（…）进行展开运算。</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> arr = [...<span class="string">'𠮷a'</span>]; <span class="comment">// arr.length === 2</span></span><br><span class="line">arr.forEach(</span><br><span class="line">  ch =&gt; <span class="built_in">console</span>.log(ch.codePointAt(<span class="number">0</span>).toString(<span class="number">16</span>))</span><br><span class="line">);</span><br><span class="line"><span class="comment">// 20bb7</span></span><br><span class="line"><span class="comment">// 61</span></span><br></pre></td></tr></table></figure>
-<h4 id="codePointAt-方法是测试一个字符由两个字节还是由四个字节组成的最简单方法。"><a href="#codePointAt-方法是测试一个字符由两个字节还是由四个字节组成的最简单方法。" class="headerlink" title="codePointAt()方法是测试一个字符由两个字节还是由四个字节组成的最简单方法。"></a>codePointAt()方法是测试一个字符由两个字节还是由四个字节组成的最简单方法。</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">is32Bit</span>(<span class="params">c</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> c.codePointAt(<span class="number">0</span>) &gt; <span class="number">0xFFFF</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">is32Bit(<span class="string">"𠮷"</span>) <span class="comment">// true</span></span><br><span class="line">is32Bit(<span class="string">"a"</span>) <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
-<hr>
-<h1 id="4-实例方法：normalize"><a href="#4-实例方法：normalize" class="headerlink" title="4.实例方法：normalize()"></a>4.实例方法：normalize()</h1><blockquote>
-<p>？？？？重音可还行</p>
-</blockquote>
-<h4 id="许多欧洲语言有语调符号和重音符号。为了表示它们，Unicode-提供了两种方法。一种是直接提供带重音符号的字符，比如O（-u01D1）。另一种是提供合成符号（combining-character），即原字符与重音符号的合成，两个字符合成一个字符，比如O（-u004F）和ˇ（-u030C）合成O（-u004F-u030C）。"><a href="#许多欧洲语言有语调符号和重音符号。为了表示它们，Unicode-提供了两种方法。一种是直接提供带重音符号的字符，比如O（-u01D1）。另一种是提供合成符号（combining-character），即原字符与重音符号的合成，两个字符合成一个字符，比如O（-u004F）和ˇ（-u030C）合成O（-u004F-u030C）。" class="headerlink" title="许多欧洲语言有语调符号和重音符号。为了表示它们，Unicode 提供了两种方法。一种是直接提供带重音符号的字符，比如Ǒ（\u01D1）。另一种是提供合成符号（combining character），即原字符与重音符号的合成，两个字符合成一个字符，比如O（\u004F）和ˇ（\u030C）合成Ǒ（\u004F\u030C）。"></a>许多欧洲语言有语调符号和重音符号。为了表示它们，Unicode 提供了两种方法。一种是直接提供带重音符号的字符，比如Ǒ（\u01D1）。另一种是提供合成符号（combining character），即原字符与重音符号的合成，两个字符合成一个字符，比如O（\u004F）和ˇ（\u030C）合成Ǒ（\u004F\u030C）。</h4><h4 id="这两种表示方法，在视觉和语义上都等价，-但是-JavaScript-不能识别。"><a href="#这两种表示方法，在视觉和语义上都等价，-但是-JavaScript-不能识别。" class="headerlink" title="这两种表示方法，在视觉和语义上都等价，==但是 JavaScript 不能识别。=="></a>这两种表示方法，在视觉和语义上都等价，==但是 JavaScript 不能识别。==</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'\u01D1'</span>===<span class="string">'\u004F\u030C'</span> <span class="comment">//false</span></span><br><span class="line"></span><br><span class="line"><span class="string">'\u01D1'</span>.length <span class="comment">// 1</span></span><br><span class="line"><span class="string">'\u004F\u030C'</span>.length <span class="comment">// 2</span></span><br></pre></td></tr></table></figure>
-<h4 id="上面代码表示，JavaScript-将合成字符视为两个字符，导致两种表示方法不相等。"><a href="#上面代码表示，JavaScript-将合成字符视为两个字符，导致两种表示方法不相等。" class="headerlink" title="上面代码表示，JavaScript 将合成字符视为两个字符，导致两种表示方法不相等。"></a>上面代码表示，JavaScript 将合成字符视为两个字符，导致两种表示方法不相等。</h4><h4 id="ES6-提供字符串实例的normalize-方法，用来将字符的不同表示方法统一为同样的形式，这称为-Unicode-正规化。"><a href="#ES6-提供字符串实例的normalize-方法，用来将字符的不同表示方法统一为同样的形式，这称为-Unicode-正规化。" class="headerlink" title="ES6 提供字符串实例的normalize()方法，用来将字符的不同表示方法统一为同样的形式，这称为 Unicode 正规化。"></a>ES6 提供字符串实例的normalize()方法，用来将字符的不同表示方法统一为同样的形式，这称为 Unicode 正规化。</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'\u01D1'</span>.normalize() === <span class="string">'\u004F\u030C'</span>.normalize()</span><br><span class="line"><span class="comment">// true</span></span><br></pre></td></tr></table></figure>
-<h4 id="normalize方法可以接受一个参数来指定normalize的方式，参数的四个可选值如下。"><a href="#normalize方法可以接受一个参数来指定normalize的方式，参数的四个可选值如下。" class="headerlink" title="normalize方法可以接受一个参数来指定normalize的方式，参数的四个可选值如下。"></a>normalize方法可以接受一个参数来指定normalize的方式，参数的四个可选值如下。</h4><ul>
-<li>NFC，默认参数，表示“标准等价合成”（Normalization Form Canonical Composition），返回多个简单字符的合成字符。所谓“标准等价”指的是视觉和语义上的等价。</li>
-<li>NFD，表示“标准等价分解”（Normalization Form Canonical Decomposition），即在标准等价的前提下，返回合成字符分解的多个简单字符。</li>
-<li>NFKC，表示“兼容等价合成”（Normalization Form Compatibility Composition），返回合成字符。所谓“兼容等价”指的是语义上存在等价，但视觉上不等价，比如“囍”和“喜喜”。（这只是用来举例，normalize方法不能识别中文。）</li>
-<li>NFKD，表示“兼容等价分解”（Normalization Form Compatibility Decomposition），即在兼容等价的前提下，返回合成字符分解的多个简单字符。<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'\u004F\u030C'</span>.normalize(<span class="string">'NFC'</span>).length <span class="comment">// 1</span></span><br><span class="line"><span class="string">'\u004F\u030C'</span>.normalize(<span class="string">'NFD'</span>).length <span class="comment">// 2</span></span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h4 id="不过，normalize方法目前不能识别三个或三个以上字符的合成。这种情况下，还是只能使用正则表达式，通过-Unicode-编号区间判断。"><a href="#不过，normalize方法目前不能识别三个或三个以上字符的合成。这种情况下，还是只能使用正则表达式，通过-Unicode-编号区间判断。" class="headerlink" title="==不过，normalize方法目前不能识别三个或三个以上字符的合成。这种情况下，还是只能使用正则表达式，通过 Unicode 编号区间判断。=="></a>==不过，normalize方法目前不能识别三个或三个以上字符的合成。这种情况下，还是只能使用正则表达式，通过 Unicode 编号区间判断。==</h4><hr>
-<h1 id="6-实例方法：repeat"><a href="#6-实例方法：repeat" class="headerlink" title="6.实例方法：repeat()"></a>6.实例方法：repeat()</h1><ul>
-<li><p>repeat方法返回一个新字符串，表示将原字符串重复n次。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'x'</span>.repeat(<span class="number">3</span>) <span class="comment">// "xxx"</span></span><br><span class="line"><span class="string">'hello'</span>.repeat(<span class="number">2</span>) <span class="comment">// "hellohello"</span></span><br><span class="line"><span class="string">'na'</span>.repeat(<span class="number">0</span>) <span class="comment">// ""</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>参数如果是小数，会被取整。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'na'</span>.repeat(<span class="number">2.9</span>) <span class="comment">// "nana"</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>如果repeat的参数是负数或者Infinity，会报错。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'na'</span>.repeat(<span class="literal">Infinity</span>)</span><br><span class="line"><span class="comment">// RangeError</span></span><br><span class="line"><span class="string">'na'</span>.repeat(<span class="number">-1</span>)</span><br><span class="line"><span class="comment">// RangeError</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>但是，如果参数是 0 到-1 之间的小数，则等同于 0，这是因为会先进行取整运算。0 到-1 之间的小数，取整以后等于-0，repeat视同为 0。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'na'</span>.repeat(<span class="number">-0.9</span>) <span class="comment">// ""</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>参数NaN等同于 0。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'na'</span>.repeat(<span class="literal">NaN</span>) <span class="comment">// ""</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>如果repeat的参数是字符串，则会先转换成数字。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'na'</span>.repeat(<span class="string">'na'</span>) <span class="comment">// ""</span></span><br><span class="line"><span class="string">'na'</span>.repeat(<span class="string">'3'</span>) <span class="comment">// "nanana"</span></span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<hr>
-<h1 id="7-实例方法：padStart-，padEnd"><a href="#7-实例方法：padStart-，padEnd" class="headerlink" title="7.实例方法：padStart()，padEnd()"></a>7.实例方法：padStart()，padEnd()</h1><h4 id="ES2017-引入了字符串补全长度的功能。如果某个字符串不够指定长度，会在头部或尾部补全。padStart-用于头部补全，padEnd-用于尾部补全。"><a href="#ES2017-引入了字符串补全长度的功能。如果某个字符串不够指定长度，会在头部或尾部补全。padStart-用于头部补全，padEnd-用于尾部补全。" class="headerlink" title="ES2017 引入了字符串补全长度的功能。如果某个字符串不够指定长度，会在头部或尾部补全。padStart()用于头部补全，padEnd()用于尾部补全。"></a>ES2017 引入了字符串补全长度的功能。如果某个字符串不够指定长度，会在头部或尾部补全。padStart()用于头部补全，padEnd()用于尾部补全。</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'x'</span>.padStart(<span class="number">5</span>, <span class="string">'ab'</span>) <span class="comment">// 'ababx'</span></span><br><span class="line"><span class="string">'x'</span>.padStart(<span class="number">4</span>, <span class="string">'ab'</span>) <span class="comment">// 'abax'</span></span><br><span class="line"></span><br><span class="line"><span class="string">'x'</span>.padEnd(<span class="number">5</span>, <span class="string">'ab'</span>) <span class="comment">// 'xabab'</span></span><br><span class="line"><span class="string">'x'</span>.padEnd(<span class="number">4</span>, <span class="string">'ab'</span>) <span class="comment">// 'xaba'</span></span><br></pre></td></tr></table></figure>
-<h4 id="上面代码中，padStart-和padEnd-一共接受两个参数，第一个参数是字符串补全生效的最大长度，第二个参数是用来补全的字符串。"><a href="#上面代码中，padStart-和padEnd-一共接受两个参数，第一个参数是字符串补全生效的最大长度，第二个参数是用来补全的字符串。" class="headerlink" title="上面代码中，padStart()和padEnd()一共接受两个参数，第一个参数是字符串补全生效的最大长度，第二个参数是用来补全的字符串。"></a>上面代码中，padStart()和padEnd()一共接受两个参数，第一个参数是字符串补全生效的最大长度，第二个参数是用来补全的字符串。</h4><h4 id="如果原字符串的长度，等于或大于最大长度，则字符串补全不生效，返回原字符串。"><a href="#如果原字符串的长度，等于或大于最大长度，则字符串补全不生效，返回原字符串。" class="headerlink" title="如果原字符串的长度，等于或大于最大长度，则字符串补全不生效，返回原字符串。"></a>如果原字符串的长度，等于或大于最大长度，则字符串补全不生效，返回原字符串。</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'xxx'</span>.padStart(<span class="number">2</span>, <span class="string">'ab'</span>) <span class="comment">// 'xxx'</span></span><br><span class="line"><span class="string">'xxx'</span>.padEnd(<span class="number">2</span>, <span class="string">'ab'</span>) <span class="comment">// 'xxx'</span></span><br></pre></td></tr></table></figure>
-<h4 id="如果用来补全的字符串与原字符串，两者的长度之和超过了最大长度，则会截去超出位数的补全字符串。"><a href="#如果用来补全的字符串与原字符串，两者的长度之和超过了最大长度，则会截去超出位数的补全字符串。" class="headerlink" title="如果用来补全的字符串与原字符串，两者的长度之和超过了最大长度，则会截去超出位数的补全字符串。"></a>如果用来补全的字符串与原字符串，两者的长度之和超过了最大长度，则会截去超出位数的补全字符串。</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'abc'</span>.padStart(<span class="number">10</span>, <span class="string">'0123456789'</span>)</span><br><span class="line"><span class="comment">// '0123456abc'</span></span><br></pre></td></tr></table></figure>
-<h4 id="如果省略第二个参数，默认使用空格补全长度。"><a href="#如果省略第二个参数，默认使用空格补全长度。" class="headerlink" title="如果省略第二个参数，默认使用空格补全长度。"></a>如果省略第二个参数，默认使用空格补全长度。</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'x'</span>.padStart(<span class="number">4</span>) <span class="comment">// '   x'</span></span><br><span class="line"><span class="string">'x'</span>.padEnd(<span class="number">4</span>) <span class="comment">// 'x   '</span></span><br></pre></td></tr></table></figure>
-<h4 id="padStart-的常见用途是为数值补全指定位数。下面代码生成-10-位的数值字符串。"><a href="#padStart-的常见用途是为数值补全指定位数。下面代码生成-10-位的数值字符串。" class="headerlink" title="padStart()的常见用途是为数值补全指定位数。下面代码生成 10 位的数值字符串。"></a>padStart()的常见用途是为数值补全指定位数。下面代码生成 10 位的数值字符串。</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'1'</span>.padStart(<span class="number">10</span>, <span class="string">'0'</span>) <span class="comment">// "0000000001"</span></span><br><span class="line"><span class="string">'12'</span>.padStart(<span class="number">10</span>, <span class="string">'0'</span>) <span class="comment">// "0000000012"</span></span><br><span class="line"><span class="string">'123456'</span>.padStart(<span class="number">10</span>, <span class="string">'0'</span>) <span class="comment">// "0000123456"</span></span><br></pre></td></tr></table></figure>
-<h4 id="另一个用途是提示字符串格式。"><a href="#另一个用途是提示字符串格式。" class="headerlink" title="另一个用途是提示字符串格式。"></a>另一个用途是提示字符串格式。</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'12'</span>.padStart(<span class="number">10</span>, <span class="string">'YYYY-MM-DD'</span>) <span class="comment">// "YYYY-MM-12"</span></span><br><span class="line"><span class="string">'09-12'</span>.padStart(<span class="number">10</span>, <span class="string">'YYYY-MM-DD'</span>) <span class="comment">// "YYYY-09-12"</span></span><br></pre></td></tr></table></figure>
-<hr>
-<h1 id="8-实例方法：trimStart-，trimEnd-§-⇧"><a href="#8-实例方法：trimStart-，trimEnd-§-⇧" class="headerlink" title="8.实例方法：trimStart()，trimEnd() § ⇧"></a>8.实例方法：trimStart()，trimEnd() § ⇧</h1><h4 id="ES2019-对字符串实例新增了trimStart-和trimEnd-这两个方法。它们的行为与trim-一致，trimStart-消除字符串头部的空格，trimEnd-消除尾部的空格。它们返回的都是新字符串，不会修改原始字符串。"><a href="#ES2019-对字符串实例新增了trimStart-和trimEnd-这两个方法。它们的行为与trim-一致，trimStart-消除字符串头部的空格，trimEnd-消除尾部的空格。它们返回的都是新字符串，不会修改原始字符串。" class="headerlink" title="ES2019 对字符串实例新增了trimStart()和trimEnd()这两个方法。它们的行为与trim()一致，trimStart()消除字符串头部的空格，trimEnd()消除尾部的空格。它们返回的都是新字符串，不会修改原始字符串。"></a>ES2019 对字符串实例新增了trimStart()和trimEnd()这两个方法。它们的行为与trim()一致，trimStart()消除字符串头部的空格，trimEnd()消除尾部的空格。它们返回的都是新字符串，不会修改原始字符串。</h4><blockquote>
-<p>trim() 方法返回一个从两头去掉空白字符的字符串，并不影响原字符串本身。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> s = <span class="string">'  abc  '</span>;</span><br><span class="line"></span><br><span class="line">s.trim() <span class="comment">// "abc"</span></span><br><span class="line">s.trimStart() <span class="comment">// "abc  "</span></span><br><span class="line">s.trimEnd() <span class="comment">// "  abc"</span></span><br></pre></td></tr></table></figure></p>
-</blockquote>
-<h4 id="上面代码中，trimStart-只消除头部的空格，保留尾部的空格。trimEnd-也是类似行为。"><a href="#上面代码中，trimStart-只消除头部的空格，保留尾部的空格。trimEnd-也是类似行为。" class="headerlink" title="上面代码中，trimStart()只消除头部的空格，保留尾部的空格。trimEnd()也是类似行为。"></a>上面代码中，trimStart()只消除头部的空格，保留尾部的空格。trimEnd()也是类似行为。</h4><h4 id="除了空格键，这两个方法对字符串头部（或尾部）的-tab-键、换行符等不可见的空白符号也有效。"><a href="#除了空格键，这两个方法对字符串头部（或尾部）的-tab-键、换行符等不可见的空白符号也有效。" class="headerlink" title="除了空格键，这两个方法对字符串头部（或尾部）的 tab 键、换行符等不可见的空白符号也有效。"></a>除了空格键，这两个方法对字符串头部（或尾部）的 tab 键、换行符等不可见的空白符号也有效。</h4><h4 id="浏览器还部署了额外的两个方法，trimLeft-是trimStart-的别名，trimRight-是trimEnd-的别名。"><a href="#浏览器还部署了额外的两个方法，trimLeft-是trimStart-的别名，trimRight-是trimEnd-的别名。" class="headerlink" title="浏览器还部署了额外的两个方法，trimLeft()是trimStart()的别名，trimRight()是trimEnd()的别名。"></a>浏览器还部署了额外的两个方法，trimLeft()是trimStart()的别名，trimRight()是trimEnd()的别名。</h4><hr>
-<h1 id="9-实例方法：matchAll"><a href="#9-实例方法：matchAll" class="headerlink" title="9.实例方法：matchAll()"></a>9.实例方法：matchAll()</h1><h4 id="matchAll-方法返回一个正则表达式在当前字符串的所有匹配，详见《正则的扩展》的一章。"><a href="#matchAll-方法返回一个正则表达式在当前字符串的所有匹配，详见《正则的扩展》的一章。" class="headerlink" title="matchAll()方法返回一个正则表达式在当前字符串的所有匹配，详见《正则的扩展》的一章。"></a>matchAll()方法返回一个正则表达式在当前字符串的所有匹配，详见《正则的扩展》的一章。</h4>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/02/05/es6-4-字符串的新增方法/" data-id="ckih4car7000npgup33o7atao" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/02/07/es6-5-正则的扩展/" data-id="ckina9oj5000vb0up6dgffo3s" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/es6/">es6</a></li></ul>
@@ -1032,7 +975,7 @@ return function (...args2) {
   <div class="widget-wrap">
     <h3 class="widget-title">标签</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vue/">Vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/es6/">es6</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vue/">Vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/es6/">es6</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/浏览器/">浏览器</a></li></ul>
     </div>
   </div>
 
@@ -1042,7 +985,7 @@ return function (...args2) {
   <div class="widget-wrap">
     <h3 class="widget-title">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Vue/" style="font-size: 10px;">Vue</a> <a href="/tags/es6/" style="font-size: 20px;">es6</a> <a href="/tags/js/" style="font-size: 15px;">js</a>
+      <a href="/tags/Vue/" style="font-size: 10px;">Vue</a> <a href="/tags/es6/" style="font-size: 20px;">es6</a> <a href="/tags/js/" style="font-size: 15px;">js</a> <a href="/tags/浏览器/" style="font-size: 10px;">浏览器</a>
     </div>
   </div>
 
@@ -1064,6 +1007,10 @@ return function (...args2) {
       <ul>
         
           <li>
+            <a href="/2020/12/13/浏览器-渲染机制/">浏览器-渲染机制</a>
+          </li>
+        
+          <li>
             <a href="/2020/12/09/js-函数柯里化/">js-函数柯里化</a>
           </li>
         
@@ -1077,10 +1024,6 @@ return function (...args2) {
         
           <li>
             <a href="/2020/03/06/es6-12-Set和Map/">es6-12-Set和Map</a>
-          </li>
-        
-          <li>
-            <a href="/2020/03/03/es6-11-Symbol/">es6-11-Symbol</a>
           </li>
         
       </ul>

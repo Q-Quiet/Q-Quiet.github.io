@@ -5,20 +5,20 @@
   
 
   
-  <title>es6-12-Set和Map | Q-Quiet</title>
+  <title>浏览器-渲染机制 | Q-Quiet</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="1.Set基本用法ES6 提供了新的数据结构 Set。它类似于数组，但是成员的值都是唯一的，没有重复的值。 Set本身是一个构造函数，用来生成 Set 数据结构。 const s = new Set(); [2, 3, 5, 4, 5, 2, 2].forEach(x =&amp;gt; s.add(x)); for (let i of s) {  console.log(i);}// 2 3 5 4上面">
-<meta name="keywords" content="es6">
+  <meta name="description" content="一、浏览器渲染将载入的HTML文件解析成DOM树当浏览器接收到这些字节数据以后，它会将这些字节数据转换为字符串，也就是我们写的代码。当数据转换为字符串以后，浏览器会先将这些字符串通过词法分析转换为标记（token），这一过程在词法分析中叫做标记化（tokenization）。当结束标记化后，这些标记会紧接着转换为 Node，最后这些 Node 会根据不同 Node 之前的联系构建为一颗 DOM 树">
+<meta name="keywords" content="浏览器">
 <meta property="og:type" content="article">
-<meta property="og:title" content="es6-12-Set和Map">
-<meta property="og:url" content="https://Q-Quiet.github.io/2020/03/06/es6-12-Set和Map/index.html">
+<meta property="og:title" content="浏览器-渲染机制">
+<meta property="og:url" content="https://Q-Quiet.github.io/2020/12/13/浏览器-渲染机制/index.html">
 <meta property="og:site_name" content="Q-Quiet">
-<meta property="og:description" content="1.Set基本用法ES6 提供了新的数据结构 Set。它类似于数组，但是成员的值都是唯一的，没有重复的值。 Set本身是一个构造函数，用来生成 Set 数据结构。 const s = new Set(); [2, 3, 5, 4, 5, 2, 2].forEach(x =&amp;gt; s.add(x)); for (let i of s) {  console.log(i);}// 2 3 5 4上面">
+<meta property="og:description" content="一、浏览器渲染将载入的HTML文件解析成DOM树当浏览器接收到这些字节数据以后，它会将这些字节数据转换为字符串，也就是我们写的代码。当数据转换为字符串以后，浏览器会先将这些字符串通过词法分析转换为标记（token），这一过程在词法分析中叫做标记化（tokenization）。当结束标记化后，这些标记会紧接着转换为 Node，最后这些 Node 会根据不同 Node 之前的联系构建为一颗 DOM 树">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-03-06T07:36:45.542Z">
+<meta property="og:updated_time" content="2020-12-13T15:28:47.452Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="es6-12-Set和Map">
-<meta name="twitter:description" content="1.Set基本用法ES6 提供了新的数据结构 Set。它类似于数组，但是成员的值都是唯一的，没有重复的值。 Set本身是一个构造函数，用来生成 Set 数据结构。 const s = new Set(); [2, 3, 5, 4, 5, 2, 2].forEach(x =&amp;gt; s.add(x)); for (let i of s) {  console.log(i);}// 2 3 5 4上面">
+<meta name="twitter:title" content="浏览器-渲染机制">
+<meta name="twitter:description" content="一、浏览器渲染将载入的HTML文件解析成DOM树当浏览器接收到这些字节数据以后，它会将这些字节数据转换为字符串，也就是我们写的代码。当数据转换为字符串以后，浏览器会先将这些字符串通过词法分析转换为标记（token），这一过程在词法分析中叫做标记化（tokenization）。当结束标记化后，这些标记会紧接着转换为 Node，最后这些 Node 会根据不同 Node 之前的联系构建为一颗 DOM 树">
   
     <link rel="alternate" href="/atom.xml" title="Q-Quiet" type="application/atom+xml">
   
@@ -70,10 +70,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-es6-12-Set和Map" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-浏览器-渲染机制" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2020/03/06/es6-12-Set和Map/" class="article-date">
-  <time datetime="2020-03-06T08:38:31.000Z" itemprop="datePublished">2020-03-06</time>
+    <a href="/2020/12/13/浏览器-渲染机制/" class="article-date">
+  <time datetime="2020-12-13T15:28:12.000Z" itemprop="datePublished">2020-12-13</time>
 </a>
     
   </div>
@@ -84,7 +84,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      es6-12-Set和Map
+      浏览器-渲染机制
     </h1>
   
 
@@ -92,32 +92,17 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="1-Set"><a href="#1-Set" class="headerlink" title="1.Set"></a>1.Set</h1><h2 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h2><p>ES6 提供了新的数据结构 Set。它类似于数组，但是成员的值都是唯一的，没有重复的值。</p>
-<p>Set本身是一个构造函数，用来生成 Set 数据结构。</p>
-<p>const s = new Set();</p>
-<p>[2, 3, 5, 4, 5, 2, 2].forEach(x =&gt; s.add(x));</p>
-<p>for (let i of s) {<br>  console.log(i);<br>}<br>// 2 3 5 4<br>上面代码通过add()方法向 Set 结构加入成员，结果表明 Set 结构不会添加重复的值。</p>
-<p>Set函数可以接受一个数组（或者具有 iterable 接口的其他数据结构）作为参数，用来初始化。</p>
-<p>// 例一<br>const set = new Set([1, 2, 3, 4, 4]);<br>[…set]<br>// [1, 2, 3, 4]</p>
-<p>// 例二<br>const items = new Set([1, 2, 3, 4, 5, 5, 5, 5]);<br>items.size // 5</p>
-<p>// 例三<br>const set = new Set(document.querySelectorAll(‘div’));<br>set.size // 56</p>
-<p>// 类似于<br>const set = new Set();<br>document<br> .querySelectorAll(‘div’)<br> .forEach(div =&gt; set.add(div));<br>set.size // 56<br>上面代码中，例一和例二都是Set函数接受数组作为参数，例三是接受类似数组的对象作为参数。</p>
-<p>上面代码也展示了一种去除数组重复成员的方法。</p>
-<p>// 去除数组的重复成员<br>[…new Set(array)]<br>上面的方法也可以用于，去除字符串里面的重复字符。</p>
-<p>[…new Set(‘ababbc’)].join(‘’)<br>// “abc”<br>向 Set 加入值的时候，不会发生类型转换，所以5和”5”是两个不同的值。Set 内部判断两个值是否不同，使用的算法叫做“Same-value-zero equality”，它类似于精确相等运算符（===），主要的区别是向 Set 加入值时认为NaN等于自身，而精确相等运算符认为NaN不等于自身。</p>
-<p>let set = new Set();<br>let a = NaN;<br>let b = NaN;<br>set.add(a);<br>set.add(b);<br>set // Set {NaN}<br>上面代码向 Set 实例添加了两次NaN，但是只会加入一个。这表明，在 Set 内部，两个NaN是相等的。</p>
-<p>另外，两个对象总是不相等的。</p>
-<p>let set = new Set();</p>
-<p>set.add({});<br>set.size // 1</p>
-<p>set.add({});<br>set.size // 2<br>上面代码表示，由于两个空对象不相等，所以它们被视为两个值。</p>
+        <p>一、浏览器渲染<br>将载入的HTML文件解析成DOM树<br>当浏览器接收到这些字节数据以后，它会将这些字节数据转换为字符串，也就是我们写的代码。<br>当数据转换为字符串以后，浏览器会先将这些字符串通过词法分析转换为标记（token），这一过程在词法分析中叫做标记化（tokenization）。<br>当结束标记化后，这些标记会紧接着转换为 Node，最后这些 Node 会根据不同 Node 之前的联系构建为一颗 DOM 树。</p>
+<p>将解析成的DOM树和CSS规则进行关联生成渲染树（Render Tree<br>进入布局阶段，为DOM树的每个节点分配在屏幕上出现的确切坐标<br>进入绘制阶段，对渲染树的每个节点进行绘制，呈现出页面效果<br>不同内核浏览器的DOM解析的差异性</p>
+<p>Webkit内核的浏览器：chrome、Safari<br>Gecko内核的浏览器：Firefox<br>二、客户端渲染渲染CSR<br>html仅仅作为静态文件，客户端在请求时，服务端不做任何处理，直接以原文件的形式返回给客户端，然后根据html上的JavaScript，生成DOM插入html。<br>好处：网络传输数据量小、减少了服务端压力、前后端分离、局部刷新、无需每次请求完整页面、交互好可实现各种效果。<br>坏处：不利于SEO、爬虫看不到完整的程序源码、首屏渲染慢（渲染前需要下载一堆js和css等）<br>三、服务端渲染SSR<br>服务端渲染的模式下，当用户第一次请求页面时，由服务端把需要的组件或页面渲染成HTML字符串，然后把它返回给客户端。客户端拿到手的，是可以直接渲染然后呈现给用户的HTML内容，不需要为了成为DOM内容自己再去跑一遍JS代码。使用服务端渲染的网站，页面上呈现的内容，我们在html源文件里也能找到。<br>好处：首屏渲染快、利于SEO、可以生成缓存片段，生成静态化文件、节能（对比客户端渲染的耗电）<br>坏处：用户体验较差、不容易维护，通常前端改了部分html或者css，后端也需要修改。</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/03/06/es6-12-Set和Map/" data-id="ckina9ohh0000b0upfz4pwxb1" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/12/13/浏览器-渲染机制/" data-id="ckina9oi6000fb0uply7kh24u" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/es6/">es6</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/浏览器/">浏览器</a></li></ul>
 
     </footer>
   </div>
@@ -125,19 +110,10 @@
     
 <nav id="article-nav">
   
-    <a href="/2020/10/11/1-Vue复习/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          1-Vue复习
-        
-      </div>
-    </a>
   
-  
-    <a href="/2020/03/03/es6-11-Symbol/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2020/12/09/js-函数柯里化/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">es6-11-Symbol</div>
+      <div class="article-nav-title">js-函数柯里化</div>
     </a>
   
 </nav>
