@@ -5,20 +5,20 @@
   
 
   
-  <title>浏览器-渲染机制 | Q-Quiet</title>
+  <title>为什么操作DOM慢 | Q-Quiet</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="一、浏览器渲染将载入的HTML文件解析成DOM树当浏览器接收到这些字节数据以后，它会将这些字节数据转换为字符串，也就是我们写的代码。当数据转换为字符串以后，浏览器会先将这些字符串通过词法分析转换为标记（token），这一过程在词法分析中叫做标记化（tokenization）。当结束标记化后，这些标记会紧接着转换为 Node，最后这些 Node 会根据不同 Node 之前的联系构建为一颗 DOM 树">
+  <meta name="description" content="优点和缺点　　DOM的优势主要在于易用性强，使用DOM时，将把所有的XML文档信息都存在于内存中，并且遍历简单，支持XPath，增强了易用性。　　DOM的缺点主要表现在效率低，内存占用量过高，对于大文件来说几乎不可能。另外效率低还表现在大量的消耗时间，因为使用DOM进行解析时，将文档的每个Element，Attribute，Processing-instruction和Comment都创建了一个对">
 <meta name="keywords" content="浏览器">
 <meta property="og:type" content="article">
-<meta property="og:title" content="浏览器-渲染机制">
-<meta property="og:url" content="https://Q-Quiet.github.io/2020/12/13/浏览器-渲染机制/index.html">
+<meta property="og:title" content="为什么操作DOM慢">
+<meta property="og:url" content="https://Q-Quiet.github.io/2020/12/14/为什么操作DOM慢/index.html">
 <meta property="og:site_name" content="Q-Quiet">
-<meta property="og:description" content="一、浏览器渲染将载入的HTML文件解析成DOM树当浏览器接收到这些字节数据以后，它会将这些字节数据转换为字符串，也就是我们写的代码。当数据转换为字符串以后，浏览器会先将这些字符串通过词法分析转换为标记（token），这一过程在词法分析中叫做标记化（tokenization）。当结束标记化后，这些标记会紧接着转换为 Node，最后这些 Node 会根据不同 Node 之前的联系构建为一颗 DOM 树">
+<meta property="og:description" content="优点和缺点　　DOM的优势主要在于易用性强，使用DOM时，将把所有的XML文档信息都存在于内存中，并且遍历简单，支持XPath，增强了易用性。　　DOM的缺点主要表现在效率低，内存占用量过高，对于大文件来说几乎不可能。另外效率低还表现在大量的消耗时间，因为使用DOM进行解析时，将文档的每个Element，Attribute，Processing-instruction和Comment都创建了一个对">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-12-13T15:28:47.452Z">
+<meta property="og:updated_time" content="2020-12-14T15:04:55.919Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="浏览器-渲染机制">
-<meta name="twitter:description" content="一、浏览器渲染将载入的HTML文件解析成DOM树当浏览器接收到这些字节数据以后，它会将这些字节数据转换为字符串，也就是我们写的代码。当数据转换为字符串以后，浏览器会先将这些字符串通过词法分析转换为标记（token），这一过程在词法分析中叫做标记化（tokenization）。当结束标记化后，这些标记会紧接着转换为 Node，最后这些 Node 会根据不同 Node 之前的联系构建为一颗 DOM 树">
+<meta name="twitter:title" content="为什么操作DOM慢">
+<meta name="twitter:description" content="优点和缺点　　DOM的优势主要在于易用性强，使用DOM时，将把所有的XML文档信息都存在于内存中，并且遍历简单，支持XPath，增强了易用性。　　DOM的缺点主要表现在效率低，内存占用量过高，对于大文件来说几乎不可能。另外效率低还表现在大量的消耗时间，因为使用DOM进行解析时，将文档的每个Element，Attribute，Processing-instruction和Comment都创建了一个对">
   
     <link rel="alternate" href="/atom.xml" title="Q-Quiet" type="application/atom+xml">
   
@@ -70,10 +70,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-浏览器-渲染机制" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-为什么操作DOM慢" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2020/12/13/浏览器-渲染机制/" class="article-date">
-  <time datetime="2020-12-13T15:28:12.000Z" itemprop="datePublished">2020-12-13</time>
+    <a href="/2020/12/14/为什么操作DOM慢/" class="article-date">
+  <time datetime="2020-12-14T15:04:01.000Z" itemprop="datePublished">2020-12-14</time>
 </a>
     
   </div>
@@ -84,7 +84,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      浏览器-渲染机制
+      为什么操作DOM慢
     </h1>
   
 
@@ -92,14 +92,22 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>一、浏览器渲染<br>将载入的HTML文件解析成DOM树<br>当浏览器接收到这些字节数据以后，它会将这些字节数据转换为字符串，也就是我们写的代码。<br>当数据转换为字符串以后，浏览器会先将这些字符串通过词法分析转换为标记（token），这一过程在词法分析中叫做标记化（tokenization）。<br>当结束标记化后，这些标记会紧接着转换为 Node，最后这些 Node 会根据不同 Node 之前的联系构建为一颗 DOM 树。</p>
-<p>将解析成的DOM树和CSS规则进行关联生成渲染树（Render Tree<br>进入布局阶段，为DOM树的每个节点分配在屏幕上出现的确切坐标<br>进入绘制阶段，对渲染树的每个节点进行绘制，呈现出页面效果<br>不同内核浏览器的DOM解析的差异性</p>
-<p>Webkit内核的浏览器：chrome、Safari<br>Gecko内核的浏览器：Firefox<br>二、客户端渲染渲染CSR<br>html仅仅作为静态文件，客户端在请求时，服务端不做任何处理，直接以原文件的形式返回给客户端，然后根据html上的JavaScript，生成DOM插入html。<br>好处：网络传输数据量小、减少了服务端压力、前后端分离、局部刷新、无需每次请求完整页面、交互好可实现各种效果。<br>坏处：不利于SEO、爬虫看不到完整的程序源码、首屏渲染慢（渲染前需要下载一堆js和css等）<br>三、服务端渲染SSR<br>服务端渲染的模式下，当用户第一次请求页面时，由服务端把需要的组件或页面渲染成HTML字符串，然后把它返回给客户端。客户端拿到手的，是可以直接渲染然后呈现给用户的HTML内容，不需要为了成为DOM内容自己再去跑一遍JS代码。使用服务端渲染的网站，页面上呈现的内容，我们在html源文件里也能找到。<br>好处：首屏渲染快、利于SEO、可以生成缓存片段，生成静态化文件、节能（对比客户端渲染的耗电）<br>坏处：用户体验较差、不容易维护，通常前端改了部分html或者css，后端也需要修改。</p>
+        <p>优点和缺点<br>　　DOM的优势主要在于易用性强，使用DOM时，将把所有的XML文档信息都存在于内存中，并且遍历简单，支持XPath，增强了易用性。<br>　　DOM的缺点主要表现在效率低，内存占用量过高，对于大文件来说几乎不可能。另外效率低还表现在大量的消耗时间，因为使用DOM进行解析时，将文档的每个Element，Attribute，Processing-instruction和Comment都创建了一个对象，这样在DOM机制中运用了大量对象的创建和销毁无疑影响其效率。</p>
+<p>因为 DOM 是属于渲染引擎中的东西，而 JS 又是 JS 引擎中的东西。当我们通过 JS 操作 DOM 的时候，其实这个操作涉及到了两个线程之间的通信，那么势必会带来一些性能上的损耗。</p>
+<p>重绘<br>　　页面某些部分需要重新绘制，由于节点的几何属性发生改变或者由于样式发生变化。发生重绘元素的位置和尺寸都不会变，</p>
+<p>回流<br>当元素尺寸、结构或者触发某些属性的时候，浏览器会重新渲染页面，这就叫回流。此时，浏览器需要重新计算，重新进行页面布局，所以损耗较大</p>
+<p>优化方法<br>（1）把DOM累积起来批次操作。<br>var fragment = document.createDocumentFragment();<br>for (var i=0; i &lt; items.length; i++) {<br>    var item = document.createElement(“li”);<br>    item.appendChild(document.createTextNode(“Option” + i));<br>    fragment.appendChild(item)；<br>}<br>list.appendChild(fragment);</p>
+<p>（2）设置具有动画效果得DOM元素的position属性为fixed或absolute。<br>　　把页面具有动画效果的元素设置为绝对定位，使得元素脱离页面布局流，这样只涉及动画元素自身重排了，这种做法可以提高动画效果的展示性能<br>（3）使用requestAnimationFrame<br>采用系统时间间隔，保持最佳绘制效率<br>将任何可能导致重绘的操作放入requestAnimationFrame的callback中，统一让写操作在下一次paint之前执行。<br>//read<br>var h1 = element1.clientHeight;<br>//write<br>requestAnimationFrame(function() {<br>    elment1.style.height = (h1 * 2) + ‘px’;<br>});</p>
+<p>（4）通过设置DOM原色的display样式为none来隐藏元素。<br>（这样引起的重绘或回流就只发生在显示和隐藏两步）<br>$(“ul”).css(“display”, “none”);<br>for (var i = 0; i &lt; data.lengt; i++) {<br>    var html = <code>&lt;li&gt;${data[i].title}&lt;/li&gt;</code>;<br>    $(“ul”).append(html);<br>}<br>$(“ul”).css(“display”, “block”);</p>
+<p>（5）克隆DOM到内存中<br>var yb_li = $(“ul li”).clone();<br>yb_li.text(‘yaobai’);<br>yb_li.css(‘color’, “red”);<br>$(“ul”).append(yb_li);</p>
+<p>（6）合并多次DOM操作为单次DOM操作<br>element.style.borderColor = ‘#f00’;<br>element.style.borderStyle = ‘solid’;<br>element.style.borderWidth = ‘1px’;</p>
+<p>element.style.cssText += ‘border: 1px solid #f00;’;</p>
+<p>（7）缓存DOM对象，避免每次都从整个DOM树种查找<br>let $mod = $(‘#mod’);<br>$mod.find(‘.active’).remove(‘active’);<br>$mod.find(‘.not-active’).addClass(‘active’);</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/12/13/浏览器-渲染机制/" data-id="ckioouzyh000dvguprdfr7kzg" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/12/14/为什么操作DOM慢/" data-id="ckioouzyc0009vgupcupeh54o" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/浏览器/">浏览器</a></li></ul>
@@ -110,19 +118,10 @@
     
 <nav id="article-nav">
   
-    <a href="/2020/12/14/为什么操作DOM慢/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          为什么操作DOM慢
-        
-      </div>
-    </a>
   
-  
-    <a href="/2020/12/09/js-函数柯里化/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2020/12/13/浏览器-渲染机制/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">js-函数柯里化</div>
+      <div class="article-nav-title">浏览器-渲染机制</div>
     </a>
   
 </nav>
