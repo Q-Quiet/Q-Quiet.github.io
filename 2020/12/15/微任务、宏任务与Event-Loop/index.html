@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>微任务、宏任务与Event-Loop | Q-Quiet</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="JavaScript是一个单线程的脚本语言微任务与宏任务的区别所以多个宏任务合在一起就可以认为说有一个任务队列，任务队列中的都是已经完成的异步操作，而不是说注册一个异步任务就会被放在这个任务队列中。一个宏任务在执行的过程中，是可以添加一些微任务，在当前的微任务没有执行完成时，是不会执行下一个宏任务的。所有会进入的异步都是指的事件回调中的那部分代码。宏任务:script(整体代码)setTimeou">
+<meta name="keywords" content="js">
+<meta property="og:type" content="article">
+<meta property="og:title" content="微任务、宏任务与Event-Loop">
+<meta property="og:url" content="https://Q-Quiet.github.io/2020/12/15/微任务、宏任务与Event-Loop/index.html">
+<meta property="og:site_name" content="Q-Quiet">
+<meta property="og:description" content="JavaScript是一个单线程的脚本语言微任务与宏任务的区别所以多个宏任务合在一起就可以认为说有一个任务队列，任务队列中的都是已经完成的异步操作，而不是说注册一个异步任务就会被放在这个任务队列中。一个宏任务在执行的过程中，是可以添加一些微任务，在当前的微任务没有执行完成时，是不会执行下一个宏任务的。所有会进入的异步都是指的事件回调中的那部分代码。宏任务:script(整体代码)setTimeou">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-12-15T13:59:21.161Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="微任务、宏任务与Event-Loop">
+<meta name="twitter:description" content="JavaScript是一个单线程的脚本语言微任务与宏任务的区别所以多个宏任务合在一起就可以认为说有一个任务队列，任务队列中的都是已经完成的异步操作，而不是说注册一个异步任务就会被放在这个任务队列中。一个宏任务在执行的过程中，是可以添加一些微任务，在当前的微任务没有执行完成时，是不会执行下一个宏任务的。所有会进入的异步都是指的事件回调中的那部分代码。宏任务:script(整体代码)setTimeou">
+  
+    <link rel="alternate" href="/atom.xml" title="Q-Quiet" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="shortcut icon" href="ban.jpeg" type="image/x-icon">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Q-Quiet</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">言语笑靥迎来情</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://Q-Quiet.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-微任务、宏任务与Event-Loop" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/12/15/微任务、宏任务与Event-Loop/" class="article-date">
+  <time datetime="2020-12-15T13:58:58.000Z" itemprop="datePublished">2020-12-15</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      微任务、宏任务与Event-Loop
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>JavaScript是一个单线程的脚本语言<br>微任务与宏任务的区别<br>所以多个宏任务合在一起就可以认为说有一个任务队列，任务队列中的都是已经完成的异步操作，而不是说注册一个异步任务就会被放在这个任务队列中。一个宏任务在执行的过程中，是可以添加一些微任务，在当前的微任务没有执行完成时，是不会执行下一个宏任务的。<br>所有会进入的异步都是指的事件回调中的那部分代码。<br>宏任务:<br>script(整体代码)<br>setTimeout()<br>setInterval()<br>postMessage<br>I/O<br>UI交互事件<br>微任务：<br>new Promise().then(回调)<br>MutationObserver(html5新特性)<br>setTimeout(_ =&gt; console.log(4))</p>
+<p>new Promise(resolve =&gt; {<br>  resolve()<br>  console.log(1)<br>}).then(_ =&gt; {<br>  console.log(3)<br>})</p>
+<p>console.log(2)</p>
+<p>1 2 3 4</p>
+<p>node环境下的事件循环<br>和浏览器的不同<br>node中有一套自己的模型。node中事件循环的实现依赖libuv引擎。<br>如果是node10及其之前版本, microtask会在事件循环的各个阶段之间执行,也就是一个阶段执行完毕,,就会去执行microtask队列中的任务。node版本更新到11之后, Event Loop运行原理发生了变化,一旦执行一个阶段里的一个宏任务(setTimeout,setnterval和setlmmediate)就立刻执行微任务队列,跟浏览器趋于一致。<br>node中事件循环的顺序<br>外部输入数据–&gt;轮询阶段(poll)-&gt;检查阶段(check)-&gt;关闭事件回调阶段(close callback)–&gt;定时器检查阶段(timer)–&gt; 1/0事件回调阶段(/0 callbacks) -&gt;闲置阶段(idle, prepare) -&gt;轮询阶段</p>
+<p>这些阶段大致的功能如下:<br>定时器检测阶段(timers):这个阶段执行定时器队列中的回调如setTimeout()和setInterval()<br>I/O事件回调阶段(I/O callbacks):这个阶段执行几乎所有的回调。但是不包括close事件,定时器和setlmmediate()的回调。<br>闲置阶段(idle, prepare):这个阶段仅在内部使用,可以不必理会<br>轮询阶段(poll):等待新的I/O事件, node在一些特殊情况下会阻塞在这里。<br>检查阶段(check): setlmmediate()的回调会在这个阶段执行。<br>关闭事件回调阶段(close callbacks):例如socket.on(“close ‘, …)这种close事件的回调</p>
+<p>宏任务:<br>setImmediate<br>setTimeout()<br>setInterval()<br>script(整体代码)<br>I/O<br>微任务：<br>process.nextTick<br>new Promise().then(回调)<br>process.nextTick是一个独立于eventLoop的任务队列。在每一个eventLoop阶段完成后会去检查nextTick队列,如果里面有任务,会让这部分任务优先于微任务执行。是所有异步任务中最快执行的。<br>setTimeout()方法是定义一个回调,并且希望这个回调在我们所指定的时间间隔后第一时间去执行。<br>setlmmediate()方法从意义上将是立刻执行的意思,但是实际上它却是在一个固定的阶段才会执行回调即poll价段之后。<br>Event-Loop<br>检查还有没有微任务需要处理,结束本次宏任务、检查还有没有宏任务需要处理</p>
+<p>经典题目分析<br>async function async1() {<br>    console.log(‘async1 start’);<br>    await async2();<br>    console.log(‘async1 end’);<br>}<br>async function async2() {<br>    console.log(‘async2’);<br>}<br>console.log(‘script start’);<br>setTimeout(function() {<br>    console.log(‘setTimeout’);<br>}, 0)<br>async1();<br>new Promise(function(resolve) {<br>    console.log(‘promise1’);<br>    resolve();<br>}).then(function() {<br>    console.log(‘promise2’);<br>});<br>console.log(‘script end’);</p>
+<p>结果：<br>script start<br>async1 start<br>async end<br>promise1<br>script end<br>async1 end<br>promise2<br>setTimeout</p>
+<p>console.log(‘start’);<br>setTimeout(() =&gt; {<br>    console.log(‘children2’);<br>    Promise.resolve().then(() =&gt; {<br>        console.log(‘children3’);<br>    })<br>}, 0);</p>
+<p>new Promise(function(resolve, reject) {<br>    console.log(‘children4’);<br>    setTimeout(function() {<br>        console.log(‘children5’);<br>        resolve(‘children6’)<br>    }, 0)<br>}).then((res) =&gt; {<br>    console.log(‘children7’);<br>    setTimeout(() =&gt; {<br>    console.log(res);<br>    }, 0)<br>})</p>
+<p>结果：<br>start<br>children4<br>children2<br>children3<br>children5<br>children7<br>children6</p>
+<p>const p = function() {<br>    return new Promise((resolve, reject) =&gt; {<br>        const p1 = new Promise((resolve, reject) =&gt; {<br>            setTimeout(() =&gt; {<br>                resolve(1)<br>            }, 0)<br>            resolve(2)<br>        })<br>        p1.then((res) =&gt; {<br>           console.log(res);<br>       })<br>       console.log(3);<br>       resolve(4);<br>   })<br>} </p>
+<p>p().then((res) =&gt; {<br>    console.log(res);<br>})<br>console.log(‘end’);</p>
+<p>结果：<br>3<br>end<br>2<br>4</p>
+<p>将上述代码中的 resolve(2)注释掉, 此时 1才会输出，输出果为 3 end 4 1<br>const p = function() {<br>    return new Promise((resolve, reject) =&gt; {<br>        const p1 = new Promise((resolve, reject) =&gt; {<br>            setTimeout(() =&gt; {<br>                resolve(1)<br>            }, 0)<br>        })<br>        p1.then((res) =&gt; {<br>           console.log(res);<br>       })<br>       console.log(3);<br>       resolve(4);<br>   })<br>} </p>
+<p>p().then((res) =&gt; {<br>    console.log(res);<br>})<br>console.log(‘end’);</p>
+<p>结果：<br>3<br>end<br>4<br>1</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://Q-Quiet.github.io/2020/12/15/微任务、宏任务与Event-Loop/" data-id="ckiq1yf4h000mh0upi4cisz0c" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2020/12/15/async-await/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">async-await</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vue/">Vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/es6/">es6</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/浏览器/">浏览器</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Vue/" style="font-size: 10px;">Vue</a> <a href="/tags/es6/" style="font-size: 20px;">es6</a> <a href="/tags/js/" style="font-size: 16.67px;">js</a> <a href="/tags/浏览器/" style="font-size: 13.33px;">浏览器</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">十月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">三月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/12/15/微任务、宏任务与Event-Loop/">微任务、宏任务与Event-Loop</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/15/async-await/">async-await</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/14/为什么操作DOM慢/">为什么操作DOM慢</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/13/浏览器-渲染机制/">浏览器-渲染机制</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/09/js-函数柯里化/">js-函数柯里化</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 Q-Quiet<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
