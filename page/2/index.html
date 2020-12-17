@@ -68,6 +68,141 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-es6-8-数组的扩展" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/02/12/es6-8-数组的扩展/" class="article-date">
+  <time datetime="2020-02-12T06:19:38.000Z" itemprop="datePublished">2020-02-12</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/02/12/es6-8-数组的扩展/">es6-8-数组的扩展</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="1-扩展运算符"><a href="#1-扩展运算符" class="headerlink" title="1.扩展运算符"></a>1.扩展运算符</h1><blockquote>
+<p>扩展运算符（spread）是三个点（…）。它好比 rest 参数的逆运算，将一个数组转为用逗号分隔的参数序列。</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(...[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>])</span><br><span class="line"><span class="comment">// 1 2 3</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="number">1</span>, ...[<span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>], <span class="number">5</span>)</span><br><span class="line"><span class="comment">// 1 2 3 4 5</span></span><br><span class="line"></span><br><span class="line">[...document.querySelectorAll(<span class="string">'div'</span>)]</span><br><span class="line"><span class="comment">// [&lt;div&gt;, &lt;div&gt;, &lt;div&gt;]</span></span><br></pre></td></tr></table></figure>
+<font size="4px">该运算符主要用于函数调用.</font>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">push</span>(<span class="params">array, ...items</span>) </span>&#123;</span><br><span class="line">  array.push(...items);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">x, y</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> x + y;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> numbers = [<span class="number">4</span>, <span class="number">38</span>];</span><br><span class="line">add(...numbers) <span class="comment">// 42</span></span><br></pre></td></tr></table></figure>
+<font size="4px">上面代码中，array.push(…items)和add(…numbers)这两行，都是函数的调用，它们都使用了扩展运算符。</font><br><font size="4px">该运算符将一个数组，变为参数序列。</font>
+
+<blockquote>
+<p>1.扩展运算符与正常的函数参数可以结合使用，非常灵活。</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params">v, w, x, y, z</span>) </span>&#123; &#125;</span><br><span class="line"><span class="keyword">const</span> args = [<span class="number">0</span>, <span class="number">1</span>];</span><br><span class="line">f(<span class="number">-1</span>, ...args, <span class="number">2</span>, ...[<span class="number">3</span>]);</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>2.扩展运算符后面还可以放置表达式。</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> arr = [</span><br><span class="line">  ...(x &gt; <span class="number">0</span> ? [<span class="string">'a'</span>] : []),</span><br><span class="line">  <span class="string">'b'</span>,</span><br><span class="line">];</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>3.如果扩展运算符后面是一个空数组，则不产生任何效果。</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[...[], <span class="number">1</span>]</span><br><span class="line"><span class="comment">// [1]</span></span><br><span class="line">注意，只有函数调用时，扩展运算符才可以放在圆括号中，否则会报错。</span><br><span class="line"></span><br><span class="line">(...[<span class="number">1</span>, <span class="number">2</span>])</span><br><span class="line"><span class="comment">// Uncaught SyntaxError: Unexpected number</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log((...[<span class="number">1</span>, <span class="number">2</span>]))</span><br><span class="line"><span class="comment">// Uncaught SyntaxError: Unexpected number</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(...[<span class="number">1</span>, <span class="number">2</span>])</span><br><span class="line"><span class="comment">// 1 2</span></span><br></pre></td></tr></table></figure>
+<font size="4px">上面三种情况，扩展运算符都放在圆括号里面，但是前两种情况会报错，因为扩展运算符所在的括号不是函数调用。</font>
+
+<hr>
+<h1 id="替代函数的-apply-方法"><a href="#替代函数的-apply-方法" class="headerlink" title="替代函数的 apply 方法"></a>替代函数的 apply 方法</h1><font size="4px">由于扩展运算符可以展开数组，所以不再需要apply方法，将数组转为函数的参数了。</font>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ES5 的写法</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params">x, y, z</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> args = [<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>];</span><br><span class="line">f.apply(<span class="literal">null</span>, args);</span><br><span class="line"></span><br><span class="line"><span class="comment">// ES6的写法</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params">x, y, z</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> args = [<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>];</span><br><span class="line">f(...args);</span><br></pre></td></tr></table></figure>
+<font size="4px">下面是扩展运算符取代apply方法的一个实际的例子，应用Math.max方法，简化求出一个数组最大元素的写法。</font>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ES5 的写法</span></span><br><span class="line"><span class="built_in">Math</span>.max.apply(<span class="literal">null</span>, [<span class="number">14</span>, <span class="number">3</span>, <span class="number">77</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment">// ES6 的写法</span></span><br><span class="line"><span class="built_in">Math</span>.max(...[<span class="number">14</span>, <span class="number">3</span>, <span class="number">77</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment">// 等同于</span></span><br><span class="line"><span class="built_in">Math</span>.max(<span class="number">14</span>, <span class="number">3</span>, <span class="number">77</span>);</span><br></pre></td></tr></table></figure>
+<font size="4px">上面代码中，由于 JavaScript 不提供求数组最大元素的函数，所以只能套用Math.max函数，将数组转为一个参数序列，然后求最大值。</font><br><font size="4px">有了扩展运算符以后，就可以直接用Math.max了。</font>
+
+<font size="4px">另一个例子是通过push函数，将一个数组添加到另一个数组的尾部。</font>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ES5的 写法</span></span><br><span class="line"><span class="keyword">var</span> arr1 = [<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>];</span><br><span class="line"><span class="keyword">var</span> arr2 = [<span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>];</span><br><span class="line"><span class="built_in">Array</span>.prototype.push.apply(arr1, arr2);</span><br><span class="line"></span><br><span class="line"><span class="comment">// ES6 的写法</span></span><br><span class="line"><span class="keyword">let</span> arr1 = [<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>];</span><br><span class="line"><span class="keyword">let</span> arr2 = [<span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>];</span><br><span class="line">arr1.push(...arr2);</span><br></pre></td></tr></table></figure>
+<font size="4px">上面代码的 ES5 写法中，push方法的参数不能是数组，所以只好通过apply方法变通使用push方法。</font><br><font size="4px">有了扩展运算符，就可以直接将数组传入push方法。</font>
+
+<font size="4px">下面是另外一个例子。</font>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ES5</span></span><br><span class="line"><span class="keyword">new</span> (<span class="built_in">Date</span>.bind.apply(<span class="built_in">Date</span>, [<span class="literal">null</span>, <span class="number">2015</span>, <span class="number">1</span>, <span class="number">1</span>]))</span><br><span class="line"><span class="comment">// ES6</span></span><br><span class="line"><span class="keyword">new</span> <span class="built_in">Date</span>(...[<span class="number">2015</span>, <span class="number">1</span>, <span class="number">1</span>]);</span><br></pre></td></tr></table></figure>
+<hr>
+<h1 id="扩展运算符的应用"><a href="#扩展运算符的应用" class="headerlink" title="扩展运算符的应用"></a>扩展运算符的应用</h1><h2 id="（1）复制数组"><a href="#（1）复制数组" class="headerlink" title="（1）复制数组"></a>（1）复制数组</h2><font size="4px">数组是复合的数据类型，直接复制的话，只是复制了指向底层数据结构的指针，而不是克隆一个全新的数组。</font><br><br><br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> a1 = [<span class="number">1</span>, <span class="number">2</span>];</span><br><span class="line"><span class="keyword">const</span> a2 = a1;</span><br><span class="line"></span><br><span class="line">a2[<span class="number">0</span>] = <span class="number">2</span>;</span><br><span class="line">a1 <span class="comment">// [2, 2]</span></span><br></pre></td></tr></table></figure><br><br><font size="4px">上面代码中，a2并不是a1的克隆，而是指向同一份数据的另一个指针。修改a2，会直接导致a1的变化。</font>
+
+<h3 id="ES5-只能用变通方法来复制数组。"><a href="#ES5-只能用变通方法来复制数组。" class="headerlink" title="ES5 只能用变通方法来复制数组。"></a>ES5 只能用变通方法来复制数组。</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> a1 = [<span class="number">1</span>, <span class="number">2</span>];</span><br><span class="line"><span class="keyword">const</span> a2 = a1.concat();</span><br><span class="line"></span><br><span class="line">a2[<span class="number">0</span>] = <span class="number">2</span>;</span><br><span class="line">a1 <span class="comment">// [1, 2]</span></span><br></pre></td></tr></table></figure>
+<font size="4px">上面代码中，a1会返回原数组的克隆，再修改a2就不会对a1产生影响。</font>
+
+<h2 id="扩展运算符提供了复制数组的简便写法。"><a href="#扩展运算符提供了复制数组的简便写法。" class="headerlink" title="扩展运算符提供了复制数组的简便写法。"></a>扩展运算符提供了复制数组的简便写法。</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> a1 = [<span class="number">1</span>, <span class="number">2</span>];</span><br><span class="line"><span class="comment">// 写法一</span></span><br><span class="line"><span class="keyword">const</span> a2 = [...a1];</span><br><span class="line"><span class="comment">// 写法二</span></span><br><span class="line"><span class="keyword">const</span> [...a2] = a1;</span><br></pre></td></tr></table></figure>
+<font size="4px">上面的两种写法，a2都是a1的克隆。</font>
+
+<h2 id="（2）合并数组"><a href="#（2）合并数组" class="headerlink" title="（2）合并数组"></a>（2）合并数组</h2><font size="4px">扩展运算符提供了数组合并的新写法。</font>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> arr1 = [<span class="string">'a'</span>, <span class="string">'b'</span>];</span><br><span class="line"><span class="keyword">const</span> arr2 = [<span class="string">'c'</span>];</span><br><span class="line"><span class="keyword">const</span> arr3 = [<span class="string">'d'</span>, <span class="string">'e'</span>];</span><br><span class="line"></span><br><span class="line"><span class="comment">// ES5 的合并数组</span></span><br><span class="line">arr1.concat(arr2, arr3);</span><br><span class="line"><span class="comment">// [ 'a', 'b', 'c', 'd', 'e' ]</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// ES6 的合并数组</span></span><br><span class="line">[...arr1, ...arr2, ...arr3]</span><br><span class="line"><span class="comment">// [ 'a', 'b', 'c', 'd', 'e' ]</span></span><br></pre></td></tr></table></figure>
+<h3 id="不过，这两种方法都是浅拷贝，使用的时候需要注意。"><a href="#不过，这两种方法都是浅拷贝，使用的时候需要注意。" class="headerlink" title="不过，这两种方法都是浅拷贝，使用的时候需要注意。"></a>不过，这两种方法都是浅拷贝，使用的时候需要注意。</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> a1 = [&#123; <span class="attr">foo</span>: <span class="number">1</span> &#125;];</span><br><span class="line"><span class="keyword">const</span> a2 = [&#123; <span class="attr">bar</span>: <span class="number">2</span> &#125;];</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> a3 = a1.concat(a2);</span><br><span class="line"><span class="keyword">const</span> a4 = [...a1, ...a2];</span><br><span class="line"></span><br><span class="line">a3[<span class="number">0</span>] === a1[<span class="number">0</span>] <span class="comment">// true</span></span><br><span class="line">a4[<span class="number">0</span>] === a1[<span class="number">0</span>] <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+<font size="4px">上面代码中，a3和a4是用两种不同方法合并而成的新数组，</font><br><font size="4px">但是它们的成员都是对原数组成员的引用，这就是浅拷贝。</font><br><font size="4px">如果修改了引用指向的值，会同步反映到新数组。</font>
+
+<h2 id="（3）与解构赋值结合"><a href="#（3）与解构赋值结合" class="headerlink" title="（3）与解构赋值结合"></a>（3）与解构赋值结合</h2><font size="4px">扩展运算符可以与解构赋值结合起来，用于生成数组。</font>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ES5</span></span><br><span class="line">a = list[<span class="number">0</span>], rest = list.slice(<span class="number">1</span>)</span><br><span class="line"><span class="comment">// ES6</span></span><br><span class="line">[a, ...rest] = list</span><br></pre></td></tr></table></figure>
+<font size="4px">下面是另外一些例子。</font>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> [first, ...rest] = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>];</span><br><span class="line">first <span class="comment">// 1</span></span><br><span class="line">rest  <span class="comment">// [2, 3, 4, 5]</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> [first, ...rest] = [];</span><br><span class="line">first <span class="comment">// undefined</span></span><br><span class="line">rest  <span class="comment">// []</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> [first, ...rest] = [<span class="string">"foo"</span>];</span><br><span class="line">first  <span class="comment">// "foo"</span></span><br><span class="line">rest   <span class="comment">// []</span></span><br></pre></td></tr></table></figure>
+<h3 id="如果将扩展运算符用于数组赋值，只能放在参数的最后一位，否则会报错。"><a href="#如果将扩展运算符用于数组赋值，只能放在参数的最后一位，否则会报错。" class="headerlink" title="如果将扩展运算符用于数组赋值，只能放在参数的最后一位，否则会报错。"></a>如果将扩展运算符用于数组赋值，只能放在参数的最后一位，否则会报错。</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> [...butLast, last] = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>];</span><br><span class="line"><span class="comment">// 报错</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> [first, ...middle, last] = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>];</span><br><span class="line"><span class="comment">// 报错</span></span><br></pre></td></tr></table></figure>
+<h2 id="（4）字符串"><a href="#（4）字符串" class="headerlink" title="（4）字符串"></a>（4）字符串</h2><font size="4px">扩展运算符还可以将字符串转为真正的数组。</font>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[...<span class="string">'hello'</span>]</span><br><span class="line"><span class="comment">// [ "h", "e", "l", "l", "o" ]</span></span><br></pre></td></tr></table></figure>
+<font size="4px">上面的写法，有一个重要的好处，那就是能够正确识别四个字节的 Unicode 字符。</font>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'x\uD83D\uDE80y'</span>.length <span class="comment">// 4</span></span><br><span class="line">[...<span class="string">'x\uD83D\uDE80y'</span>].length <span class="comment">// 3</span></span><br></pre></td></tr></table></figure>
+<font size="4px">上面代码的第一种写法，JavaScript 会将四个字节的 Unicode 字符，识别为 2 个字符，采用扩展运算符就没有这个问题。</font><br><font size="4px">因此，正确返回字符串长度的函数，可以像下面这样写。</font>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">length</span>(<span class="params">str</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> [...str].length;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">length(<span class="string">'x\uD83D\uDE80y'</span>) <span class="comment">// 3</span></span><br></pre></td></tr></table></figure>
+<font size="4px">凡是涉及到操作四个字节的 Unicode 字符的函数，都有这个问题。因此，最好都用扩展运算符改写。</font>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> str = <span class="string">'x\uD83D\uDE80y'</span>;</span><br><span class="line"></span><br><span class="line">str.split(<span class="string">''</span>).reverse().join(<span class="string">''</span>)</span><br><span class="line"><span class="comment">// 'y\uDE80\uD83Dx'</span></span><br><span class="line"></span><br><span class="line">[...str].reverse().join(<span class="string">''</span>)</span><br><span class="line"><span class="comment">// 'y\uD83D\uDE80x'</span></span><br></pre></td></tr></table></figure>
+<font size="4px">上面代码中，如果不用扩展运算符，字符串的reverse操作就不正确。</font>
+
+<h2 id="（5）实现了-Iterator-接口的对象"><a href="#（5）实现了-Iterator-接口的对象" class="headerlink" title="（5）实现了 Iterator 接口的对象"></a>（5）实现了 Iterator 接口的对象</h2><h3 id="任何定义了遍历器（Iterator）接口的对象（参阅-Iterator-一章），都可以用扩展运算符转为真正的数组。"><a href="#任何定义了遍历器（Iterator）接口的对象（参阅-Iterator-一章），都可以用扩展运算符转为真正的数组。" class="headerlink" title="任何定义了遍历器（Iterator）接口的对象（参阅 Iterator 一章），都可以用扩展运算符转为真正的数组。"></a>任何定义了遍历器（Iterator）接口的对象（参阅 Iterator 一章），都可以用扩展运算符转为真正的数组。</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> nodeList = <span class="built_in">document</span>.querySelectorAll(<span class="string">'div'</span>);</span><br><span class="line"><span class="keyword">let</span> array = [...nodeList];</span><br></pre></td></tr></table></figure>
+<font size="4px">上面代码中，querySelectorAll方法返回的是一个NodeList对象。它不是数组，而是一个类似数组的对象。</font><br><font size="4px">这时，扩展运算符可以将其转为真正的数组，原因就在于NodeList对象实现了 Iterator 。</font>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Number</span>.prototype[<span class="built_in">Symbol</span>.iterator] = <span class="function"><span class="keyword">function</span>*(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> i = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">let</span> num = <span class="keyword">this</span>.valueOf();</span><br><span class="line">  <span class="keyword">while</span> (i &lt; num) &#123;</span><br><span class="line">    <span class="keyword">yield</span> i++;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log([..<span class="number">.5</span>]) <span class="comment">// [0, 1, 2, 3, 4]</span></span><br></pre></td></tr></table></figure>
+<font size="4px">上面代码中，先定义了Number对象的遍历器接口，扩展运算符将5自动转成Number实例以后，就会调用这个接口，就会返回自定义的结果。</font>
+
+<font size="4px">对于那些没有部署 Iterator 接口的类似数组的对象，扩展运算符就无法将其转为真正的数组。</font>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> arrayLike = &#123;</span><br><span class="line">  <span class="string">'0'</span>: <span class="string">'a'</span>,</span><br><span class="line">  <span class="string">'1'</span>: <span class="string">'b'</span>,</span><br><span class="line">  <span class="string">'2'</span>: <span class="string">'c'</span>,</span><br><span class="line">  length: <span class="number">3</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// TypeError: Cannot spread non-iterable object.</span></span><br><span class="line"><span class="keyword">let</span> arr = [...arrayLike];</span><br></pre></td></tr></table></figure>
+<font size="4px">上面代码中，arrayLike是一个类似数组的对象，但是没有部署 Iterator 接口，扩展运算符就会报错。</font><br><font size="4px">这时，可以改为使用Array.from方法将arrayLike转为真正的数组。</font>
+
+<h2 id="（6）Map-和-Set-结构，Generator-函数"><a href="#（6）Map-和-Set-结构，Generator-函数" class="headerlink" title="（6）Map 和 Set 结构，Generator 函数"></a>（6）Map 和 Set 结构，Generator 函数</h2><font size="4px">扩展运算符内部调用的是数据结构的 Iterator 接口</font><br><font size="4px">因此只要具有 Iterator 接口的对象，都可以使用扩展运算符，比如 Map 结构。</font>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> map = <span class="keyword">new</span> <span class="built_in">Map</span>([</span><br><span class="line">  [<span class="number">1</span>, <span class="string">'one'</span>],</span><br><span class="line">  [<span class="number">2</span>, <span class="string">'two'</span>],</span><br><span class="line">  [<span class="number">3</span>, <span class="string">'three'</span>],</span><br><span class="line">]);</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> arr = [...map.keys()]; <span class="comment">// [1, 2, 3]</span></span><br></pre></td></tr></table></figure>
+<font size="4px">Generator 函数运行后，返回一个遍历器对象，因此也可以使用扩展运算符。</font>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> go = <span class="function"><span class="keyword">function</span>*(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="keyword">yield</span> <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">yield</span> <span class="number">2</span>;</span><br><span class="line">  <span class="keyword">yield</span> <span class="number">3</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">[...go()] <span class="comment">// [1, 2, 3]</span></span><br></pre></td></tr></table></figure>
+<font size="4px">上面代码中，变量go是一个 Generator 函数，执行后返回的是一个遍历器对象，对这个遍历器对象执行扩展运算符，就会将内部遍历得到的值，转为一个数组。</font>
+
+<font size="4px">如果对没有 Iterator 接口的对象，使用扩展运算符，将会报错。</font>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> obj = &#123;<span class="attr">a</span>: <span class="number">1</span>, <span class="attr">b</span>: <span class="number">2</span>&#125;;</span><br><span class="line"><span class="keyword">let</span> arr = [...obj]; <span class="comment">// TypeError: Cannot spread non-iterable object</span></span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://Q-Quiet.github.io/2020/02/12/es6-8-数组的扩展/" data-id="ckiszcxrz000x3oup0lgsrmi7" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/es6/">es6</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-es6-7-函数的扩展" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2020/02/11/es6-7-函数的扩展/" class="article-date">
@@ -154,7 +289,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/02/11/es6-7-函数的扩展/" data-id="ckiq26ky0000vywup9zxh9j4n" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/02/11/es6-7-函数的扩展/" data-id="ckiszcxs1000z3oupf4k9fqyl" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/es6/">es6</a></li></ul>
@@ -314,7 +449,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/02/10/es6-6-数值的扩展/" data-id="ckiq26kyl0014ywuptc46mrf4" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/02/10/es6-6-数值的扩展/" data-id="ckiszcxsf00143oupv4vk6ni6" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/es6/">es6</a></li></ul>
@@ -451,7 +586,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/02/07/es6-5-正则的扩展/" data-id="ckiq26kyc0012ywupe8up886a" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/02/07/es6-5-正则的扩展/" data-id="ckiszcxsa00123oup0axg1avp" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/es6/">es6</a></li></ul>
@@ -549,7 +684,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/02/05/es6-4-字符串的新增方法/" data-id="ckiq26kxx000sywup0m5v0c9m" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/02/05/es6-4-字符串的新增方法/" data-id="ckiszcxrr000t3oupnaa1lrtt" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/es6/">es6</a></li></ul>
@@ -644,7 +779,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/02/05/es6-3-字符串的扩展/" data-id="ckiq26kxu000rywupfq3y9l6t" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/02/05/es6-3-字符串的扩展/" data-id="ckiszcxrx000v3oup0qe15isi" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/es6/">es6</a></li></ul>
@@ -729,7 +864,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/02/05/es6-2-变量的解构赋值/" data-id="ckiq26kwv0005ywup0csqu7lf" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/02/05/es6-2-变量的解构赋值/" data-id="ckiszcxq900003oupm6wl4zof" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/es6/">es6</a></li></ul>
@@ -802,7 +937,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2019/05/06/es6-1-let和const/" data-id="ckiq26kwr0003ywupklbjoyc0" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2019/05/06/es6-1-let和const/" data-id="ckiszcxqg00013oupw6jajbvh" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/es6/">es6</a></li></ul>
@@ -849,7 +984,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2019/05/05/hello-world/" data-id="ckiq26kxi000iywup5ijid7li" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2019/05/05/hello-world/" data-id="ckiszcxr4000f3oupic8z6vwn" class="article-share-link">Share</a>
       
       
     </footer>
@@ -909,6 +1044,10 @@
       <ul>
         
           <li>
+            <a href="/2020/12/17/js-基本属性-堆栈/">(no title)</a>
+          </li>
+        
+          <li>
             <a href="/2020/12/15/微任务、宏任务与Event-Loop/">微任务、宏任务与Event-Loop</a>
           </li>
         
@@ -922,10 +1061,6 @@
         
           <li>
             <a href="/2020/12/13/浏览器-渲染机制/">浏览器-渲染机制</a>
-          </li>
-        
-          <li>
-            <a href="/2020/12/09/js-函数柯里化/">js-函数柯里化</a>
           </li>
         
       </ul>
