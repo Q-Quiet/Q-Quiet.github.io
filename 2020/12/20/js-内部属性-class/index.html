@@ -5,16 +5,20 @@
   
 
   
-  <title>Tag: js | Q-Quiet</title>
+  <title>js-内部属性[[class]] | Q-Quiet</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="keywords" content="note">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Q-Quiet">
-<meta property="og:url" content="https://Q-Quiet.github.io/tags/js/index.html">
+  <meta name="description" content="对象内部属性[[class]]所有typeof返回值为“object”的对象（如数组）都包含一个内部属性[[class]]，这个属性无法直接访问，一般通过Object.prototype.toString(..)来查看。console.log(Object.prototype.toString.call([1,2,3]));console.log(Object.prototype.toString">
+<meta name="keywords" content="js">
+<meta property="og:type" content="article">
+<meta property="og:title" content="js-内部属性[[class]]">
+<meta property="og:url" content="https://Q-Quiet.github.io/2020/12/20/js-内部属性-class/index.html">
 <meta property="og:site_name" content="Q-Quiet">
+<meta property="og:description" content="对象内部属性[[class]]所有typeof返回值为“object”的对象（如数组）都包含一个内部属性[[class]]，这个属性无法直接访问，一般通过Object.prototype.toString(..)来查看。console.log(Object.prototype.toString.call([1,2,3]));console.log(Object.prototype.toString">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-12-20T15:21:35.656Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Q-Quiet">
+<meta name="twitter:title" content="js-内部属性[[class]]">
+<meta name="twitter:description" content="对象内部属性[[class]]所有typeof返回值为“object”的对象（如数组）都包含一个内部属性[[class]]，这个属性无法直接访问，一般通过Object.prototype.toString(..)来查看。console.log(Object.prototype.toString.call([1,2,3]));console.log(Object.prototype.toString">
   
     <link rel="alternate" href="/atom.xml" title="Q-Quiet" type="application/atom+xml">
   
@@ -66,135 +70,62 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2020" class="archive-year">2020</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2020/12/20/js-内部属性-class/" class="archive-article-date">
-  <time datetime="2020-12-20T15:20:59.000Z" itemprop="datePublished">12月 20</time>
+        <section id="main"><article id="post-js-内部属性-class" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/12/20/js-内部属性-class/" class="article-date">
+  <time datetime="2020-12-20T15:20:59.000Z" itemprop="datePublished">2020-12-20</time>
 </a>
-      
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/12/20/js-内部属性-class/">js-内部属性[[class]]</a>
+    <h1 class="article-title" itemprop="name">
+      js-内部属性[[class]]
     </h1>
   
 
-    </header>
-  </div>
-</article>
-  
+      </header>
     
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2020/12/17/js-基本属性-堆栈/" class="archive-article-date">
-  <time datetime="2020-12-17T15:04:44.000Z" itemprop="datePublished">12月 17</time>
-</a>
+    <div class="article-entry" itemprop="articleBody">
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/12/17/js-基本属性-堆栈/">js-基本属性-堆栈</a>
-    </h1>
-  
+        <p>对象内部属性[[class]]<br>所有typeof返回值为“object”的对象（如数组）都包含一个内部属性[[class]]，这个属性无法直接访问，一般通过Object.prototype.toString(..)来查看。<br>console.log(Object.prototype.toString.call([1,2,3]));<br>console.log(Object.prototype.toString.call(/regex-literal/i));</p>
+<p>//[object Array]<br>//[object RegExp]</p>
+<p>数组的内部[[class]]属性值是”Array”,正则表达式是”RegExp”,多数情况下,对象的内部[[class]]属性和创建该对象的内建原生构造函数相对应,但并非总是如此。<br>基本数值类型<br>console.log(Object.prototype.toString.call(null))<br>console.log(Object.prototype.toString.call(undefined))</p>
+<p>//[object Null]<br>//[object Undefined]</p>
+<p>虽然Null()和Undefined()这样的原生构造函数并不存在,但是内部[[class]]属性值仍然是”Null”和”Undefined”.<br>其他基本类型值<br>其他基本类型值<br>console.log(Object.prototype.toString.call(“abc”))<br>console.log(Object.prototype.toString.call(123))<br>console.log(Object.prototype.toString.call(123))</p>
+<p>//[object String]<br>//[object Number]<br>//[object Boolean]</p>
+<p>基本类型值被各自的封装对象自动包装,所以他们的内部[[class]]属性值分别为”String”,”Number”和”Boolean”<br>封装对象包装<br>由于基本类型值没有.length 和 .toString()这样的属性和方法,需要通过封装对象才能访问,此时JavaScript会自动为基本类型值包装一个封装对象;<br>var a = “abc”<br>console.log(a.length)  //3<br>console.log(a.toUpperCase());  //ABC</p>
+<p>一般情况下,我们不需要直接使用封装对象,最好的办法是让JavaScript引擎自己决定什么时候使用封装对象,如优先考虑使用”abc”和123这样的基本类型值,而不是new String(“abc”)和new String(123)<br>拆封<br>如果想要得到封装对象中的基本类型值,可以使用valueOf()函数:<br>var a = new String(“abc”)<br>var b = new Number(123)<br>var c = new Boolean(true)</p>
+<p>a.valueOf()  // abc<br>b.valueOf()  // 123<br>c.valueOf()  // true</p>
 
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2020/12/15/微任务、宏任务与Event-Loop/" class="archive-article-date">
-  <time datetime="2020-12-15T13:58:58.000Z" itemprop="datePublished">12月 15</time>
-</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/12/15/微任务、宏任务与Event-Loop/">微任务、宏任务与Event-Loop</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2020/12/15/async-await/" class="archive-article-date">
-  <time datetime="2020-12-15T13:58:08.000Z" itemprop="datePublished">12月 15</time>
-</a>
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://Q-Quiet.github.io/2020/12/20/js-内部属性-class/" data-id="ckixa3p8k0009f8uptmtdxr68" class="article-share-link">Share</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/12/15/async-await/">async-await</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2020/12/09/js-函数柯里化/" class="archive-article-date">
-  <time datetime="2020-12-09T07:55:55.000Z" itemprop="datePublished">12月 9</time>
-</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/12/09/js-函数柯里化/">js-函数柯里化</a>
-    </h1>
-  
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
 
-    </header>
+    </footer>
   </div>
-</article>
   
     
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2020/12/08/js-数组扁平化/" class="archive-article-date">
-  <time datetime="2020-12-08T09:15:34.000Z" itemprop="datePublished">12月 8</time>
-</a>
-      
+<nav id="article-nav">
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/12/08/js-数组扁平化/">js-数组扁平化</a>
-    </h1>
   
+    <a href="/2020/12/17/js-基本属性-堆栈/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">js-基本属性-堆栈</div>
+    </a>
+  
+</nav>
 
-    </header>
-  </div>
+  
 </article>
-  
-  
-    </div></section>
-  
-
 
 </section>
         
