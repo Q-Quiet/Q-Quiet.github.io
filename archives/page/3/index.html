@@ -5,20 +5,16 @@
   
 
   
-  <title>async-await | Q-Quiet</title>
+  <title>归档 | Q-Quiet</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="async函数是使用async关键字声明的函数。 async函数是AsyncFunction构造函数的实例， 并且其中允许使用await关键字。async和await关键字让我们可以用一种更简洁的方式写出基于Promise的异步行为，而无需刻意地链式调用promise。async函数可能包含0个或者多个await表达式。await表达式会暂停整个async函数的执行进程并出让其控制权，只有当其等待">
-<meta name="keywords" content="js">
-<meta property="og:type" content="article">
-<meta property="og:title" content="async-await">
-<meta property="og:url" content="https://Q-Quiet.github.io/2020/12/15/async-await/index.html">
+  <meta name="keywords" content="note">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Q-Quiet">
+<meta property="og:url" content="https://Q-Quiet.github.io/archives/page/3/index.html">
 <meta property="og:site_name" content="Q-Quiet">
-<meta property="og:description" content="async函数是使用async关键字声明的函数。 async函数是AsyncFunction构造函数的实例， 并且其中允许使用await关键字。async和await关键字让我们可以用一种更简洁的方式写出基于Promise的异步行为，而无需刻意地链式调用promise。async函数可能包含0个或者多个await表达式。await表达式会暂停整个async函数的执行进程并出让其控制权，只有当其等待">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-12-15T13:58:35.467Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="async-await">
-<meta name="twitter:description" content="async函数是使用async关键字声明的函数。 async函数是AsyncFunction构造函数的实例， 并且其中允许使用await关键字。async和await关键字让我们可以用一种更简洁的方式写出基于Promise的异步行为，而无需刻意地链式调用promise。async函数可能包含0个或者多个await表达式。await表达式会暂停整个async函数的执行进程并出让其控制权，只有当其等待">
+<meta name="twitter:title" content="Q-Quiet">
   
     <link rel="alternate" href="/atom.xml" title="Q-Quiet" type="application/atom+xml">
   
@@ -70,65 +66,45 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-async-await" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/12/15/async-await/" class="article-date">
-  <time datetime="2020-12-15T13:58:08.000Z" itemprop="datePublished">2020-12-15</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
+        <section id="main">
   
-    <h1 class="article-title" itemprop="name">
-      async-await
+  
+    
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2019" class="archive-year">2019</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      <a href="/2019/05/05/hello-world/" class="archive-article-date">
+  <time datetime="2019-05-05T11:52:57.449Z" itemprop="datePublished">5月 5</time>
+</a>
+      
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2019/05/05/hello-world/">Hello World</a>
     </h1>
   
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>async函数是使用async关键字声明的函数。 async函数是AsyncFunction构造函数的实例， 并且其中允许使用await关键字。async和await关键字让我们可以用一种更简洁的方式写出基于Promise的异步行为，而无需刻意地链式调用promise。<br>async函数可能包含0个或者多个await表达式。await表达式会暂停整个async函数的执行进程并出让其控制权，只有当其等待的基于promise的异步操作被兑现或被拒绝之后才会恢复进程。<br>async function async1() {<br>    console.log(‘async1 start’);<br>    await async2();<br>    console.log(‘async1 end’);<br>}<br>async异步执行<br>await同步（仅在async内)<br> console.log(‘async1 end’);相当于.then</p>
-<p>使用async函数重写 promise 链<br>返回 Promise的 API 将会产生一个 promise 链，它将函数肢解成许多部分。例如下面的代码：<br>function getProcessedData(url) {<br>  return downloadData(url) // 返回一个 promise 对象<br>    .catch(e =&gt; {<br>      return downloadFallbackData(url)  // 返回一个 promise 对象<br>    })<br>    .then(v =&gt; {<br>      return processDataInWorker(v); // 返回一个 promise 对象<br>    });<br>}</p>
-<p>可以重写为单个async函数：<br>async function getProcessedData(url) {<br>  let v;<br>  try {<br>    v = await downloadData(url);<br>  } catch (e) {<br>    v = await downloadFallbackData(url);<br>  }<br>  return processDataInWorker(v);<br>}</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/12/15/async-await/" data-id="ckiy9tm6c0004y8uptutqy4xj" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
-
-    </footer>
+    </header>
   </div>
-  
-    
-<nav id="article-nav">
-  
-    <a href="/2020/12/15/微任务、宏任务与Event-Loop/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          微任务、宏任务与Event-Loop
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2020/12/14/为什么操作DOM慢/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">为什么操作DOM慢</div>
-    </a>
-  
-</nav>
-
-  
 </article>
+  
+  
+    </div></section>
+  
+
+
+  <nav id="page-nav">
+    
+    <a class="extend prev" rel="prev" href="/archives/page/2/">&laquo; 上一页</a><a class="page-number" href="/archives/">1</a><a class="page-number" href="/archives/page/2/">2</a><span class="page-number current">3</span>
+  </nav>
 
 </section>
         

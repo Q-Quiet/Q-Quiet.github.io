@@ -68,6 +68,62 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-es6-12-Set和Map" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/03/06/es6-12-Set和Map/" class="article-date">
+  <time datetime="2020-03-06T08:38:31.000Z" itemprop="datePublished">2020-03-06</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/03/06/es6-12-Set和Map/">es6-12-Set和Map</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="1-Set"><a href="#1-Set" class="headerlink" title="1.Set"></a>1.Set</h1><h2 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h2><p>ES6 提供了新的数据结构 Set。它类似于数组，但是成员的值都是唯一的，没有重复的值。</p>
+<p>Set本身是一个构造函数，用来生成 Set 数据结构。</p>
+<p>const s = new Set();</p>
+<p>[2, 3, 5, 4, 5, 2, 2].forEach(x =&gt; s.add(x));</p>
+<p>for (let i of s) {<br>  console.log(i);<br>}<br>// 2 3 5 4<br>上面代码通过add()方法向 Set 结构加入成员，结果表明 Set 结构不会添加重复的值。</p>
+<p>Set函数可以接受一个数组（或者具有 iterable 接口的其他数据结构）作为参数，用来初始化。</p>
+<p>// 例一<br>const set = new Set([1, 2, 3, 4, 4]);<br>[…set]<br>// [1, 2, 3, 4]</p>
+<p>// 例二<br>const items = new Set([1, 2, 3, 4, 5, 5, 5, 5]);<br>items.size // 5</p>
+<p>// 例三<br>const set = new Set(document.querySelectorAll(‘div’));<br>set.size // 56</p>
+<p>// 类似于<br>const set = new Set();<br>document<br> .querySelectorAll(‘div’)<br> .forEach(div =&gt; set.add(div));<br>set.size // 56<br>上面代码中，例一和例二都是Set函数接受数组作为参数，例三是接受类似数组的对象作为参数。</p>
+<p>上面代码也展示了一种去除数组重复成员的方法。</p>
+<p>// 去除数组的重复成员<br>[…new Set(array)]<br>上面的方法也可以用于，去除字符串里面的重复字符。</p>
+<p>[…new Set(‘ababbc’)].join(‘’)<br>// “abc”<br>向 Set 加入值的时候，不会发生类型转换，所以5和”5”是两个不同的值。Set 内部判断两个值是否不同，使用的算法叫做“Same-value-zero equality”，它类似于精确相等运算符（===），主要的区别是向 Set 加入值时认为NaN等于自身，而精确相等运算符认为NaN不等于自身。</p>
+<p>let set = new Set();<br>let a = NaN;<br>let b = NaN;<br>set.add(a);<br>set.add(b);<br>set // Set {NaN}<br>上面代码向 Set 实例添加了两次NaN，但是只会加入一个。这表明，在 Set 内部，两个NaN是相等的。</p>
+<p>另外，两个对象总是不相等的。</p>
+<p>let set = new Set();</p>
+<p>set.add({});<br>set.size // 1</p>
+<p>set.add({});<br>set.size // 2<br>上面代码表示，由于两个空对象不相等，所以它们被视为两个值。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://Q-Quiet.github.io/2020/03/06/es6-12-Set和Map/" data-id="ckiy9tm6d0005y8upv4g1g9nc" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/es6/">es6</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-es6-11-Symbol" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2020/03/03/es6-11-Symbol/" class="article-date">
@@ -159,7 +215,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/03/03/es6-11-Symbol/" data-id="ckixa3p8i0008f8up59m47058" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/03/03/es6-11-Symbol/" data-id="ckiy9tm680003y8up79emmeho" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/es6/">es6</a></li></ul>
@@ -294,7 +350,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/02/12/es6-8-数组的扩展/" data-id="ckixa3p9g0013f8upi6jsbzsx" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/02/12/es6-8-数组的扩展/" data-id="ckiy9tm8r0014y8upim2omxcw" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/es6/">es6</a></li></ul>
@@ -392,7 +448,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/02/11/es6-7-函数的扩展/" data-id="ckixa3p9i0015f8upkt95l0k1" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/02/11/es6-7-函数的扩展/" data-id="ckiy9tm8o0010y8up9gkkci50" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/es6/">es6</a></li></ul>
@@ -552,7 +608,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/02/10/es6-6-数值的扩展/" data-id="ckixa3p9z001af8uprzldp2tt" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/02/10/es6-6-数值的扩展/" data-id="ckiy9tm930019y8upu1mfno5o" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/es6/">es6</a></li></ul>
@@ -689,7 +745,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/02/07/es6-5-正则的扩展/" data-id="ckixa3p9v0018f8up8tffwr4n" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/02/07/es6-5-正则的扩展/" data-id="ckiy9tm8x0017y8upwmwnfbry" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/es6/">es6</a></li></ul>
@@ -787,7 +843,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/02/05/es6-4-字符串的新增方法/" data-id="ckixa3p9d0010f8up1qr5q0p2" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/02/05/es6-4-字符串的新增方法/" data-id="ckiy9tm8q0012y8upib3p9kor" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/es6/">es6</a></li></ul>
@@ -882,7 +938,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/02/05/es6-3-字符串的扩展/" data-id="ckixa3p9e0011f8up05aspyw3" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/02/05/es6-3-字符串的扩展/" data-id="ckiy9tm8m000zy8upqg6u6q3f" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/es6/">es6</a></li></ul>
@@ -967,7 +1023,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/02/05/es6-2-变量的解构赋值/" data-id="ckixa3p8c0003f8upg262dsqs" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/02/05/es6-2-变量的解构赋值/" data-id="ckiy9tm73000fy8uphqgk4o07" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/es6/">es6</a></li></ul>
@@ -1040,7 +1096,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2019/05/06/es6-1-let和const/" data-id="ckixa3p870001f8upolv24jbt" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2019/05/06/es6-1-let和const/" data-id="ckiy9tm630001y8upuuwkqu2b" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/es6/">es6</a></li></ul>
@@ -1052,56 +1108,11 @@
 
 
   
-    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/05/05/hello-world/" class="article-date">
-  <time datetime="2019-05-05T11:52:57.449Z" itemprop="datePublished">2019-05-05</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/05/05/hello-world/">Hello World</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2019/05/05/hello-world/" data-id="ckixa3p8n000cf8upe8dulk35" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
 
 
   <nav id="page-nav">
     
-    <a class="extend prev" rel="prev" href="/">&laquo; 上一页</a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+    <a class="extend prev" rel="prev" href="/">&laquo; 上一页</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/">下一页 &raquo;</a>
   </nav>
 
 </section>
@@ -1147,6 +1158,10 @@
       <ul>
         
           <li>
+            <a href="/2020/12/21/js-有哪些对象/">js-有哪些对象</a>
+          </li>
+        
+          <li>
             <a href="/2020/12/20/js-内部属性-class/">js-内部属性[[class]]</a>
           </li>
         
@@ -1160,10 +1175,6 @@
         
           <li>
             <a href="/2020/12/15/async-await/">async-await</a>
-          </li>
-        
-          <li>
-            <a href="/2020/12/14/为什么操作DOM慢/">为什么操作DOM慢</a>
           </li>
         
       </ul>
