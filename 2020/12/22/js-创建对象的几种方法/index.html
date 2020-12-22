@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>js-创建对象的几种方法 | Q-Quiet</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="工厂模式构造函数模式原型模式动态原型模式稳妥构造函数模式 工厂模式用函数来封装一个对象的创建function createPerson(name, age, job){    var o = new Object();    o.name = name;    o.age = age;    o.job = job;    o.sayName = function(){        alert(">
+<meta name="keywords" content="js,复习">
+<meta property="og:type" content="article">
+<meta property="og:title" content="js-创建对象的几种方法">
+<meta property="og:url" content="https://Q-Quiet.github.io/2020/12/22/js-创建对象的几种方法/index.html">
+<meta property="og:site_name" content="Q-Quiet">
+<meta property="og:description" content="工厂模式构造函数模式原型模式动态原型模式稳妥构造函数模式 工厂模式用函数来封装一个对象的创建function createPerson(name, age, job){    var o = new Object();    o.name = name;    o.age = age;    o.job = job;    o.sayName = function(){        alert(">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-12-22T13:58:25.138Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="js-创建对象的几种方法">
+<meta name="twitter:description" content="工厂模式构造函数模式原型模式动态原型模式稳妥构造函数模式 工厂模式用函数来封装一个对象的创建function createPerson(name, age, job){    var o = new Object();    o.name = name;    o.age = age;    o.job = job;    o.sayName = function(){        alert(">
+  
+    <link rel="alternate" href="/atom.xml" title="Q-Quiet" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="shortcut icon" href="ban.jpeg" type="image/x-icon">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Q-Quiet</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">言语笑靥迎来情</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://Q-Quiet.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-js-创建对象的几种方法" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/12/22/js-创建对象的几种方法/" class="article-date">
+  <time datetime="2020-12-22T13:57:18.000Z" itemprop="datePublished">2020-12-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      js-创建对象的几种方法
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>工厂模式<br>构造函数模式<br>原型模式<br>动态原型模式<br>稳妥构造函数模式</p>
+<p>工厂模式<br>用函数来封装一个对象的创建<br>function createPerson(name, age, job){<br>    var o = new Object();<br>    o.name = name;<br>    o.age = age;<br>    o.job = job;<br>    o.sayName = function(){<br>        alert(this.name);<br>    };<br>    return o;<br>}</p>
+<p>var person1 = createPerson(“james”，9，”student”);</p>
+<p>var person2 = createPerson(“kobe”，9，”student”);</p>
+<p>优点：解决了创建多个相似对象时，代码的复用问题<br>缺点：使用工厂模式创建的对象，没有解决对象识别的问题（就是怎样知道一个对象的类型是什么）</p>
+<p>构造函数模式<br>构造函数可用来创建特定类型的对象。像 Object 和 Array 这样的原生构造函数，在运行时会自动出现在执行环境中。<br>创建自定义的构造函数，从而定义对象类型的属性和方法<br>function createPerson(name, age, job){<br>    this.name = name;<br>    this.age = age;<br>    this.job = job;<br>    this.sayName = function(){<br>        alert(this.name);<br>    };<br>    return o;<br>}</p>
+<p>var person1 = new createPerson(“james”，9，”student”);</p>
+<p>var person2 = new createPerson(“kobe”，9，”student”);</p>
+<p>当我们使用构造函数实例化一个对象的时候，对象中会包含一个 <strong>proto</strong> 属性指向构造函数原型对象，而原型对象中则包含一个 constructor 属性指向构造函数。因此在实例对象中我们可以通过原型链来访问到 constructor 属性，从而判断对象的类型。<br>优点：解决了工厂模式中对象类型无法识别的问题，并且创建自定义的构造函数意味着将来可以将它的实例标识为一种特定的类型。<br>缺点：我们知道 ECMAScript 中的函数是对象，在使用构造函数创建对象时，每个方法都会在实例对象中重新创建一遍。拿上面的例子举例，这意味着每创建一个对象，我们就会创建一个 sayName 函数的实例，但它们其实做的都是同样的工作，因此这样便会造成内存的浪费。</p>
+<p>原型模式<br>因为每一个函数都有一个 prototype 属性，这个属性指向函数的原型对象，这个对象的用途是包含可以由特定类型的所有实例共享的属性和方法。我们通过使用原型对象可以让所有的对象实例共享它所包含的属性和方法，因此这样也解决了代码的复用问题。<br>function Person(){<br>}</p>
+<p>Person.prototype.name = “james”;<br>Person.prototype.age = 9;<br>Person.prototype.job = “student”;<br>Person.prototype.sayName = function(){<br>    alert(this.name);<br>}</p>
+<p>var person1 = new Person();<br>person1.sayName(); // “james”</p>
+<p>var person2 = new Person();<br>person2.sayName(); // “james”</p>
+<p>console.log(person1.sayName === person2.sayName) // true</p>
+<p>优点：解决了构造函数模式中多次创建相同函数对象的问题，所有的实例可以共享同一组属性和函数。<br>缺点：<br>原型模式省略了构造函数模式传递初始化参数的过程，所有的实例在默认情况下都会取得默认的属性值。<br>因为所有的实例都是共享一组属性，对于包含基本值的属性来说没有问题，但是对于包含引用类型的值来说（例如数组对象），所有的实例都是对同一个引用类型进行操作，那么属性的操作就不是独立的，最后导致读写的混乱。我们创建的实例一般都是要有属于自己的全部属性的，因此单独使用原型模式的情况是很少存在的。</p>
+<p>组合使用构造函数模式和原型模式<br>创建自定义类型的最常见方式，就是组合使用构造函数模式和原型模式。<br>构造函数模式用于定义实例属性，而原型模式用于定义方法和共享的属性。支持向构造函数传递参数。<br>function Person(name, age, job){<br>    this.name = name;<br>    this.age = age;<br>    this.job = job;<br>}</p>
+<p>Person.prototype = {<br>    constructor: Person,<br>    sayName: function(){<br>        alert(this.name);<br>    }<br>}</p>
+<p>var person1 = new createPerson(“james”，9，”student”);</p>
+<p>var person2 = new createPerson(“kobe”，9，”student”);</p>
+<p>console.log(person1.name); // “james”<br>console.log(person2.name); // “kobe”<br>console.log(person1.sayName === person2.sayName); // true</p>
+<p>优点：采用了构造函数模式和原型模式的优点，这种混成模式是目前使用最广泛，认同度最高的一种创建自定类型的方法。<br>缺点：由于使用了两种模式，因此对于代码的封装性来说不是很好。</p>
+<p>动态原型模式<br>由于上面混成模式存在封装性的问题，动态原型模式是解决这个问题的一个方案。这个方法把所有信息都封装到了构造函数中，而在构造函数中通过判断只初始化一次原型。<br>function Person(name, age, job){<br>    this.name = name;<br>    this.age = age;<br>    this.job = job;</p>
+<pre><code>if(typeof this.sayName !== &quot;function&quot; ){
+
+    Person.prototype.sayName: function(){
+        alert(this.name);
+    } 
+} 
+</code></pre><p>}</p>
+<p>var person1 = new createPerson(“james”，9，”student”);</p>
+<p>person1.sayName(); // “james”</p>
+<p>优点：解决了混成模式中封装性的问题</p>
+<p>寄生构造函数模式<br>创建一个函数，该函数的作用仅仅是封装创建对象的代码，然后返回新创建的对象。<br>function Person(name, age, job){<br>    var o = new Object();<br>    o.name = name;<br>    o.age = age;<br>    o.job = job;<br>    o.sayName = function(){<br>        alert(this.name);<br>    };<br>    return o;<br>}</p>
+<p>var person1 = new Person(“james”，9，”student”);</p>
+<p>通过上面的例子我们可以发现，其实这个模式和工厂模式基本上是一摸一样的，只不过我们是采用 new 操作符最后来创建对象。f<br>返回的对象与构造函数之间没有关系。<br>缺点：和工厂模式一样的问题，不能依赖 instanceof 操作符来确定对象的类型。</p>
+<p>稳妥构造函数模式（工厂？）<br>稳妥对象指是没有公共属性，而且其方法也不使用 this 的对象。稳妥对象最适合在一些安全的环境中（这些环境中会禁止使用 this 和 new），或者在防止数据被其他应用程序改动时使用。<br>稳妥构造函数遵循与寄生构造函数类似的模式，但有两点不同：一是新创建的对象的实例方法不引用 this ；二是不使用 new 操作符调用构造函数。<br>function Person(name, age, job){</p>
+<pre><code>//创建要返回的对象
+var o = new Object();
+
+//可以在这里定义私有变量和函数
+
+//添加方法
+o.sayName = function(){
+    console.log(this.name);
+}
+
+//返回对象
+return o;
+</code></pre><p>} </p>
+<p>var person1 =  Person(“james”，9，”student”);</p>
+<p>person1.sayName(); // “james”</p>
+<p>优点：以上面为例，除了 sayName 方法外，没有别的方法可以访问数据成员，这就是稳妥构造函数提供的安全性。<br>缺点：和寄生构造函数一样，没有办法使用 instanceof 操作符来判断对象的类型</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://Q-Quiet.github.io/2020/12/22/js-创建对象的几种方法/" data-id="ckj0205nb000bwoupiapftd6f" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/复习/">复习</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2020/12/21/js-undefined/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">js-undefined</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vue/">Vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/es6/">es6</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/复习/">复习</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/浏览器/">浏览器</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Vue/" style="font-size: 10px;">Vue</a> <a href="/tags/es6/" style="font-size: 20px;">es6</a> <a href="/tags/js/" style="font-size: 16.67px;">js</a> <a href="/tags/复习/" style="font-size: 13.33px;">复习</a> <a href="/tags/浏览器/" style="font-size: 13.33px;">浏览器</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">十月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">三月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/12/22/js-创建对象的几种方法/">js-创建对象的几种方法</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/21/js-undefined/">js-undefined</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/21/js-有哪些对象/">js-有哪些对象</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/20/js-内部属性-class/">js-内部属性[[class]]</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/17/js-基本属性-堆栈/">js-基本属性-堆栈</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 Q-Quiet<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
