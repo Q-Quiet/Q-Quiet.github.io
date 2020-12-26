@@ -68,6 +68,47 @@
       <div class="outer">
         <section id="main">
   
+    <article id="js-原型-js-原型-原型链" class="article article-type-js-原型" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/12/26/js-原型-原型链/" class="article-date">
+  <time datetime="2020-12-26T15:42:50.000Z" itemprop="datePublished">2020-12-26</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/12/26/js-原型-原型链/">原型链</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>在 js 中我们是使用构造函数来新建一个对象的，每一个构造函数的内部都有一个 prototype 属性值，这个属性值是一个对象，这个对象包含了可以由该构造函数的所有实例共享的属性和方法。当我们使用构造函数新建一个对象后，在这个对象的内部将包含一个指针，这个指针指向构造函数的 prototype 属性对应的值，在 ES5 中这个指针被称为对象的原型。一般来说我们是不应该能够获取到这个值的，但是现在浏览器中都实现了 <strong>proto</strong> 属性来让我们访问这个属性，但是我们最好不要使用这个属性，因为它不是规范中规定的。ES5 中新增了一个 Object.getPrototypeOf() 方法，我们可以通过这个方法来获取对象的原型。</p>
+<p>当我们访问一个对象的属性时，如果这个对象内部不存在这个属性，那么它就会去它的原型对象里找这个属性，这个原型对象又会有自己的原型，于是就这样一直找下去，也就是原型链的概念。原型链的尽头一般来说都是 Object.prototype 所以这就是我们新建的对象为什么能够使用 toString() 等方法的原因。</p>
+<p>特点：<br>JavaScript 对象是通过引用来传递的，我们创建的每个新对象实体中并没有一份属于自己的原型副本。当我们修改原型时，与之相关的对象也会继承这一改变。<br>参考资料： 《JavaScript 深入理解之原型与原型链》<br>js 获取原型的方法？<br>p.<strong>proto</strong><br>p.constructor.prototype<br>Object.getPrototypeOf(p)</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://Q-Quiet.github.io/2020/12/26/js-原型-原型链/" data-id="ckj5vkluu000iswupbg0rnalj" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-js-转换规则" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2020/12/25/js-转换规则/" class="article-date">
@@ -111,7 +152,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/12/25/js-转换规则/" data-id="ckj4f7bxw000ofgupxnenc8re" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/12/25/js-转换规则/" data-id="ckj5vklw0000xswuptzif164e" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
@@ -174,7 +215,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/12/24/js-事件委托/" data-id="ckj4f7bxi000cfgupghqgvctv" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/12/24/js-事件委托/" data-id="ckj5vklul000gswup298amvwv" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
@@ -264,7 +305,7 @@ return o;
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/12/22/js-创建对象的几种方法/" data-id="ckj4f7bxy000rfgupigg4qzjn" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/12/22/js-创建对象的几种方法/" data-id="ckj5vklv4000lswup12xvovht" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/复习/">复习</a></li></ul>
@@ -309,7 +350,7 @@ return o;
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/12/21/js-undefined/" data-id="ckj4f7bxs000jfgupf81fk05z" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/12/21/js-undefined/" data-id="ckj5vklu8000cswuprm1bqutp" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/复习/">复习</a></li></ul>
@@ -349,7 +390,7 @@ return o;
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/12/21/js-有哪些对象/" data-id="ckj4f7bxz000tfgupt8syp291" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/12/21/js-有哪些对象/" data-id="ckj5vklvn000sswupt1yyvrug" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
@@ -396,7 +437,7 @@ return o;
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/12/20/js-内部属性-class/" data-id="ckj4f7bxj000efgup1d0sumtr" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/12/20/js-内部属性-class/" data-id="ckj5vklv9000nswupddff0bkb" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
@@ -439,7 +480,7 @@ return o;
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/12/17/js-基本属性-堆栈/" data-id="ckj4f7by3000xfgup1vkmldl4" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/12/17/js-基本属性-堆栈/" data-id="ckj5vklvg000qswupktavmvua" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
@@ -495,7 +536,7 @@ return o;
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/12/15/微任务、宏任务与Event-Loop/" data-id="ckj4f7by50010fgupjjhrxya3" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/12/15/微任务、宏任务与Event-Loop/" data-id="ckj5vklw7000zswupd8tpmm1z" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
@@ -536,59 +577,10 @@ return o;
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/12/15/async-await/" data-id="ckj4f7bx80003fgupepvsw87n" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/12/15/async-await/" data-id="ckj5vklti0003swupa5o1rvmx" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-为什么操作DOM慢" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/12/14/为什么操作DOM慢/" class="article-date">
-  <time datetime="2020-12-14T15:04:01.000Z" itemprop="datePublished">2020-12-14</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/12/14/为什么操作DOM慢/">为什么操作DOM慢</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>优点和缺点<br>　　DOM的优势主要在于易用性强，使用DOM时，将把所有的XML文档信息都存在于内存中，并且遍历简单，支持XPath，增强了易用性。<br>　　DOM的缺点主要表现在效率低，内存占用量过高，对于大文件来说几乎不可能。另外效率低还表现在大量的消耗时间，因为使用DOM进行解析时，将文档的每个Element，Attribute，Processing-instruction和Comment都创建了一个对象，这样在DOM机制中运用了大量对象的创建和销毁无疑影响其效率。</p>
-<p>因为 DOM 是属于渲染引擎中的东西，而 JS 又是 JS 引擎中的东西。当我们通过 JS 操作 DOM 的时候，其实这个操作涉及到了两个线程之间的通信，那么势必会带来一些性能上的损耗。</p>
-<p>重绘<br>　　页面某些部分需要重新绘制，由于节点的几何属性发生改变或者由于样式发生变化。发生重绘元素的位置和尺寸都不会变，</p>
-<p>回流<br>当元素尺寸、结构或者触发某些属性的时候，浏览器会重新渲染页面，这就叫回流。此时，浏览器需要重新计算，重新进行页面布局，所以损耗较大</p>
-<p>优化方法<br>（1）把DOM累积起来批次操作。<br>var fragment = document.createDocumentFragment();<br>for (var i=0; i &lt; items.length; i++) {<br>    var item = document.createElement(“li”);<br>    item.appendChild(document.createTextNode(“Option” + i));<br>    fragment.appendChild(item)；<br>}<br>list.appendChild(fragment);</p>
-<p>（2）设置具有动画效果得DOM元素的position属性为fixed或absolute。<br>　　把页面具有动画效果的元素设置为绝对定位，使得元素脱离页面布局流，这样只涉及动画元素自身重排了，这种做法可以提高动画效果的展示性能<br>（3）使用requestAnimationFrame<br>采用系统时间间隔，保持最佳绘制效率<br>将任何可能导致重绘的操作放入requestAnimationFrame的callback中，统一让写操作在下一次paint之前执行。<br>//read<br>var h1 = element1.clientHeight;<br>//write<br>requestAnimationFrame(function() {<br>    elment1.style.height = (h1 * 2) + ‘px’;<br>});</p>
-<p>（4）通过设置DOM原色的display样式为none来隐藏元素。<br>（这样引起的重绘或回流就只发生在显示和隐藏两步）<br>$(“ul”).css(“display”, “none”);<br>for (var i = 0; i &lt; data.lengt; i++) {<br>    var html = <code>&lt;li&gt;${data[i].title}&lt;/li&gt;</code>;<br>    $(“ul”).append(html);<br>}<br>$(“ul”).css(“display”, “block”);</p>
-<p>（5）克隆DOM到内存中<br>var yb_li = $(“ul li”).clone();<br>yb_li.text(‘yaobai’);<br>yb_li.css(‘color’, “red”);<br>$(“ul”).append(yb_li);</p>
-<p>（6）合并多次DOM操作为单次DOM操作<br>element.style.borderColor = ‘#f00’;<br>element.style.borderStyle = ‘solid’;<br>element.style.borderWidth = ‘1px’;</p>
-<p>element.style.cssText += ‘border: 1px solid #f00;’;</p>
-<p>（7）缓存DOM对象，避免每次都从整个DOM树种查找<br>let $mod = $(‘#mod’);<br>$mod.find(‘.active’).remove(‘active’);<br>$mod.find(‘.not-active’).addClass(‘active’);</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/12/14/为什么操作DOM慢/" data-id="ckj4f7byg0018fgup58emjohc" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/浏览器/">浏览器</a></li></ul>
 
     </footer>
   </div>
@@ -647,6 +639,10 @@ return o;
       <ul>
         
           <li>
+            <a href="/2020/12/26/js-原型-原型链/">原型链</a>
+          </li>
+        
+          <li>
             <a href="/2020/12/25/js-转换规则/">js-转换规则</a>
           </li>
         
@@ -660,10 +656,6 @@ return o;
         
           <li>
             <a href="/2020/12/21/js-undefined/">js-undefined</a>
-          </li>
-        
-          <li>
-            <a href="/2020/12/21/js-有哪些对象/">js-有哪些对象</a>
           </li>
         
       </ul>

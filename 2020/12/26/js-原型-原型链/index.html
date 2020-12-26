@@ -5,20 +5,20 @@
   
 
   
-  <title>1-Vue复习 | Q-Quiet</title>
+  <title>原型链 | Q-Quiet</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="一、计算属性1.1计算属性的本质 fullname: {set(),get()}1.2 计算属性和methods对比 计算属性在多次使用时，只会调用一次 它是有缓存的  二、事件监听2.1事件监听基本使用2.2参数问题 btnClick btnClick(event) btnClick(abc,event)-&amp;gt;$event  2.3修饰符 stop prevent .enter .once">
-<meta name="keywords" content="Vue">
+  <meta name="description" content="在 js 中我们是使用构造函数来新建一个对象的，每一个构造函数的内部都有一个 prototype 属性值，这个属性值是一个对象，这个对象包含了可以由该构造函数的所有实例共享的属性和方法。当我们使用构造函数新建一个对象后，在这个对象的内部将包含一个指针，这个指针指向构造函数的 prototype 属性对应的值，在 ES5 中这个指针被称为对象的原型。一般来说我们是不应该能够获取到这个值的，但是现在浏">
+<meta name="keywords" content="js">
 <meta property="og:type" content="article">
-<meta property="og:title" content="1-Vue复习">
-<meta property="og:url" content="https://Q-Quiet.github.io/2020/10/11/1-Vue复习/index.html">
+<meta property="og:title" content="原型链">
+<meta property="og:url" content="https://Q-Quiet.github.io/2020/12/26/js-原型-原型链/index.html">
 <meta property="og:site_name" content="Q-Quiet">
-<meta property="og:description" content="一、计算属性1.1计算属性的本质 fullname: {set(),get()}1.2 计算属性和methods对比 计算属性在多次使用时，只会调用一次 它是有缓存的  二、事件监听2.1事件监听基本使用2.2参数问题 btnClick btnClick(event) btnClick(abc,event)-&amp;gt;$event  2.3修饰符 stop prevent .enter .once">
+<meta property="og:description" content="在 js 中我们是使用构造函数来新建一个对象的，每一个构造函数的内部都有一个 prototype 属性值，这个属性值是一个对象，这个对象包含了可以由该构造函数的所有实例共享的属性和方法。当我们使用构造函数新建一个对象后，在这个对象的内部将包含一个指针，这个指针指向构造函数的 prototype 属性对应的值，在 ES5 中这个指针被称为对象的原型。一般来说我们是不应该能够获取到这个值的，但是现在浏">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-10-11T03:46:32.782Z">
+<meta property="og:updated_time" content="2020-12-26T15:44:42.975Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="1-Vue复习">
-<meta name="twitter:description" content="一、计算属性1.1计算属性的本质 fullname: {set(),get()}1.2 计算属性和methods对比 计算属性在多次使用时，只会调用一次 它是有缓存的  二、事件监听2.1事件监听基本使用2.2参数问题 btnClick btnClick(event) btnClick(abc,event)-&amp;gt;$event  2.3修饰符 stop prevent .enter .once">
+<meta name="twitter:title" content="原型链">
+<meta name="twitter:description" content="在 js 中我们是使用构造函数来新建一个对象的，每一个构造函数的内部都有一个 prototype 属性值，这个属性值是一个对象，这个对象包含了可以由该构造函数的所有实例共享的属性和方法。当我们使用构造函数新建一个对象后，在这个对象的内部将包含一个指针，这个指针指向构造函数的 prototype 属性对应的值，在 ES5 中这个指针被称为对象的原型。一般来说我们是不应该能够获取到这个值的，但是现在浏">
   
     <link rel="alternate" href="/atom.xml" title="Q-Quiet" type="application/atom+xml">
   
@@ -70,10 +70,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-1-Vue复习" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="js-原型-js-原型-原型链" class="article article-type-js-原型" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2020/10/11/1-Vue复习/" class="article-date">
-  <time datetime="2020-10-11T03:38:17.000Z" itemprop="datePublished">2020-10-11</time>
+    <a href="/2020/12/26/js-原型-原型链/" class="article-date">
+  <time datetime="2020-12-26T15:42:50.000Z" itemprop="datePublished">2020-12-26</time>
 </a>
     
   </div>
@@ -84,7 +84,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      1-Vue复习
+      原型链
     </h1>
   
 
@@ -92,34 +92,17 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="一、计算属性"><a href="#一、计算属性" class="headerlink" title="一、计算属性"></a>一、计算属性</h2><h3 id="1-1计算属性的本质"><a href="#1-1计算属性的本质" class="headerlink" title="1.1计算属性的本质"></a>1.1计算属性的本质</h3><ul>
-<li>fullname: {set(),get()}<h3 id="1-2-计算属性和methods对比"><a href="#1-2-计算属性和methods对比" class="headerlink" title="1.2 计算属性和methods对比"></a>1.2 计算属性和methods对比</h3></li>
-<li>计算属性在多次使用时，只会调用一次</li>
-<li>它是有缓存的</li>
-</ul>
-<h2 id="二、事件监听"><a href="#二、事件监听" class="headerlink" title="二、事件监听"></a>二、事件监听</h2><h3 id="2-1事件监听基本使用"><a href="#2-1事件监听基本使用" class="headerlink" title="2.1事件监听基本使用"></a>2.1事件监听基本使用</h3><h3 id="2-2参数问题"><a href="#2-2参数问题" class="headerlink" title="2.2参数问题"></a>2.2参数问题</h3><ul>
-<li>btnClick</li>
-<li>btnClick(event)</li>
-<li>btnClick(abc,event)-&gt;$event</li>
-</ul>
-<h3 id="2-3修饰符"><a href="#2-3修饰符" class="headerlink" title="2.3修饰符"></a>2.3修饰符</h3><ul>
-<li>stop</li>
-<li>prevent</li>
-<li>.enter</li>
-<li>.once</li>
-<li>.native</li>
-</ul>
-<h2 id="三、条件判断"><a href="#三、条件判断" class="headerlink" title="三、条件判断"></a>三、条件判断</h2><h3 id="3-1-v-if-v-if-else-v-else"><a href="#3-1-v-if-v-if-else-v-else" class="headerlink" title="3.1 v-if/v-if-else/v-else"></a>3.1 v-if/v-if-else/v-else</h3><h3 id="3-2-登录小案例"><a href="#3-2-登录小案例" class="headerlink" title="3.2 登录小案例"></a>3.2 登录小案例</h3><h3 id="3-3-v-show"><a href="#3-3-v-show" class="headerlink" title="3.3 v-show"></a>3.3 v-show</h3><ul>
-<li>v-show和v-if的区别</li>
-</ul>
-<h2 id="循环遍历"><a href="#循环遍历" class="headerlink" title="循环遍历"></a>循环遍历</h2>
+        <p>在 js 中我们是使用构造函数来新建一个对象的，每一个构造函数的内部都有一个 prototype 属性值，这个属性值是一个对象，这个对象包含了可以由该构造函数的所有实例共享的属性和方法。当我们使用构造函数新建一个对象后，在这个对象的内部将包含一个指针，这个指针指向构造函数的 prototype 属性对应的值，在 ES5 中这个指针被称为对象的原型。一般来说我们是不应该能够获取到这个值的，但是现在浏览器中都实现了 <strong>proto</strong> 属性来让我们访问这个属性，但是我们最好不要使用这个属性，因为它不是规范中规定的。ES5 中新增了一个 Object.getPrototypeOf() 方法，我们可以通过这个方法来获取对象的原型。</p>
+<p>当我们访问一个对象的属性时，如果这个对象内部不存在这个属性，那么它就会去它的原型对象里找这个属性，这个原型对象又会有自己的原型，于是就这样一直找下去，也就是原型链的概念。原型链的尽头一般来说都是 Object.prototype 所以这就是我们新建的对象为什么能够使用 toString() 等方法的原因。</p>
+<p>特点：<br>JavaScript 对象是通过引用来传递的，我们创建的每个新对象实体中并没有一份属于自己的原型副本。当我们修改原型时，与之相关的对象也会继承这一改变。<br>参考资料： 《JavaScript 深入理解之原型与原型链》<br>js 获取原型的方法？<br>p.<strong>proto</strong><br>p.constructor.prototype<br>Object.getPrototypeOf(p)</p>
+
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/10/11/1-Vue复习/" data-id="ckj5vklsr0000swuptljtnskk" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/12/26/js-原型-原型链/" data-id="ckj5vkluu000iswupbg0rnalj" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Vue/">Vue</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
 
     </footer>
   </div>
@@ -127,19 +110,10 @@
     
 <nav id="article-nav">
   
-    <a href="/2020/12/08/js-数组扁平化/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          js-数组扁平化
-        
-      </div>
-    </a>
   
-  
-    <a href="/2020/03/06/es6-12-Set和Map/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2020/12/25/js-转换规则/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">es6-12-Set和Map</div>
+      <div class="article-nav-title">js-转换规则</div>
     </a>
   
 </nav>
