@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>缓存机制 | Q-Quiet</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="1.介绍web缓存是指一个web资源（如html页面，图片，js，数据等）存在于web服务器和客户端（浏览器）之间的副本。1.1 web缓存的作用web缓存的作用显而易见：减少网络带宽消耗当Web缓存副本被使用时，只会产生极小的网络流量，可以有效的降低运营成本。降低服务器压力给网络资源设定有效期之后，用户可以重复使用本地的缓存，减少对源服务器的请求，间接降低服务器的压力。同时，搜索引擎的爬虫机器人">
+<meta name="keywords" content="浏览器">
+<meta property="og:type" content="article">
+<meta property="og:title" content="缓存机制">
+<meta property="og:url" content="https://Q-Quiet.github.io/2020/12/30/缓存机制/index.html">
+<meta property="og:site_name" content="Q-Quiet">
+<meta property="og:description" content="1.介绍web缓存是指一个web资源（如html页面，图片，js，数据等）存在于web服务器和客户端（浏览器）之间的副本。1.1 web缓存的作用web缓存的作用显而易见：减少网络带宽消耗当Web缓存副本被使用时，只会产生极小的网络流量，可以有效的降低运营成本。降低服务器压力给网络资源设定有效期之后，用户可以重复使用本地的缓存，减少对源服务器的请求，间接降低服务器的压力。同时，搜索引擎的爬虫机器人">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-12-30T15:10:28.887Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="缓存机制">
+<meta name="twitter:description" content="1.介绍web缓存是指一个web资源（如html页面，图片，js，数据等）存在于web服务器和客户端（浏览器）之间的副本。1.1 web缓存的作用web缓存的作用显而易见：减少网络带宽消耗当Web缓存副本被使用时，只会产生极小的网络流量，可以有效的降低运营成本。降低服务器压力给网络资源设定有效期之后，用户可以重复使用本地的缓存，减少对源服务器的请求，间接降低服务器的压力。同时，搜索引擎的爬虫机器人">
+  
+    <link rel="alternate" href="/atom.xml" title="Q-Quiet" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="shortcut icon" href="ban.jpeg" type="image/x-icon">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Q-Quiet</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">言语笑靥迎来情</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://Q-Quiet.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-缓存机制" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/12/30/缓存机制/" class="article-date">
+  <time datetime="2020-12-30T15:10:09.000Z" itemprop="datePublished">2020-12-30</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      缓存机制
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>1.介绍<br>web缓存是指一个web资源（如html页面，图片，js，数据等）存在于web服务器和客户端（浏览器）之间的副本。<br>1.1 web缓存的作用<br>web缓存的作用显而易见：<br>减少网络带宽消耗<br>当Web缓存副本被使用时，只会产生极小的网络流量，可以有效的降低运营成本。<br>降低服务器压力<br>给网络资源设定有效期之后，用户可以重复使用本地的缓存，减少对源服务器的请求，间接降低服务器的压力。同时，搜索引擎的爬虫机器人也能根据过期机制降低爬取的频率，也能有效降低服务器的压力。<br>减少网络延迟，加快页面打开速度<br>缓存的使用能够明显加快页面打开速度，达到更好的体验。<br>1.2 web缓存的类型<br>web缓存大致可以分为以下几种类型：<br>数据库数据缓存<br>服务器端缓存<br>浏览器端缓存<br>web应用层缓存</p>
+<ol start="2">
+<li>web缓存的工作原理<br>2.1 浏览器端的缓存规则<br>分别从新鲜度和校验值两个维度来规定浏览器是直接使用缓存中的副本，还是需要去源服务器获取更新的版本。<br>新鲜度（过期机制）：也就是缓存副本有效期。一个缓存副本必须满足以下任一条件，浏览器会认为它是有效的，足够新的，而直接从缓存中获取副本并渲染：<br>含有完整的过期时间控制头信息（HTTP协议报头），并且仍在有效期内<br>浏览器已经使用过这个缓存副本，并且在一个会话中已经检查过新鲜度<br>校验值（验证机制）：服务器返回资源的时候有时在控制头信息带上这个资源的实体标签Etag（Entity Tag），它可以用来作为浏览器再次请求过程的校验标识。如过发现校验标识不匹配，说明资源已经被修改或过期，浏览器需求重新获取资源内容。<br>2.2 浏览器缓存的控制<br>2.2.1 使用HTML的 Meta 标签<br>当前页面不被缓存，每次访问都需要去服务器拉取。<meta http-equiv="Pragma" content="no-cache">
+
+</li>
+</ol>
+<p>2.2.2 使用缓存有关的HTTP消息报头<br>2.2.3 缓存报头种类与优先级<br>2.2.4 哪些请求不能被缓存？<br>无法被浏览器缓存的请求：<br>HTTP信息头中包含Cache-Control:no-cache，pragma:no-cache，或Cache-Control:max-age=0等告诉浏览器不用缓存的请求<br>需要根据Cookie，认证信息等决定输入内容的动态请求是不能被缓存的<br>经过HTTPS安全加密的请求<br>POST请求无法被缓存<br>HTTP响应头中不包含Last-Modified/Etag，也不包含Cache-Control/Expires的请求无法被缓存</p>
+<ol start="3">
+<li>使用缓存流程<br>本地缓存阶段：先在本地查找该资源，如果有发现该资源，而且该资源还没有过期，就使用这一个资源，完全不会发送http请求到服务器；<br>协商缓存阶段：如果在本地缓存找到对应的资源，但是不知道该资源是否过期或者已经过期，则发一个http请求到服务器，然后服务器判断这个请求，如果请求的资源在服务器上没有改动过，则返回304，让浏览器使用本地找到的那个资源；<br>缓存失败阶段：当服务器发现请求的资源已经修改过，或者这是一个新的请求(在本来没有找到资源)，服务器则返回该资源的数据，并且返回200， 当然这个是指找到资源的情况下，如果服务器上没有这个资源，则返回404。<br>4.用户操作行为与缓存的关系<br>普通刷新 – 当按下F5或者点击刷新按钮来刷新页面的时候，浏览器将绕过本地缓存来发送请求到服务器, 此时, 协商缓存是有效的<br>强制刷新 – 当按下ctrl+F5来刷新页面的时候, 浏览器将绕过各种缓存(本地缓存和协商缓存), 直接让服务器返回最新的资源<br>回车或转向 – 当在地址栏上输入回车或者按下跳转按钮的时候, 所有缓存都生效</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://Q-Quiet.github.io/2020/12/30/缓存机制/" data-id="ckjbk3oos001em8up4r8iav45" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/浏览器/">浏览器</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2020/12/29/js的几种模块规范/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">js的几种模块规范</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vue/">Vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/es6/">es6</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/复习/">复习</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/浏览器/">浏览器</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Vue/" style="font-size: 10px;">Vue</a> <a href="/tags/es6/" style="font-size: 17.5px;">es6</a> <a href="/tags/js/" style="font-size: 20px;">js</a> <a href="/tags/复习/" style="font-size: 12.5px;">复习</a> <a href="/tags/浏览器/" style="font-size: 15px;">浏览器</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">十月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">三月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/12/30/缓存机制/">缓存机制</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/29/js的几种模块规范/">js的几种模块规范</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/28/浏览器的同源政策及其规避方法/">浏览器的同源政策及其规避方法</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/26/js-原型-原型链/">原型链</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/25/js-转换规则/">js-转换规则</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 Q-Quiet<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
