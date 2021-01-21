@@ -5,16 +5,20 @@
   
 
   
-  <title>Tag: vue | Q-Quiet</title>
+  <title>vue-router的两种模式 | Q-Quiet</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="keywords" content="note">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Q-Quiet">
-<meta property="og:url" content="https://Q-Quiet.github.io/tags/vue/index.html">
+  <meta name="description" content="改变视图的同时不会向后端发出请求。hash即地址栏 URL 中的 # 符号比如这个 URL：http://www.abc.com/#/hello，hash 的值为 #/hello。它的特点在于：hash 虽然出现在 URL 中，但不会被包括在 HTTP 请求中，对后端完全没有影响，因此改变 hash 不会重新加载页面。history利用了 HTML5 History Interface 中新增的">
+<meta name="keywords" content="vue">
+<meta property="og:type" content="article">
+<meta property="og:title" content="vue-router的两种模式">
+<meta property="og:url" content="https://Q-Quiet.github.io/2021/01/21/vue-router的两种模式/index.html">
 <meta property="og:site_name" content="Q-Quiet">
+<meta property="og:description" content="改变视图的同时不会向后端发出请求。hash即地址栏 URL 中的 # 符号比如这个 URL：http://www.abc.com/#/hello，hash 的值为 #/hello。它的特点在于：hash 虽然出现在 URL 中，但不会被包括在 HTTP 请求中，对后端完全没有影响，因此改变 hash 不会重新加载页面。history利用了 HTML5 History Interface 中新增的">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2021-01-21T14:36:37.915Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Q-Quiet">
+<meta name="twitter:title" content="vue-router的两种模式">
+<meta name="twitter:description" content="改变视图的同时不会向后端发出请求。hash即地址栏 URL 中的 # 符号比如这个 URL：http://www.abc.com/#/hello，hash 的值为 #/hello。它的特点在于：hash 虽然出现在 URL 中，但不会被包括在 HTTP 请求中，对后端完全没有影响，因此改变 hash 不会重新加载页面。history利用了 HTML5 History Interface 中新增的">
   
     <link rel="alternate" href="/atom.xml" title="Q-Quiet" type="application/atom+xml">
   
@@ -66,40 +70,55 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2021" class="archive-year">2021</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2021/01/21/vue-router的两种模式/" class="archive-article-date">
-  <time datetime="2021-01-21T14:36:14.000Z" itemprop="datePublished">1月 21</time>
+        <section id="main"><article id="post-vue-router的两种模式" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2021/01/21/vue-router的两种模式/" class="article-date">
+  <time datetime="2021-01-21T14:36:14.000Z" itemprop="datePublished">2021-01-21</time>
 </a>
-      
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/01/21/vue-router的两种模式/">vue-router的两种模式</a>
+    <h1 class="article-title" itemprop="name">
+      vue-router的两种模式
     </h1>
   
 
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>改变视图的同时不会向后端发出请求。<br>hash<br>即地址栏 URL 中的 # 符号<br>比如这个 URL：<a href="http://www.abc.com/#/hello，hash" target="_blank" rel="noopener">http://www.abc.com/#/hello，hash</a> 的值为 #/hello。它的特点在于：hash 虽然出现在 URL 中，但不会被包括在 HTTP 请求中，对后端完全没有影响，因此改变 hash 不会重新加载页面。<br>history<br>利用了 HTML5 History Interface 中新增的 pushState() 和 replaceState() 方法。（需要特定浏览器支持）<br>这两个方法应用于浏览器的历史记录栈，在当前已有的 back、forward、go 的基础之上，它们提供了对历史记录进行修改的功能。只是当它们执行修改时，虽然改变了当前的 URL，但浏览器不会立即向后端发送请求。</p>
+<p>SPA 虽然在浏览器里游刃有余，但如果通过 URL 向后端发起 HTTP 请求时，两者的差异就来了。尤其在用户手动输入 URL 后回车，或者刷新（重启）浏览器的时候。<br>1.hash 模式下，仅 hash 符号之前的内容会被包含在请求中，如 <a href="http://www.abc.com，因此对于后端来说，即使没有做到对路由的全覆盖，也不会返回" target="_blank" rel="noopener">http://www.abc.com，因此对于后端来说，即使没有做到对路由的全覆盖，也不会返回</a> 404 错误。<br>2.history 模式下，前端的 URL 必须和实际向后端发起请求的 URL 一致，如 <a href="http://www.abc.com/book/id。如果后端缺少对" target="_blank" rel="noopener">http://www.abc.com/book/id。如果后端缺少对</a> /book/id 的路由处理，将返回 404 错误。<br>Vue-Router 官网里如此描述：“不过这种模式要玩好，还需要后台配置支持……所以呢，你要在服务端增加一个覆盖所有情况的候选资源：如果 URL 匹配不到任何静态资源，则应该返回同一个 index.html 页面，这个页面就是你 app 依赖的页面。</p>
 
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://Q-Quiet.github.io/2021/01/21/vue-router的两种模式/" data-id="ckk6ykwqo00153oupv3zbze89" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vue/">vue</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2021/01/03/垃圾回收机制/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">垃圾回收机制</div>
+    </a>
+  
+</nav>
+
+  
+</article>
 
 </section>
         
