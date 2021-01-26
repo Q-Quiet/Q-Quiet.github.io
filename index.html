@@ -68,6 +68,46 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-js-判断浏览器类型" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2021/01/26/js-判断浏览器类型/" class="article-date">
+  <time datetime="2021-01-26T14:39:04.000Z" itemprop="datePublished">2021-01-26</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/01/26/js-判断浏览器类型/">js-判断浏览器类型</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>一、使用浏览器的userAgent来判断<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> explorer = <span class="built_in">window</span>.navigator.userAgent ;</span><br><span class="line">         <span class="comment">//判断是否为IE浏览器</span></span><br><span class="line">        <span class="keyword">if</span> (explorer.indexOf(<span class="string">"MSIE"</span>) &gt;= <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="string">'ie'</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//判断是否为Firefox浏览器</span></span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (explorer.indexOf(<span class="string">"Firefox"</span>) &gt;= <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="string">'Firefox'</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//判断是否为Chrome浏览器</span></span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(explorer.indexOf(<span class="string">"Chrome"</span>) &gt;= <span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="string">'Chrome'</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//判断是否为Opera浏览器</span></span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(explorer.indexOf(<span class="string">"Opera"</span>) &gt;= <span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="string">'Opera'</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//判断是否为Safari浏览器</span></span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(explorer.indexOf(<span class="string">"Safari"</span>) &gt;= <span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="string">'Safari'</span>;</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure></p>
+<p>实际上，通过检测 userAgent 的值来判断浏览器类型是不可靠的，也是不推荐的，因为用户可以修改userAgent 的值。<br>Firefox 中，你可以通过在 about:config 页面添加并修改general.useragent.override选项的值来覆盖默认的用户代理字符串。一些Firefox扩展也可以用其他方式修改这个值，但它们通常只会修改发送到服务器的User-Agent请求头的值，而不会影响 JavaScript 代码中获取的 window.navigator.userAgent 属性的值。<br>Opera 6+ 中允许用户通过菜单选择不同的用户代理字符串。<br>Microsoft Internet Explorer 使用注册表来配置自己的用户代理字符串。<br>Safari 和 iCab 也允许用户修改其用户代理字符串，来将自己伪装成 Internet Explorer 或 Netscape。<br>二、可以通过各个浏览器之间的特征来判断<br>IE<br>只有IE支持创建ActiveX控件，它有一个其他浏览器没有的东西，就是ActiveXObject函数。只要判断window对象存在ActiveXObject函数，就可以明确判断出当前浏览器是IE<br>Safari<br>Safari浏览器中有一个其他浏览器没有的openDatabase函数，可做为判断Safari的标志<br>Chrome<br>Chrome有一个MessageEvent函数，但Firefox也有。不过，好在Chrome并没有Firefox的getBoxObjectFor函数，根据这个条件还是可以准确判断出Chrome浏览器的<br>Firefox<br>Firefox中的DOM元素都有一个getBoxObjectFor函数，用来获取该DOM元素的位置和大小（IE对应的中是getBoundingClientRect函数）。这是Firefox独有的，判断它即可知道是当前浏览器是Firefox<br>Opera<br>Opera提供了专门的浏览器标志，就是window.opera属性<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (<span class="built_in">window</span>.ActiveXObject)</span><br><span class="line"><span class="keyword">return</span> <span class="string">"IE"</span>;</span><br><span class="line"><span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">document</span>.getBoxObjectFor)</span><br><span class="line"><span class="keyword">return</span> <span class="string">"Firefox"</span>;</span><br><span class="line"><span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">window</span>.MessageEvent &amp;&amp; !<span class="built_in">document</span>.getBoxObjectFor)</span><br><span class="line"><span class="keyword">return</span> <span class="string">"Chrome"</span>;</span><br><span class="line"><span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">window</span>.opera)</span><br><span class="line"><span class="keyword">return</span> <span class="string">"Opera"</span>;</span><br><span class="line"><span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">window</span>.openDatabase)</span><br><span class="line"><span class="keyword">return</span> <span class="string">"Safari"</span>;</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://Q-Quiet.github.io/2021/01/26/js-判断浏览器类型/" data-id="ckke3woxo000kwsupumwfi4ib" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-网络-TCP" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2021/01/23/网络-TCP/" class="article-date">
@@ -95,7 +135,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/01/23/网络-TCP/" data-id="ckk9soyux001gn8upz0ycpupf" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2021/01/23/网络-TCP/" data-id="ckke3woy50016wsupj6v02v6k" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/网络/">网络</a></li></ul>
@@ -135,7 +175,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/01/21/vue-router的两种模式/" data-id="ckk9soyuo0015n8up757cdii9" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2021/01/21/vue-router的两种模式/" data-id="ckke3woy40014wsuplr4rh5z4" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vue/">vue</a></li></ul>
@@ -182,7 +222,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/01/03/垃圾回收机制/" data-id="ckk9soyuz001jn8up5f434oqy" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2021/01/03/垃圾回收机制/" data-id="ckke3woyb001dwsupof4cm4vl" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
@@ -230,7 +270,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/12/30/缓存机制/" data-id="ckk9soyv3001nn8up9pzyfmfl" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/12/30/缓存机制/" data-id="ckke3woye001iwsupe28cjw2e" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/浏览器/">浏览器</a></li></ul>
@@ -279,7 +319,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/12/29/js的几种模块规范/" data-id="ckk9soyuq0017n8upijvn9c5f" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/12/29/js的几种模块规范/" data-id="ckke3woy9001bwsup1npi6sfm" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
@@ -396,7 +436,7 @@ cookieDomainRewrite: &apos;www.domain1.com&apos;  // 可以为false，表示不�
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/12/28/浏览器的同源政策及其规避方法/" data-id="ckk9soyvf001yn8uptqrl8cjv" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/12/28/浏览器的同源政策及其规避方法/" data-id="ckke3wozb0020wsup8n7xnubn" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/浏览器/">浏览器</a></li></ul>
@@ -437,7 +477,7 @@ cookieDomainRewrite: &apos;www.domain1.com&apos;  // 可以为false，表示不�
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/12/26/js-原型-原型链/" data-id="ckk9soyuh000wn8upgrqpzfh8" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/12/26/js-原型-原型链/" data-id="ckke3woxq000mwsupxt9v1m8y" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
@@ -492,7 +532,7 @@ cookieDomainRewrite: &apos;www.domain1.com&apos;  // 可以为false，表示不�
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/12/25/js-转换规则/" data-id="ckk9soyun0013n8upfrcdv4sq" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/12/25/js-转换规则/" data-id="ckke3woy20011wsupoutgyst0" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
@@ -555,100 +595,10 @@ cookieDomainRewrite: &apos;www.domain1.com&apos;  // 可以为false，表示不�
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/12/24/js-事件委托/" data-id="ckk9soyuk000zn8upp4lcruvn" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/12/24/js-事件委托/" data-id="ckke3woxf000dwsupnfvw2xu7" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-js-创建对象的几种方法" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/12/22/js-创建对象的几种方法/" class="article-date">
-  <time datetime="2020-12-22T13:57:18.000Z" itemprop="datePublished">2020-12-22</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/12/22/js-创建对象的几种方法/">js-创建对象的几种方法</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>工厂模式<br>构造函数模式<br>原型模式<br>动态原型模式<br>稳妥构造函数模式</p>
-<p>工厂模式<br>用函数来封装一个对象的创建<br>function createPerson(name, age, job){<br>    var o = new Object();<br>    o.name = name;<br>    o.age = age;<br>    o.job = job;<br>    o.sayName = function(){<br>        alert(this.name);<br>    };<br>    return o;<br>}</p>
-<p>var person1 = createPerson(“james”，9，”student”);</p>
-<p>var person2 = createPerson(“kobe”，9，”student”);</p>
-<p>优点：解决了创建多个相似对象时，代码的复用问题<br>缺点：使用工厂模式创建的对象，没有解决对象识别的问题（就是怎样知道一个对象的类型是什么）</p>
-<p>构造函数模式<br>构造函数可用来创建特定类型的对象。像 Object 和 Array 这样的原生构造函数，在运行时会自动出现在执行环境中。<br>创建自定义的构造函数，从而定义对象类型的属性和方法<br>function createPerson(name, age, job){<br>    this.name = name;<br>    this.age = age;<br>    this.job = job;<br>    this.sayName = function(){<br>        alert(this.name);<br>    };<br>    return o;<br>}</p>
-<p>var person1 = new createPerson(“james”，9，”student”);</p>
-<p>var person2 = new createPerson(“kobe”，9，”student”);</p>
-<p>当我们使用构造函数实例化一个对象的时候，对象中会包含一个 <strong>proto</strong> 属性指向构造函数原型对象，而原型对象中则包含一个 constructor 属性指向构造函数。因此在实例对象中我们可以通过原型链来访问到 constructor 属性，从而判断对象的类型。<br>优点：解决了工厂模式中对象类型无法识别的问题，并且创建自定义的构造函数意味着将来可以将它的实例标识为一种特定的类型。<br>缺点：我们知道 ECMAScript 中的函数是对象，在使用构造函数创建对象时，每个方法都会在实例对象中重新创建一遍。拿上面的例子举例，这意味着每创建一个对象，我们就会创建一个 sayName 函数的实例，但它们其实做的都是同样的工作，因此这样便会造成内存的浪费。</p>
-<p>原型模式<br>因为每一个函数都有一个 prototype 属性，这个属性指向函数的原型对象，这个对象的用途是包含可以由特定类型的所有实例共享的属性和方法。我们通过使用原型对象可以让所有的对象实例共享它所包含的属性和方法，因此这样也解决了代码的复用问题。<br>function Person(){<br>}</p>
-<p>Person.prototype.name = “james”;<br>Person.prototype.age = 9;<br>Person.prototype.job = “student”;<br>Person.prototype.sayName = function(){<br>    alert(this.name);<br>}</p>
-<p>var person1 = new Person();<br>person1.sayName(); // “james”</p>
-<p>var person2 = new Person();<br>person2.sayName(); // “james”</p>
-<p>console.log(person1.sayName === person2.sayName) // true</p>
-<p>优点：解决了构造函数模式中多次创建相同函数对象的问题，所有的实例可以共享同一组属性和函数。<br>缺点：<br>原型模式省略了构造函数模式传递初始化参数的过程，所有的实例在默认情况下都会取得默认的属性值。<br>因为所有的实例都是共享一组属性，对于包含基本值的属性来说没有问题，但是对于包含引用类型的值来说（例如数组对象），所有的实例都是对同一个引用类型进行操作，那么属性的操作就不是独立的，最后导致读写的混乱。我们创建的实例一般都是要有属于自己的全部属性的，因此单独使用原型模式的情况是很少存在的。</p>
-<p>组合使用构造函数模式和原型模式<br>创建自定义类型的最常见方式，就是组合使用构造函数模式和原型模式。<br>构造函数模式用于定义实例属性，而原型模式用于定义方法和共享的属性。支持向构造函数传递参数。<br>function Person(name, age, job){<br>    this.name = name;<br>    this.age = age;<br>    this.job = job;<br>}</p>
-<p>Person.prototype = {<br>    constructor: Person,<br>    sayName: function(){<br>        alert(this.name);<br>    }<br>}</p>
-<p>var person1 = new createPerson(“james”，9，”student”);</p>
-<p>var person2 = new createPerson(“kobe”，9，”student”);</p>
-<p>console.log(person1.name); // “james”<br>console.log(person2.name); // “kobe”<br>console.log(person1.sayName === person2.sayName); // true</p>
-<p>优点：采用了构造函数模式和原型模式的优点，这种混成模式是目前使用最广泛，认同度最高的一种创建自定类型的方法。<br>缺点：由于使用了两种模式，因此对于代码的封装性来说不是很好。</p>
-<p>动态原型模式<br>由于上面混成模式存在封装性的问题，动态原型模式是解决这个问题的一个方案。这个方法把所有信息都封装到了构造函数中，而在构造函数中通过判断只初始化一次原型。<br>function Person(name, age, job){<br>    this.name = name;<br>    this.age = age;<br>    this.job = job;</p>
-<pre><code>if(typeof this.sayName !== &quot;function&quot; ){
-
-    Person.prototype.sayName: function(){
-        alert(this.name);
-    } 
-} 
-</code></pre><p>}</p>
-<p>var person1 = new createPerson(“james”，9，”student”);</p>
-<p>person1.sayName(); // “james”</p>
-<p>优点：解决了混成模式中封装性的问题</p>
-<p>寄生构造函数模式<br>创建一个函数，该函数的作用仅仅是封装创建对象的代码，然后返回新创建的对象。<br>function Person(name, age, job){<br>    var o = new Object();<br>    o.name = name;<br>    o.age = age;<br>    o.job = job;<br>    o.sayName = function(){<br>        alert(this.name);<br>    };<br>    return o;<br>}</p>
-<p>var person1 = new Person(“james”，9，”student”);</p>
-<p>通过上面的例子我们可以发现，其实这个模式和工厂模式基本上是一摸一样的，只不过我们是采用 new 操作符最后来创建对象。f<br>返回的对象与构造函数之间没有关系。<br>缺点：和工厂模式一样的问题，不能依赖 instanceof 操作符来确定对象的类型。</p>
-<p>稳妥构造函数模式（工厂？）<br>稳妥对象指是没有公共属性，而且其方法也不使用 this 的对象。稳妥对象最适合在一些安全的环境中（这些环境中会禁止使用 this 和 new），或者在防止数据被其他应用程序改动时使用。<br>稳妥构造函数遵循与寄生构造函数类似的模式，但有两点不同：一是新创建的对象的实例方法不引用 this ；二是不使用 new 操作符调用构造函数。<br>function Person(name, age, job){</p>
-<pre><code>//创建要返回的对象
-var o = new Object();
-
-//可以在这里定义私有变量和函数
-
-//添加方法
-o.sayName = function(){
-    console.log(this.name);
-}
-
-//返回对象
-return o;
-</code></pre><p>} </p>
-<p>var person1 =  Person(“james”，9，”student”);</p>
-<p>person1.sayName(); // “james”</p>
-<p>优点：以上面为例，除了 sayName 方法外，没有别的方法可以访问数据成员，这就是稳妥构造函数提供的安全性。<br>缺点：和寄生构造函数一样，没有办法使用 instanceof 操作符来判断对象的类型</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/12/22/js-创建对象的几种方法/" data-id="ckk9soyub000pn8upc1q0gv83" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/复习/">复习</a></li></ul>
 
     </footer>
   </div>
@@ -707,6 +657,10 @@ return o;
       <ul>
         
           <li>
+            <a href="/2021/01/26/js-判断浏览器类型/">js-判断浏览器类型</a>
+          </li>
+        
+          <li>
             <a href="/2021/01/23/网络-TCP/">网络-TCP</a>
           </li>
         
@@ -720,10 +674,6 @@ return o;
         
           <li>
             <a href="/2020/12/30/缓存机制/">缓存机制</a>
-          </li>
-        
-          <li>
-            <a href="/2020/12/29/js的几种模块规范/">js的几种模块规范</a>
           </li>
         
       </ul>

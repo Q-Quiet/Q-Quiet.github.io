@@ -68,6 +68,96 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-js-创建对象的几种方法" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/12/22/js-创建对象的几种方法/" class="article-date">
+  <time datetime="2020-12-22T13:57:18.000Z" itemprop="datePublished">2020-12-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/12/22/js-创建对象的几种方法/">js-创建对象的几种方法</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>工厂模式<br>构造函数模式<br>原型模式<br>动态原型模式<br>稳妥构造函数模式</p>
+<p>工厂模式<br>用函数来封装一个对象的创建<br>function createPerson(name, age, job){<br>    var o = new Object();<br>    o.name = name;<br>    o.age = age;<br>    o.job = job;<br>    o.sayName = function(){<br>        alert(this.name);<br>    };<br>    return o;<br>}</p>
+<p>var person1 = createPerson(“james”，9，”student”);</p>
+<p>var person2 = createPerson(“kobe”，9，”student”);</p>
+<p>优点：解决了创建多个相似对象时，代码的复用问题<br>缺点：使用工厂模式创建的对象，没有解决对象识别的问题（就是怎样知道一个对象的类型是什么）</p>
+<p>构造函数模式<br>构造函数可用来创建特定类型的对象。像 Object 和 Array 这样的原生构造函数，在运行时会自动出现在执行环境中。<br>创建自定义的构造函数，从而定义对象类型的属性和方法<br>function createPerson(name, age, job){<br>    this.name = name;<br>    this.age = age;<br>    this.job = job;<br>    this.sayName = function(){<br>        alert(this.name);<br>    };<br>    return o;<br>}</p>
+<p>var person1 = new createPerson(“james”，9，”student”);</p>
+<p>var person2 = new createPerson(“kobe”，9，”student”);</p>
+<p>当我们使用构造函数实例化一个对象的时候，对象中会包含一个 <strong>proto</strong> 属性指向构造函数原型对象，而原型对象中则包含一个 constructor 属性指向构造函数。因此在实例对象中我们可以通过原型链来访问到 constructor 属性，从而判断对象的类型。<br>优点：解决了工厂模式中对象类型无法识别的问题，并且创建自定义的构造函数意味着将来可以将它的实例标识为一种特定的类型。<br>缺点：我们知道 ECMAScript 中的函数是对象，在使用构造函数创建对象时，每个方法都会在实例对象中重新创建一遍。拿上面的例子举例，这意味着每创建一个对象，我们就会创建一个 sayName 函数的实例，但它们其实做的都是同样的工作，因此这样便会造成内存的浪费。</p>
+<p>原型模式<br>因为每一个函数都有一个 prototype 属性，这个属性指向函数的原型对象，这个对象的用途是包含可以由特定类型的所有实例共享的属性和方法。我们通过使用原型对象可以让所有的对象实例共享它所包含的属性和方法，因此这样也解决了代码的复用问题。<br>function Person(){<br>}</p>
+<p>Person.prototype.name = “james”;<br>Person.prototype.age = 9;<br>Person.prototype.job = “student”;<br>Person.prototype.sayName = function(){<br>    alert(this.name);<br>}</p>
+<p>var person1 = new Person();<br>person1.sayName(); // “james”</p>
+<p>var person2 = new Person();<br>person2.sayName(); // “james”</p>
+<p>console.log(person1.sayName === person2.sayName) // true</p>
+<p>优点：解决了构造函数模式中多次创建相同函数对象的问题，所有的实例可以共享同一组属性和函数。<br>缺点：<br>原型模式省略了构造函数模式传递初始化参数的过程，所有的实例在默认情况下都会取得默认的属性值。<br>因为所有的实例都是共享一组属性，对于包含基本值的属性来说没有问题，但是对于包含引用类型的值来说（例如数组对象），所有的实例都是对同一个引用类型进行操作，那么属性的操作就不是独立的，最后导致读写的混乱。我们创建的实例一般都是要有属于自己的全部属性的，因此单独使用原型模式的情况是很少存在的。</p>
+<p>组合使用构造函数模式和原型模式<br>创建自定义类型的最常见方式，就是组合使用构造函数模式和原型模式。<br>构造函数模式用于定义实例属性，而原型模式用于定义方法和共享的属性。支持向构造函数传递参数。<br>function Person(name, age, job){<br>    this.name = name;<br>    this.age = age;<br>    this.job = job;<br>}</p>
+<p>Person.prototype = {<br>    constructor: Person,<br>    sayName: function(){<br>        alert(this.name);<br>    }<br>}</p>
+<p>var person1 = new createPerson(“james”，9，”student”);</p>
+<p>var person2 = new createPerson(“kobe”，9，”student”);</p>
+<p>console.log(person1.name); // “james”<br>console.log(person2.name); // “kobe”<br>console.log(person1.sayName === person2.sayName); // true</p>
+<p>优点：采用了构造函数模式和原型模式的优点，这种混成模式是目前使用最广泛，认同度最高的一种创建自定类型的方法。<br>缺点：由于使用了两种模式，因此对于代码的封装性来说不是很好。</p>
+<p>动态原型模式<br>由于上面混成模式存在封装性的问题，动态原型模式是解决这个问题的一个方案。这个方法把所有信息都封装到了构造函数中，而在构造函数中通过判断只初始化一次原型。<br>function Person(name, age, job){<br>    this.name = name;<br>    this.age = age;<br>    this.job = job;</p>
+<pre><code>if(typeof this.sayName !== &quot;function&quot; ){
+
+    Person.prototype.sayName: function(){
+        alert(this.name);
+    } 
+} 
+</code></pre><p>}</p>
+<p>var person1 = new createPerson(“james”，9，”student”);</p>
+<p>person1.sayName(); // “james”</p>
+<p>优点：解决了混成模式中封装性的问题</p>
+<p>寄生构造函数模式<br>创建一个函数，该函数的作用仅仅是封装创建对象的代码，然后返回新创建的对象。<br>function Person(name, age, job){<br>    var o = new Object();<br>    o.name = name;<br>    o.age = age;<br>    o.job = job;<br>    o.sayName = function(){<br>        alert(this.name);<br>    };<br>    return o;<br>}</p>
+<p>var person1 = new Person(“james”，9，”student”);</p>
+<p>通过上面的例子我们可以发现，其实这个模式和工厂模式基本上是一摸一样的，只不过我们是采用 new 操作符最后来创建对象。f<br>返回的对象与构造函数之间没有关系。<br>缺点：和工厂模式一样的问题，不能依赖 instanceof 操作符来确定对象的类型。</p>
+<p>稳妥构造函数模式（工厂？）<br>稳妥对象指是没有公共属性，而且其方法也不使用 this 的对象。稳妥对象最适合在一些安全的环境中（这些环境中会禁止使用 this 和 new），或者在防止数据被其他应用程序改动时使用。<br>稳妥构造函数遵循与寄生构造函数类似的模式，但有两点不同：一是新创建的对象的实例方法不引用 this ；二是不使用 new 操作符调用构造函数。<br>function Person(name, age, job){</p>
+<pre><code>//创建要返回的对象
+var o = new Object();
+
+//可以在这里定义私有变量和函数
+
+//添加方法
+o.sayName = function(){
+    console.log(this.name);
+}
+
+//返回对象
+return o;
+</code></pre><p>} </p>
+<p>var person1 =  Person(“james”，9，”student”);</p>
+<p>person1.sayName(); // “james”</p>
+<p>优点：以上面为例，除了 sayName 方法外，没有别的方法可以访问数据成员，这就是稳妥构造函数提供的安全性。<br>缺点：和寄生构造函数一样，没有办法使用 instanceof 操作符来判断对象的类型</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://Q-Quiet.github.io/2020/12/22/js-创建对象的几种方法/" data-id="ckke3woxu000rwsupgidv5f7q" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/复习/">复习</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-js-undefined" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2020/12/21/js-undefined/" class="article-date">
@@ -101,7 +191,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/12/21/js-undefined/" data-id="ckk9soyud000rn8upy3pwca7r" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/12/21/js-undefined/" data-id="ckke3wox90009wsup03kk2dn0" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/复习/">复习</a></li></ul>
@@ -141,7 +231,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/12/21/js-有哪些对象/" data-id="ckk9soyul0011n8up5bpwliw6" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/12/21/js-有哪些对象/" data-id="ckke3woxx000wwsupmv4fbknq" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
@@ -188,7 +278,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/12/20/js-内部属性-class/" data-id="ckk9soyu9000on8upj2k2eygd" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/12/20/js-内部属性-class/" data-id="ckke3woxj000fwsupmo7yjs5c" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
@@ -231,7 +321,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/12/17/js-基本属性-堆栈/" data-id="ckk9soyuf000tn8updfewxa9s" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/12/17/js-基本属性-堆栈/" data-id="ckke3woxs000pwsup2mppe1d3" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
@@ -287,7 +377,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/12/15/微任务、宏任务与Event-Loop/" data-id="ckk9soyus001an8up8gdvwa0c" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/12/15/微任务、宏任务与Event-Loop/" data-id="ckke3woyd001gwsupvxbucekl" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
@@ -328,7 +418,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/12/15/async-await/" data-id="ckk9soysz0003n8up623urvrl" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/12/15/async-await/" data-id="ckke3wowx0001wsupw0wct4eb" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
@@ -377,7 +467,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/12/14/为什么操作DOM慢/" data-id="ckk9soyuv001en8up9iglal7e" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/12/14/为什么操作DOM慢/" data-id="ckke3woy0000zwsupudzudptm" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/浏览器/">浏览器</a></li></ul>
@@ -418,7 +508,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/12/13/浏览器-渲染机制/" data-id="ckk9soyv0001ln8up8oqcydsi" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/12/13/浏览器-渲染机制/" data-id="ckke3woy70018wsupp0v24p9o" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/浏览器/">浏览器</a></li></ul>
@@ -470,56 +560,7 @@ return function (...args2) {
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/12/09/js-函数柯里化/" data-id="ckk9soyug000un8up8ov9x8wy" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-js-数组扁平化" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/12/08/js-数组扁平化/" class="article-date">
-  <time datetime="2020-12-08T09:15:34.000Z" itemprop="datePublished">2020-12-08</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/12/08/js-数组扁平化/">js-数组扁平化</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>toString &amp; split<br>join &amp; split<br>reduce<br>扩展运算符<br>递归<br>es6提供的新方法 flat(depth)<br>使用 stack 无限反嵌套多层嵌套数组<br>flatMap()<br>方法一 toString &amp; split<br>let arr = [1, [2, 3, [4, 5]]]<br>// 经过数组扁平化之后变为<br>[1, 2, 3, 4, 5]<br>对于 arr 调用 toString 方法后会得到<br>‘1, 2, 3, 4, 5’<br>因此我们可以利用 split 方法再将其转换为数组，然后再将其变成 Number 类型即可。<br>//toString &amp; split<br>function flatten (arr) {<br>  return arr.toString().split(‘,’).map(item =&gt; {<br>    return parseInt(item)<br>  })<br>}</p>
-<p>方法二  join &amp; split<br>和上面的toString一样，join也可以将数组转换为字符串<br>function flatten(arr) {<br>    return arr.join(‘,’).split(‘,’).map(function(item) {<br>        return parseInt(item);<br>    })<br>}</p>
-<p>方法三 reduce<br>利用递归结合 reduce 方法，如果遍历的每一个元素中还有数组，那么就进行递归将这些数组再进行扁平化操作。<br>function flatten(arr) {<br>  return arr.reduce((result, item)=&gt; {<br>    // 递归终止条件 Array.isArray(item) ? flatten(item) : item<br>    return result.concat(Array.isArray(item) ? flatten(item) : item);<br>  }, []);<br>}</p>
-<p>方法四 扩展运算符<br>利用数组的 some 方法，数组的 some 方法作用是遍历数组的每一项直到回调函数中返回的是 true。<br>如果是数组，sone 方法的回调返回 true，some 遍历就截止，进入 while 循环利用扩展运算符将数组进行扁平化，注意扩展运算符只能拆一层<br>let arr = [1, [2, [3, 4]]]<br>…arr // [1, 2, [3, 4]]</p>
-<p>此时会利用改变后的 arr 执行 some 方法。<br>如果不是数组，some 方法回调的返回值是 false，会继续执行 some 方法，此时不会进入 while 循环。</p>
-<p>function flatte (arr) {<br>  while(arr.some(item =&gt; Array.isArray(item))) {<br>    arr = [].concat(…arr);<br>  }<br>  return arr;<br>}</p>
-<p>方法五 递归<br>递归的遍历每一项，若为数组则继续遍历，否则concat<br>function flatten(arr) {<br>    var res = [];<br>    arr.map(item =&gt; {<br>        if(Array.isArray(item)) {<br>            res = res.concat(flatten(item));<br>        } else {<br>            res.push(item);<br>        }<br>    });<br>    return res;<br>}</p>
-<p>方法六 es6提供的新方法 flat(depth)<br>flat(depth) 方法中的参数depth，代表展开嵌套数组的深度，默认是1    如果我们可以提前知道数组的维度，对这个数组进行扁平化处理，参数depth的值就是数组的维度减一。<br>let a = [1,[2,3,[4,[5]]]];<br>a.flat(4-1); // [1,2,3,4,5]  a是4维数组</p>
-<p>depth的值设置为Infinity。<br>let a = [1,[2,3,[4,[5]]]];<br>a.flat(Infinity); // [1,2,3,4,5]  a是4维数组</p>
-<p>方法七 使用 stack 无限反嵌套多层嵌套数组<br>  var arr1 = [1, 2, [3], [1, 2, 3, [4, [2, 3, 4]]]];<br>  function flatten(input) {<br>      const stack = […input]; //保证不会破坏原数组<br>      const result = [];<br>      while (stack.length) {<br>        const first = stack.shift();<br>        if (Array.isArray(first)) {<br>          stack.unshift(…first);<br>        } else {<br>          result.push(first);<br>        }<br>      }<br>      return result;<br>      }<br>    flatten(arr1); //[1, 2, 3, 1, 2, 3, 4, 2, 3, 4]</p>
-<p>方法八 flatMap()<br>数组的es6的新方法flatMap();可以用来展开2维数组。 flatMap()方法类似先执行数组的map()（相当于执行Array.prototype.map()），然后对返回值组成的数组执行flat()方法（展开一层）。<br>  var arr = [[“今”, “天”, “天”, “气”, “不”, “错”],[“”],[“早”, “上”, “好”]];<br>  arr.flatMap(item =&gt; item);<br>  //[“今”, “天”, “天”, “气”, “不”, “错”, “”, “早”, “上”, “好”]</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/12/08/js-数组扁平化/" data-id="ckk9soyut001cn8upztckt6nb" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/12/09/js-函数柯里化/" data-id="ckke3woxm000hwsupzd2nt88m" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
@@ -581,6 +622,10 @@ return function (...args2) {
       <ul>
         
           <li>
+            <a href="/2021/01/26/js-判断浏览器类型/">js-判断浏览器类型</a>
+          </li>
+        
+          <li>
             <a href="/2021/01/23/网络-TCP/">网络-TCP</a>
           </li>
         
@@ -594,10 +639,6 @@ return function (...args2) {
         
           <li>
             <a href="/2020/12/30/缓存机制/">缓存机制</a>
-          </li>
-        
-          <li>
-            <a href="/2020/12/29/js的几种模块规范/">js的几种模块规范</a>
           </li>
         
       </ul>
