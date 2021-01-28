@@ -68,6 +68,63 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-ts-基础-原始数据类型" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2021/01/28/ts-基础-原始数据类型/" class="article-date">
+  <time datetime="2021-01-28T07:40:06.000Z" itemprop="datePublished">2021-01-28</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/01/28/ts-基础-原始数据类型/">ts-基础-原始数据类型</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>TypeScript 编译的时候即使报错了，还是会生成编译结果<br>如果要在报错的时候终止 js 文件的生成，可以在 tsconfig.json 中配置 noEmitOnError 即可</p>
+<h2 id="原始数据类型"><a href="#原始数据类型" class="headerlink" title="原始数据类型"></a>原始数据类型</h2><p>JavaScript 的类型分为两种：原始数据类型和对象类型。<br>原始数据类型包括：布尔值、数值、字符串、null、undefined 以及 ES6 中的新类型 Symbol 和 BigInt。<br>介绍前五种原始数据类型在 TypeScript 中的应用。</p>
+<h3 id="布尔型"><a href="#布尔型" class="headerlink" title="布尔型"></a>布尔型</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> isDone: boolean = <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> createdByBoolean: boolean = <span class="built_in">Boolean</span>(<span class="number">1</span>);</span><br><span class="line"><span class="comment">// 编译通过</span></span><br><span class="line"><span class="comment">// 后面约定，未强调编译错误的代码片段，默认为编译通过</span></span><br></pre></td></tr></table></figure>
+<p>使用构造函数 Boolean 创造的对象不是布尔值：new Boolean() 返回的是一个 Boolean 对象：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> createdByNewBoolean: boolean = <span class="keyword">new</span> <span class="built_in">Boolean</span>(<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Type 'Boolean' is not assignable to type 'boolean'.</span></span><br><span class="line"><span class="comment">//   'boolean' is a primitive, but 'Boolean' is a wrapper object. Prefer using 'boolean' when possible.</span></span><br></pre></td></tr></table></figure>
+<h3 id="数值"><a href="#数值" class="headerlink" title="数值"></a>数值</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> decLiteral: number = <span class="number">6</span>;</span><br><span class="line"><span class="keyword">let</span> hexLiteral: number = <span class="number">0xf00d</span>;</span><br><span class="line"><span class="comment">// ES6 中的二进制表示法</span></span><br><span class="line"><span class="keyword">let</span> binaryLiteral: number = <span class="number">0b1010</span>;</span><br><span class="line"><span class="comment">// ES6 中的八进制表示法</span></span><br><span class="line"><span class="keyword">let</span> octalLiteral: number = <span class="number">0o744</span>;</span><br><span class="line"><span class="keyword">let</span> notANumber: number = <span class="literal">NaN</span>;</span><br><span class="line"><span class="keyword">let</span> infinityNumber: number = <span class="literal">Infinity</span>;</span><br></pre></td></tr></table></figure>
+<p>js<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> decLiteral = <span class="number">6</span>;</span><br><span class="line"><span class="keyword">var</span> hexLiteral = <span class="number">0xf00d</span>;</span><br><span class="line"><span class="comment">// ES6 中的二进制表示法</span></span><br><span class="line"><span class="keyword">var</span> binaryLiteral = <span class="number">10</span>;</span><br><span class="line"><span class="comment">// ES6 中的八进制表示法</span></span><br><span class="line"><span class="keyword">var</span> octalLiteral = <span class="number">484</span>;</span><br><span class="line"><span class="keyword">var</span> notANumber = <span class="literal">NaN</span>;</span><br><span class="line"><span class="keyword">var</span> infinityNumber = <span class="literal">Infinity</span>;</span><br></pre></td></tr></table></figure></p>
+<p>二进制和八进制会被编译为十进制数字。</p>
+<h3 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> myName: string = <span class="string">'Tom'</span>;</span><br><span class="line"><span class="keyword">let</span> myAge: number = <span class="number">25</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 模板字符串</span></span><br><span class="line"><span class="keyword">let</span> sentence: string = <span class="string">`Hello, my name is <span class="subst">$&#123;myName&#125;</span>.</span></span><br><span class="line"><span class="string">I'll be <span class="subst">$&#123;myAge + <span class="number">1</span>&#125;</span> years old next month.`</span>;</span><br></pre></td></tr></table></figure>
+<p>js<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> myName = <span class="string">'Tom'</span>;</span><br><span class="line"><span class="keyword">var</span> myAge = <span class="number">25</span>;</span><br><span class="line"><span class="comment">// 模板字符串</span></span><br><span class="line"><span class="keyword">var</span> sentence = <span class="string">"Hello, my name is "</span> + myName + <span class="string">".</span></span><br><span class="line"><span class="string">I'll be "</span> + (myAge + <span class="number">1</span>) + <span class="string">" years old next month."</span>;</span><br></pre></td></tr></table></figure></p>
+<p>其中 ` 用来定义 ES6 中的模板字符串，${expr} 用来在模板字符串中嵌入表达式。</p>
+<h3 id="空值"><a href="#空值" class="headerlink" title="空值"></a>空值</h3><p>JavaScript 没有空值（Void）的概念，在 TypeScript 中，可以用 void 表示没有任何返回值的函数：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">alertName</span>(<span class="params"></span>): <span class="title">void</span> </span>&#123;</span><br><span class="line">    alert(<span class="string">'My name is Tom'</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>声明一个 void 类型的变量没有什么用，因为你只能将它赋值为 </p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="literal">undefined</span> 和 <span class="literal">null</span>：</span><br><span class="line"><span class="keyword">let</span> unusable: <span class="keyword">void</span> = <span class="literal">undefined</span>;</span><br></pre></td></tr></table></figure>
+<h3 id="Null和Undefined"><a href="#Null和Undefined" class="headerlink" title="Null和Undefined"></a>Null和Undefined</h3><p>在 TypeScript 中，可以使用 null 和 undefined 来定义这两个原始数据类型</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> u: <span class="literal">undefined</span> = <span class="literal">undefined</span>;</span><br><span class="line"><span class="keyword">let</span> n: <span class="literal">null</span> = <span class="literal">null</span>;</span><br></pre></td></tr></table></figure>
+<p>与 void 的区别是，undefined 和 null 是所有类型的子类型。也就是说 undefined 类型的变量，可以赋值给 number 类型的变量：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 这样不会报错</span></span><br><span class="line"><span class="keyword">let</span> num: number = <span class="literal">undefined</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 这样也不会报错</span></span><br><span class="line"><span class="keyword">let</span> u: <span class="literal">undefined</span>;</span><br><span class="line"><span class="keyword">let</span> num: number = u;</span><br></pre></td></tr></table></figure>
+<p>但是void类型的变量不能赋值给number类型的变量<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> u: <span class="keyword">void</span>;</span><br><span class="line"><span class="keyword">let</span> num: number = u;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Type 'void' is not assignable to type 'number'.</span></span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://Q-Quiet.github.io/2021/01/28/ts-基础-原始数据类型/" data-id="ckkgjvr5n000vwsupk5u6crs2" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ts/">ts</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-js-判断浏览器类型" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2021/01/26/js-判断浏览器类型/" class="article-date">
@@ -96,7 +153,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/01/26/js-判断浏览器类型/" data-id="ckke3woxo000kwsupumwfi4ib" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2021/01/26/js-判断浏览器类型/" data-id="ckkgjvr5h000nwsupgoce41tm" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
@@ -135,7 +192,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/01/23/网络-TCP/" data-id="ckke3woy50016wsupj6v02v6k" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2021/01/23/网络-TCP/" data-id="ckkgjvr68001jwsup0sw9vvva" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/网络/">网络</a></li></ul>
@@ -175,7 +232,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/01/21/vue-router的两种模式/" data-id="ckke3woy40014wsuplr4rh5z4" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2021/01/21/vue-router的两种模式/" data-id="ckkgjvr5t0012wsupp31rcwjq" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vue/">vue</a></li></ul>
@@ -222,7 +279,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/01/03/垃圾回收机制/" data-id="ckke3woyb001dwsupof4cm4vl" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2021/01/03/垃圾回收机制/" data-id="ckkgjvr5z0019wsup0cw48vzz" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
@@ -270,7 +327,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/12/30/缓存机制/" data-id="ckke3woye001iwsupe28cjw2e" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/12/30/缓存机制/" data-id="ckkgjvr6b001mwsup68bqcqhb" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/浏览器/">浏览器</a></li></ul>
@@ -319,7 +376,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/12/29/js的几种模块规范/" data-id="ckke3woy9001bwsup1npi6sfm" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/12/29/js的几种模块规范/" data-id="ckkgjvr5v0015wsuppzwmadon" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
@@ -436,7 +493,7 @@ cookieDomainRewrite: &apos;www.domain1.com&apos;  // 可以为false，表示不�
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/12/28/浏览器的同源政策及其规避方法/" data-id="ckke3wozb0020wsup8n7xnubn" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/12/28/浏览器的同源政策及其规避方法/" data-id="ckkgjvr6s0023wsup85j0z7jg" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/浏览器/">浏览器</a></li></ul>
@@ -477,7 +534,7 @@ cookieDomainRewrite: &apos;www.domain1.com&apos;  // 可以为false，表示不�
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/12/26/js-原型-原型链/" data-id="ckke3woxq000mwsupxt9v1m8y" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/12/26/js-原型-原型链/" data-id="ckkgjvr5k000qwsupdaqg0rnb" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
@@ -532,70 +589,7 @@ cookieDomainRewrite: &apos;www.domain1.com&apos;  // 可以为false，表示不�
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/12/25/js-转换规则/" data-id="ckke3woy20011wsupoutgyst0" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-js-事件委托" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/12/24/js-事件委托/" class="article-date">
-  <time datetime="2020-12-24T13:12:41.000Z" itemprop="datePublished">2020-12-24</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/12/24/js-事件委托/">事件委托</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>1.事件模型各阶段<br>DOM0级模型<br>又称为原始事件模型，在该模型中，事件不会传播，即没有事件流的概念。事件绑定监听函数比较简单, 有两种方式:<br>HTML代码中直接绑定:</p>
-<input type="button" onclick="fun()">
-
-<p>通过JS代码指定属性值:<br>var btn = document.getElementById(‘.btn’);<br>btn.onclick = fun;</p>
-<p>移除监听函数：<br>btn.onclick = null;</p>
-<p>这种方式所有浏览器都兼容，但是逻辑与显示并没有分离。<br>IE事件模型<br>IE事件模型共有两个过程:<br>事件处理阶段(target phase)。事件到达目标元素, 触发目标元素的监听函数。<br>事件冒泡阶段(bubbling phase)。事件从目标元素冒泡到document, 依次检查经过的节点是否绑定了事件监听函数，如果有则执行。<br>事件绑定监听函数的方式如下:<br>attachEvent(eventType, handler)</p>
-<p>事件移除监听函数的方式如下:<br>detachEvent(eventType, handler)</p>
-<p>参数说明:<br>eventType指定事件类型(注意加on)<br>handler是事件处理函数<br>Example:<br>var btn = document.getElementById(‘.btn’);<br>btn.attachEvent(‘onclick’, showMessage);<br>btn.detachEvent(‘onclick’, showMessage);</p>
-<p>DOM2级模型<br>属于W3C标准模型，现代浏览器(除IE6-8之外的浏览器)都支持该模型。在该事件模型中，一次事件共有三个过程:<br>事件捕获阶段(capturing phase)。事件从document一直向下传播到目标元素, 依次检查经过的节点是否绑定了事件监听函数，如果有则执行。<br>事件处理阶段(target phase)。事件到达目标元素, 触发目标元素的监听函数。<br>事件冒泡阶段(bubbling phase)。事件从目标元素冒泡到document, 依次检查经过的节点是否绑定了事件监听函数，如果有则执行。<br>事件绑定监听函数的方式如下:<br>addEventListener(eventType, handler, useCapture)</p>
-<p>事件移除监听函数的方式如下:<br>removeEventListener(eventType, handler, useCapture)</p>
-<p>Example:<br>var btn = document.getElementById(‘.btn’);<br>btn.addEventListener(‘click’, showMessage, false);<br>btn.removeEventListener(‘click’, showMessage, false);</p>
-<p>参数说明:<br>eventType指定事件类型(不要加on)<br>handler是事件处理函数<br>useCapture是一个boolean用于指定是否在捕获阶段进行处理，一般设置为false与IE浏览器保持一致。<br>事件对象<br>当一个事件被触发时，会创建一个事件对象(Event Object), 这个对象里面包含了与该事件相关的属性或者方法。该对象会作为第一个参数传递给监听函数。<br>DOM事件模型中的事件对象常用属性:<br>type用于获取事件类型<br>target获取事件目标<br>stopPropagation()阻止事件冒泡<br>preventDefault()阻止事件默认行为<br>IE事件模型中的事件对象常用属性:<br>type用于获取事件类型<br>srcElement获取事件目标<br>cancelBubble阻止事件冒泡<br>returnValue阻止事件默认行为<br>Event Wrapper（事件监听函数）<br>由于事件模型的差异以及Event对象的不同，为了达到兼容各个浏览器的目的，我们可以增加一个Event Wrapper, 它对各个浏览器应当提供一致的事件操作接口。<br>const EventUtils = {<br>  // 视能力分别使用dom0||dom2||IE方式 来绑定事件<br>  // 添加事件<br>  addEvent: function(element, type, handler) {<br>    if (element.addEventListener) {<br>      element.addEventListener(type, handler, false);<br>    } else if (element.attachEvent) {<br>      element.attachEvent(“on” + type, handler);<br>    } else {<br>      element[“on” + type] = handler;<br>    }<br>  },</p>
-<p>  // 移除事件<br>  removeEvent: function(element, type, handler) {<br>    if (element.removeEventListener) {<br>      element.removeEventListener(type, handler, false);<br>    } else if (element.detachEvent) {<br>      element.detachEvent(“on” + type, handler);<br>    } else {<br>      element[“on” + type] = null;<br>    }<br>  },</p>
-<p>  // 获取事件目标<br>  getTarget: function(event) {<br>    return event.target || event.srcElement;<br>  },</p>
-<p>  // 获取 event 对象的引用，取到事件的所有信息，确保随时能使用 event<br>  getEvent: function(event) {<br>    return event || window.event;<br>  },</p>
-<p>  // 阻止事件（主要是事件冒泡，因为 IE 不支持事件捕获）<br>  stopPropagation: function(event) {<br>    if (event.stopPropagation) {<br>      event.stopPropagation();<br>    } else {<br>      event.cancelBubble = true;<br>    }<br>  },</p>
-<p>  // 取消事件的默认行为<br>  preventDefault: function(event) {<br>    if (event.preventDefault) {<br>      event.preventDefault();<br>    } else {<br>      event.returnValue = false;<br>    }<br>  }<br>};</p>
-<p>事件代理<br>事件在冒泡过程中会上传到父节点，因此可以把子节点的监听函数定义在父节点上，由父节点的监听函数统一处理多个子元素的事件，这种方式称为事件代理(Event delegation)。</p>
-<div id="box"><br>    <input type="button" value="按钮" id="btn"><br>    <input type="button" value="按钮2" id="btn2"><br>    <input type="button" value="按钮3" id="btn3"><br></div>
-
-<p>var box = document.getElementById(‘box’);</p>
-<p>box.addEventListener(‘click’, function(event) {<br>  if (event.target.tagName.toLowerCase() === ‘input’) {<br>    // some code<br>  }<br>});</p>
-<p>自定义事件<br>JS中已经内置了很多事件，如click, mouseover等等，但是内置事件毕竟有限，有时候我们想自己定义一些事件，例如三连击，threeclick。<br>var event = new Event(‘threeclick’, {“bubbles”:true, “cancelable”:false});</p>
-<p>target.addEventListener(‘threeclick’,hello,flase);</p>
-<p>target.dispatchEvent(event);</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/12/24/js-事件委托/" data-id="ckke3woxf000dwsupnfvw2xu7" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/12/25/js-转换规则/" data-id="ckkgjvr63001cwsupm91oc0h5" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
@@ -625,7 +619,7 @@ cookieDomainRewrite: &apos;www.domain1.com&apos;  // 可以为false，表示不�
   <div class="widget-wrap">
     <h3 class="widget-title">标签</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vue/">Vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/es6/">es6</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/">vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/复习/">复习</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/浏览器/">浏览器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网络/">网络</a></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vue/">Vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/es6/">es6</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ts/">ts</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/">vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/复习/">复习</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/浏览器/">浏览器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网络/">网络</a></li></ul>
     </div>
   </div>
 
@@ -635,7 +629,7 @@ cookieDomainRewrite: &apos;www.domain1.com&apos;  // 可以为false，表示不�
   <div class="widget-wrap">
     <h3 class="widget-title">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Vue/" style="font-size: 10px;">Vue</a> <a href="/tags/es6/" style="font-size: 17.5px;">es6</a> <a href="/tags/js/" style="font-size: 20px;">js</a> <a href="/tags/vue/" style="font-size: 10px;">vue</a> <a href="/tags/复习/" style="font-size: 12.5px;">复习</a> <a href="/tags/浏览器/" style="font-size: 15px;">浏览器</a> <a href="/tags/网络/" style="font-size: 10px;">网络</a>
+      <a href="/tags/Vue/" style="font-size: 10px;">Vue</a> <a href="/tags/es6/" style="font-size: 17.5px;">es6</a> <a href="/tags/js/" style="font-size: 20px;">js</a> <a href="/tags/ts/" style="font-size: 10px;">ts</a> <a href="/tags/vue/" style="font-size: 10px;">vue</a> <a href="/tags/复习/" style="font-size: 12.5px;">复习</a> <a href="/tags/浏览器/" style="font-size: 15px;">浏览器</a> <a href="/tags/网络/" style="font-size: 10px;">网络</a>
     </div>
   </div>
 
@@ -657,6 +651,10 @@ cookieDomainRewrite: &apos;www.domain1.com&apos;  // 可以为false，表示不�
       <ul>
         
           <li>
+            <a href="/2021/01/28/ts-基础-原始数据类型/">ts-基础-原始数据类型</a>
+          </li>
+        
+          <li>
             <a href="/2021/01/26/js-判断浏览器类型/">js-判断浏览器类型</a>
           </li>
         
@@ -670,10 +668,6 @@ cookieDomainRewrite: &apos;www.domain1.com&apos;  // 可以为false，表示不�
         
           <li>
             <a href="/2021/01/03/垃圾回收机制/">垃圾回收机制</a>
-          </li>
-        
-          <li>
-            <a href="/2020/12/30/缓存机制/">缓存机制</a>
           </li>
         
       </ul>
