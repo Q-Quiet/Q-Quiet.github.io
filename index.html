@@ -68,6 +68,57 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-ts-基础-函数的类型" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2021/01/29/ts-基础-函数的类型/" class="article-date">
+  <time datetime="2021-01-29T09:13:05.000Z" itemprop="datePublished">2021-01-29</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/01/29/ts-基础-函数的类型/">ts-基础-函数的类型</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="函数声明"><a href="#函数声明" class="headerlink" title="函数声明"></a>函数声明</h3><p>在 JavaScript 中，有两种常见的定义函数的方式——函数声明和函数表达式：<br><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 函数声明（Function Declaration）</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">sum</span>(<span class="params">x, y</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> x + y;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 函数表达式（Function Expression）</span></span><br><span class="line"><span class="keyword">let</span> mySum = <span class="function"><span class="keyword">function</span> (<span class="params">x, y</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> x + y;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>一个函数有输入和输出，要在 TypeScript 中对其进行约束，需要把输入和输出都考虑到，其中函数声明的类型定义较简单：<br><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">sum</span>(<span class="params">x: <span class="built_in">number</span>, y: <span class="built_in">number</span></span>): <span class="title">number</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> x + y;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>输入多余的（或者少于要求的）参数，是不被允许的：<br><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">sum</span>(<span class="params">x: <span class="built_in">number</span>, y: <span class="built_in">number</span></span>): <span class="title">number</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> x + y;</span><br><span class="line">&#125;</span><br><span class="line">sum(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// index.ts(4,1): error TS2346: Supplied parameters do not match any signature of call target.</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">sum</span>(<span class="params">x: <span class="built_in">number</span>, y: <span class="built_in">number</span></span>): <span class="title">number</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> x + y;</span><br><span class="line">&#125;</span><br><span class="line">sum(<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// index.ts(4,1): error TS2346: Supplied parameters do not match any signature of call target.</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="函数表达式"><a href="#函数表达式" class="headerlink" title="函数表达式"></a>函数表达式</h3><p>如果要我们现在写一个对函数表达式的定义，可能会写成这样：<br><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> mySum = <span class="function"><span class="keyword">function</span> (<span class="params">x: <span class="built_in">number</span>, y: <span class="built_in">number</span></span>): <span class="title">number</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> x + y;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>这是可以通过编译的，不过事实上，上面的代码只对等号右侧的匿名函数进行了类型定义，而等号左边的 mySum，是通过赋值操作进行类型推论而推断出来的。如果需要我们手动给 mySum 添加类型，则应该是这样：<br><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> mySum: <span class="function">(<span class="params">x: <span class="built_in">number</span>, y: <span class="built_in">number</span></span>) =&gt;</span> <span class="built_in">number</span> = <span class="function"><span class="keyword">function</span> (<span class="params">x: <span class="built_in">number</span>, y: <span class="built_in">number</span></span>): <span class="title">number</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> x + y;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>在 TypeScript 的类型定义中，=&gt; 用来表示函数的定义，左边是输入类型，需要用括号括起来，右边是输出类型。<br>用接口定义函数的形状<br><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> SearchFunc &#123;</span><br><span class="line">    (source: <span class="built_in">string</span>, subString: <span class="built_in">string</span>): <span class="built_in">boolean</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> mySearch: SearchFunc;</span><br><span class="line">mySearch = <span class="function"><span class="keyword">function</span>(<span class="params">source: <span class="built_in">string</span>, subString: <span class="built_in">string</span></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> source.search(subString) !== <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>采用函数表达式|接口定义函数的方式时，对等号左侧进行类型限制，可以保证以后对函数名赋值时保证参数个数、参数类型、返回值类型不变。</p>
+<h3 id="可选参数"><a href="#可选参数" class="headerlink" title="可选参数"></a>可选参数</h3><p>与接口中的可选属性类似，我们用 ? 表示可选的参数：可选参数必须接在必需参数后面。<br><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">buildName</span>(<span class="params">firstName: <span class="built_in">string</span>, lastName?: <span class="built_in">string</span></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (lastName) &#123;</span><br><span class="line">        <span class="keyword">return</span> firstName + <span class="string">' '</span> + lastName;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> firstName;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> tomcat = buildName(<span class="string">'Tom'</span>, <span class="string">'Cat'</span>);</span><br><span class="line"><span class="keyword">let</span> tom = buildName(<span class="string">'Tom'</span>);</span><br></pre></td></tr></table></figure></p>
+<h3 id="参数默认值"><a href="#参数默认值" class="headerlink" title="参数默认值"></a>参数默认值</h3><p>在 ES6 中，我们允许给函数的参数添加默认值，TypeScript 会将添加了默认值的参数识别为可选参数：此时就不受「可选参数必须接在必需参数后面」的限制了<br><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">buildName</span>(<span class="params">firstName: <span class="built_in">string</span>, lastName: <span class="built_in">string</span> = 'Cat'</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> firstName + <span class="string">' '</span> + lastName;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> tomcat = buildName(<span class="string">'Tom'</span>, <span class="string">'Cat'</span>);</span><br><span class="line"><span class="keyword">let</span> tom = buildName(<span class="string">'Tom'</span>);</span><br></pre></td></tr></table></figure></p>
+<h3 id="剩余参数"><a href="#剩余参数" class="headerlink" title="剩余参数"></a>剩余参数</h3><p>ES6 中，可以使用 …rest 的方式获取函数中的剩余参数事实上，items 是一个数组。所以我们可以用数组的类型来定义它：rest 参数只能是最后一个参数<br><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">push</span>(<span class="params">array: <span class="built_in">any</span>[], ...items: <span class="built_in">any</span>[]</span>) </span>&#123;</span><br><span class="line">    items.forEach(<span class="function"><span class="keyword">function</span>(<span class="params">item</span>) </span>&#123;</span><br><span class="line">        array.push(item);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> a = [];</span><br><span class="line">push(a, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>);</span><br></pre></td></tr></table></figure></p>
+<h3 id="重载"><a href="#重载" class="headerlink" title="重载"></a>重载</h3><p>重载允许一个函数接受不同数量或类型的参数时，作出不同的处理。<br>比如，我们需要实现一个函数 reverse，输入数字 123 的时候，输出反转的数字 321，输入字符串 ‘hello’ 的时候，输出反转的字符串 ‘olleh’。<br>利用联合类型，我们可以这么实现：<br><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">reverse</span>(<span class="params">x: <span class="built_in">number</span> | <span class="built_in">string</span></span>): <span class="title">number</span> | <span class="title">string</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> x === <span class="string">'number'</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">Number</span>(x.toString().split(<span class="string">''</span>).reverse().join(<span class="string">''</span>));</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="keyword">typeof</span> x === <span class="string">'string'</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> x.split(<span class="string">''</span>).reverse().join(<span class="string">''</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>然而这样有一个缺点，就是不能够精确的表达，输入为数字的时候，输出也应该为数字，输入为字符串的时候，输出也应该为字符串。<br>可以使用重载定义多个 reverse 的函数类型：<br><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">reverse</span>(<span class="params">x: <span class="built_in">number</span></span>): <span class="title">number</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">reverse</span>(<span class="params">x: <span class="built_in">string</span></span>): <span class="title">string</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">reverse</span>(<span class="params">x: <span class="built_in">number</span> | <span class="built_in">string</span></span>): <span class="title">number</span> | <span class="title">string</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> x === <span class="string">'number'</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">Number</span>(x.toString().split(<span class="string">''</span>).reverse().join(<span class="string">''</span>));</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="keyword">typeof</span> x === <span class="string">'string'</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> x.split(<span class="string">''</span>).reverse().join(<span class="string">''</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>TypeScript 会优先从最前面的函数定义开始匹配，所以多个函数定义如果有包含关系，需要优先把精确的定义写在前面。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://Q-Quiet.github.io/2021/01/29/ts-基础-函数的类型/" data-id="ckki2pf8s001a2supl87vgl7b" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ts/">ts</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-ts-基础-原始数据类型" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2021/01/28/ts-基础-原始数据类型/" class="article-date">
@@ -113,7 +164,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/01/28/ts-基础-原始数据类型/" data-id="ckki2mgmv0011mcupq5e58w7o" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2021/01/28/ts-基础-原始数据类型/" data-id="ckki2pf8o00152supfasfiv28" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ts/">ts</a></li></ul>
@@ -153,7 +204,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/01/26/js-判断浏览器类型/" data-id="ckki2mgmb000hmcupijreky2k" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2021/01/26/js-判断浏览器类型/" data-id="ckki2pf84000h2supd8xgsayc" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
@@ -192,7 +243,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/01/23/网络-TCP/" data-id="ckki2mgnw001tmcupryewtxyb" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2021/01/23/网络-TCP/" data-id="ckki2pf93001m2suph88tkigi" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/网络/">网络</a></li></ul>
@@ -232,7 +283,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/01/21/vue-router的两种模式/" data-id="ckki2mgmz0016mcup5x7tlh08" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2021/01/21/vue-router的两种模式/" data-id="ckki2pf8m00132supz3htgyry" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vue/">vue</a></li></ul>
@@ -279,7 +330,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/01/03/垃圾回收机制/" data-id="ckki2mgn4001dmcupgah3ysfk" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2021/01/03/垃圾回收机制/" data-id="ckki2pf8u001c2supntl78b8a" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
@@ -327,7 +378,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/12/30/缓存机制/" data-id="ckki2mgn6001fmcup2hrk5l5w" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/12/30/缓存机制/" data-id="ckki2pf91001k2supex50mg8g" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/浏览器/">浏览器</a></li></ul>
@@ -376,7 +427,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/12/29/js的几种模块规范/" data-id="ckki2mgmt000zmcupmo1wfx5a" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/12/29/js的几种模块规范/" data-id="ckki2pf8j000z2sup8zdlr76p" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
@@ -493,7 +544,7 @@ cookieDomainRewrite: &apos;www.domain1.com&apos;  // 可以为false，表示不�
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/12/28/浏览器的同源政策及其规避方法/" data-id="ckki2mgo90022mcupriuz53x0" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/12/28/浏览器的同源政策及其规避方法/" data-id="ckki2pf9u00242sup9fgu88py" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/浏览器/">浏览器</a></li></ul>
@@ -534,62 +585,7 @@ cookieDomainRewrite: &apos;www.domain1.com&apos;  // 可以为false，表示不�
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/12/26/js-原型-原型链/" data-id="ckki2mgmh000mmcup2ddcj2l0" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-js-转换规则" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/12/25/js-转换规则/" class="article-date">
-  <time datetime="2020-12-25T15:18:32.000Z" itemprop="datePublished">2020-12-25</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/12/25/js-转换规则/">js-转换规则</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <ol start="17">
-<li><p>其他值到字符串的转换规则？<br>规范的 9.8 节中定义了抽象操作 ToString ，它负责处理非字符串到字符串的强制类型转换。<br>（1）Null 和 Undefined 类型 ，null 转换为 “null”，undefined 转换为 “undefined”，<br>（2）Boolean 类型，true 转换为 “true”，false 转换为 “false”。<br>（3）Number 类型的值直接转换，不过那些极小和极大的数字会使用指数形式。<br>（4）Symbol 类型的值直接转换，但是只允许显式强制类型转换，使用隐式强制类型转换会产生错误。<br>（3）对普通对象来说，除非自行定义 toString() 方法，否则会调用 toString()（Object.prototype.toString()）<br>来返回内部属性 [[Class]] 的值，如”[object Object]”。如果对象有自己的 toString() 方法，字符串化时就会调用该方法并使用其返回值。</p>
-</li>
-<li><p>其他值到数字值的转换规则？<br>有时我们需要将非数字值当作数字来使用，比如数学运算。为此 ES5 规范在 9.3 节定义了抽象操作 ToNumber。<br>（1）Undefined 类型的值转换为 NaN。<br>（2）Null 类型的值转换为 0。<br>（3）Boolean 类型的值，true 转换为 1，false 转换为 0。<br>（4）String 类型的值转换如同使用 Number() 函数进行转换，如果包含非数字值则转换为 NaN，空字符串为 0。<br>（5）Symbol 类型的值不能转换为数字，会报错。<br>（6）对象（包括数组）会首先被转换为相应的基本类型值，如果返回的是非数字的基本类型值，则再遵循以上规则将其强制转换为数字。<br>为了将值转换为相应的基本类型值，抽象操作 ToPrimitive 会首先（通过内部操作 DefaultValue）检查该值是否有valueOf() 方法。如果有并且返回基本类型值，就使用该值进行强制类型转换。如果没有就使用 toString() 的返回值（如果存在）来进行强制类型转换。<br>如果 valueOf() 和 toString() 均不返回基本类型值，会产生 TypeError 错误。</p>
-</li>
-<li><p>其他值到布尔类型的值的转换规则？<br>ES5 规范 9.2 节中定义了抽象操作 ToBoolean，列举了布尔强制类型转换所有可能出现的结果。</p>
-</li>
-</ol>
-<p>以下这些是假值：<br>• undefined<br>• null<br>• false<br>• +0、-0 和 NaN<br>• “”</p>
-<p>假值的布尔强制类型转换结果为 false。从逻辑上说，假值列表以外的都应该是真值。</p>
-<ol start="27">
-<li>Symbol 值的强制类型转换？<br>ES6 允许从符号到字符串的显式强制类型转换，然而隐式强制类型转换会产生错误。</li>
-</ol>
-<p>Symbol 值不能够被强制类型转换为数字（显式和隐式都会产生错误），但可以被强制类型转换为布尔值（显式和隐式结果<br>都是 true ）。</p>
-<ol start="28">
-<li>== 操作符的强制类型转换规则？<br>（1）字符串和数字之间的相等比较，将字符串转换为数字之后再进行比较。<br>（2）其他类型和布尔类型之间的相等比较，先将布尔值转换为数字后，再应用其他规则进行比较。<br>（3）null 和 undefined 之间的相等比较，结果为真。其他值和它们进行比较都返回假值。<br>（4）对象和非对象之间的相等比较，对象先调用 ToPrimitive 抽象操作后，再进行比较。<br>（5）如果一个操作值为 NaN ，则相等比较返回 false（ NaN 本身也不等于 NaN ）。<br>（6）如果两个操作值都是对象，则比较它们是不是指向同一个对象。如果两个操作数都指向同一个对象，则相等操作符返回 true，否则，返回 false。</li>
-</ol>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/12/25/js-转换规则/" data-id="ckki2mgmx0013mcupqu6z2c26" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/12/26/js-原型-原型链/" data-id="ckki2pf89000m2supevjz8a9s" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
@@ -629,7 +625,7 @@ cookieDomainRewrite: &apos;www.domain1.com&apos;  // 可以为false，表示不�
   <div class="widget-wrap">
     <h3 class="widget-title">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Vue/" style="font-size: 10px;">Vue</a> <a href="/tags/es6/" style="font-size: 17.5px;">es6</a> <a href="/tags/js/" style="font-size: 20px;">js</a> <a href="/tags/ts/" style="font-size: 10px;">ts</a> <a href="/tags/vue/" style="font-size: 10px;">vue</a> <a href="/tags/复习/" style="font-size: 12.5px;">复习</a> <a href="/tags/浏览器/" style="font-size: 15px;">浏览器</a> <a href="/tags/网络/" style="font-size: 10px;">网络</a>
+      <a href="/tags/Vue/" style="font-size: 10px;">Vue</a> <a href="/tags/es6/" style="font-size: 17.5px;">es6</a> <a href="/tags/js/" style="font-size: 20px;">js</a> <a href="/tags/ts/" style="font-size: 12.5px;">ts</a> <a href="/tags/vue/" style="font-size: 10px;">vue</a> <a href="/tags/复习/" style="font-size: 12.5px;">复习</a> <a href="/tags/浏览器/" style="font-size: 15px;">浏览器</a> <a href="/tags/网络/" style="font-size: 10px;">网络</a>
     </div>
   </div>
 
@@ -651,6 +647,10 @@ cookieDomainRewrite: &apos;www.domain1.com&apos;  // 可以为false，表示不�
       <ul>
         
           <li>
+            <a href="/2021/01/29/ts-基础-函数的类型/">ts-基础-函数的类型</a>
+          </li>
+        
+          <li>
             <a href="/2021/01/28/ts-基础-原始数据类型/">ts-基础-原始数据类型</a>
           </li>
         
@@ -664,10 +664,6 @@ cookieDomainRewrite: &apos;www.domain1.com&apos;  // 可以为false，表示不�
         
           <li>
             <a href="/2021/01/21/vue-router的两种模式/">vue-router的两种模式</a>
-          </li>
-        
-          <li>
-            <a href="/2021/01/03/垃圾回收机制/">垃圾回收机制</a>
           </li>
         
       </ul>
