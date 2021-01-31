@@ -68,6 +68,73 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-ts-进阶-枚举" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2021/01/31/ts-进阶-枚举/" class="article-date">
+  <time datetime="2021-01-31T07:57:03.000Z" itemprop="datePublished">2021-01-31</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/01/31/ts-进阶-枚举/">ts-进阶-枚举</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="枚举"><a href="#枚举" class="headerlink" title="枚举"></a>枚举</h2><p>枚举类型用于取值被限定在一定范围内。</p>
+<h3 id="栗子"><a href="#栗子" class="headerlink" title="栗子"></a>栗子</h3><p>枚举使用 enum 关键字来定义：<br><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">enum</span> Days &#123;Sun, Mon, Tue, Wed, Thu, Fri, Sat&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>枚举成员会被赋值为从 0 开始递增的数字，同时也会对枚举值到枚举名进行反向映射：<br><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">enum</span> Days &#123;Sun, Mon, Tue, Wed, Thu, Fri, Sat&#125;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(Days[<span class="string">"Sun"</span>] === <span class="number">0</span>); <span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(Days[<span class="string">"Mon"</span>] === <span class="number">1</span>); <span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(Days[<span class="string">"Tue"</span>] === <span class="number">2</span>); <span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(Days[<span class="string">"Sat"</span>] === <span class="number">6</span>); <span class="comment">// true</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(Days[<span class="number">0</span>] === <span class="string">"Sun"</span>); <span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(Days[<span class="number">1</span>] === <span class="string">"Mon"</span>); <span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(Days[<span class="number">2</span>] === <span class="string">"Tue"</span>); <span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(Days[<span class="number">6</span>] === <span class="string">"Sat"</span>); <span class="comment">// true</span></span><br></pre></td></tr></table></figure></p>
+<p>事实上，上面的例子会被编译为：<br><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> Days;</span><br><span class="line">(<span class="function"><span class="keyword">function</span> (<span class="params">Days</span>) </span>&#123;</span><br><span class="line">    Days[Days[<span class="string">"Sun"</span>] = <span class="number">0</span>] = <span class="string">"Sun"</span>;</span><br><span class="line">    Days[Days[<span class="string">"Mon"</span>] = <span class="number">1</span>] = <span class="string">"Mon"</span>;</span><br><span class="line">    Days[Days[<span class="string">"Tue"</span>] = <span class="number">2</span>] = <span class="string">"Tue"</span>;</span><br><span class="line">    Days[Days[<span class="string">"Wed"</span>] = <span class="number">3</span>] = <span class="string">"Wed"</span>;</span><br><span class="line">    Days[Days[<span class="string">"Thu"</span>] = <span class="number">4</span>] = <span class="string">"Thu"</span>;</span><br><span class="line">    Days[Days[<span class="string">"Fri"</span>] = <span class="number">5</span>] = <span class="string">"Fri"</span>;</span><br><span class="line">    Days[Days[<span class="string">"Sat"</span>] = <span class="number">6</span>] = <span class="string">"Sat"</span>;</span><br><span class="line">&#125;)(Days || (Days = &#123;&#125;));</span><br></pre></td></tr></table></figure></p>
+<h3 id="手动赋值"><a href="#手动赋值" class="headerlink" title="手动赋值"></a>手动赋值</h3><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">enum</span> Days &#123;Sun = <span class="number">7</span>, Mon = <span class="number">1</span>, Tue, Wed, Thu, Fri, Sat&#125;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(Days[<span class="string">"Sun"</span>] === <span class="number">7</span>); <span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(Days[<span class="string">"Mon"</span>] === <span class="number">1</span>); <span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(Days[<span class="string">"Tue"</span>] === <span class="number">2</span>); <span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(Days[<span class="string">"Sat"</span>] === <span class="number">6</span>); <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+<p>未手动赋值的枚举项会接着上一个枚举项递增。<br>如果未手动赋值的枚举项与手动赋值的重复了，TypeScript 是无法察觉到这一点的：<br><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">enum</span> Days &#123;Sun = <span class="number">3</span>, Mon = <span class="number">1</span>, Tue, Wed, Thu, Fri, Sat&#125;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(Days[<span class="string">"Sun"</span>] === <span class="number">3</span>); <span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(Days[<span class="string">"Wed"</span>] === <span class="number">3</span>); <span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(Days[<span class="number">3</span>] === <span class="string">"Sun"</span>); <span class="comment">// false</span></span><br><span class="line"><span class="built_in">console</span>.log(Days[<span class="number">3</span>] === <span class="string">"Wed"</span>); <span class="comment">// true</span></span><br></pre></td></tr></table></figure></p>
+<p>上面的例子中，递增到 3 的时候与前面的 Sun 的取值重复了，但是 TypeScript 并没有报错，导致 Days[3] 的值先是 “Sun”，而后又被 “Wed” 覆盖了。编译的结果是：<br><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> Days;</span><br><span class="line">(<span class="function"><span class="keyword">function</span> (<span class="params">Days</span>) </span>&#123;</span><br><span class="line">    Days[Days[<span class="string">"Sun"</span>] = <span class="number">3</span>] = <span class="string">"Sun"</span>;</span><br><span class="line">    Days[Days[<span class="string">"Mon"</span>] = <span class="number">1</span>] = <span class="string">"Mon"</span>;</span><br><span class="line">    Days[Days[<span class="string">"Tue"</span>] = <span class="number">2</span>] = <span class="string">"Tue"</span>;</span><br><span class="line">    Days[Days[<span class="string">"Wed"</span>] = <span class="number">3</span>] = <span class="string">"Wed"</span>;</span><br><span class="line">    Days[Days[<span class="string">"Thu"</span>] = <span class="number">4</span>] = <span class="string">"Thu"</span>;</span><br><span class="line">    Days[Days[<span class="string">"Fri"</span>] = <span class="number">5</span>] = <span class="string">"Fri"</span>;</span><br><span class="line">    Days[Days[<span class="string">"Sat"</span>] = <span class="number">6</span>] = <span class="string">"Sat"</span>;</span><br><span class="line">&#125;)(Days || (Days = &#123;&#125;));</span><br></pre></td></tr></table></figure></p>
+<p>手动赋值的枚举项可以不是数字，此时需要使用类型断言来让 tsc 无视类型检查<br><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">enum</span> Days &#123;Sun = <span class="number">7</span>, Mon, Tue, Wed, Thu, Fri, Sat = &lt;<span class="built_in">any</span>&gt;<span class="string">"S"</span>&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> Days;</span><br><span class="line">(<span class="function"><span class="keyword">function</span> (<span class="params">Days</span>) </span>&#123;</span><br><span class="line">    Days[Days[<span class="string">"Sun"</span>] = <span class="number">7</span>] = <span class="string">"Sun"</span>;</span><br><span class="line">    Days[Days[<span class="string">"Mon"</span>] = <span class="number">8</span>] = <span class="string">"Mon"</span>;</span><br><span class="line">    Days[Days[<span class="string">"Tue"</span>] = <span class="number">9</span>] = <span class="string">"Tue"</span>;</span><br><span class="line">    Days[Days[<span class="string">"Wed"</span>] = <span class="number">10</span>] = <span class="string">"Wed"</span>;</span><br><span class="line">    Days[Days[<span class="string">"Thu"</span>] = <span class="number">11</span>] = <span class="string">"Thu"</span>;</span><br><span class="line">    Days[Days[<span class="string">"Fri"</span>] = <span class="number">12</span>] = <span class="string">"Fri"</span>;</span><br><span class="line">    Days[Days[<span class="string">"Sat"</span>] = <span class="string">"S"</span>] = <span class="string">"Sat"</span>;</span><br><span class="line">&#125;)(Days || (Days = &#123;&#125;));</span><br></pre></td></tr></table></figure></p>
+<h3 id="常数项和计算所得项"><a href="#常数项和计算所得项" class="headerlink" title="常数项和计算所得项"></a>常数项和计算所得项</h3><p>枚举项有两种类型：常数项和计算所得项。<br><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">enum</span> Color &#123;Red, Green, Blue = <span class="string">"blue"</span>.length&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>上面的例子中，”blue”.length 就是一个计算所得项。<br>上面的例子不会报错，但是如果紧接在计算所得项后面的是未手动赋值的项，那么它就会因为无法获得初始值而报错：<br><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">enum</span> Color &#123;Red = <span class="string">"red"</span>.length, Green, Blue&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// index.ts(1,33): error TS1061: Enum member must have initializer.</span></span><br><span class="line"><span class="comment">// index.ts(1,40): error TS1061: Enum member must have initializer.</span></span><br></pre></td></tr></table></figure></p>
+<p>当满足以下条件时，枚举成员被当作是常数：</p>
+<ul>
+<li>不具有初始化函数并且之前的枚举成员是常数。在这种情况下，当前枚举成员的值为上一个枚举成员的值加 1。但第一个枚举元素是个例外。如果它没有初始化方法，那么它的初始值为 0。</li>
+<li>枚举成员使用常数枚举表达式初始化。常数枚举表达式是 TypeScript 表达式的子集，它可以在编译阶段求值。当一个表达式满足下面条件之一时，它就是一个常数枚举表达式：<ul>
+<li>数字字面量</li>
+<li>引用之前定义的常数枚举成员（可以是在不同的枚举类型中定义的）如果这个成员是在同一个枚举类型中定义的，可以使用非限定名来引用</li>
+<li>带括号的常数枚举表达式</li>
+<li>+, -, ~ 一元运算符应用于常数枚举表达式</li>
+<li>+, -, *, /, %, &lt;&lt;, &gt;&gt;, &gt;&gt;&gt;, &amp;, |, ^ 二元运算符，常数枚举表达式做为其一个操作对象。若常数枚举表达式求值后为 NaN 或 Infinity，则会在编译阶段报错<br>所有其它情况的枚举成员被当作是需要计算得出的值。<h3 id="常数枚举"><a href="#常数枚举" class="headerlink" title="常数枚举"></a>常数枚举</h3>数枚举是使用 const enum 定义的枚举类型：<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">enum</span> Directions &#123;</span><br><span class="line">    Up,</span><br><span class="line">    Down,</span><br><span class="line">    Left,</span><br><span class="line">    Right</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> directions = [Directions.Up, Directions.Down, Directions.Left, Directions.Right];</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<p>常数枚举与普通枚举的区别是，它会在编译阶段被删除，上例的编译结果是：<br><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> directions = [<span class="number">0</span> <span class="comment">/* Up */</span>, <span class="number">1</span> <span class="comment">/* Down */</span>, <span class="number">2</span> <span class="comment">/* Left */</span>, <span class="number">3</span> <span class="comment">/* Right */</span>];</span><br></pre></td></tr></table></figure></p>
+<p>假如包含了计算成员，则会在编译阶段报错：<br><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">enum</span> Color &#123;Red, Green, Blue = <span class="string">"blue"</span>.length&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// index.ts(1,38): error TS2474: In 'const' enum declarations member initializer must be constant</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="外部枚举"><a href="#外部枚举" class="headerlink" title="外部枚举"></a>外部枚举</h3><p>外部枚举是使用 declare enum 定义的枚举类型：<br><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">declare</span> <span class="keyword">enum</span> Directions &#123;</span><br><span class="line">    Up,</span><br><span class="line">    Down,</span><br><span class="line">    Left,</span><br><span class="line">    Right</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> directions = [Directions.Up, Directions.Down, Directions.Left, Directions.Right];</span><br></pre></td></tr></table></figure></p>
+<p>declare 定义的类型只会用于编译时的检查，编译结果中会被删除。<br>上例的编译结果是：<br><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> directions = [Directions.Up, Directions.Down, Directions.Left, Directions.Right];</span><br></pre></td></tr></table></figure></p>
+<p>外部枚举与声明语句一样，常出现在声明文件中。<br>同时使用 declare 和 const 也是可以的：<br><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">declare</span> <span class="keyword">const</span> <span class="keyword">enum</span> Directions &#123;</span><br><span class="line">    Up,</span><br><span class="line">    Down,</span><br><span class="line">    Left,</span><br><span class="line">    Right</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> directions = [Directions.Up, Directions.Down, Directions.Left, Directions.Right];</span><br></pre></td></tr></table></figure></p>
+<p>编译结果：<br><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> directions = [<span class="number">0</span> <span class="comment">/* Up */</span>, <span class="number">1</span> <span class="comment">/* Down */</span>, <span class="number">2</span> <span class="comment">/* Left */</span>, <span class="number">3</span> <span class="comment">/* Right */</span>];</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://Q-Quiet.github.io/2021/01/31/ts-进阶-枚举/" data-id="ckkkuzxj40016yguprq7eawiv" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ts/">ts</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-ts-基础-类型断言" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2021/01/29/ts-基础-类型断言/" class="article-date">
@@ -122,7 +189,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/01/29/ts-基础-类型断言/" data-id="ckki5kftt0026zgups1mi9gzp" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2021/01/29/ts-基础-类型断言/" data-id="ckkkuzxkj0029ygup8elj7h3w" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ts/">ts</a></li></ul>
@@ -173,7 +240,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/01/29/ts-基础-函数的类型/" data-id="ckki5kfse0012zgupl8tn2f2u" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2021/01/29/ts-基础-函数的类型/" data-id="ckkkuzxj00011ygupekkspakl" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ts/">ts</a></li></ul>
@@ -230,7 +297,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/01/28/ts-基础-原始数据类型/" data-id="ckki5kfsk001azgupscref9h5" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2021/01/28/ts-基础-原始数据类型/" data-id="ckkkuzxj20013ygup91qubjsd" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ts/">ts</a></li></ul>
@@ -270,7 +337,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/01/26/js-判断浏览器类型/" data-id="ckki5kfs5000qzgupf2agmc1r" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2021/01/26/js-判断浏览器类型/" data-id="ckkkuzxit000sygup3a1uru9c" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
@@ -309,7 +376,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/01/23/网络-TCP/" data-id="ckki5kfsw001mzgup3gcpdck6" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2021/01/23/网络-TCP/" data-id="ckkkuzxji001kygup9uw9u59d" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/网络/">网络</a></li></ul>
@@ -349,7 +416,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/01/21/vue-router的两种模式/" data-id="ckki5kfsr001hzgupy6zzh73r" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2021/01/21/vue-router的两种模式/" data-id="ckkkuzxjb001dygupi41y1m0r" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vue/">vue</a></li></ul>
@@ -396,7 +463,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/01/03/垃圾回收机制/" data-id="ckki5kfsn001czguppdnm9kyz" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2021/01/03/垃圾回收机制/" data-id="ckkkuzxj8001aygup47vohteu" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
@@ -444,7 +511,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/12/30/缓存机制/" data-id="ckki5kfsy001ozgupiemnp1c2" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/12/30/缓存机制/" data-id="ckkkuzxjm001pygupn2vl0l27" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/浏览器/">浏览器</a></li></ul>
@@ -493,127 +560,10 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/12/29/js的几种模块规范/" data-id="ckki5kfsg0015zgup8efshg05" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/12/29/js的几种模块规范/" data-id="ckkkuzxj60018ygupwcuwhjo7" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-浏览器的同源政策及其规避方法" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/12/28/浏览器的同源政策及其规避方法/" class="article-date">
-  <time datetime="2020-12-28T08:41:29.000Z" itemprop="datePublished">2020-12-28</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/12/28/浏览器的同源政策及其规避方法/">浏览器的同源政策及其规避方法</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>定义<br>它的含义是指，A网页设置的 Cookie，B网页不能打开，除非这两个网页”同源”。<br>所谓”同源”指的是”三个相同”：协议相同、域名相同、端口相同<br>举例来说，<a href="http://www.example.com/dir/page.html这个网址，协议是http://，域名是www.example.com，端口是80（默认端口可以省略）。它的同源情况如下。" target="_blank" rel="noopener">http://www.example.com/dir/page.html这个网址，协议是http://，域名是www.example.com，端口是80（默认端口可以省略）。它的同源情况如下。</a><br><a href="http://www.example.com/dir2/other.html：同源" target="_blank" rel="noopener">http://www.example.com/dir2/other.html：同源</a><br><a href="http://example.com/dir/other.html：不同源（域名不同）" target="_blank" rel="noopener">http://example.com/dir/other.html：不同源（域名不同）</a><br><a href="http://v2.www.example.com/dir/other.html：不同源（域名不同）" target="_blank" rel="noopener">http://v2.www.example.com/dir/other.html：不同源（域名不同）</a><br><a href="http://www.example.com:81/dir/other.html：不同源（端口不同）" target="_blank" rel="noopener">http://www.example.com:81/dir/other.html：不同源（端口不同）</a><br>1.2 目的<br>同源政策的目的，是为了保证用户信息的安全，防止恶意的网站窃取数据。<br>如果其他网站可以读取A网站的 Cookie，会发生什么？<br>如果 Cookie 包含隐私（比如存款总额），这些信息就会泄漏。更可怕的是，Cookie 往往用来保存用户的登录状态，如果用户没有退出登录，其他网站就可以冒充用户，为所欲为。因为浏览器同时还规定，提交表单不受同源政策的限制。<br>由此可见，”同源政策”是必需的，否则 Cookie 可以共享，互联网就毫无安全可言了。<br>1.3 限制范围<br>！！！！如果非同源，共有三种行为受到限制。<br>（1） Cookie、LocalStorage 和 IndexDB 无法读取。<br>（2） DOM 无法获得。<br>（3） AJAX 请求不能发送。</p>
-<p>跨域解决方案<br>1、 通过jsonp跨域                jsonp缺点：只能实现get一种请求。<br>2、 document.domain + iframe跨域<br>3、 location.hash + iframe<br>4、 window.name + iframe跨域<br>5、 postMessage跨域<br>6、 跨域资源共享（CORS）<br>7、 nginx代理跨域<br>8、 nodejs中间件代理跨域<br>9、 WebSocket协议跨域<br>二、Cookie<br>Cookie 是服务器写入浏览器的一小段信息，只有同源的网页才能共享。但是，两个网页一级域名相同，只是二级域名不同，浏览器允许通过设置document.domain共享 Cookie。<br>举例来说，A网页是<a href="http://w1.example.com/a.html，B网页是http://w2.example.com/b.html，那么只要设置相同的document.domain，两个网页就可以共享Cookie。" target="_blank" rel="noopener">http://w1.example.com/a.html，B网页是http://w2.example.com/b.html，那么只要设置相同的document.domain，两个网页就可以共享Cookie。</a><br>document.domain = ‘example.com’;<br>现在，A网页通过脚本设置一个 Cookie。<br>document.cookie = “test1=hello”;<br>B网页就可以读到这个 Cookie。<br>var allCookie = document.cookie;<br>这种方法只适用于 Cookie 和 iframe 窗口，LocalStorage 和 IndexDB 无法通过这种方法<br>1.）父窗口：(<a href="http://www.domain.com/a.html" target="_blank" rel="noopener">http://www.domain.com/a.html</a>)</p>
-<p><iframe id="iframe" src="http://child.domain.com/b.html"></iframe></p>
-<script>
-    document.domain = 'domain.com';
-    var user = 'admin';
-</script>
-
-<p>2.）子窗口：(<a href="http://child.domain.com/b.html" target="_blank" rel="noopener">http://child.domain.com/b.html</a>)</p>
-<script>
-    document.domain = 'domain.com';
-    // 获取父窗口中变量
-    alert('get js data from parent ---> ' + window.parent.user);
-</script>
-
-<p>三、iframe<br>如果两个网页不同源，就无法拿到对方的DOM。典型的例子是iframe窗口和window.open方法打开的窗口，它们与父窗口无法通信。<br>对于完全不同源的网站，目前有三种方法，可以解决跨域窗口的通信问题。<br>片段识别符（fragment identifier）<br>window.name<br>跨文档通信API（Cross-document messaging）<br>3.1 片段识别符<br>片段标识符（fragment identifier）指的是，URL的#号后面的部分，比如<a href="http://example.com/x.html#fragment的#fragment。" target="_blank" rel="noopener">http://example.com/x.html#fragment的#fragment。</a><br>如果只是改变片段标识符，页面不会重新刷新。<br>父窗口可以把信息，写入子窗口的片段标识符。<br>var src = originURL + ‘#’ + data;<br>document.getElementById(‘myIFrame’).src = src;</p>
-<p>子窗口通过监听hashchange事件得到通知。<br>window.onhashchange = checkMessage;</p>
-<p>function checkMessage() {<br>  var message = window.location.hash;<br>  // …<br>}</p>
-<p>子窗口也可以改变父窗口的片段标识符。<br>parent.location.href= target + “#” + hash;</p>
-<p>3.2 window.name<br>这个属性的最大特点是，无论是否同源，只要在同一个窗口里，前一个网页设置了这个属性，后一个网页可以读取它。<br>父窗口先打开一个子窗口，载入一个不同源的网页，该网页将信息写入window.name属性。<br>window.name = data;</p>
-<p>接着，子窗口跳回一个与主窗口同域的网址。<br>location = ‘<a href="http://parent.url.com/xxx.html&#39;" target="_blank" rel="noopener">http://parent.url.com/xxx.html&#39;</a>;</p>
-<p>然后，主窗口就可以读取子窗口的window.name了。<br>var data = document.getElementById(‘myFrame’).contentWindow.name;</p>
-<p>这种方法的优点是，window.name容量很大，可以放置非常长的字符串；<br>缺点是必须监听子窗口window.name属性的变化，影响网页性能。<br>3.3 window.postMessage<br>上面两种方法都属于破解，HTML5为了解决这个问题，引入了一个全新的API：跨文档通信 API（Cross-document messaging）。<br>这个API为window对象新增了一个window.postMessage方法，允许跨窗口通信，不论这两个窗口是否同源。<br>举例来说，父窗口<a href="http://aaa.com向子窗口http://bbb.com发消息，调用postMessage方法就可以了。" target="_blank" rel="noopener">http://aaa.com向子窗口http://bbb.com发消息，调用postMessage方法就可以了。</a><br>var popup = window.open(‘<a href="http://bbb.com&#39;" target="_blank" rel="noopener">http://bbb.com&#39;</a>, ‘title’);<br>popup.postMessage(‘Hello World!’, ‘<a href="http://bbb.com&#39;)" target="_blank" rel="noopener">http://bbb.com&#39;)</a>;</p>
-<p>postMessage方法的第一个参数是具体的信息内容，第二个参数是接收消息的窗口的源（origin），即”协议 + 域名 + 端口”。也可以设为*，表示不限制域名，向所有窗口发送。<br>子窗口向父窗口发送消息的写法类似。<br>window.opener.postMessage(‘Nice to see you’, ‘<a href="http://aaa.com&#39;)" target="_blank" rel="noopener">http://aaa.com&#39;)</a>;</p>
-<p>父窗口和子窗口都可以通过message事件，监听对方的消息。<br>window.addEventListener(‘message’, function(e) {<br>  console.log(e.data);<br>},false);</p>
-<p>message事件的事件对象event，提供以下三个属性。<br>event.source：发送消息的窗口<br>event.origin: 消息发向的网址<br>event.data: 消息内容<br>下面的例子是，子窗口通过event.source属性引用父窗口，然后发送消息。<br>window.addEventListener(‘message’, receiveMessage);<br>function receiveMessage(event) {<br>  event.source.postMessage(‘Nice to see you!’, ‘*’);<br>}</p>
-<p>event.origin属性可以过滤不是发给本窗口的消息。<br>window.addEventListener(‘message’, receiveMessage);<br>function receiveMessage(event) {<br>  if (event.origin !== ‘<a href="http://aaa.com&#39;" target="_blank" rel="noopener">http://aaa.com&#39;</a>) return;<br>  if (event.data === ‘Hello World’) {<br>      event.source.postMessage(‘Hello’, event.origin);<br>  } else {<br>    console.log(event.data);<br>  }<br>}</p>
-<p>3.4 LocalStorage<br>通过window.postMessage，读写其他窗口的 LocalStorage 也成为了可能。<br>下面是一个例子，主窗口写入iframe子窗口的localStorage。<br>window.onmessage = function(e) {<br>  if (e.origin !== ‘<a href="http://bbb.com&#39;" target="_blank" rel="noopener">http://bbb.com&#39;</a>) {<br>    return;<br>  }<br>  var payload = JSON.parse(e.data);<br>  localStorage.setItem(payload.key, JSON.stringify(payload.data));<br>};</p>
-<p>上面代码中，子窗口将父窗口发来的消息，写入自己的LocalStorage。<br>父窗口发送消息的代码如下。<br>var win = document.getElementsByTagName(‘iframe’)[0].contentWindow;<br>var obj = { name: ‘Jack’ };<br>win.postMessage(JSON.stringify({key: ‘storage’, data: obj}), ‘<a href="http://bbb.com&#39;)" target="_blank" rel="noopener">http://bbb.com&#39;)</a>;</p>
-<p>加强版的子窗口接收消息的代码如下。<br>window.onmessage = function(e) {<br>  if (e.origin !== ‘<a href="http://bbb.com&#39;" target="_blank" rel="noopener">http://bbb.com&#39;</a>) return;<br>  var payload = JSON.parse(e.data);<br>  switch (payload.method) {<br>    case ‘set’:<br>      localStorage.setItem(payload.key, JSON.stringify(payload.data));<br>      break;<br>    case ‘get’:<br>      var parent = window.parent;<br>      var data = localStorage.getItem(payload.key);<br>      parent.postMessage(data, ‘<a href="http://aaa.com&#39;)" target="_blank" rel="noopener">http://aaa.com&#39;)</a>;<br>      break;<br>    case ‘remove’:<br>      localStorage.removeItem(payload.key);<br>      break;<br>  }<br>};</p>
-<p>加强版的父窗口发送消息代码如下。<br>var win = document.getElementsByTagName(‘iframe’)[0].contentWindow;<br>var obj = { name: ‘Jack’ };<br>// 存入对象<br>win.postMessage(JSON.stringify({key: ‘storage’, method: ‘set’, data: obj}), ‘<a href="http://bbb.com&#39;)" target="_blank" rel="noopener">http://bbb.com&#39;)</a>;<br>// 读取对象<br>win.postMessage(JSON.stringify({key: ‘storage’, method: “get”}), “*”);<br>window.onmessage = function(e) {<br>  if (e.origin != ‘<a href="http://aaa.com&#39;" target="_blank" rel="noopener">http://aaa.com&#39;</a>) return;<br>  // “Jack”<br>  console.log(JSON.parse(e.data).name);<br>};</p>
-<p>四、AJAX<br>同源政策规定，AJAX请求只能发给同源的网址，否则就报错。<br>除了架设服务器代理（浏览器请求同源服务器，再由后者请求外部服务），有三种方法规避这个限制。<br>JSONP<br>WebSocket<br>CORS<br>4.1 JSONP<br>JSONP是服务器与客户端跨源通信的常用方法。最大特点就是简单适用，老式浏览器全部支持，服务器改造非常小。<br>它的基本思想是，网页通过添加一个<script>元素，向服务器请求JSON数据，这种做法不受同源政策限制；服务器收到请求后，将数据放在一个指定名字的回调函数里传回来。<br>首先，网页动态插入<script>元素，由它向跨源网址发出请求。<br>function addScriptTag(src) {<br>  var script = document.createElement(‘script’);<br>  script.setAttribute(“type”,”text/javascript”);<br>  script.src = src;<br>  document.body.appendChild(script);<br>}</p>
-<p>window.onload = function () {<br>  addScriptTag(‘<a href="http://example.com/ip?callback=foo&#39;)">http://example.com/ip?callback=foo&#39;)</a>;<br>}</p>
-<p>function foo(data) {<br>  console.log(‘Your public IP address is: ‘ + data.ip);<br>};</p>
-<p>上面代码通过动态添加<script>元素，向服务器example.com发出请求。注意，该请求的查询字符串有一个callback参数，用来指定回调函数的名字，这对于JSONP是必需的。<br>服务器收到这个请求以后，会将数据放在回调函数的参数位置返回。<br>foo({<br>  “ip”: “8.8.8.8”<br>});</p>
-<p>由于<script>元素请求的脚本，直接作为代码运行。这时，只要浏览器定义了foo函数，该函数就会立即调用。作为参数的JSON数据被视为JavaScript对象，而不是字符串，因此避免了使用JSON.parse的步骤。</p>
-<p>4.2 WebSocket<br>WebSocket是一种通信协议，使用ws://（非加密）和wss://（加密）作为协议前缀。该协议不实行同源政策，只要服务器支持，就可以通过它进行跨源通信。<br>下面是一个例子，浏览器发出的WebSocket请求的头信息（摘自维基百科）。</p>
-<p>GET /chat HTTP/1.1<br>Host: server.example.com<br>Upgrade: websocket<br>Connection: Upgrade<br>Sec-WebSocket-Key: x3JJHMbDL1EzLkh9GBhXDw==<br>Sec-WebSocket-Protocol: chat, superchat<br>Sec-WebSocket-Version: 13<br>Origin: <a href="http://example.com">http://example.com</a><br>上面代码中，有一个字段是Origin，表示该请求的请求源（origin），即发自哪个域名。</p>
-<p>正是因为有了Origin这个字段，所以WebSocket才没有实行同源政策。因为服务器可以根据这个字段，判断是否许可本次通信。如果该域名在白名单内，服务器就会做出如下回应。</p>
-<p>HTTP/1.1 101 Switching Protocols<br>Upgrade: websocket<br>Connection: Upgrade<br>Sec-WebSocket-Accept: HSmrc0sMlYUkAGmm5OPpG2HaGWk=<br>Sec-WebSocket-Protocol: chat<br>4.3 CORS<br>普通跨域请求：只服务端设置Access-Control-Allow-Origin即可，前端无须设置，若要带cookie请求：前后端都需要设置。<br>CORS也已经成为主流的跨域解决方案。<br>1、 前端设置：<br>1.）原生ajax<br>// 前端设置是否带cookie<br>xhr.withCredentials = true;</p>
-<p>示例代码：</p>
-<p>var xhr = new XMLHttpRequest(); // IE8/9需用window.XDomainRequest兼容</p>
-<p>// 前端设置是否带cookie<br>xhr.withCredentials = true;</p>
-<p>xhr.open(‘post’, ‘<a href="http://www.domain2.com:8080/login&#39;">http://www.domain2.com:8080/login&#39;</a>, true);<br>xhr.setRequestHeader(‘Content-Type’, ‘application/x-www-form-urlencoded’);<br>xhr.send(‘user=admin’);</p>
-<p>xhr.onreadystatechange = function() {<br>    if (xhr.readyState == 4 &amp;&amp; xhr.status == 200) {<br>        alert(xhr.responseText);<br>    }<br>};</p>
-<p>2.）vue框架<br>a.) axios设置：<br>axios.defaults.withCredentials = true</p>
-<p>b.) vue-resource设置：<br>Vue.http.options.credentials = true</p>
-<p>七、 nginx代理跨域<br>1、 nginx配置解决iconfont跨域<br>浏览器跨域访问js、css、img等常规静态资源被同源策略许可，但iconfont字体文件(eot|otf|ttf|woff|svg)例外，此时可在nginx的静态资源服务器中加入以下配置。<br>location / {<br>  add_header Access-Control-Allow-Origin *;<br>}</p>
-<p>2、 nginx反向代理接口跨域<br>跨域原理： 同源策略是浏览器的安全策略，不是HTTP协议的一部分。服务器端调用HTTP接口只是使用HTTP协议，不会执行JS脚本，不需要同源策略，也就不存在跨越问题。<br>实现思路：通过nginx配置一个代理服务器（域名与domain1相同，端口不同）做跳板机，反向代理访问domain2接口，并且可以顺便修改cookie中domain信息，方便当前域cookie写入，实现跨域登录。<br>nginx具体配置：</p>
-<p>#proxy服务器<br>server {<br>    listen       81;<br>    server_name  <a href="http://www.domain1.com">www.domain1.com</a>;</p>
-<pre><code>location / {
-    proxy_pass   http://www.domain2.com:8080;  #反向代理
-    proxy_cookie_domain www.domain2.com www.domain1.com; #修改cookie里域名
-    index  index.html index.htm;
-
-    # 当用webpack-dev-server等中间件代理接口访问nignx时，此时无浏览器参与，故没有同源限制，下面的跨域配置可不启用
-    add_header Access-Control-Allow-Origin http://www.domain1.com;  #当前端只跨域不带cookie时，可为*
-    add_header Access-Control-Allow-Credentials true;
-}
-</code></pre><p>}</p>
-<p>1.) 前端代码示例：<br>var xhr = new XMLHttpRequest();</p>
-<p>// 前端开关：浏览器是否读写cookie<br>xhr.withCredentials = true;</p>
-<p>// 访问nginx中的代理服务器<br>xhr.open(‘get’, ‘<a href="http://www.domain1.com:81/?user=admin&#39;">http://www.domain1.com:81/?user=admin&#39;</a>, true);<br>xhr.send();</p>
-<p>八、 Nodejs中间件代理跨域<br>node中间件实现跨域代理，原理大致与nginx相同，都是通过启一个代理服务器，实现数据的转发，也可以通过设置cookieDomainRewrite参数修改响应头中cookie中域名，实现当前域的cookie写入，方便接口登录认证。<br>1、 非vue框架的跨域（2次跨域）<br>利用node + express + http-proxy-middleware搭建一个proxy服务器。<br>1.）前端代码示例：<br>var xhr = new XMLHttpRequest();</p>
-<p>// 前端开关：浏览器是否读写cookie<br>xhr.withCredentials = true;</p>
-<p>// 访问http-proxy-middleware代理服务器<br>xhr.open(‘get’, ‘<a href="http://www.domain1.com:3000/login?user=admin&#39;">http://www.domain1.com:3000/login?user=admin&#39;</a>, true);<br>xhr.send();</p>
-<p>2.）中间件服务器：<br>var express = require(‘express’);<br>var proxy = require(‘http-proxy-middleware’);<br>var app = express();</p>
-<p>app.use(‘/‘, proxy({<br>    // 代理跨域目标接口<br>    target: ‘<a href="http://www.domain2.com:8080&#39;">http://www.domain2.com:8080&#39;</a>,<br>    changeOrigin: true,</p>
-<pre><code>// 修改响应头信息，实现跨域并允许带cookie
-onProxyRes: function(proxyRes, req, res) {
-    res.header(&apos;Access-Control-Allow-Origin&apos;, &apos;http://www.domain1.com&apos;);
-    res.header(&apos;Access-Control-Allow-Credentials&apos;, &apos;true&apos;);
-},
-
-// 修改响应信息中的cookie域名
-cookieDomainRewrite: &apos;www.domain1.com&apos;  // 可以为false，表示不修改
-</code></pre><p>}));</p>
-<p>app.listen(3000);<br>console.log(‘Proxy server is listen at port 3000…’);</p>
-<p>2、 vue框架的跨域（1次跨域）<br>利用node + webpack + webpack-dev-server代理接口跨域。在开发环境下，由于vue渲染服务和接口代理服务都是webpack-dev-server同一个，所以页面与代理接口之间不再跨域，无须设置headers跨域信息了。<br>webpack.config.js部分配置：<br>module.exports = {<br>    entry: {},<br>    module: {},<br>    …<br>    devServer: {<br>        historyApiFallback: true,<br>        proxy: [{<br>            context: ‘/login’,<br>            target: ‘<a href="http://www.domain2.com:8080&#39;">http://www.domain2.com:8080&#39;</a>,  // 代理跨域目标接口<br>            changeOrigin: true,<br>            secure: false,  // 当代理某些https服务报错时用<br>            cookieDomainRewrite: ‘<a href="http://www.domain1.com&#39;">www.domain1.com&#39;</a>  // 可以为false，表示不修改<br>        }],<br>        noInfo: true<br>    }<br>}</p>
-</script></p>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/12/28/浏览器的同源政策及其规避方法/" data-id="ckki5kftv0028zgupz9tfhqt4" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/浏览器/">浏览器</a></li></ul>
 
     </footer>
   </div>
@@ -650,7 +600,7 @@ cookieDomainRewrite: &apos;www.domain1.com&apos;  // 可以为false，表示不�
   <div class="widget-wrap">
     <h3 class="widget-title">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Vue/" style="font-size: 10px;">Vue</a> <a href="/tags/es6/" style="font-size: 18px;">es6</a> <a href="/tags/js/" style="font-size: 20px;">js</a> <a href="/tags/ts/" style="font-size: 14px;">ts</a> <a href="/tags/vue/" style="font-size: 10px;">vue</a> <a href="/tags/复习/" style="font-size: 12px;">复习</a> <a href="/tags/浏览器/" style="font-size: 16px;">浏览器</a> <a href="/tags/网络/" style="font-size: 10px;">网络</a>
+      <a href="/tags/Vue/" style="font-size: 10px;">Vue</a> <a href="/tags/es6/" style="font-size: 17.5px;">es6</a> <a href="/tags/js/" style="font-size: 20px;">js</a> <a href="/tags/ts/" style="font-size: 15px;">ts</a> <a href="/tags/vue/" style="font-size: 10px;">vue</a> <a href="/tags/复习/" style="font-size: 12.5px;">复习</a> <a href="/tags/浏览器/" style="font-size: 15px;">浏览器</a> <a href="/tags/网络/" style="font-size: 10px;">网络</a>
     </div>
   </div>
 
@@ -672,6 +622,10 @@ cookieDomainRewrite: &apos;www.domain1.com&apos;  // 可以为false，表示不�
       <ul>
         
           <li>
+            <a href="/2021/01/31/ts-进阶-枚举/">ts-进阶-枚举</a>
+          </li>
+        
+          <li>
             <a href="/2021/01/29/ts-基础-类型断言/">ts-基础-类型断言</a>
           </li>
         
@@ -685,10 +639,6 @@ cookieDomainRewrite: &apos;www.domain1.com&apos;  // 可以为false，表示不�
         
           <li>
             <a href="/2021/01/26/js-判断浏览器类型/">js-判断浏览器类型</a>
-          </li>
-        
-          <li>
-            <a href="/2021/01/23/网络-TCP/">网络-TCP</a>
           </li>
         
       </ul>
