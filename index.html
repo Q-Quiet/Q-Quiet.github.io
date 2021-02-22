@@ -68,6 +68,48 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-js-for-in-for-of" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2021/02/22/js-for-in-for-of/" class="article-date">
+  <time datetime="2021-02-22T07:10:43.000Z" itemprop="datePublished">2021-02-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/02/22/js-for-in-for-of/">js-for..in/for..of</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="for…in会遍历可遍历对象的所有属性"><a href="#for…in会遍历可遍历对象的所有属性" class="headerlink" title="for…in会遍历可遍历对象的所有属性"></a>for…in会遍历可遍历对象的所有属性</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> arr = [<span class="number">5</span>, <span class="number">4</span>, <span class="number">3</span>, <span class="number">2</span>, <span class="number">1</span>]</span><br><span class="line">arr.name = <span class="string">'name'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">let</span> i <span class="keyword">in</span> arr)&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(i) <span class="comment">// 0 1 2 3 4 name(字符串类型的索引)</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出的是0 1 2 3 4 name，因为我们给arr加了一个name的属性，for…in也会把他遍历出来<br>所以for…in一般用于遍历对象，值是他的键值</p>
+<h2 id="for…of"><a href="#for…of" class="headerlink" title="for…of"></a>for…of</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> arr = [<span class="number">5</span>, <span class="number">4</span>, <span class="number">3</span>, <span class="number">2</span>, <span class="number">1</span>]</span><br><span class="line">arr.name = <span class="string">'name'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">let</span> i <span class="keyword">in</span> arr)&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(i) <span class="comment">// 0 1 2 3 4 name(字符串类型的索引)</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出的是5 4 3 2 1，输入数组里面每个的值<br>总结<br>for…of使用遍历数组/数组对象/字符串/map/set等拥有迭代器对象，但是不能遍历对象，因为对象没有迭代器对象。他可以使用break，continue，return<br>for…in来遍历对象，或者使用Object.keys()<br>for…in遍历的是数组的索引（键名），for…of是数组的值</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://Q-Quiet.github.io/2021/02/22/js-for-in-for-of/" data-id="cklg8rx7l000b2cup37ytisy4" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-ts-进阶-枚举" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2021/01/31/ts-进阶-枚举/" class="article-date">
@@ -123,7 +165,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/01/31/ts-进阶-枚举/" data-id="ckkkuzxj40016yguprq7eawiv" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2021/01/31/ts-进阶-枚举/" data-id="cklg8rx8k001b2cupteuidk75" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ts/">ts</a></li></ul>
@@ -189,7 +231,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/01/29/ts-基础-类型断言/" data-id="ckkkuzxkj0029ygup8elj7h3w" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2021/01/29/ts-基础-类型断言/" data-id="cklg8rx9i002a2cupjg8lzcso" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ts/">ts</a></li></ul>
@@ -240,7 +282,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/01/29/ts-基础-函数的类型/" data-id="ckkkuzxj00011ygupekkspakl" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2021/01/29/ts-基础-函数的类型/" data-id="cklg8rx8f00162cup30nsby1c" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ts/">ts</a></li></ul>
@@ -297,7 +339,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/01/28/ts-基础-原始数据类型/" data-id="ckkkuzxj20013ygup91qubjsd" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2021/01/28/ts-基础-原始数据类型/" data-id="cklg8rx8e00142cupsw6iyppm" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ts/">ts</a></li></ul>
@@ -337,7 +379,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/01/26/js-判断浏览器类型/" data-id="ckkkuzxit000sygup3a1uru9c" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2021/01/26/js-判断浏览器类型/" data-id="cklg8rx87000x2cupkzki09ne" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
@@ -376,7 +418,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/01/23/网络-TCP/" data-id="ckkkuzxji001kygup9uw9u59d" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2021/01/23/网络-TCP/" data-id="cklg8rx8z001s2cupe747h5xd" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/网络/">网络</a></li></ul>
@@ -416,7 +458,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/01/21/vue-router的两种模式/" data-id="ckkkuzxjb001dygupi41y1m0r" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2021/01/21/vue-router的两种模式/" data-id="cklg8rx8n001d2cupwl10exk0" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vue/">vue</a></li></ul>
@@ -463,7 +505,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/01/03/垃圾回收机制/" data-id="ckkkuzxj8001aygup47vohteu" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2021/01/03/垃圾回收机制/" data-id="cklg8rx8q001g2cupjsmzkvdn" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
@@ -511,59 +553,10 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/12/30/缓存机制/" data-id="ckkkuzxjm001pygupn2vl0l27" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/12/30/缓存机制/" data-id="cklg8rx8x001q2cuphykbrm4g" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/浏览器/">浏览器</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-js的几种模块规范" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/12/29/js的几种模块规范/" class="article-date">
-  <time datetime="2020-12-29T15:08:15.000Z" itemprop="datePublished">2020-12-29</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/12/29/js的几种模块规范/">js的几种模块规范</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>CommonJS<br>AMD<br>CMD<br>ES6<br>一、CommonJS<br>Node.js是commonJS规范的主要实践者，它有四个重要的环境变量为模块化的实现提供支持：module、exports、require、global。<br>用module.exports定义当前模块对外输出的接口（不推荐直接用exports），用require加载模块。<br>var basicNum = 0;<br>function add(a, b) {<br>    return a + b;<br>}<br>module.exports = {<br>//在这里写上需要向外暴露的函数、变量<br>    add: add,<br>    basicNum: basicNum<br>} </p>
-<p>// 引用自定义的模块时，参数包含路径，可省略.js<br>var math = require(‘./math’);<br>math.add(2, 5); </p>
-<p>// 引用核心模块时，不需要带路径<br>var http = require(‘http’);<br>http.createService(…).listen(3000);</p>
-<p>二、AMD和require.js<br>AMD规范采用异步方式加载模块，模块的加载不影响它后面语句的运行。所有依赖这个模块的语句，都定义在一个回调函数中，等到加载完成之后，这个回调函数才会运行。<br>三、CMD和sea.js<br>CMD是另一种js模块化方案，它与AMD很类似，不同点在于：AMD 推崇依赖前置、提前执行，CMD推崇依赖就近、延迟执行。此规范其实是在sea.js推广过程中产生的。<br>四、ES6 Module<br>ES6 在语言标准的层面上，实现了模块功能，而且实现得相当简单，旨在成为浏览器和服务器通用的模块解决方案。其模块功能主要由两个命令构成：export和import。export命令用于规定模块的对外接口，import命令用于输入其他模块提供的功能。<br>/<strong> 定义模块 math.js </strong>/<br>var basicNum = 0;<br>var add = function (a, b) {<br>    return a + b;<br>};<br>export { basicNum, add };</p>
-<p>/<strong> 引用模块 </strong>/<br>import { basicNum, add } from ‘./math’;<br>function test(ele) {<br>    ele.textContent = add(99 + basicNum);<br>}</p>
-<p>五、 ES6 模块与 CommonJS 模块的差异</p>
-<ol>
-<li>CommonJS 模块输出的是一个值的拷贝，ES6 模块输出的是值的引用。<br>CommonJS 模块输出的是值的拷贝，也就是说，一旦输出一个值，模块内部的变化就影响不到这个值。<br>ES6 模块的运行机制与 CommonJS 不一样。JS 引擎对脚本静态分析的时候，遇到模块加载命令import，就会生成一个只读引用。等到脚本真正执行时，再根据这个只读引用，到被加载的那个模块里面去取值。换句话说，ES6 的import有点像 Unix 系统的“符号连接”，原始值变了，import加载的值也会跟着变。因此，ES6 模块是动态引用，并且不会缓存值，模块里面的变量绑定其所在的模块。</li>
-<li>CommonJS 模块是运行时加载，ES6 模块是编译时输出接口。<br>运行时加载: CommonJS 模块就是对象；即在输入时是先加载整个模块，生成一个对象，然后再从这个对象上面读取方法，这种加载称为“运行时加载”。<br>编译时加载: ES6 模块不是对象，而是通过 export 命令显式指定输出的代码，import时采用静态命令的形式。即在import时可以指定加载某个输出值，而不是加载整个模块，这种加载称为“编译时加载”。<br>CommonJS 加载的是一个对象（即module.exports属性），该对象只有在脚本运行完才会生成。而 ES6 模块不是对象，它的对外接口只是一种静态定义，在代码静态解析阶段就会生成。<br>六、AMD 和 CMD 规范的区别？<br>它们之间的主要区别有两个方面。<br>（1）第一个方面是在模块定义时对依赖的处理不同。AMD 推崇依赖前置，在定义模块的时候就要声明其依赖的模块。而 CMD 推崇 就近依赖，只有在用到某个模块的时候再去 require。<br>（2）第二个方面是对依赖模块的执行时机处理不同。首先 AMD 和 CMD 对于模块的加载方式都是异步加载，不过它们的区别在于 模块的执行时机，AMD 在依赖模块加载完成后就直接执行依赖模块，依赖模块的执行顺序和我们书写的顺序不一定一致。而 CMD 在依赖模块加载完成后并不执行，只是下载而已，等到所有的依赖模块都加载好后，进入回调函数逻辑，遇到 require 语句 的时候才执行对应的模块，这样模块的执行顺序就和我们书写的顺序保持一致了。<br>// CMD<br>define(function(require, exports, module) {<br>var a = require(“./a”);<br>a.doSomething();<br>// 此处略去 100 行<br>var b = require(“./b”); // 依赖可以就近书写<br>b.doSomething();<br>// …<br>});</li>
-</ol>
-<p>// AMD 默认推荐<br>define([“./a”, “./b”], function(a, b) {<br>  // 依赖必须一开始就写好<br>  a.doSomething();<br>  // 此处略去 100 行<br>  b.doSomething();<br>  // …<br>});</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/12/29/js的几种模块规范/" data-id="ckkkuzxj60018ygupwcuwhjo7" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
 
     </footer>
   </div>
@@ -609,7 +602,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">归档</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">一月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">十月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">三月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">二月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">一月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">十月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">三月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li></ul>
     </div>
   </div>
 
@@ -620,6 +613,10 @@
     <h3 class="widget-title">最新文章</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2021/02/22/js-for-in-for-of/">js-for..in/for..of</a>
+          </li>
         
           <li>
             <a href="/2021/01/31/ts-进阶-枚举/">ts-进阶-枚举</a>
@@ -635,10 +632,6 @@
         
           <li>
             <a href="/2021/01/28/ts-基础-原始数据类型/">ts-基础-原始数据类型</a>
-          </li>
-        
-          <li>
-            <a href="/2021/01/26/js-判断浏览器类型/">js-判断浏览器类型</a>
           </li>
         
       </ul>
