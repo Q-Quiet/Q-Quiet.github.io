@@ -68,6 +68,54 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-缓存机制" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/12/30/缓存机制/" class="article-date">
+  <time datetime="2020-12-30T15:10:09.000Z" itemprop="datePublished">2020-12-30</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/12/30/缓存机制/">缓存机制</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>1.介绍<br>web缓存是指一个web资源（如html页面，图片，js，数据等）存在于web服务器和客户端（浏览器）之间的副本。<br>1.1 web缓存的作用<br>web缓存的作用显而易见：<br>减少网络带宽消耗<br>当Web缓存副本被使用时，只会产生极小的网络流量，可以有效的降低运营成本。<br>降低服务器压力<br>给网络资源设定有效期之后，用户可以重复使用本地的缓存，减少对源服务器的请求，间接降低服务器的压力。同时，搜索引擎的爬虫机器人也能根据过期机制降低爬取的频率，也能有效降低服务器的压力。<br>减少网络延迟，加快页面打开速度<br>缓存的使用能够明显加快页面打开速度，达到更好的体验。<br>1.2 web缓存的类型<br>web缓存大致可以分为以下几种类型：<br>数据库数据缓存<br>服务器端缓存<br>浏览器端缓存<br>web应用层缓存</p>
+<ol start="2">
+<li>web缓存的工作原理<br>2.1 浏览器端的缓存规则<br>分别从新鲜度和校验值两个维度来规定浏览器是直接使用缓存中的副本，还是需要去源服务器获取更新的版本。<br>新鲜度（过期机制）：也就是缓存副本有效期。一个缓存副本必须满足以下任一条件，浏览器会认为它是有效的，足够新的，而直接从缓存中获取副本并渲染：<br>含有完整的过期时间控制头信息（HTTP协议报头），并且仍在有效期内<br>浏览器已经使用过这个缓存副本，并且在一个会话中已经检查过新鲜度<br>校验值（验证机制）：服务器返回资源的时候有时在控制头信息带上这个资源的实体标签Etag（Entity Tag），它可以用来作为浏览器再次请求过程的校验标识。如过发现校验标识不匹配，说明资源已经被修改或过期，浏览器需求重新获取资源内容。<br>2.2 浏览器缓存的控制<br>2.2.1 使用HTML的 Meta 标签<br>当前页面不被缓存，每次访问都需要去服务器拉取。<meta http-equiv="Pragma" content="no-cache">
+
+</li>
+</ol>
+<p>2.2.2 使用缓存有关的HTTP消息报头<br>2.2.3 缓存报头种类与优先级<br>2.2.4 哪些请求不能被缓存？<br>无法被浏览器缓存的请求：<br>HTTP信息头中包含Cache-Control:no-cache，pragma:no-cache，或Cache-Control:max-age=0等告诉浏览器不用缓存的请求<br>需要根据Cookie，认证信息等决定输入内容的动态请求是不能被缓存的<br>经过HTTPS安全加密的请求<br>POST请求无法被缓存<br>HTTP响应头中不包含Last-Modified/Etag，也不包含Cache-Control/Expires的请求无法被缓存</p>
+<ol start="3">
+<li>使用缓存流程<br>本地缓存阶段：先在本地查找该资源，如果有发现该资源，而且该资源还没有过期，就使用这一个资源，完全不会发送http请求到服务器；<br>协商缓存阶段：如果在本地缓存找到对应的资源，但是不知道该资源是否过期或者已经过期，则发一个http请求到服务器，然后服务器判断这个请求，如果请求的资源在服务器上没有改动过，则返回304，让浏览器使用本地找到的那个资源；<br>缓存失败阶段：当服务器发现请求的资源已经修改过，或者这是一个新的请求(在本来没有找到资源)，服务器则返回该资源的数据，并且返回200， 当然这个是指找到资源的情况下，如果服务器上没有这个资源，则返回404。<br>4.用户操作行为与缓存的关系<br>普通刷新 – 当按下F5或者点击刷新按钮来刷新页面的时候，浏览器将绕过本地缓存来发送请求到服务器, 此时, 协商缓存是有效的<br>强制刷新 – 当按下ctrl+F5来刷新页面的时候, 浏览器将绕过各种缓存(本地缓存和协商缓存), 直接让服务器返回最新的资源<br>回车或转向 – 当在地址栏上输入回车或者按下跳转按钮的时候, 所有缓存都生效</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://Q-Quiet.github.io/2020/12/30/缓存机制/" data-id="cklhk3f2a002aygup4mnxuktz" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/浏览器/">浏览器</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-js的几种模块规范" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2020/12/29/js的几种模块规范/" class="article-date">
@@ -105,7 +153,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/12/29/js的几种模块规范/" data-id="cklg8rx8i00192cup9i8fqqvx" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/12/29/js的几种模块规范/" data-id="cklhk3f0q0016ygupspvj5nd0" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
@@ -222,7 +270,7 @@ cookieDomainRewrite: &apos;www.domain1.com&apos;  // 可以为false，表示不�
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/12/28/浏览器的同源政策及其规避方法/" data-id="cklg8rx9k002c2cupthehs0o7" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/12/28/浏览器的同源政策及其规避方法/" data-id="cklhk3f2h002eygupnqj99j3d" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/浏览器/">浏览器</a></li></ul>
@@ -263,7 +311,7 @@ cookieDomainRewrite: &apos;www.domain1.com&apos;  // 可以为false，表示不�
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/12/26/js-原型-原型链/" data-id="cklg8rx80000n2cupfkixtg4c" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/12/26/js-原型-原型链/" data-id="cklhk3f09000nyguphl7fwk0y" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
@@ -318,7 +366,7 @@ cookieDomainRewrite: &apos;www.domain1.com&apos;  // 可以为false，表示不�
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/12/25/js-转换规则/" data-id="cklg8rx8a00102cuphg5yuzzn" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/12/25/js-转换规则/" data-id="cklhk3f0o0014ygupevpcnxd9" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
@@ -381,7 +429,7 @@ cookieDomainRewrite: &apos;www.domain1.com&apos;  // 可以为false，表示不�
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/12/24/js-事件委托/" data-id="cklg8rx7r000g2cupv2us51xf" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/12/24/js-事件委托/" data-id="cklhk3f03000gygupi92tae26" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
@@ -471,7 +519,7 @@ return o;
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/12/22/js-创建对象的几种方法/" data-id="cklg8rx7y000l2cupgozqbn92" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/12/22/js-创建对象的几种方法/" data-id="cklhk3f0c000qygupr7b7v2np" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/复习/">复习</a></li></ul>
@@ -516,7 +564,7 @@ return o;
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/12/21/js-undefined/" data-id="cklg8rx7m000d2cupt7mnl5q7" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/12/21/js-undefined/" data-id="cklhk3ezw0009ygupfl1zjx7v" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/复习/">复习</a></li></ul>
@@ -556,7 +604,7 @@ return o;
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/12/21/js-有哪些对象/" data-id="cklg8rx8c00122cup4uzkunmu" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/12/21/js-有哪些对象/" data-id="cklhk3f0m0012ygupe8x13hrm" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
@@ -603,50 +651,7 @@ return o;
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/12/20/js-内部属性-class/" data-id="cklg8rx84000s2cupiz0ak7tr" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-js-基本属性-堆栈" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/12/17/js-基本属性-堆栈/" class="article-date">
-  <time datetime="2020-12-17T15:04:44.000Z" itemprop="datePublished">2020-12-17</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/12/17/js-基本属性-堆栈/">js-基本属性-堆栈</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>js 的基本数据类型<br>js 一共有六种基本数据类型，分别是 Undefined、Null、Boolean、Number、String，还有在 ES6 中新增的 Symbol 和 ES10 中新增的 BigInt 类型。<br>Symbol 代表创建后独一无二且不可变的数据类型，它的出现我认为主要是为了解决可能出现的全局变量冲突的问题。<br>BigInt 是一种数字类型的数据，它可以表示任意精度格式的整数，使用 BigInt 可以安全地存储和操作大整数，即使这个数已经超出了 Number 能够表示的安全整数范围。<br>JavaScript有几种类型的值？能否画一下它们的内存图<br>栈：原始数据类型（Undefined  Null  Boolean  Number  String）<br>堆：引用数据类型（对象、数组、函数）<br>原始数据：<br><img src="/picture/js-基本属性-堆栈/原始数据栈内存.png" alt="avatar"><br>引用数据：<br><img src="/picture/js-基本属性-堆栈/引用数据栈内存.png" alt="avatar"><br>区别：<br>a 声明变量时不同的内存分配：<br>　　1）原始值：存储在栈（stack）中的简单数据段，也就是说，它们的值直接存储在变量访问的位置。<br>　　　　这是因为这些原始类型占据的空间是固定的，所以可将他们存储在较小的内存区域 – 栈中。这样存储便于迅速查寻变量的值。<br>　　2）引用值：存储在堆（heap）中的对象，也就是说，存储在变量处的值是一个指针（point），指向存储对象的内存地址。这是因为：引用值的大小会改变，所以不能把它放在栈中，否则会降低变量查寻的速度。相反，放在变量的栈空间中的值是该对象存储在堆中的地址。地址的大小是固定的，所以把它存储在栈中对变量性能无任何负面影响。<br>b 不同的内存分配机制也带s来了不同的访问机制　　<br>　　1）在javascript中是不允许直接访问保存在堆内存中的对象的，所以在访问一个对象时，首先得到的是这个对象在堆内存中的地址，然后再按照这个地址去获得这个对象中的值，这就是传说中的按引用访问。<br>　　2）而原始类型的值则是可以直接访问到的。<br>c 复制变量时的不同　　<br>　　1）原始值：在将一个保存着原始值的变量复制给另一个变量时，会将原始值的副本赋值给新变量，此后这两个变量是完全独立的，他们只是拥有相同的value而已。<br>　　2）引用值：在将一个保存着对象内存地址的变量复制给另一个变量时，会把这个内存地址赋值给新变量，也就是说这两个变量都指向了堆内存中的同一个对象，他们中任何一个作出的改变都会反映在另一个身上。（这里要理解的一点就是，复制对象时并不会在堆内存中新生成一个一模一样的对象，只是多了一个保存指向这个对象指针的变量罢了）。多了一个指针　<br>　　d 参数传递的不同（把实参复制给形参的过程）　　<br>　　首先我们应该明确一点：ECMAScript中所有函数的参数都是按值来传递的。<br>　　但是为什么涉及到原始类型与引用类型的值时仍然有区别呢？还不就是因为内存分配时的差别。 　<br>　　1）原始值：只是把变量里的值传递给参数，之后参数和这个变量互不影响。<br>　　2）引用值：对象变量它里面的值是这个对象在堆内存中的内存地址，这一点你要时刻铭记在心！因此它传递的值也就是这个内存地址，这也就是为什么函数内部对这个参数的修改会体现在外部的原因了，因为它们都指向同一个对象。<br>什么是堆？什么是栈？他们之间有什么区别和联系？<br>堆和栈的概念存在于数据结构中和操作系统内存中。</p>
-<p>在数据结构中，栈中数据的存取方式为先进后出。而堆是一个优先队列，是按优先级来进行排序的，优先级可以按照大小来规定。完全<br>二叉树是堆的一种实现方式。</p>
-<p>在操作系统中，内存被分为栈区和堆区。</p>
-<p>栈区内存由编译器自动分配释放，存放函数的参数值，局部变量的值等。其操作方式类似于数据结构中的栈。</p>
-<p>堆区内存一般由程序员分配释放，若程序员不释放，程序结束时可能由垃圾回收机制回收。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/12/17/js-基本属性-堆栈/" data-id="cklg8rx82000q2cupstp6zmcv" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/12/20/js-内部属性-class/" data-id="cklhk3f08000lygupqu2gi2q8" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
@@ -708,6 +713,10 @@ return o;
       <ul>
         
           <li>
+            <a href="/2021/02/23/js-箭头函数和普通函数的区别/">js-箭头函数和普通函数的区别</a>
+          </li>
+        
+          <li>
             <a href="/2021/02/22/js-for-in-for-of/">js-for..in/for..of</a>
           </li>
         
@@ -721,10 +730,6 @@ return o;
         
           <li>
             <a href="/2021/01/29/ts-基础-函数的类型/">ts-基础-函数的类型</a>
-          </li>
-        
-          <li>
-            <a href="/2021/01/28/ts-基础-原始数据类型/">ts-基础-原始数据类型</a>
           </li>
         
       </ul>

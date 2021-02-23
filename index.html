@@ -68,6 +68,48 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-js-箭头函数和普通函数的区别" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2021/02/23/js-箭头函数和普通函数的区别/" class="article-date">
+  <time datetime="2021-02-23T05:15:32.000Z" itemprop="datePublished">2021-02-23</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/02/23/js-箭头函数和普通函数的区别/">js-箭头函数和普通函数的区别</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>关于箭头函数的参数：<br>① 如果箭头函数没有参数，直接写一个空括号即可。<br>② 如果箭头函数的参数只有一个，也可以省去包裹参数的括号。<br>③ 如果箭头函数有多个参数，将参数依次用逗号(,)分隔，包裹在括号中即可。<br>关于箭头函数的函数体：<br>① 如果箭头函数的函数体只有一句代码，就是简单返回某个变量或者返回一个简单的JS表达式，可以省去函数体的大括号{ }。<br>② 如果箭头函数的函数体只有一句代码，就是返回一个对象，可以像下面这样写：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 用小括号包裹要返回的对象，不报错 </span></span><br><span class="line"><span class="keyword">let</span> getTempItem = <span class="function"><span class="params">id</span> =&gt;</span> (&#123; <span class="attr">id</span>: id, <span class="attr">name</span>: <span class="string">"Temp"</span> &#125;);</span><br><span class="line"> </span><br><span class="line"><span class="comment">// 但绝不能这样写，会报错。 </span></span><br><span class="line"><span class="comment">// 因为对象的大括号会被解释为函数体的大括号 </span></span><br><span class="line"><span class="keyword">let</span> getTempItem = <span class="function"><span class="params">id</span> =&gt;</span> &#123; <span class="attr">id</span>: id, <span class="attr">name</span>: <span class="string">"Temp"</span> &#125;;</span><br></pre></td></tr></table></figure></p>
+<p>③ 如果箭头函数的函数体只有一条语句并且不需要返回值（最常见是调用一个函数），可以给这条语句前面加一个void关键字<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> fn = <span class="function"><span class="params">()</span> =&gt;</span> <span class="keyword">void</span> doesNotReturn();</span><br></pre></td></tr></table></figure></p>
+<p>箭头函数与普通函数的区别<br>1、语法更加简洁、清晰<br>从上面的基本语法示例中可以看出，箭头函数的定义要比普通函数定义简洁、清晰得多，很快捷。<br>2、箭头函数不会创建自己的this（重要！！深入理解！！）<br>我们先来看看MDN上对箭头函数this的解释。<br>箭头函数不会创建自己的this，所以它没有自己的this，它只会从自己的作用域链的上一层继承this。<br>箭头函数中this的指向在它被定义的时候就已经确定了，之后永远不会改变。<br>例子：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> id = <span class="string">'Global'</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fun1</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">// setTimeout中使用普通函数</span></span><br><span class="line">    setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.id);</span><br><span class="line">    &#125;, <span class="number">2000</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fun2</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">// setTimeout中使用箭头函数</span></span><br><span class="line">    setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.id);</span><br><span class="line">    &#125;, <span class="number">2000</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">fun1.call(&#123;<span class="attr">id</span>: <span class="string">'Obj'</span>&#125;);     <span class="comment">// 'Global'</span></span><br><span class="line"></span><br><span class="line">fun2.call(&#123;<span class="attr">id</span>: <span class="string">'Obj'</span>&#125;);     <span class="comment">// 'Obj'</span></span><br></pre></td></tr></table></figure></p>
+<p>上面这个例子，函数fun1中的setTimeout中使用普通函数，2秒后函数执行时，这时函数其实是在全局作用域执行的，所以this指向Window对象，this.id就指向全局变量id，所以输出’Global’。 但是函数fun2中的setTimeout中使用的是箭头函数，这个箭头函数的this在定义时就确定了，它继承了它外层fun2的执行环境中的this，而fun2调用时this被call方法改变到了对象{id: ‘Obj’}中，所以输出’Obj’。<br>3、箭头函数继承而来的this指向永远不变（重要！！深入理解！！）<br>4、.call()/.apply()/.bind()无法改变箭头函数中this的指向<br>5、箭头函数不能作为构造函数使用<br>6、箭头函数没有自己的arguments<br>箭头函数没有自己的arguments对象。在箭头函数中访问arguments实际上获得的是外层局部（函数）执行环境中的值。<br>7、箭头函数没有原型prototype<br>8、箭头函数不能用作Generator函数，不能使用yeild关键字</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://Q-Quiet.github.io/2021/02/23/js-箭头函数和普通函数的区别/" data-id="cklhk3f0g000vygupw469db1l" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-js-for-in-for-of" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2021/02/22/js-for-in-for-of/" class="article-date">
@@ -98,7 +140,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/02/22/js-for-in-for-of/" data-id="cklg8rx7l000b2cup37ytisy4" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2021/02/22/js-for-in-for-of/" data-id="cklhk3f01000eygupfnas7162" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
@@ -165,7 +207,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/01/31/ts-进阶-枚举/" data-id="cklg8rx8k001b2cupteuidk75" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2021/01/31/ts-进阶-枚举/" data-id="cklhk3f0v001dygupdn5zspe8" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ts/">ts</a></li></ul>
@@ -231,7 +273,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/01/29/ts-基础-类型断言/" data-id="cklg8rx9i002a2cupjg8lzcso" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2021/01/29/ts-基础-类型断言/" data-id="cklhk3f260026ygup88a10dyy" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ts/">ts</a></li></ul>
@@ -282,7 +324,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/01/29/ts-基础-函数的类型/" data-id="cklg8rx8f00162cup30nsby1c" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2021/01/29/ts-基础-函数的类型/" data-id="cklhk3f0r0018ygupemo4acpa" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ts/">ts</a></li></ul>
@@ -339,7 +381,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/01/28/ts-基础-原始数据类型/" data-id="cklg8rx8e00142cupsw6iyppm" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2021/01/28/ts-基础-原始数据类型/" data-id="cklhk3f0y001fygupmlfl88yh" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ts/">ts</a></li></ul>
@@ -379,7 +421,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/01/26/js-判断浏览器类型/" data-id="cklg8rx87000x2cupkzki09ne" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2021/01/26/js-判断浏览器类型/" data-id="cklhk3f0d000sygup0d1ej2n8" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
@@ -418,7 +460,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/01/23/网络-TCP/" data-id="cklg8rx8z001s2cupe747h5xd" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2021/01/23/网络-TCP/" data-id="cklhk3f280028ygupa4siqvc6" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/网络/">网络</a></li></ul>
@@ -458,7 +500,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/01/21/vue-router的两种模式/" data-id="cklg8rx8n001d2cupwl10exk0" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2021/01/21/vue-router的两种模式/" data-id="cklhk3f10001hygup97xm9401" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vue/">vue</a></li></ul>
@@ -505,58 +547,10 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/01/03/垃圾回收机制/" data-id="cklg8rx8q001g2cupjsmzkvdn" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2021/01/03/垃圾回收机制/" data-id="cklhk3f15001mygupa1towo0p" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-缓存机制" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/12/30/缓存机制/" class="article-date">
-  <time datetime="2020-12-30T15:10:09.000Z" itemprop="datePublished">2020-12-30</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/12/30/缓存机制/">缓存机制</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>1.介绍<br>web缓存是指一个web资源（如html页面，图片，js，数据等）存在于web服务器和客户端（浏览器）之间的副本。<br>1.1 web缓存的作用<br>web缓存的作用显而易见：<br>减少网络带宽消耗<br>当Web缓存副本被使用时，只会产生极小的网络流量，可以有效的降低运营成本。<br>降低服务器压力<br>给网络资源设定有效期之后，用户可以重复使用本地的缓存，减少对源服务器的请求，间接降低服务器的压力。同时，搜索引擎的爬虫机器人也能根据过期机制降低爬取的频率，也能有效降低服务器的压力。<br>减少网络延迟，加快页面打开速度<br>缓存的使用能够明显加快页面打开速度，达到更好的体验。<br>1.2 web缓存的类型<br>web缓存大致可以分为以下几种类型：<br>数据库数据缓存<br>服务器端缓存<br>浏览器端缓存<br>web应用层缓存</p>
-<ol start="2">
-<li>web缓存的工作原理<br>2.1 浏览器端的缓存规则<br>分别从新鲜度和校验值两个维度来规定浏览器是直接使用缓存中的副本，还是需要去源服务器获取更新的版本。<br>新鲜度（过期机制）：也就是缓存副本有效期。一个缓存副本必须满足以下任一条件，浏览器会认为它是有效的，足够新的，而直接从缓存中获取副本并渲染：<br>含有完整的过期时间控制头信息（HTTP协议报头），并且仍在有效期内<br>浏览器已经使用过这个缓存副本，并且在一个会话中已经检查过新鲜度<br>校验值（验证机制）：服务器返回资源的时候有时在控制头信息带上这个资源的实体标签Etag（Entity Tag），它可以用来作为浏览器再次请求过程的校验标识。如过发现校验标识不匹配，说明资源已经被修改或过期，浏览器需求重新获取资源内容。<br>2.2 浏览器缓存的控制<br>2.2.1 使用HTML的 Meta 标签<br>当前页面不被缓存，每次访问都需要去服务器拉取。<meta http-equiv="Pragma" content="no-cache">
-
-</li>
-</ol>
-<p>2.2.2 使用缓存有关的HTTP消息报头<br>2.2.3 缓存报头种类与优先级<br>2.2.4 哪些请求不能被缓存？<br>无法被浏览器缓存的请求：<br>HTTP信息头中包含Cache-Control:no-cache，pragma:no-cache，或Cache-Control:max-age=0等告诉浏览器不用缓存的请求<br>需要根据Cookie，认证信息等决定输入内容的动态请求是不能被缓存的<br>经过HTTPS安全加密的请求<br>POST请求无法被缓存<br>HTTP响应头中不包含Last-Modified/Etag，也不包含Cache-Control/Expires的请求无法被缓存</p>
-<ol start="3">
-<li>使用缓存流程<br>本地缓存阶段：先在本地查找该资源，如果有发现该资源，而且该资源还没有过期，就使用这一个资源，完全不会发送http请求到服务器；<br>协商缓存阶段：如果在本地缓存找到对应的资源，但是不知道该资源是否过期或者已经过期，则发一个http请求到服务器，然后服务器判断这个请求，如果请求的资源在服务器上没有改动过，则返回304，让浏览器使用本地找到的那个资源；<br>缓存失败阶段：当服务器发现请求的资源已经修改过，或者这是一个新的请求(在本来没有找到资源)，服务器则返回该资源的数据，并且返回200， 当然这个是指找到资源的情况下，如果服务器上没有这个资源，则返回404。<br>4.用户操作行为与缓存的关系<br>普通刷新 – 当按下F5或者点击刷新按钮来刷新页面的时候，浏览器将绕过本地缓存来发送请求到服务器, 此时, 协商缓存是有效的<br>强制刷新 – 当按下ctrl+F5来刷新页面的时候, 浏览器将绕过各种缓存(本地缓存和协商缓存), 直接让服务器返回最新的资源<br>回车或转向 – 当在地址栏上输入回车或者按下跳转按钮的时候, 所有缓存都生效</li>
-</ol>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/12/30/缓存机制/" data-id="cklg8rx8x001q2cuphykbrm4g" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/浏览器/">浏览器</a></li></ul>
 
     </footer>
   </div>
@@ -615,6 +609,10 @@
       <ul>
         
           <li>
+            <a href="/2021/02/23/js-箭头函数和普通函数的区别/">js-箭头函数和普通函数的区别</a>
+          </li>
+        
+          <li>
             <a href="/2021/02/22/js-for-in-for-of/">js-for..in/for..of</a>
           </li>
         
@@ -628,10 +626,6 @@
         
           <li>
             <a href="/2021/01/29/ts-基础-函数的类型/">ts-基础-函数的类型</a>
-          </li>
-        
-          <li>
-            <a href="/2021/01/28/ts-基础-原始数据类型/">ts-基础-原始数据类型</a>
           </li>
         
       </ul>
