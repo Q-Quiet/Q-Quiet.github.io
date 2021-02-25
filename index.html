@@ -92,15 +92,15 @@
       
         <p>Flex布局（弹性布局）默认就是首行左对齐。<br>容器默认存在两根轴：水平的主轴（main axis）和垂直的交叉轴（cross axis）。<br>flex-direction属性决定主轴的方向（即项目的排列方向）。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.box &#123;</span><br><span class="line">  flex-direction: row | row-reverse | column | column-reverse;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>flex-wrap属性定义，如果一条轴线排不下，如何换行。<br>nowrap 不换行 | wrap 换行，第一行在上方| wrap-reverse 换行，第一行在下方<br>flex-flow属性是flex-direction属性和flex-wrap属性的简写形式，默认值为row nowrap。<br>justify-content属性定义了项目在主轴上的对齐方式。（水平方向的对齐方式）<br> flex-start | flex-end | center | space-between 两端对齐，项目之间的间隔都相等| space-around 每个项目两侧的间隔相等。所以，项目之间的间隔比项目与边框的间隔大一倍。<br>align-items属性定义项目在交叉轴上如何对齐。（垂直方向）<br>flex-start | flex-end | center | baseline  项目的第一行文字的基线对齐| stretch（默认值）：如果项目未设置高度或设为auto，将占满整个容器的高度。;</p>
-<p><img src="/picture/CSS-flex/baseline.jpg" alt="avatar"><br>align-content属性定义了多根轴线的对齐方式。如果项目只有一根轴线，该属性不起作用。<br>项目的属性<br>以下6个属性设置在项目上。<br>order           ： 定义项目的排列顺序。数值越小，排列越靠前，默认为0。<br>flex-grow     ：定义项目的放大比例，默认为0，即如果存在剩余空间，也不放大<br>flex-shrink   ：定义了项目的缩小比例，默认为1，即如果空间不足，该项目将缩小。<br>flex-basis    ：定义了在分配多余空间之前，项目占据的主轴空间（main size）。浏览器根据这个属性，计算主轴是否有多余空间。它的默认值为auto，即项目的本来大小。<br>    flex-basis为auto时, 初始宽度为元素内容大小或者设置的宽度值（盒子模型中的占用宽度）。<br>    flex-basis为像素值时，初始宽度为flex-basis的值。<br>    flex-basis为百分比时，初始宽度为占父容器的比例。<br>    flex-basis为0或0%时，初始宽度为0。<br>flex             ：是flex-grow, flex-shrink 和 flex-basis的简写，默认值为0 1 auto。后两个属性可选。<br>align-self    ：允许单个项目有与其他项目不一样的对齐方式，可覆盖align-items属性。（垂直方向）<br>flex的取值<br>当 flex 取值为 none，则计算值为 0 0 auto；<br>当 flex 取值为 auto，则计算值为 1 1 auto，<br>当 flex 取值为一个非负数字，则该数字为 flex-grow 值，flex-shrink 取 1，flex-basis 取 0%；<br>当 flex 取值为一个长度或百分比，则视为 flex-basis 值，flex-grow 取 1，flex-shrink 取 1；<br>当 flex 取值为两个非负数字，则分别视为 flex-grow 和 flex-shrink 的值，flex-basis 取 0%，如下是等同的；<br>当 flex 取值为一个非负数字和一个长度或百分比，则分别视为 flex-grow 和 flex-basis 的值，flex-shrink 取 1，如下是等同的：</p>
+<p><img src="/picture/CSS-flex/baseline.jpg" alt="baseline"><br>align-content属性定义了多根轴线的对齐方式。如果项目只有一根轴线，该属性不起作用。<br>项目的属性<br>以下6个属性设置在项目上。<br>order           ： 定义项目的排列顺序。数值越小，排列越靠前，默认为0。<br>flex-grow     ：定义项目的放大比例，默认为0，即如果存在剩余空间，也不放大<br>flex-shrink   ：定义了项目的缩小比例，默认为1，即如果空间不足，该项目将缩小。<br>flex-basis    ：定义了在分配多余空间之前，项目占据的主轴空间（main size）。浏览器根据这个属性，计算主轴是否有多余空间。它的默认值为auto，即项目的本来大小。<br>    flex-basis为auto时, 初始宽度为元素内容大小或者设置的宽度值（盒子模型中的占用宽度）。<br>    flex-basis为像素值时，初始宽度为flex-basis的值。<br>    flex-basis为百分比时，初始宽度为占父容器的比例。<br>    flex-basis为0或0%时，初始宽度为0。<br>flex             ：是flex-grow, flex-shrink 和 flex-basis的简写，默认值为0 1 auto。后两个属性可选。<br>align-self    ：允许单个项目有与其他项目不一样的对齐方式，可覆盖align-items属性。（垂直方向）<br>flex的取值<br>当 flex 取值为 none，则计算值为 0 0 auto；<br>当 flex 取值为 auto，则计算值为 1 1 auto，<br>当 flex 取值为一个非负数字，则该数字为 flex-grow 值，flex-shrink 取 1，flex-basis 取 0%；<br>当 flex 取值为一个长度或百分比，则视为 flex-basis 值，flex-grow 取 1，flex-shrink 取 1；<br>当 flex 取值为两个非负数字，则分别视为 flex-grow 和 flex-shrink 的值，flex-basis 取 0%，如下是等同的；<br>当 flex 取值为一个非负数字和一个长度或百分比，则分别视为 flex-grow 和 flex-basis 的值，flex-shrink 取 1，如下是等同的：</p>
 <p>flex：1 === flex：1 1 0；效果图：</p>
-<p><img src="/picture/CSS-flex/flex1.jpg" alt="avatar"><br>flex:1 1 auto;效果图：</p>
-<p><img src="/picture/CSS-flex/flex11auto.jpg" alt="avatar"></p>
+<p><img src="/picture/CSS-flex/flex1.jpg" alt="flex:1"><br>flex:1 1 auto;效果图：</p>
+<p><img src="/picture/CSS-flex/flex11auto.jpg" alt="flex:1 1 auto"></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/02/25/css-flex/" data-id="ckll0y2rp0007z8upou9kf7pc" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2021/02/25/css-flex/" data-id="ckll10pfq0003fwupy9o7bzqc" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/css/">css</a></li></ul>
@@ -144,7 +144,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/02/25/css-水平垂直居中/" data-id="ckll0y2rh0004z8updpvaufiz" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2021/02/25/css-水平垂直居中/" data-id="ckll10pfs0005fwuphxfsnqqz" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/css/">css</a></li></ul>
@@ -187,7 +187,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/02/24/css-垂直居中/" data-id="ckll0n0ae0003zwupwlqindsw" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2021/02/24/css-垂直居中/" data-id="ckll10pfr0004fwup6n90ykdw" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/css/">css</a></li></ul>
@@ -227,7 +227,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/02/24/css-水平居中/" data-id="ckll0n0ag0004zwupeyglesfw" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2021/02/24/css-水平居中/" data-id="ckll10pfw0009fwupuontk11b" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/css/">css</a></li></ul>
@@ -269,7 +269,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/02/23/js-箭头函数和普通函数的区别/" data-id="ckll0n0cg001bzwup2ktvwhhd" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2021/02/23/js-箭头函数和普通函数的区别/" data-id="ckll10pgr0018fwupulfcrgrc" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
@@ -311,7 +311,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/02/22/js-for-in-for-of/" data-id="ckll0n0c2000xzwupjiy6b495" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2021/02/22/js-for-in-for-of/" data-id="ckll10pg8000jfwup81aago36" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
@@ -378,7 +378,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/01/31/ts-进阶-枚举/" data-id="ckll0n0cv001szwupxoxs75ca" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2021/01/31/ts-进阶-枚举/" data-id="ckll10ph6001ofwup1eeexwvc" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ts/">ts</a></li></ul>
@@ -444,7 +444,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/01/29/ts-基础-类型断言/" data-id="ckll0n0dn002kzwupnnw5orl7" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2021/01/29/ts-基础-类型断言/" data-id="ckll10pid002sfwupqfsyk0n8" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ts/">ts</a></li></ul>
@@ -495,7 +495,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/01/29/ts-基础-函数的类型/" data-id="ckll0n0ct001pzwupadqxerlb" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2021/01/29/ts-基础-函数的类型/" data-id="ckll10ph4001mfwup2o71d3lx" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ts/">ts</a></li></ul>
@@ -552,7 +552,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/01/28/ts-基础-原始数据类型/" data-id="ckll0n0cr001nzwupcybj1c3m" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2021/01/28/ts-基础-原始数据类型/" data-id="ckll10phe0020fwuppqlggb5b" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ts/">ts</a></li></ul>
