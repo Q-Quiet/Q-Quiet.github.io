@@ -5,19 +5,19 @@
   
 
   
-  <title>微任务、宏任务与Event-Loop | Q-Quiet</title>
+  <title>js-微任务、宏任务与Event-Loop | Q-Quiet</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="JavaScript是一个单线程的脚本语言微任务与宏任务的区别所以多个宏任务合在一起就可以认为说有一个任务队列，任务队列中的都是已经完成的异步操作，而不是说注册一个异步任务就会被放在这个任务队列中。一个宏任务在执行的过程中，是可以添加一些微任务，在当前的微任务没有执行完成时，是不会执行下一个宏任务的。所有会进入的异步都是指的事件回调中的那部分代码。宏任务:script(整体代码)setTimeou">
 <meta name="keywords" content="js">
 <meta property="og:type" content="article">
-<meta property="og:title" content="微任务、宏任务与Event-Loop">
-<meta property="og:url" content="https://Q-Quiet.github.io/2020/12/15/微任务、宏任务与Event-Loop/index.html">
+<meta property="og:title" content="js-微任务、宏任务与Event-Loop">
+<meta property="og:url" content="https://Q-Quiet.github.io/2020/12/15/js-微任务、宏任务与Event-Loop/index.html">
 <meta property="og:site_name" content="Q-Quiet">
 <meta property="og:description" content="JavaScript是一个单线程的脚本语言微任务与宏任务的区别所以多个宏任务合在一起就可以认为说有一个任务队列，任务队列中的都是已经完成的异步操作，而不是说注册一个异步任务就会被放在这个任务队列中。一个宏任务在执行的过程中，是可以添加一些微任务，在当前的微任务没有执行完成时，是不会执行下一个宏任务的。所有会进入的异步都是指的事件回调中的那部分代码。宏任务:script(整体代码)setTimeou">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-12-15T13:59:21.161Z">
+<meta property="og:updated_time" content="2021-02-25T15:31:08.756Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="微任务、宏任务与Event-Loop">
+<meta name="twitter:title" content="js-微任务、宏任务与Event-Loop">
 <meta name="twitter:description" content="JavaScript是一个单线程的脚本语言微任务与宏任务的区别所以多个宏任务合在一起就可以认为说有一个任务队列，任务队列中的都是已经完成的异步操作，而不是说注册一个异步任务就会被放在这个任务队列中。一个宏任务在执行的过程中，是可以添加一些微任务，在当前的微任务没有执行完成时，是不会执行下一个宏任务的。所有会进入的异步都是指的事件回调中的那部分代码。宏任务:script(整体代码)setTimeou">
   
     <link rel="alternate" href="/atom.xml" title="Q-Quiet" type="application/atom+xml">
@@ -70,9 +70,9 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-微任务、宏任务与Event-Loop" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-js-微任务、宏任务与Event-Loop" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2020/12/15/微任务、宏任务与Event-Loop/" class="article-date">
+    <a href="/2020/12/15/js-微任务、宏任务与Event-Loop/" class="article-date">
   <time datetime="2020-12-15T13:58:58.000Z" itemprop="datePublished">2020-12-15</time>
 </a>
     
@@ -84,7 +84,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      微任务、宏任务与Event-Loop
+      js-微任务、宏任务与Event-Loop
     </h1>
   
 
@@ -114,7 +114,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/12/15/微任务、宏任务与Event-Loop/" data-id="ckll0n0d0001yzwupsnvwl6fm" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/12/15/js-微任务、宏任务与Event-Loop/" data-id="ckll0y2qw0002z8uppcpr28qk" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
@@ -166,7 +166,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Vue/" style="font-size: 10px;">Vue</a> <a href="/tags/css/" style="font-size: 12.5px;">css</a> <a href="/tags/es6/" style="font-size: 17.5px;">es6</a> <a href="/tags/js/" style="font-size: 20px;">js</a> <a href="/tags/ts/" style="font-size: 15px;">ts</a> <a href="/tags/vue/" style="font-size: 10px;">vue</a> <a href="/tags/复习/" style="font-size: 12.5px;">复习</a> <a href="/tags/浏览器/" style="font-size: 15px;">浏览器</a> <a href="/tags/网络/" style="font-size: 10px;">网络</a>
+      <a href="/tags/Vue/" style="font-size: 10px;">Vue</a> <a href="/tags/css/" style="font-size: 14px;">css</a> <a href="/tags/es6/" style="font-size: 18px;">es6</a> <a href="/tags/js/" style="font-size: 20px;">js</a> <a href="/tags/ts/" style="font-size: 14px;">ts</a> <a href="/tags/vue/" style="font-size: 10px;">vue</a> <a href="/tags/复习/" style="font-size: 12px;">复习</a> <a href="/tags/浏览器/" style="font-size: 16px;">浏览器</a> <a href="/tags/网络/" style="font-size: 10px;">网络</a>
     </div>
   </div>
 
@@ -188,6 +188,14 @@
       <ul>
         
           <li>
+            <a href="/2021/02/25/css-flex/">css-flex</a>
+          </li>
+        
+          <li>
+            <a href="/2021/02/25/css-水平垂直居中/">css-水平垂直居中</a>
+          </li>
+        
+          <li>
             <a href="/2021/02/24/css-垂直居中/">css-垂直居中</a>
           </li>
         
@@ -197,14 +205,6 @@
         
           <li>
             <a href="/2021/02/23/js-箭头函数和普通函数的区别/">js-箭头函数和普通函数的区别</a>
-          </li>
-        
-          <li>
-            <a href="/2021/02/22/js-for-in-for-of/">js-for..in/for..of</a>
-          </li>
-        
-          <li>
-            <a href="/2021/01/31/ts-进阶-枚举/">ts-进阶-枚举</a>
           </li>
         
       </ul>

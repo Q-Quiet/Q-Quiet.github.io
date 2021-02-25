@@ -68,6 +68,94 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-css-flex" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2021/02/25/css-flex/" class="article-date">
+  <time datetime="2021-02-25T14:57:55.000Z" itemprop="datePublished">2021-02-25</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/02/25/css-flex/">css-flex</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Flex布局（弹性布局）默认就是首行左对齐。<br>容器默认存在两根轴：水平的主轴（main axis）和垂直的交叉轴（cross axis）。<br>flex-direction属性决定主轴的方向（即项目的排列方向）。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.box &#123;</span><br><span class="line">  flex-direction: row | row-reverse | column | column-reverse;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>flex-wrap属性定义，如果一条轴线排不下，如何换行。<br>nowrap 不换行 | wrap 换行，第一行在上方| wrap-reverse 换行，第一行在下方<br>flex-flow属性是flex-direction属性和flex-wrap属性的简写形式，默认值为row nowrap。<br>justify-content属性定义了项目在主轴上的对齐方式。（水平方向的对齐方式）<br> flex-start | flex-end | center | space-between 两端对齐，项目之间的间隔都相等| space-around 每个项目两侧的间隔相等。所以，项目之间的间隔比项目与边框的间隔大一倍。<br>align-items属性定义项目在交叉轴上如何对齐。（垂直方向）<br>flex-start | flex-end | center | baseline  项目的第一行文字的基线对齐| stretch（默认值）：如果项目未设置高度或设为auto，将占满整个容器的高度。;</p>
+<p><img src="/picture/CSS-flex/baseline.jpg" alt="avatar"><br>align-content属性定义了多根轴线的对齐方式。如果项目只有一根轴线，该属性不起作用。<br>项目的属性<br>以下6个属性设置在项目上。<br>order           ： 定义项目的排列顺序。数值越小，排列越靠前，默认为0。<br>flex-grow     ：定义项目的放大比例，默认为0，即如果存在剩余空间，也不放大<br>flex-shrink   ：定义了项目的缩小比例，默认为1，即如果空间不足，该项目将缩小。<br>flex-basis    ：定义了在分配多余空间之前，项目占据的主轴空间（main size）。浏览器根据这个属性，计算主轴是否有多余空间。它的默认值为auto，即项目的本来大小。<br>    flex-basis为auto时, 初始宽度为元素内容大小或者设置的宽度值（盒子模型中的占用宽度）。<br>    flex-basis为像素值时，初始宽度为flex-basis的值。<br>    flex-basis为百分比时，初始宽度为占父容器的比例。<br>    flex-basis为0或0%时，初始宽度为0。<br>flex             ：是flex-grow, flex-shrink 和 flex-basis的简写，默认值为0 1 auto。后两个属性可选。<br>align-self    ：允许单个项目有与其他项目不一样的对齐方式，可覆盖align-items属性。（垂直方向）<br>flex的取值<br>当 flex 取值为 none，则计算值为 0 0 auto；<br>当 flex 取值为 auto，则计算值为 1 1 auto，<br>当 flex 取值为一个非负数字，则该数字为 flex-grow 值，flex-shrink 取 1，flex-basis 取 0%；<br>当 flex 取值为一个长度或百分比，则视为 flex-basis 值，flex-grow 取 1，flex-shrink 取 1；<br>当 flex 取值为两个非负数字，则分别视为 flex-grow 和 flex-shrink 的值，flex-basis 取 0%，如下是等同的；<br>当 flex 取值为一个非负数字和一个长度或百分比，则分别视为 flex-grow 和 flex-basis 的值，flex-shrink 取 1，如下是等同的：</p>
+<p>flex：1 === flex：1 1 0；效果图：</p>
+<p><img src="/picture/CSS-flex/flex1.jpg" alt="avatar"><br>flex:1 1 auto;效果图：</p>
+<p><img src="/picture/CSS-flex/flex11auto.jpg" alt="avatar"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://Q-Quiet.github.io/2021/02/25/css-flex/" data-id="ckll0y2rp0007z8upou9kf7pc" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/css/">css</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-css-水平垂直居中" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2021/02/25/css-水平垂直居中/" class="article-date">
+  <time datetime="2021-02-25T13:37:32.000Z" itemprop="datePublished">2021-02-25</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/02/25/css-水平垂直居中/">css-水平垂直居中</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>1.绝对定位与负边距实现（已知高度宽度）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">// html部分(这部分不做变化,下面例子直接共用)</span><br><span class="line">&lt;body&gt;</span><br><span class="line">  &lt;div id=&apos;container&apos;&gt;</span><br><span class="line">    &lt;div id=&apos;center&apos; style=&quot;width: 100px;height: 100px;background-color: #666&quot;&gt;center&lt;/div&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line"></span><br><span class="line">// css部分</span><br><span class="line">#container &#123;</span><br><span class="line">   position: relative;</span><br><span class="line">&#125;</span><br><span class="line">#center &#123;</span><br><span class="line">   position: absolute;</span><br><span class="line">   top: 50%;</span><br><span class="line">   left: 50%;</span><br><span class="line">   margin: -50px 0 0 -50px;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>2.绝对定位与margin:auto（已知高度宽度）<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">#container &#123;</span><br><span class="line">   position: relative;</span><br><span class="line">   height:100px;//必须有个高度</span><br><span class="line">&#125;</span><br><span class="line">#center &#123;</span><br><span class="line">   position: absolute;</span><br><span class="line">   top: 0;</span><br><span class="line">   left: 0;</span><br><span class="line">   right: 0;</span><br><span class="line">   bottom: 0;</span><br><span class="line">   margin: auto;//注意此处的写法</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>3.绝对定位+CSS3(未知元素的高宽)<br>利用Css3的transform，可以在未知元素的高宽的情况下实现元素的垂直居中。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">#container &#123;</span><br><span class="line">  position: relative;</span><br><span class="line">&#125;</span><br><span class="line">#center &#123;</span><br><span class="line">  position: absolute;</span><br><span class="line">  top: 50%;</span><br><span class="line">  left: 50%;</span><br><span class="line">  transform: translate(-50%, -50%);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>4.flex布局<br>利用flex布局，其中justify-content 用于设置或检索弹性盒子元素在主轴（横轴）方向上的对齐方式；而align-items属性定义flex子项在flex容器的当前行的侧轴（纵轴）方向上的对齐方式。不能兼容低版本的IE浏览器。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#container &#123;//直接在父容器设置即可</span><br><span class="line">   height: 100vh;//必须有高度</span><br><span class="line">   display: flex;</span><br><span class="line">   justify-content: center;</span><br><span class="line">   align-items: center;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure></p>
+<p>5.flex/grid与margin:auto(最简单写法)<br>容器元素设为 flex 布局或是grid布局，子元素只要写 margin: auto 即可,不能兼容低版本的IE浏览器。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">#container &#123;</span><br><span class="line">  height: 100vh;//必须有高度</span><br><span class="line">  display: grid;</span><br><span class="line">&#125;</span><br><span class="line">#center &#123;</span><br><span class="line">  margin: auto;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://Q-Quiet.github.io/2021/02/25/css-水平垂直居中/" data-id="ckll0y2rh0004z8updpvaufiz" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/css/">css</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-css-垂直居中" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2021/02/24/css-垂直居中/" class="article-date">
@@ -476,85 +564,6 @@
 
 
   
-    <article id="post-js-判断浏览器类型" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2021/01/26/js-判断浏览器类型/" class="article-date">
-  <time datetime="2021-01-26T14:39:04.000Z" itemprop="datePublished">2021-01-26</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/01/26/js-判断浏览器类型/">js-判断浏览器类型</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>一、使用浏览器的userAgent来判断<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> explorer = <span class="built_in">window</span>.navigator.userAgent ;</span><br><span class="line">         <span class="comment">//判断是否为IE浏览器</span></span><br><span class="line">        <span class="keyword">if</span> (explorer.indexOf(<span class="string">"MSIE"</span>) &gt;= <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="string">'ie'</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//判断是否为Firefox浏览器</span></span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (explorer.indexOf(<span class="string">"Firefox"</span>) &gt;= <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="string">'Firefox'</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//判断是否为Chrome浏览器</span></span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(explorer.indexOf(<span class="string">"Chrome"</span>) &gt;= <span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="string">'Chrome'</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//判断是否为Opera浏览器</span></span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(explorer.indexOf(<span class="string">"Opera"</span>) &gt;= <span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="string">'Opera'</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//判断是否为Safari浏览器</span></span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(explorer.indexOf(<span class="string">"Safari"</span>) &gt;= <span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="string">'Safari'</span>;</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure></p>
-<p>实际上，通过检测 userAgent 的值来判断浏览器类型是不可靠的，也是不推荐的，因为用户可以修改userAgent 的值。<br>Firefox 中，你可以通过在 about:config 页面添加并修改general.useragent.override选项的值来覆盖默认的用户代理字符串。一些Firefox扩展也可以用其他方式修改这个值，但它们通常只会修改发送到服务器的User-Agent请求头的值，而不会影响 JavaScript 代码中获取的 window.navigator.userAgent 属性的值。<br>Opera 6+ 中允许用户通过菜单选择不同的用户代理字符串。<br>Microsoft Internet Explorer 使用注册表来配置自己的用户代理字符串。<br>Safari 和 iCab 也允许用户修改其用户代理字符串，来将自己伪装成 Internet Explorer 或 Netscape。<br>二、可以通过各个浏览器之间的特征来判断<br>IE<br>只有IE支持创建ActiveX控件，它有一个其他浏览器没有的东西，就是ActiveXObject函数。只要判断window对象存在ActiveXObject函数，就可以明确判断出当前浏览器是IE<br>Safari<br>Safari浏览器中有一个其他浏览器没有的openDatabase函数，可做为判断Safari的标志<br>Chrome<br>Chrome有一个MessageEvent函数，但Firefox也有。不过，好在Chrome并没有Firefox的getBoxObjectFor函数，根据这个条件还是可以准确判断出Chrome浏览器的<br>Firefox<br>Firefox中的DOM元素都有一个getBoxObjectFor函数，用来获取该DOM元素的位置和大小（IE对应的中是getBoundingClientRect函数）。这是Firefox独有的，判断它即可知道是当前浏览器是Firefox<br>Opera<br>Opera提供了专门的浏览器标志，就是window.opera属性<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (<span class="built_in">window</span>.ActiveXObject)</span><br><span class="line"><span class="keyword">return</span> <span class="string">"IE"</span>;</span><br><span class="line"><span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">document</span>.getBoxObjectFor)</span><br><span class="line"><span class="keyword">return</span> <span class="string">"Firefox"</span>;</span><br><span class="line"><span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">window</span>.MessageEvent &amp;&amp; !<span class="built_in">document</span>.getBoxObjectFor)</span><br><span class="line"><span class="keyword">return</span> <span class="string">"Chrome"</span>;</span><br><span class="line"><span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">window</span>.opera)</span><br><span class="line"><span class="keyword">return</span> <span class="string">"Opera"</span>;</span><br><span class="line"><span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">window</span>.openDatabase)</span><br><span class="line"><span class="keyword">return</span> <span class="string">"Safari"</span>;</span><br></pre></td></tr></table></figure></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/01/26/js-判断浏览器类型/" data-id="ckll0n0cf0019zwupzczvt8bd" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-网络-TCP" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2021/01/23/网络-TCP/" class="article-date">
-  <time datetime="2021-01-23T14:14:24.000Z" itemprop="datePublished">2021-01-23</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/01/23/网络-TCP/">网络-TCP</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>TCP 协议的作用是，保证数据通信的完整性和可靠性，防止丢包。<br>TCP 提供一种面向连接的、可靠的字节流服务<br>在一个 TCP 连接中，仅有两方进行彼此通信。广播和多播不能用于 TCP<br>TCP 使用校验和，确认和重传机制来保证可靠传输<br>TCP 给数据分节进行排序，并使用累积确认保证数据的顺序不变和非重复<br>TCP 使用滑动窗口机制来实现流量控制，通过动态改变窗口的大小进行拥塞控制<br>注意：TCP 并不能保证数据一定会被对方接收到，因为这是不可能的。TCP 能够做到的是，如果有可能，就把数据递送到接收方，否则就（通过放弃重传并且中断连接这一手段）通知用户。因此准确说 TCP 也不是 100% 可靠的协议，它所能提供的是数据的可靠递送或故障的可靠通知。<br>三次握手与四次挥手<br>三次握手<br>指建立一个 TCP 连接时，需要客户端和服务器总共发送3个包。<br>三次握手的目的是连接服务器指定端口，建立 TCP 连接，并同步连接双方的序列号和确认号，交换 TCP 窗口大小信息。在 socket 编程中，客户端执行 connect() 时。将触发三次握手。<br>第一次握手(SYN=1, seq=x):<br>客户端发送一个 TCP 的 SYN 标志位置1的包，指明客户端打算连接的服务器的端口，以及初始序号 X,保存在包头的序列号(Sequence Number)字段里。<br>发送完毕后，客户端进入 SYN_SEND 状态。<br>第二次握手(SYN=1, ACK=1, seq=y, ACKnum=x+1):<br>服务器发回确认包(ACK)应答。即 SYN 标志位和 ACK 标志位均为1。服务器端选择自己 ISN 序列号，放到 Seq 域里，同时将确认序号(Acknowledgement Number)设置为客户的 ISN 加1，即X+1。 发送完毕后，服务器端进入 SYN_RCVD 状态。<br>第三次握手(ACK=1，ACKnum=y+1)<br>客户端再次发送确认包(ACK)，SYN 标志位为0，ACK 标志位为1，并且把服务器发来 ACK 的序号字段+1，放在确定字段中发送给对方，并且在数据段放写ISN的+1<br>发送完毕后，客户端进入 ESTABLISHED 状态，当服务器端接收到这个包时，也进入 ESTABLISHED 状态，TCP 握手结束。<br>四次挥手<br>TCP 的连接的拆除需要发送四个包，因此称为四次挥手(Four-way handshake)，也叫做改进的三次握手。客户端或服务器均可主动发起挥手动作，在 socket 编程中，任何一方执行 close() 操作即可产生挥手操作。<br>第一次挥手(FIN=1，seq=x)<br>假设客户端想要关闭连接，客户端发送一个 FIN 标志位置为1的包，表示自己已经没有数据可以发送了，但是仍然可以接受数据。<br>发送完毕后，客户端进入 FIN_WAIT_1 状态。<br>第二次挥手(ACK=1，ACKnum=x+1)<br>服务器端确认客户端的 FIN 包，发送一个确认包，表明自己接受到了客户端关闭连接的请求，但还没有准备好关闭连接。<br>发送完毕后，服务器端进入 CLOSE_WAIT 状态，客户端接收到这个确认包之后，进入 FIN_WAIT_2 状态，等待服务器端关闭连接。<br>第三次挥手(FIN=1，seq=y)<br>服务器端准备好关闭连接时，向客户端发送结束连接请求，FIN 置为1。<br>发送完毕后，服务器端进入 LAST_ACK 状态，等待来自客户端的最后一个ACK。<br>第四次挥手(ACK=1，ACKnum=y+1)<br>客户端接收到来自服务器端的关闭请求，发送一个确认包，并进入 TIME_WAIT状态，等待可能出现的要求重传的 ACK 包。<br>服务器端接收到这个确认包之后，关闭连接，进入 CLOSED 状态。<br>客户端等待了某个固定时间（两个最大段生命周期，2MSL，2 Maximum Segment Lifetime）之后，没有收到服务器端的 ACK ，认为服务器端已经正常关闭连接，于是自己也关闭连接，进入 CLOSED 状态。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/01/23/网络-TCP/" data-id="ckll0n0d60024zwup7xhxpq9o" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/网络/">网络</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
 
 
   <nav id="page-nav">
@@ -583,7 +592,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Vue/" style="font-size: 10px;">Vue</a> <a href="/tags/css/" style="font-size: 12.5px;">css</a> <a href="/tags/es6/" style="font-size: 17.5px;">es6</a> <a href="/tags/js/" style="font-size: 20px;">js</a> <a href="/tags/ts/" style="font-size: 15px;">ts</a> <a href="/tags/vue/" style="font-size: 10px;">vue</a> <a href="/tags/复习/" style="font-size: 12.5px;">复习</a> <a href="/tags/浏览器/" style="font-size: 15px;">浏览器</a> <a href="/tags/网络/" style="font-size: 10px;">网络</a>
+      <a href="/tags/Vue/" style="font-size: 10px;">Vue</a> <a href="/tags/css/" style="font-size: 14px;">css</a> <a href="/tags/es6/" style="font-size: 18px;">es6</a> <a href="/tags/js/" style="font-size: 20px;">js</a> <a href="/tags/ts/" style="font-size: 14px;">ts</a> <a href="/tags/vue/" style="font-size: 10px;">vue</a> <a href="/tags/复习/" style="font-size: 12px;">复习</a> <a href="/tags/浏览器/" style="font-size: 16px;">浏览器</a> <a href="/tags/网络/" style="font-size: 10px;">网络</a>
     </div>
   </div>
 
@@ -605,6 +614,14 @@
       <ul>
         
           <li>
+            <a href="/2021/02/25/css-flex/">css-flex</a>
+          </li>
+        
+          <li>
+            <a href="/2021/02/25/css-水平垂直居中/">css-水平垂直居中</a>
+          </li>
+        
+          <li>
             <a href="/2021/02/24/css-垂直居中/">css-垂直居中</a>
           </li>
         
@@ -614,14 +631,6 @@
         
           <li>
             <a href="/2021/02/23/js-箭头函数和普通函数的区别/">js-箭头函数和普通函数的区别</a>
-          </li>
-        
-          <li>
-            <a href="/2021/02/22/js-for-in-for-of/">js-for..in/for..of</a>
-          </li>
-        
-          <li>
-            <a href="/2021/01/31/ts-进阶-枚举/">ts-进阶-枚举</a>
           </li>
         
       </ul>
