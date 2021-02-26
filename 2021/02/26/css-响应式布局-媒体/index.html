@@ -5,24 +5,20 @@
   
 
   
-  <title>css-flex | Q-Quiet</title>
+  <title>css-响应式布局-媒体 | Q-Quiet</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Flex布局（弹性布局）默认就是首行左对齐。容器默认存在两根轴：水平的主轴（main axis）和垂直的交叉轴（cross axis）。flex-direction属性决定主轴的方向（即项目的排列方向）。123.box &amp;#123;  flex-direction: row | row-reverse | column | column-reverse;&amp;#125; flex-wrap属性定义，如">
+  <meta name="description" content="响应式布局指的是同一页面在不同屏幕尺寸下有不同的布局。1.媒体查询随着屏幕宽度增大或减小的时候，后面的样式会覆盖前面的样式。移动端优先首先使用的是min-width，PC端优先使用的max-width。2.百分比布局通过百分比单位，可以使得浏览器中组件的宽和高随着浏览器的高度的变化而变化，从而实现响应式的效果。（配合媒体查询）3.rem布局rem单位都是相对于根元素html的font-size来决">
 <meta name="keywords" content="css">
 <meta property="og:type" content="article">
-<meta property="og:title" content="css-flex">
-<meta property="og:url" content="https://Q-Quiet.github.io/2021/02/25/css-flex/index.html">
+<meta property="og:title" content="css-响应式布局-媒体">
+<meta property="og:url" content="https://Q-Quiet.github.io/2021/02/26/css-响应式布局-媒体/index.html">
 <meta property="og:site_name" content="Q-Quiet">
-<meta property="og:description" content="Flex布局（弹性布局）默认就是首行左对齐。容器默认存在两根轴：水平的主轴（main axis）和垂直的交叉轴（cross axis）。flex-direction属性决定主轴的方向（即项目的排列方向）。123.box &amp;#123;  flex-direction: row | row-reverse | column | column-reverse;&amp;#125; flex-wrap属性定义，如">
+<meta property="og:description" content="响应式布局指的是同一页面在不同屏幕尺寸下有不同的布局。1.媒体查询随着屏幕宽度增大或减小的时候，后面的样式会覆盖前面的样式。移动端优先首先使用的是min-width，PC端优先使用的max-width。2.百分比布局通过百分比单位，可以使得浏览器中组件的宽和高随着浏览器的高度的变化而变化，从而实现响应式的效果。（配合媒体查询）3.rem布局rem单位都是相对于根元素html的font-size来决">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://q-quiet.github.io/picture/CSS-flex/baseline.jpg">
-<meta property="og:image" content="https://q-quiet.github.io/picture/CSS-flex/flex1.jpg">
-<meta property="og:image" content="https://q-quiet.github.io/picture/CSS-flex/flex11auto.jpg">
-<meta property="og:updated_time" content="2021-02-25T15:33:24.648Z">
+<meta property="og:updated_time" content="2021-02-26T15:44:43.788Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="css-flex">
-<meta name="twitter:description" content="Flex布局（弹性布局）默认就是首行左对齐。容器默认存在两根轴：水平的主轴（main axis）和垂直的交叉轴（cross axis）。flex-direction属性决定主轴的方向（即项目的排列方向）。123.box &amp;#123;  flex-direction: row | row-reverse | column | column-reverse;&amp;#125; flex-wrap属性定义，如">
-<meta name="twitter:image" content="https://q-quiet.github.io/picture/CSS-flex/baseline.jpg">
+<meta name="twitter:title" content="css-响应式布局-媒体">
+<meta name="twitter:description" content="响应式布局指的是同一页面在不同屏幕尺寸下有不同的布局。1.媒体查询随着屏幕宽度增大或减小的时候，后面的样式会覆盖前面的样式。移动端优先首先使用的是min-width，PC端优先使用的max-width。2.百分比布局通过百分比单位，可以使得浏览器中组件的宽和高随着浏览器的高度的变化而变化，从而实现响应式的效果。（配合媒体查询）3.rem布局rem单位都是相对于根元素html的font-size来决">
   
     <link rel="alternate" href="/atom.xml" title="Q-Quiet" type="application/atom+xml">
   
@@ -74,10 +70,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-css-flex" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-css-响应式布局-媒体" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2021/02/25/css-flex/" class="article-date">
-  <time datetime="2021-02-25T14:57:55.000Z" itemprop="datePublished">2021-02-25</time>
+    <a href="/2021/02/26/css-响应式布局-媒体/" class="article-date">
+  <time datetime="2021-02-26T15:43:59.000Z" itemprop="datePublished">2021-02-26</time>
 </a>
     
   </div>
@@ -88,7 +84,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      css-flex
+      css-响应式布局-媒体
     </h1>
   
 
@@ -96,17 +92,14 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>Flex布局（弹性布局）默认就是首行左对齐。<br>容器默认存在两根轴：水平的主轴（main axis）和垂直的交叉轴（cross axis）。<br>flex-direction属性决定主轴的方向（即项目的排列方向）。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.box &#123;</span><br><span class="line">  flex-direction: row | row-reverse | column | column-reverse;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>flex-wrap属性定义，如果一条轴线排不下，如何换行。<br>nowrap 不换行 | wrap 换行，第一行在上方| wrap-reverse 换行，第一行在下方<br>flex-flow属性是flex-direction属性和flex-wrap属性的简写形式，默认值为row nowrap。<br>justify-content属性定义了项目在主轴上的对齐方式。（水平方向的对齐方式）<br> flex-start | flex-end | center | space-between 两端对齐，项目之间的间隔都相等| space-around 每个项目两侧的间隔相等。所以，项目之间的间隔比项目与边框的间隔大一倍。<br>align-items属性定义项目在交叉轴上如何对齐。（垂直方向）<br>flex-start | flex-end | center | baseline  项目的第一行文字的基线对齐| stretch（默认值）：如果项目未设置高度或设为auto，将占满整个容器的高度。;</p>
-<p><img src="/picture/CSS-flex/baseline.jpg" alt="baseline"><br>align-content属性定义了多根轴线的对齐方式。如果项目只有一根轴线，该属性不起作用。<br>项目的属性<br>以下6个属性设置在项目上。<br>order           ： 定义项目的排列顺序。数值越小，排列越靠前，默认为0。<br>flex-grow     ：定义项目的放大比例，默认为0，即如果存在剩余空间，也不放大<br>flex-shrink   ：定义了项目的缩小比例，默认为1，即如果空间不足，该项目将缩小。<br>flex-basis    ：定义了在分配多余空间之前，项目占据的主轴空间（main size）。浏览器根据这个属性，计算主轴是否有多余空间。它的默认值为auto，即项目的本来大小。<br>    flex-basis为auto时, 初始宽度为元素内容大小或者设置的宽度值（盒子模型中的占用宽度）。<br>    flex-basis为像素值时，初始宽度为flex-basis的值。<br>    flex-basis为百分比时，初始宽度为占父容器的比例。<br>    flex-basis为0或0%时，初始宽度为0。<br>flex             ：是flex-grow, flex-shrink 和 flex-basis的简写，默认值为0 1 auto。后两个属性可选。<br>align-self    ：允许单个项目有与其他项目不一样的对齐方式，可覆盖align-items属性。（垂直方向）<br>flex的取值<br>当 flex 取值为 none，则计算值为 0 0 auto；<br>当 flex 取值为 auto，则计算值为 1 1 auto，<br>当 flex 取值为一个非负数字，则该数字为 flex-grow 值，flex-shrink 取 1，flex-basis 取 0%；<br>当 flex 取值为一个长度或百分比，则视为 flex-basis 值，flex-grow 取 1，flex-shrink 取 1；<br>当 flex 取值为两个非负数字，则分别视为 flex-grow 和 flex-shrink 的值，flex-basis 取 0%，如下是等同的；<br>当 flex 取值为一个非负数字和一个长度或百分比，则分别视为 flex-grow 和 flex-basis 的值，flex-shrink 取 1，如下是等同的：</p>
-<p>flex：1 === flex：1 1 0；效果图：</p>
-<p><img src="/picture/CSS-flex/flex1.jpg" alt="flex:1"><br>flex:1 1 auto;效果图：</p>
-<p><img src="/picture/CSS-flex/flex11auto.jpg" alt="flex:1 1 auto"></p>
+        <p>响应式布局指的是同一页面在不同屏幕尺寸下有不同的布局。<br>1.媒体查询<br>随着屏幕宽度增大或减小的时候，后面的样式会覆盖前面的样式。移动端优先首先使用的是min-width，PC端优先使用的max-width。<br>2.百分比布局<br>通过百分比单位，可以使得浏览器中组件的宽和高随着浏览器的高度的变化而变化，从而实现响应式的效果。（配合媒体查询）<br>3.rem布局<br>rem单位都是相对于根元素html的font-size来决定大小的。（配合媒体查询）<br>rem响应式的布局思想：<br>一般不要给元素设置具体的宽度，但是对于一些小图标可以设定具体宽度值<br>高度值可以设置固定值，设计稿有多大，我们就严格有多大<br>所有设置的固定值都用rem做单位（首先在HTML总设置一个基准值：px和rem的对应比例，然后在效果图上获取px值，布局的时候转化为rem值)<br>js获取真实屏幕的宽度，让其除以设计稿的宽度，算出比例，把之前的基准值按照比例进行重新的设定，这样项目就可以在移动端自适应了<br>4.视口单位<br>使用视口单位来实现响应式有两种做法：<br>1.仅使用vw作为CSS单位<br>无论是文本还是布局宽度、间距等都使用vw作为单位<br>2.搭配vw和rem<br>给根元素大小设置随着视口变化而变化的vw单位，这样就可以实现动态改变其大小<br>限制根元素字体大小的最大最小值，配合body加上最大宽度和最小宽度<br>5.图片响应式<br>一个就是大小自适应，这样能够保证图片在不同的屏幕分辨率下出现压缩、拉伸的情况；<br>一个就是根据不同的屏幕分辨率和设备像素比来尽可能选择高分辨率的图片，也就是当在小屏幕上不需要高清图或大图，这样我们用小图代替，就可以减少网络带宽了。<br>1.使用max-width（图片自适应）:<br>2.使用srcset<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;img srcset=<span class="string">"photo_w350.jpg 1x, photo_w640.jpg 2x"</span> src=<span class="string">"photo_w350.jpg"</span> alt=<span class="string">""</span>&gt;</span><br></pre></td></tr></table></figure></p>
+<p>3.使用background-image<br>4.使用picture标签<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;picture&gt;</span><br><span class="line">    &lt;source srcset=<span class="string">"banner_w1000.jpg"</span> media=<span class="string">"(min-width: 801px)"</span>&gt;</span><br><span class="line">    &lt;source srcset=<span class="string">"banner_w800.jpg"</span> media=<span class="string">"(max-width: 800px)"</span>&gt;</span><br><span class="line">    &lt;img src=<span class="string">"banner_w800.jpg"</span> alt=<span class="string">""</span>&gt;</span><br><span class="line">&lt;<span class="regexp">/picture&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">&lt;!-- picturefill.min.js 解决IE等浏览器不支持 &lt;picture&gt; 的问题 --&gt;</span></span><br><span class="line"><span class="regexp">&lt;script type="text/</span>javascript<span class="string">" src="</span>js/vendor/picturefill.min.js<span class="string">"&gt;&lt;/script&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>响应式布局的实现可以通过媒体查询+px,媒体查询+百分比，媒体查询+rem+js,vm/vh,vm/vh +rem这几种方式来实现。</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/02/25/css-flex/" data-id="cklmgv4sz0001p0upsw0dk2bz" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2021/02/26/css-响应式布局-媒体/" data-id="cklmgv4ta0008p0ups41s1vpd" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/css/">css</a></li></ul>
@@ -117,19 +110,10 @@
     
 <nav id="article-nav">
   
-    <a href="/2021/02/26/css-响应式布局-媒体/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          css-响应式布局-媒体
-        
-      </div>
-    </a>
   
-  
-    <a href="/2021/02/25/css-水平垂直居中/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2021/02/25/css-flex/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">css-水平垂直居中</div>
+      <div class="article-nav-title">css-flex</div>
     </a>
   
 </nav>
