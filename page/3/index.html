@@ -68,6 +68,55 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-js的几种模块规范" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/12/29/js的几种模块规范/" class="article-date">
+  <time datetime="2020-12-29T15:08:15.000Z" itemprop="datePublished">2020-12-29</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/12/29/js的几种模块规范/">js的几种模块规范</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>CommonJS<br>AMD<br>CMD<br>ES6<br>一、CommonJS<br>Node.js是commonJS规范的主要实践者，它有四个重要的环境变量为模块化的实现提供支持：module、exports、require、global。<br>用module.exports定义当前模块对外输出的接口（不推荐直接用exports），用require加载模块。<br>var basicNum = 0;<br>function add(a, b) {<br>    return a + b;<br>}<br>module.exports = {<br>//在这里写上需要向外暴露的函数、变量<br>    add: add,<br>    basicNum: basicNum<br>} </p>
+<p>// 引用自定义的模块时，参数包含路径，可省略.js<br>var math = require(‘./math’);<br>math.add(2, 5); </p>
+<p>// 引用核心模块时，不需要带路径<br>var http = require(‘http’);<br>http.createService(…).listen(3000);</p>
+<p>二、AMD和require.js<br>AMD规范采用异步方式加载模块，模块的加载不影响它后面语句的运行。所有依赖这个模块的语句，都定义在一个回调函数中，等到加载完成之后，这个回调函数才会运行。<br>三、CMD和sea.js<br>CMD是另一种js模块化方案，它与AMD很类似，不同点在于：AMD 推崇依赖前置、提前执行，CMD推崇依赖就近、延迟执行。此规范其实是在sea.js推广过程中产生的。<br>四、ES6 Module<br>ES6 在语言标准的层面上，实现了模块功能，而且实现得相当简单，旨在成为浏览器和服务器通用的模块解决方案。其模块功能主要由两个命令构成：export和import。export命令用于规定模块的对外接口，import命令用于输入其他模块提供的功能。<br>/<strong> 定义模块 math.js </strong>/<br>var basicNum = 0;<br>var add = function (a, b) {<br>    return a + b;<br>};<br>export { basicNum, add };</p>
+<p>/<strong> 引用模块 </strong>/<br>import { basicNum, add } from ‘./math’;<br>function test(ele) {<br>    ele.textContent = add(99 + basicNum);<br>}</p>
+<p>五、 ES6 模块与 CommonJS 模块的差异</p>
+<ol>
+<li>CommonJS 模块输出的是一个值的拷贝，ES6 模块输出的是值的引用。<br>CommonJS 模块输出的是值的拷贝，也就是说，一旦输出一个值，模块内部的变化就影响不到这个值。<br>ES6 模块的运行机制与 CommonJS 不一样。JS 引擎对脚本静态分析的时候，遇到模块加载命令import，就会生成一个只读引用。等到脚本真正执行时，再根据这个只读引用，到被加载的那个模块里面去取值。换句话说，ES6 的import有点像 Unix 系统的“符号连接”，原始值变了，import加载的值也会跟着变。因此，ES6 模块是动态引用，并且不会缓存值，模块里面的变量绑定其所在的模块。</li>
+<li>CommonJS 模块是运行时加载，ES6 模块是编译时输出接口。<br>运行时加载: CommonJS 模块就是对象；即在输入时是先加载整个模块，生成一个对象，然后再从这个对象上面读取方法，这种加载称为“运行时加载”。<br>编译时加载: ES6 模块不是对象，而是通过 export 命令显式指定输出的代码，import时采用静态命令的形式。即在import时可以指定加载某个输出值，而不是加载整个模块，这种加载称为“编译时加载”。<br>CommonJS 加载的是一个对象（即module.exports属性），该对象只有在脚本运行完才会生成。而 ES6 模块不是对象，它的对外接口只是一种静态定义，在代码静态解析阶段就会生成。<br>六、AMD 和 CMD 规范的区别？<br>它们之间的主要区别有两个方面。<br>（1）第一个方面是在模块定义时对依赖的处理不同。AMD 推崇依赖前置，在定义模块的时候就要声明其依赖的模块。而 CMD 推崇 就近依赖，只有在用到某个模块的时候再去 require。<br>（2）第二个方面是对依赖模块的执行时机处理不同。首先 AMD 和 CMD 对于模块的加载方式都是异步加载，不过它们的区别在于 模块的执行时机，AMD 在依赖模块加载完成后就直接执行依赖模块，依赖模块的执行顺序和我们书写的顺序不一定一致。而 CMD 在依赖模块加载完成后并不执行，只是下载而已，等到所有的依赖模块都加载好后，进入回调函数逻辑，遇到 require 语句 的时候才执行对应的模块，这样模块的执行顺序就和我们书写的顺序保持一致了。<br>// CMD<br>define(function(require, exports, module) {<br>var a = require(“./a”);<br>a.doSomething();<br>// 此处略去 100 行<br>var b = require(“./b”); // 依赖可以就近书写<br>b.doSomething();<br>// …<br>});</li>
+</ol>
+<p>// AMD 默认推荐<br>define([“./a”, “./b”], function(a, b) {<br>  // 依赖必须一开始就写好<br>  a.doSomething();<br>  // 此处略去 100 行<br>  b.doSomething();<br>  // …<br>});</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://Q-Quiet.github.io/2020/12/29/js的几种模块规范/" data-id="cklnoszn1001sjsupuwujgevb" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-浏览器的同源政策及其规避方法" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2020/12/28/浏览器的同源政策及其规避方法/" class="article-date">
@@ -173,7 +222,7 @@ cookieDomainRewrite: &apos;www.domain1.com&apos;  // 可以为false，表示不�
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/12/28/浏览器的同源政策及其规避方法/" data-id="cklnk7x0e002zkcupy7k9c3fx" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/12/28/浏览器的同源政策及其规避方法/" data-id="cklnoszsc0031jsup2l5wobw5" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/浏览器/">浏览器</a></li></ul>
@@ -214,7 +263,7 @@ cookieDomainRewrite: &apos;www.domain1.com&apos;  // 可以为false，表示不�
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/12/26/js-原型-原型链/" data-id="cklnk7wya0012kcuptpnehg5s" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/12/26/js-原型-原型链/" data-id="cklnoszke0015jsup3f08mlk6" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
@@ -269,7 +318,7 @@ cookieDomainRewrite: &apos;www.domain1.com&apos;  // 可以为false，表示不�
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/12/25/js-转换规则/" data-id="cklnk7wzu002fkcupafwkh3q5" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/12/25/js-转换规则/" data-id="cklnoszmo001ojsup3afjvr9q" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
@@ -332,7 +381,7 @@ cookieDomainRewrite: &apos;www.domain1.com&apos;  // 可以为false，表示不�
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/12/24/js-事件委托/" data-id="cklnk7wy4000vkcupieek3a9k" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/12/24/js-事件委托/" data-id="cklnoszjc000vjsup0nh9zanq" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
@@ -385,7 +434,7 @@ cookieDomainRewrite: &apos;www.domain1.com&apos;  // 可以为false，表示不�
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/12/22/js-创建对象的几种方法/" data-id="cklnk7wyc0015kcupcojhqhgp" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/12/22/js-创建对象的几种方法/" data-id="cklnoszji000yjsupe3l7l2dw" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/复习/">复习</a></li></ul>
@@ -430,7 +479,7 @@ cookieDomainRewrite: &apos;www.domain1.com&apos;  // 可以为false，表示不�
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/12/21/js-undefined/" data-id="cklnk7wy80010kcupc67o5jbp" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/12/21/js-undefined/" data-id="cklnoszj4000tjsup5b4i9rq7" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/复习/">复习</a></li></ul>
@@ -470,7 +519,7 @@ cookieDomainRewrite: &apos;www.domain1.com&apos;  // 可以为false，表示不�
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/12/21/js-有哪些对象/" data-id="cklnk7wzc001vkcup1l5x89w2" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/12/21/js-有哪些对象/" data-id="cklnoszls001hjsup9vqbqgb5" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
@@ -517,7 +566,7 @@ cookieDomainRewrite: &apos;www.domain1.com&apos;  // 可以为false，表示不�
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/12/20/js-内部属性-class/" data-id="cklnk7wy6000xkcupppgvfsvz" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/12/20/js-内部属性-class/" data-id="cklnoszil000qjsuptxg6gf7h" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
@@ -560,63 +609,7 @@ cookieDomainRewrite: &apos;www.domain1.com&apos;  // 可以为false，表示不�
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/12/17/js-基本属性-堆栈/" data-id="cklnk7wz7001pkcupwkk3v6fo" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-js-微任务、宏任务与Event-Loop" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/12/15/js-微任务、宏任务与Event-Loop/" class="article-date">
-  <time datetime="2020-12-15T13:58:58.000Z" itemprop="datePublished">2020-12-15</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/12/15/js-微任务、宏任务与Event-Loop/">js-微任务、宏任务与Event-Loop</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>JavaScript是一个单线程的脚本语言<br>微任务与宏任务的区别<br>所以多个宏任务合在一起就可以认为说有一个任务队列，任务队列中的都是已经完成的异步操作，而不是说注册一个异步任务就会被放在这个任务队列中。一个宏任务在执行的过程中，是可以添加一些微任务，在当前的微任务没有执行完成时，是不会执行下一个宏任务的。<br>所有会进入的异步都是指的事件回调中的那部分代码。<br>宏任务:<br>script(整体代码)<br>setTimeout()<br>setInterval()<br>postMessage<br>I/O<br>UI交互事件<br>微任务：<br>new Promise().then(回调)<br>MutationObserver(html5新特性)<br>setTimeout(_ =&gt; console.log(4))</p>
-<p>new Promise(resolve =&gt; {<br>  resolve()<br>  console.log(1)<br>}).then(_ =&gt; {<br>  console.log(3)<br>})</p>
-<p>console.log(2)</p>
-<p>1 2 3 4</p>
-<p>node环境下的事件循环<br>和浏览器的不同<br>node中有一套自己的模型。node中事件循环的实现依赖libuv引擎。<br>如果是node10及其之前版本, microtask会在事件循环的各个阶段之间执行,也就是一个阶段执行完毕,,就会去执行microtask队列中的任务。node版本更新到11之后, Event Loop运行原理发生了变化,一旦执行一个阶段里的一个宏任务(setTimeout,setnterval和setlmmediate)就立刻执行微任务队列,跟浏览器趋于一致。<br>node中事件循环的顺序<br>外部输入数据–&gt;轮询阶段(poll)-&gt;检查阶段(check)-&gt;关闭事件回调阶段(close callback)–&gt;定时器检查阶段(timer)–&gt; 1/0事件回调阶段(/0 callbacks) -&gt;闲置阶段(idle, prepare) -&gt;轮询阶段</p>
-<p>这些阶段大致的功能如下:<br>定时器检测阶段(timers):这个阶段执行定时器队列中的回调如setTimeout()和setInterval()<br>I/O事件回调阶段(I/O callbacks):这个阶段执行几乎所有的回调。但是不包括close事件,定时器和setlmmediate()的回调。<br>闲置阶段(idle, prepare):这个阶段仅在内部使用,可以不必理会<br>轮询阶段(poll):等待新的I/O事件, node在一些特殊情况下会阻塞在这里。<br>检查阶段(check): setlmmediate()的回调会在这个阶段执行。<br>关闭事件回调阶段(close callbacks):例如socket.on(“close ‘, …)这种close事件的回调</p>
-<p>宏任务:<br>setImmediate<br>setTimeout()<br>setInterval()<br>script(整体代码)<br>I/O<br>微任务：<br>process.nextTick<br>new Promise().then(回调)<br>process.nextTick是一个独立于eventLoop的任务队列。在每一个eventLoop阶段完成后会去检查nextTick队列,如果里面有任务,会让这部分任务优先于微任务执行。是所有异步任务中最快执行的。<br>setTimeout()方法是定义一个回调,并且希望这个回调在我们所指定的时间间隔后第一时间去执行。<br>setlmmediate()方法从意义上将是立刻执行的意思,但是实际上它却是在一个固定的阶段才会执行回调即poll价段之后。<br>Event-Loop<br>检查还有没有微任务需要处理,结束本次宏任务、检查还有没有宏任务需要处理</p>
-<p>经典题目分析<br>async function async1() {<br>    console.log(‘async1 start’);<br>    await async2();<br>    console.log(‘async1 end’);<br>}<br>async function async2() {<br>    console.log(‘async2’);<br>}<br>console.log(‘script start’);<br>setTimeout(function() {<br>    console.log(‘setTimeout’);<br>}, 0)<br>async1();<br>new Promise(function(resolve) {<br>    console.log(‘promise1’);<br>    resolve();<br>}).then(function() {<br>    console.log(‘promise2’);<br>});<br>console.log(‘script end’);</p>
-<p>结果：<br>script start<br>async1 start<br>async end<br>promise1<br>script end<br>async1 end<br>promise2<br>setTimeout</p>
-<p>console.log(‘start’);<br>setTimeout(() =&gt; {<br>    console.log(‘children2’);<br>    Promise.resolve().then(() =&gt; {<br>        console.log(‘children3’);<br>    })<br>}, 0);</p>
-<p>new Promise(function(resolve, reject) {<br>    console.log(‘children4’);<br>    setTimeout(function() {<br>        console.log(‘children5’);<br>        resolve(‘children6’)<br>    }, 0)<br>}).then((res) =&gt; {<br>    console.log(‘children7’);<br>    setTimeout(() =&gt; {<br>    console.log(res);<br>    }, 0)<br>})</p>
-<p>结果：<br>start<br>children4<br>children2<br>children3<br>children5<br>children7<br>children6</p>
-<p>const p = function() {<br>    return new Promise((resolve, reject) =&gt; {<br>        const p1 = new Promise((resolve, reject) =&gt; {<br>            setTimeout(() =&gt; {<br>                resolve(1)<br>            }, 0)<br>            resolve(2)<br>        })<br>        p1.then((res) =&gt; {<br>           console.log(res);<br>       })<br>       console.log(3);<br>       resolve(4);<br>   })<br>} </p>
-<p>p().then((res) =&gt; {<br>    console.log(res);<br>})<br>console.log(‘end’);</p>
-<p>结果：<br>3<br>end<br>2<br>4</p>
-<p>将上述代码中的 resolve(2)注释掉, 此时 1才会输出，输出果为 3 end 4 1<br>const p = function() {<br>    return new Promise((resolve, reject) =&gt; {<br>        const p1 = new Promise((resolve, reject) =&gt; {<br>            setTimeout(() =&gt; {<br>                resolve(1)<br>            }, 0)<br>        })<br>        p1.then((res) =&gt; {<br>           console.log(res);<br>       })<br>       console.log(3);<br>       resolve(4);<br>   })<br>} </p>
-<p>p().then((res) =&gt; {<br>    console.log(res);<br>})<br>console.log(‘end’);</p>
-<p>结果：<br>3<br>end<br>4<br>1</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/12/15/js-微任务、宏任务与Event-Loop/" data-id="cklnk7wza001tkcupmypjimcw" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/12/17/js-基本属性-堆栈/" data-id="cklnoszkv001ajsupqvbflyg4" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
@@ -678,6 +671,10 @@ cookieDomainRewrite: &apos;www.domain1.com&apos;  // 可以为false，表示不�
       <ul>
         
           <li>
+            <a href="/2021/02/27/js-防抖节流/">js-防抖节流</a>
+          </li>
+        
+          <li>
             <a href="/2021/02/27/js-继承/">js-继承</a>
           </li>
         
@@ -691,10 +688,6 @@ cookieDomainRewrite: &apos;www.domain1.com&apos;  // 可以为false，表示不�
         
           <li>
             <a href="/2021/02/25/css-flex/">css-flex</a>
-          </li>
-        
-          <li>
-            <a href="/2021/02/25/css-水平垂直居中/">css-水平垂直居中</a>
           </li>
         
       </ul>

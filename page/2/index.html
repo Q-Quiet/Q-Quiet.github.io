@@ -68,6 +68,73 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-ts-进阶-枚举" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2021/01/31/ts-进阶-枚举/" class="article-date">
+  <time datetime="2021-01-31T07:57:03.000Z" itemprop="datePublished">2021-01-31</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/01/31/ts-进阶-枚举/">ts-进阶-枚举</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="枚举"><a href="#枚举" class="headerlink" title="枚举"></a>枚举</h2><p>枚举类型用于取值被限定在一定范围内。</p>
+<h3 id="栗子"><a href="#栗子" class="headerlink" title="栗子"></a>栗子</h3><p>枚举使用 enum 关键字来定义：<br><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">enum</span> Days &#123;Sun, Mon, Tue, Wed, Thu, Fri, Sat&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>枚举成员会被赋值为从 0 开始递增的数字，同时也会对枚举值到枚举名进行反向映射：<br><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">enum</span> Days &#123;Sun, Mon, Tue, Wed, Thu, Fri, Sat&#125;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(Days[<span class="string">"Sun"</span>] === <span class="number">0</span>); <span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(Days[<span class="string">"Mon"</span>] === <span class="number">1</span>); <span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(Days[<span class="string">"Tue"</span>] === <span class="number">2</span>); <span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(Days[<span class="string">"Sat"</span>] === <span class="number">6</span>); <span class="comment">// true</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(Days[<span class="number">0</span>] === <span class="string">"Sun"</span>); <span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(Days[<span class="number">1</span>] === <span class="string">"Mon"</span>); <span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(Days[<span class="number">2</span>] === <span class="string">"Tue"</span>); <span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(Days[<span class="number">6</span>] === <span class="string">"Sat"</span>); <span class="comment">// true</span></span><br></pre></td></tr></table></figure></p>
+<p>事实上，上面的例子会被编译为：<br><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> Days;</span><br><span class="line">(<span class="function"><span class="keyword">function</span> (<span class="params">Days</span>) </span>&#123;</span><br><span class="line">    Days[Days[<span class="string">"Sun"</span>] = <span class="number">0</span>] = <span class="string">"Sun"</span>;</span><br><span class="line">    Days[Days[<span class="string">"Mon"</span>] = <span class="number">1</span>] = <span class="string">"Mon"</span>;</span><br><span class="line">    Days[Days[<span class="string">"Tue"</span>] = <span class="number">2</span>] = <span class="string">"Tue"</span>;</span><br><span class="line">    Days[Days[<span class="string">"Wed"</span>] = <span class="number">3</span>] = <span class="string">"Wed"</span>;</span><br><span class="line">    Days[Days[<span class="string">"Thu"</span>] = <span class="number">4</span>] = <span class="string">"Thu"</span>;</span><br><span class="line">    Days[Days[<span class="string">"Fri"</span>] = <span class="number">5</span>] = <span class="string">"Fri"</span>;</span><br><span class="line">    Days[Days[<span class="string">"Sat"</span>] = <span class="number">6</span>] = <span class="string">"Sat"</span>;</span><br><span class="line">&#125;)(Days || (Days = &#123;&#125;));</span><br></pre></td></tr></table></figure></p>
+<h3 id="手动赋值"><a href="#手动赋值" class="headerlink" title="手动赋值"></a>手动赋值</h3><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">enum</span> Days &#123;Sun = <span class="number">7</span>, Mon = <span class="number">1</span>, Tue, Wed, Thu, Fri, Sat&#125;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(Days[<span class="string">"Sun"</span>] === <span class="number">7</span>); <span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(Days[<span class="string">"Mon"</span>] === <span class="number">1</span>); <span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(Days[<span class="string">"Tue"</span>] === <span class="number">2</span>); <span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(Days[<span class="string">"Sat"</span>] === <span class="number">6</span>); <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+<p>未手动赋值的枚举项会接着上一个枚举项递增。<br>如果未手动赋值的枚举项与手动赋值的重复了，TypeScript 是无法察觉到这一点的：<br><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">enum</span> Days &#123;Sun = <span class="number">3</span>, Mon = <span class="number">1</span>, Tue, Wed, Thu, Fri, Sat&#125;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(Days[<span class="string">"Sun"</span>] === <span class="number">3</span>); <span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(Days[<span class="string">"Wed"</span>] === <span class="number">3</span>); <span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(Days[<span class="number">3</span>] === <span class="string">"Sun"</span>); <span class="comment">// false</span></span><br><span class="line"><span class="built_in">console</span>.log(Days[<span class="number">3</span>] === <span class="string">"Wed"</span>); <span class="comment">// true</span></span><br></pre></td></tr></table></figure></p>
+<p>上面的例子中，递增到 3 的时候与前面的 Sun 的取值重复了，但是 TypeScript 并没有报错，导致 Days[3] 的值先是 “Sun”，而后又被 “Wed” 覆盖了。编译的结果是：<br><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> Days;</span><br><span class="line">(<span class="function"><span class="keyword">function</span> (<span class="params">Days</span>) </span>&#123;</span><br><span class="line">    Days[Days[<span class="string">"Sun"</span>] = <span class="number">3</span>] = <span class="string">"Sun"</span>;</span><br><span class="line">    Days[Days[<span class="string">"Mon"</span>] = <span class="number">1</span>] = <span class="string">"Mon"</span>;</span><br><span class="line">    Days[Days[<span class="string">"Tue"</span>] = <span class="number">2</span>] = <span class="string">"Tue"</span>;</span><br><span class="line">    Days[Days[<span class="string">"Wed"</span>] = <span class="number">3</span>] = <span class="string">"Wed"</span>;</span><br><span class="line">    Days[Days[<span class="string">"Thu"</span>] = <span class="number">4</span>] = <span class="string">"Thu"</span>;</span><br><span class="line">    Days[Days[<span class="string">"Fri"</span>] = <span class="number">5</span>] = <span class="string">"Fri"</span>;</span><br><span class="line">    Days[Days[<span class="string">"Sat"</span>] = <span class="number">6</span>] = <span class="string">"Sat"</span>;</span><br><span class="line">&#125;)(Days || (Days = &#123;&#125;));</span><br></pre></td></tr></table></figure></p>
+<p>手动赋值的枚举项可以不是数字，此时需要使用类型断言来让 tsc 无视类型检查<br><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">enum</span> Days &#123;Sun = <span class="number">7</span>, Mon, Tue, Wed, Thu, Fri, Sat = &lt;<span class="built_in">any</span>&gt;<span class="string">"S"</span>&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> Days;</span><br><span class="line">(<span class="function"><span class="keyword">function</span> (<span class="params">Days</span>) </span>&#123;</span><br><span class="line">    Days[Days[<span class="string">"Sun"</span>] = <span class="number">7</span>] = <span class="string">"Sun"</span>;</span><br><span class="line">    Days[Days[<span class="string">"Mon"</span>] = <span class="number">8</span>] = <span class="string">"Mon"</span>;</span><br><span class="line">    Days[Days[<span class="string">"Tue"</span>] = <span class="number">9</span>] = <span class="string">"Tue"</span>;</span><br><span class="line">    Days[Days[<span class="string">"Wed"</span>] = <span class="number">10</span>] = <span class="string">"Wed"</span>;</span><br><span class="line">    Days[Days[<span class="string">"Thu"</span>] = <span class="number">11</span>] = <span class="string">"Thu"</span>;</span><br><span class="line">    Days[Days[<span class="string">"Fri"</span>] = <span class="number">12</span>] = <span class="string">"Fri"</span>;</span><br><span class="line">    Days[Days[<span class="string">"Sat"</span>] = <span class="string">"S"</span>] = <span class="string">"Sat"</span>;</span><br><span class="line">&#125;)(Days || (Days = &#123;&#125;));</span><br></pre></td></tr></table></figure></p>
+<h3 id="常数项和计算所得项"><a href="#常数项和计算所得项" class="headerlink" title="常数项和计算所得项"></a>常数项和计算所得项</h3><p>枚举项有两种类型：常数项和计算所得项。<br><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">enum</span> Color &#123;Red, Green, Blue = <span class="string">"blue"</span>.length&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>上面的例子中，”blue”.length 就是一个计算所得项。<br>上面的例子不会报错，但是如果紧接在计算所得项后面的是未手动赋值的项，那么它就会因为无法获得初始值而报错：<br><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">enum</span> Color &#123;Red = <span class="string">"red"</span>.length, Green, Blue&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// index.ts(1,33): error TS1061: Enum member must have initializer.</span></span><br><span class="line"><span class="comment">// index.ts(1,40): error TS1061: Enum member must have initializer.</span></span><br></pre></td></tr></table></figure></p>
+<p>当满足以下条件时，枚举成员被当作是常数：</p>
+<ul>
+<li>不具有初始化函数并且之前的枚举成员是常数。在这种情况下，当前枚举成员的值为上一个枚举成员的值加 1。但第一个枚举元素是个例外。如果它没有初始化方法，那么它的初始值为 0。</li>
+<li>枚举成员使用常数枚举表达式初始化。常数枚举表达式是 TypeScript 表达式的子集，它可以在编译阶段求值。当一个表达式满足下面条件之一时，它就是一个常数枚举表达式：<ul>
+<li>数字字面量</li>
+<li>引用之前定义的常数枚举成员（可以是在不同的枚举类型中定义的）如果这个成员是在同一个枚举类型中定义的，可以使用非限定名来引用</li>
+<li>带括号的常数枚举表达式</li>
+<li>+, -, ~ 一元运算符应用于常数枚举表达式</li>
+<li>+, -, *, /, %, &lt;&lt;, &gt;&gt;, &gt;&gt;&gt;, &amp;, |, ^ 二元运算符，常数枚举表达式做为其一个操作对象。若常数枚举表达式求值后为 NaN 或 Infinity，则会在编译阶段报错<br>所有其它情况的枚举成员被当作是需要计算得出的值。<h3 id="常数枚举"><a href="#常数枚举" class="headerlink" title="常数枚举"></a>常数枚举</h3>数枚举是使用 const enum 定义的枚举类型：<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">enum</span> Directions &#123;</span><br><span class="line">    Up,</span><br><span class="line">    Down,</span><br><span class="line">    Left,</span><br><span class="line">    Right</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> directions = [Directions.Up, Directions.Down, Directions.Left, Directions.Right];</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<p>常数枚举与普通枚举的区别是，它会在编译阶段被删除，上例的编译结果是：<br><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> directions = [<span class="number">0</span> <span class="comment">/* Up */</span>, <span class="number">1</span> <span class="comment">/* Down */</span>, <span class="number">2</span> <span class="comment">/* Left */</span>, <span class="number">3</span> <span class="comment">/* Right */</span>];</span><br></pre></td></tr></table></figure></p>
+<p>假如包含了计算成员，则会在编译阶段报错：<br><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">enum</span> Color &#123;Red, Green, Blue = <span class="string">"blue"</span>.length&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// index.ts(1,38): error TS2474: In 'const' enum declarations member initializer must be constant</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="外部枚举"><a href="#外部枚举" class="headerlink" title="外部枚举"></a>外部枚举</h3><p>外部枚举是使用 declare enum 定义的枚举类型：<br><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">declare</span> <span class="keyword">enum</span> Directions &#123;</span><br><span class="line">    Up,</span><br><span class="line">    Down,</span><br><span class="line">    Left,</span><br><span class="line">    Right</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> directions = [Directions.Up, Directions.Down, Directions.Left, Directions.Right];</span><br></pre></td></tr></table></figure></p>
+<p>declare 定义的类型只会用于编译时的检查，编译结果中会被删除。<br>上例的编译结果是：<br><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> directions = [Directions.Up, Directions.Down, Directions.Left, Directions.Right];</span><br></pre></td></tr></table></figure></p>
+<p>外部枚举与声明语句一样，常出现在声明文件中。<br>同时使用 declare 和 const 也是可以的：<br><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">declare</span> <span class="keyword">const</span> <span class="keyword">enum</span> Directions &#123;</span><br><span class="line">    Up,</span><br><span class="line">    Down,</span><br><span class="line">    Left,</span><br><span class="line">    Right</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> directions = [Directions.Up, Directions.Down, Directions.Left, Directions.Right];</span><br></pre></td></tr></table></figure></p>
+<p>编译结果：<br><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> directions = [<span class="number">0</span> <span class="comment">/* Up */</span>, <span class="number">1</span> <span class="comment">/* Down */</span>, <span class="number">2</span> <span class="comment">/* Left */</span>, <span class="number">3</span> <span class="comment">/* Right */</span>];</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://Q-Quiet.github.io/2021/01/31/ts-进阶-枚举/" data-id="cklnoszna001wjsupvwy1xo3t" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ts/">ts</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-ts-基础-类型断言" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2021/01/29/ts-基础-类型断言/" class="article-date">
@@ -122,7 +189,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/01/29/ts-基础-类型断言/" data-id="cklnk7x0c002xkcuppkctexc7" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2021/01/29/ts-基础-类型断言/" data-id="cklnoszs8002zjsupyfunqg9x" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ts/">ts</a></li></ul>
@@ -173,7 +240,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/01/29/ts-基础-函数的类型/" data-id="cklnk7wzk0023kcup8aypjgyd" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2021/01/29/ts-基础-函数的类型/" data-id="cklnoszn5001ujsupkug6lrar" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ts/">ts</a></li></ul>
@@ -230,7 +297,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/01/28/ts-基础-原始数据类型/" data-id="cklnk7wzm0025kcupbufcg4e8" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2021/01/28/ts-基础-原始数据类型/" data-id="cklnoszni001zjsupt1ilxghw" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ts/">ts</a></li></ul>
@@ -270,7 +337,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/01/26/js-判断浏览器类型/" data-id="cklnk7wye0017kcuph0821nja" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2021/01/26/js-判断浏览器类型/" data-id="cklnoszjp0010jsupt8qla8ob" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
@@ -309,7 +376,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/01/23/网络-TCP/" data-id="cklnk7x02002pkcupsu0ivoer" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2021/01/23/网络-TCP/" data-id="cklnoszr4002qjsup55za6uiv" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/网络/">网络</a></li></ul>
@@ -352,7 +419,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/01/22/浏览器存储/" data-id="cklnk7x00002nkcupk0bfjoqc" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2021/01/22/浏览器存储/" data-id="cklnoszok002bjsupkxjon4pk" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/浏览器/">浏览器</a></li></ul>
@@ -392,7 +459,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/01/21/vue-router的两种模式/" data-id="cklnk7wzy002kkcupsrlj8659" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2021/01/21/vue-router的两种模式/" data-id="cklnosznq0021jsupwe7j98n0" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vue/">vue</a></li></ul>
@@ -439,7 +506,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/01/03/js-垃圾回收机制/" data-id="cklnk7wz8001rkcuptbaow62k" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2021/01/03/js-垃圾回收机制/" data-id="cklnoszkn0018jsupqo7fmlz6" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
@@ -487,59 +554,10 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/12/30/缓存机制/" data-id="cklnk7wzw002ikcupg5sk098n" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/12/30/缓存机制/" data-id="cklnoszoc0028jsuppapr4yb4" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/浏览器/">浏览器</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-js的几种模块规范" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/12/29/js的几种模块规范/" class="article-date">
-  <time datetime="2020-12-29T15:08:15.000Z" itemprop="datePublished">2020-12-29</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/12/29/js的几种模块规范/">js的几种模块规范</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>CommonJS<br>AMD<br>CMD<br>ES6<br>一、CommonJS<br>Node.js是commonJS规范的主要实践者，它有四个重要的环境变量为模块化的实现提供支持：module、exports、require、global。<br>用module.exports定义当前模块对外输出的接口（不推荐直接用exports），用require加载模块。<br>var basicNum = 0;<br>function add(a, b) {<br>    return a + b;<br>}<br>module.exports = {<br>//在这里写上需要向外暴露的函数、变量<br>    add: add,<br>    basicNum: basicNum<br>} </p>
-<p>// 引用自定义的模块时，参数包含路径，可省略.js<br>var math = require(‘./math’);<br>math.add(2, 5); </p>
-<p>// 引用核心模块时，不需要带路径<br>var http = require(‘http’);<br>http.createService(…).listen(3000);</p>
-<p>二、AMD和require.js<br>AMD规范采用异步方式加载模块，模块的加载不影响它后面语句的运行。所有依赖这个模块的语句，都定义在一个回调函数中，等到加载完成之后，这个回调函数才会运行。<br>三、CMD和sea.js<br>CMD是另一种js模块化方案，它与AMD很类似，不同点在于：AMD 推崇依赖前置、提前执行，CMD推崇依赖就近、延迟执行。此规范其实是在sea.js推广过程中产生的。<br>四、ES6 Module<br>ES6 在语言标准的层面上，实现了模块功能，而且实现得相当简单，旨在成为浏览器和服务器通用的模块解决方案。其模块功能主要由两个命令构成：export和import。export命令用于规定模块的对外接口，import命令用于输入其他模块提供的功能。<br>/<strong> 定义模块 math.js </strong>/<br>var basicNum = 0;<br>var add = function (a, b) {<br>    return a + b;<br>};<br>export { basicNum, add };</p>
-<p>/<strong> 引用模块 </strong>/<br>import { basicNum, add } from ‘./math’;<br>function test(ele) {<br>    ele.textContent = add(99 + basicNum);<br>}</p>
-<p>五、 ES6 模块与 CommonJS 模块的差异</p>
-<ol>
-<li>CommonJS 模块输出的是一个值的拷贝，ES6 模块输出的是值的引用。<br>CommonJS 模块输出的是值的拷贝，也就是说，一旦输出一个值，模块内部的变化就影响不到这个值。<br>ES6 模块的运行机制与 CommonJS 不一样。JS 引擎对脚本静态分析的时候，遇到模块加载命令import，就会生成一个只读引用。等到脚本真正执行时，再根据这个只读引用，到被加载的那个模块里面去取值。换句话说，ES6 的import有点像 Unix 系统的“符号连接”，原始值变了，import加载的值也会跟着变。因此，ES6 模块是动态引用，并且不会缓存值，模块里面的变量绑定其所在的模块。</li>
-<li>CommonJS 模块是运行时加载，ES6 模块是编译时输出接口。<br>运行时加载: CommonJS 模块就是对象；即在输入时是先加载整个模块，生成一个对象，然后再从这个对象上面读取方法，这种加载称为“运行时加载”。<br>编译时加载: ES6 模块不是对象，而是通过 export 命令显式指定输出的代码，import时采用静态命令的形式。即在import时可以指定加载某个输出值，而不是加载整个模块，这种加载称为“编译时加载”。<br>CommonJS 加载的是一个对象（即module.exports属性），该对象只有在脚本运行完才会生成。而 ES6 模块不是对象，它的对外接口只是一种静态定义，在代码静态解析阶段就会生成。<br>六、AMD 和 CMD 规范的区别？<br>它们之间的主要区别有两个方面。<br>（1）第一个方面是在模块定义时对依赖的处理不同。AMD 推崇依赖前置，在定义模块的时候就要声明其依赖的模块。而 CMD 推崇 就近依赖，只有在用到某个模块的时候再去 require。<br>（2）第二个方面是对依赖模块的执行时机处理不同。首先 AMD 和 CMD 对于模块的加载方式都是异步加载，不过它们的区别在于 模块的执行时机，AMD 在依赖模块加载完成后就直接执行依赖模块，依赖模块的执行顺序和我们书写的顺序不一定一致。而 CMD 在依赖模块加载完成后并不执行，只是下载而已，等到所有的依赖模块都加载好后，进入回调函数逻辑，遇到 require 语句 的时候才执行对应的模块，这样模块的执行顺序就和我们书写的顺序保持一致了。<br>// CMD<br>define(function(require, exports, module) {<br>var a = require(“./a”);<br>a.doSomething();<br>// 此处略去 100 行<br>var b = require(“./b”); // 依赖可以就近书写<br>b.doSomething();<br>// …<br>});</li>
-</ol>
-<p>// AMD 默认推荐<br>define([“./a”, “./b”], function(a, b) {<br>  // 依赖必须一开始就写好<br>  a.doSomething();<br>  // 此处略去 100 行<br>  b.doSomething();<br>  // …<br>});</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/12/29/js的几种模块规范/" data-id="cklnk7wzh0021kcupy0v8gayi" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
 
     </footer>
   </div>
@@ -598,6 +616,10 @@
       <ul>
         
           <li>
+            <a href="/2021/02/27/js-防抖节流/">js-防抖节流</a>
+          </li>
+        
+          <li>
             <a href="/2021/02/27/js-继承/">js-继承</a>
           </li>
         
@@ -611,10 +633,6 @@
         
           <li>
             <a href="/2021/02/25/css-flex/">css-flex</a>
-          </li>
-        
-          <li>
-            <a href="/2021/02/25/css-水平垂直居中/">css-水平垂直居中</a>
           </li>
         
       </ul>
