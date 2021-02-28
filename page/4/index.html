@@ -68,6 +68,46 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-js-有哪些对象" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/12/21/js-有哪些对象/" class="article-date">
+  <time datetime="2020-12-21T08:01:04.000Z" itemprop="datePublished">2020-12-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/12/21/js-有哪些对象/">js-有哪些对象</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>全局对象（或标准内置对象）不应与global对象混淆。这里的”全局对象”指的是处在全局作用域里的多个对象。全局作用域中的其他对象则可由用户的脚本创建，或由宿主程序提供。<br>JavaScript有3大对象，分别是本地对象、内置对象和宿主对象。<br>本地对象<br>与宿主无关，独立于宿主环境的ECMAScript实现提供的对象。<br>简单来说，本地对象就是 ECMA-262 定义的类（引用类型）。<br>这些引用类型在运行过程中需要通过new来创建所需的实例对象。<br>包含：Object、Array、Date、RegExp、Function、Boolean、Number、String等。<br>内置对象<br>与宿主无关，独立于宿主环境的ECMAScript实现提供的对象。<br>在 ECMAScript 程序开始执行前就存在，本身就是实例化内置对象，开发者无需再去实例化。<br>内置对象是本地对象的子集。<br>包含：Global和Math。<br>ECMAScript5中增添了JSON这个存在于全局的内置对象。<br>宿主对象<br>由 ECMAScript 实现的宿主环境提供的对象，包含两大类，一个是宿主提供，一个是自定义类对象。<br>所有非本地对象都属于宿主对象。<br>对于嵌入到网页中的JS来说，其宿主对象就是浏览器提供的对象，浏览器对象有很多，如Window和Document等。<br>所有的DOM和BOM对象都属于宿主对象。<br>标准内置对象的分类<br>（1）值属性，这些全局属性返回一个简单值，这些值没有自己的属性和方法。<br>例如 Infinity、NaN、undefined、null 字面量<br>（2）函数属性，全局函数可以直接调用，不需要在调用时指定所属对象，执行结束后会将结果直接返回给调用者。<br>例如 eval()、parseFloat()、parseInt() 等<br>（3）基本对象，基本对象是定义或使用其他对象的基础。基本对象包括一般对象、函数对象和错误对象。<br>例如 Object、Function、Boolean、Symbol、Error 等<br>（4）数字和日期对象，用来表示数字、日期和执行数学计算的对象。<br>例如 Number、Math、Date、BigInt<br>（5）字符串，用来表示和操作字符串的对象。<br>例如 String、RegExp<br>（6）可索引的集合对象，这些对象表示按照索引值来排序的数据集合，包括数组和类型数组，以及类数组结构的对象。例如 Array<br>（7）使用键的集合对象，这些集合对象在存储数据时会使用到键，支持按照插入顺序来迭代元素。<br>例如 Map、Set、WeakMap、WeakSet<br>（8）结构化数据，这些对象用来表示和操作结构化的缓冲区数据，或使用 JSON 编码的数据。<br>例如 JSON 等<br>（9）控制抽象对象,控件抽象可以帮助构造代码，尤其是异步代码（例如，不使用深度嵌套的回调）<br>例如 Promise、Generator 等<br>（10）反射<br>例如 Reflect、Proxy<br>（11）国际化，为了支持多语言处理而加入 ECMAScript 的对象。<br>例如 Intl、Intl.Collator 等<br>（13）WebAssembly<br>（14）其他<br>例如 arguments</p>
+<p>js 中的内置对象主要指的是在程序执行前存在全局作用域里的由 js 定义的一些全局值属性、函数和用来实例化其他对象的构造函数对象。一般我们经常用到的如全局变量值 NaN、undefined，全局函数如 parseInt()、parseFloat() 用来实例化对象的构造函数如 Date、Object 等，还有提供数学计算的单体内置对象如 Math 对象。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://Q-Quiet.github.io/2020/12/21/js-有哪些对象/" data-id="cklp61gzh001of8upiuv3r9we" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-js-内部属性-class" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2020/12/20/js-内部属性-class/" class="article-date">
@@ -103,7 +143,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/12/20/js-内部属性-class/" data-id="ckloz8mu8000yj4up7q2dylyx" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/12/20/js-内部属性-class/" data-id="cklp61gz10019f8up30y4n72n" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
@@ -146,7 +186,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/12/17/js-基本属性-堆栈/" data-id="ckloz8mvs0023j4upqg931ip6" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/12/17/js-基本属性-堆栈/" data-id="cklp61gz3001bf8upbyg07sgg" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
@@ -202,7 +242,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/12/15/js-微任务、宏任务与Event-Loop/" data-id="ckloz8mvl001vj4upw3go4zee" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/12/15/js-微任务、宏任务与Event-Loop/" data-id="cklp61gzd001kf8upgvbqiocx" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
@@ -243,7 +283,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/12/15/async-await/" data-id="ckloz8mtj000cj4upvwkq7czb" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/12/15/async-await/" data-id="cklp61gx30004f8upultat3y3" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
@@ -292,7 +332,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/12/14/为什么操作DOM慢/" data-id="ckloz8mwf002qj4upght2216k" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/12/14/为什么操作DOM慢/" data-id="cklp61h0b002hf8up94pnc58k" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/浏览器/">浏览器</a></li></ul>
@@ -333,7 +373,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/12/13/浏览器-渲染机制/" data-id="ckloz8mwh002sj4up7xb6dd21" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/12/13/浏览器-渲染机制/" data-id="cklp61h04002cf8upsuenjby6" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/浏览器/">浏览器</a></li></ul>
@@ -385,7 +425,7 @@ return function (...args2) {
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/12/09/js-函数柯里化/" data-id="ckloz8mv6001ij4up1nceyy0f" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/12/09/js-函数柯里化/" data-id="cklp61gyy0016f8up5j2axale" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
@@ -434,7 +474,7 @@ return function (...args2) {
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/12/08/js-数组扁平化/" data-id="ckloz8mvp001zj4upice84v40" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/12/08/js-数组扁平化/" data-id="cklp61gzj001qf8upfb6fjhsj" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
@@ -492,66 +532,10 @@ return function (...args2) {
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/10/11/1-Vue复习/" data-id="ckloz8mt70003j4upq3hid2vl" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/10/11/1-Vue复习/" data-id="cklp61gx10003f8uptqqsl4c6" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Vue/">Vue</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-es6-12-Set" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/03/06/es6-12-Set/" class="article-date">
-  <time datetime="2020-03-06T08:38:31.000Z" itemprop="datePublished">2020-03-06</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/03/06/es6-12-Set/">es6-12-Set</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="1-Set"><a href="#1-Set" class="headerlink" title="1.Set"></a>1.Set</h1><h2 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h2><p>ES6 提供了新的数据结构 Set。它类似于数组，但是成员的值都是唯一的，没有重复的值。</p>
-<p>Set本身是一个构造函数，用来生成 Set 数据结构。</p>
-<p>const s = new Set();</p>
-<p>[2, 3, 5, 4, 5, 2, 2].forEach(x =&gt; s.add(x));</p>
-<p>for (let i of s) {<br>  console.log(i);<br>}<br>// 2 3 5 4<br>上面代码通过add()方法向 Set 结构加入成员，结果表明 Set 结构不会添加重复的值。</p>
-<p>Set函数可以接受一个数组（或者具有 iterable 接口的其他数据结构）作为参数，用来初始化。</p>
-<p>// 例一<br>const set = new Set([1, 2, 3, 4, 4]);<br>[…set]<br>// [1, 2, 3, 4]</p>
-<p>// 例二<br>const items = new Set([1, 2, 3, 4, 5, 5, 5, 5]);<br>items.size // 5</p>
-<p>// 例三<br>const set = new Set(document.querySelectorAll(‘div’));<br>set.size // 56</p>
-<p>// 类似于<br>const set = new Set();<br>document<br> .querySelectorAll(‘div’)<br> .forEach(div =&gt; set.add(div));<br>set.size // 56<br>上面代码中，例一和例二都是Set函数接受数组作为参数，例三是接受类似数组的对象作为参数。</p>
-<p>上面代码也展示了一种去除数组重复成员的方法。</p>
-<p>// 去除数组的重复成员<br>[…new Set(array)]<br>上面的方法也可以用于，去除字符串里面的重复字符。</p>
-<p>[…new Set(‘ababbc’)].join(‘’)<br>// “abc”<br>向 Set 加入值的时候，不会发生类型转换，所以5和”5”是两个不同的值。Set 内部判断两个值是否不同，使用的算法叫做“Same-value-zero equality”，它类似于精确相等运算符（===），主要的区别是向 Set 加入值时认为NaN等于自身，而精确相等运算符认为NaN不等于自身。</p>
-<p>let set = new Set();<br>let a = NaN;<br>let b = NaN;<br>set.add(a);<br>set.add(b);<br>set // Set {NaN}<br>上面代码向 Set 实例添加了两次NaN，但是只会加入一个。这表明，在 Set 内部，两个NaN是相等的。</p>
-<p>另外，两个对象总是不相等的。</p>
-<p>let set = new Set();</p>
-<p>set.add({});<br>set.size // 1</p>
-<p>set.add({});<br>set.size // 2<br>上面代码表示，由于两个空对象不相等，所以它们被视为两个值。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/03/06/es6-12-Set/" data-id="ckloz8mtv000kj4upbvqyok97" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/es6/">es6</a></li></ul>
 
     </footer>
   </div>
@@ -564,7 +548,7 @@ return function (...args2) {
 
   <nav id="page-nav">
     
-    <a class="extend prev" rel="prev" href="/page/3/">&laquo; 上一页</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/5/">下一页 &raquo;</a>
+    <a class="extend prev" rel="prev" href="/page/3/">&laquo; 上一页</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/5/">下一页 &raquo;</a>
   </nav>
 
 </section>
@@ -588,7 +572,7 @@ return function (...args2) {
   <div class="widget-wrap">
     <h3 class="widget-title">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/tags/ES6/" style="font-size: 12px;">ES6</a> <a href="/tags/Vue/" style="font-size: 10px;">Vue</a> <a href="/tags/css/" style="font-size: 16px;">css</a> <a href="/tags/es6/" style="font-size: 18px;">es6</a> <a href="/tags/js/" style="font-size: 20px;">js</a> <a href="/tags/ts/" style="font-size: 14px;">ts</a> <a href="/tags/vue/" style="font-size: 10px;">vue</a> <a href="/tags/复习/" style="font-size: 12px;">复习</a> <a href="/tags/浏览器/" style="font-size: 16px;">浏览器</a> <a href="/tags/网络/" style="font-size: 10px;">网络</a>
+      <a href="/tags/ES6/" style="font-size: 13.33px;">ES6</a> <a href="/tags/Vue/" style="font-size: 10px;">Vue</a> <a href="/tags/css/" style="font-size: 16.67px;">css</a> <a href="/tags/es6/" style="font-size: 18.33px;">es6</a> <a href="/tags/js/" style="font-size: 20px;">js</a> <a href="/tags/ts/" style="font-size: 15px;">ts</a> <a href="/tags/vue/" style="font-size: 10px;">vue</a> <a href="/tags/复习/" style="font-size: 11.67px;">复习</a> <a href="/tags/浏览器/" style="font-size: 16.67px;">浏览器</a> <a href="/tags/网络/" style="font-size: 10px;">网络</a>
     </div>
   </div>
 
@@ -610,6 +594,10 @@ return function (...args2) {
       <ul>
         
           <li>
+            <a href="/2021/02/28/ES6-Proxy/">ES6-Proxy</a>
+          </li>
+        
+          <li>
             <a href="/2021/02/28/ES6-解构赋值/">ES6-解构赋值</a>
           </li>
         
@@ -623,10 +611,6 @@ return function (...args2) {
         
           <li>
             <a href="/2021/02/27/js-继承/">js-继承</a>
-          </li>
-        
-          <li>
-            <a href="/2021/02/27/js-Symbol/">js-Symbol</a>
           </li>
         
       </ul>
