@@ -15,7 +15,7 @@
 <meta property="og:site_name" content="Q-Quiet">
 <meta property="og:description" content="用于创建一个对象的代理，从而实现基本操作的拦截和自定义。Proxy 不仅是拦截了行为，更是用自己定义的行为覆盖了组件的原始行为。1var proxy = new Proxy(target, handler); target参数表示所要拦截的目标对象，如果target为{},表示操作原来要访问的就是这个对象handler参数也是一个对象，用来定制拦截行为。 如果handler没有设置任何拦截，那就等">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2021-02-28T13:09:02.903Z">
+<meta property="og:updated_time" content="2021-02-28T13:14:06.861Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ES6-Proxy">
 <meta name="twitter:description" content="用于创建一个对象的代理，从而实现基本操作的拦截和自定义。Proxy 不仅是拦截了行为，更是用自己定义的行为覆盖了组件的原始行为。1var proxy = new Proxy(target, handler); target参数表示所要拦截的目标对象，如果target为{},表示操作原来要访问的就是这个对象handler参数也是一个对象，用来定制拦截行为。 如果handler没有设置任何拦截，那就等">
@@ -96,6 +96,7 @@
 <p>target参数表示所要拦截的目标对象，<br>如果target为{},表示操作原来要访问的就是这个对象<br>handler参数也是一个对象，用来定制拦截行为。</p>
 <p>如果handler没有设置任何拦截，那就等同于直接通向原对象。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> target = &#123;&#125;;</span><br><span class="line"><span class="keyword">var</span> handler = &#123;&#125;;</span><br><span class="line"><span class="keyword">var</span> proxy = <span class="keyword">new</span> <span class="built_in">Proxy</span>(target, handler);</span><br><span class="line">proxy.a = <span class="string">'b'</span>;</span><br><span class="line">target.a <span class="comment">// "b"</span></span><br><span class="line">handler是一个空对象，没有任何拦截效果，访问proxy就等同于访问target。</span><br></pre></td></tr></table></figure></p>
 <h2 id="Proxy-对比-defineProperty"><a href="#Proxy-对比-defineProperty" class="headerlink" title="Proxy 对比 defineProperty"></a>Proxy 对比 defineProperty</h2><pre><code>1.Object.defineProperty只能监听到对象属性的读取或    者是写入，而Proxy除读写外还可以监听对象中属性的删除，对对象当中方法的调用等等。
+
 2.对于数组对象进行监视，通常我们通过Object.defineProperty监视数组的变化，基本要依靠重写数组方法。而可以直接使用Proxy对象来对数组进行监视。定义一个list数组，然后对这个list数组进行Proxy监视。
 </code></pre><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> list = [];</span><br><span class="line"><span class="keyword">const</span> listproxy = <span class="keyword">new</span> <span class="built_in">Proxy</span>(list,&#123;</span><br><span class="line">    <span class="keyword">set</span>(target,property,value) &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(target, property, value);</span><br><span class="line">        target[property] = value;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line">listproxy.push(<span class="number">100</span>);</span><br></pre></td></tr></table></figure>
 <pre><code>3.Proxy是以非入侵的方式监管了对象的读写，那也就是说一个已经定义好的对象我们不需要对对象本身去做任何的操作，就可以监视到他内部成员的读写，而defineProperty的方式就要求我们必须按特定的方式单独去定义对象当中那些被监视的属性。
@@ -105,7 +106,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/02/28/ES6-Proxy/" data-id="cklp672rc00010oupmxhga6lg" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2021/02/28/ES6-Proxy/" data-id="cklp6d34n0000ukupjsuxm0q2" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ES6/">ES6</a></li></ul>
