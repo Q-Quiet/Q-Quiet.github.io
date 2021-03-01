@@ -68,6 +68,59 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-js-创建对象的几种方法" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/12/22/js-创建对象的几种方法/" class="article-date">
+  <time datetime="2020-12-22T13:57:18.000Z" itemprop="datePublished">2020-12-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/12/22/js-创建对象的几种方法/">js-创建对象的几种方法</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>工厂模式<br>构造函数模式<br>原型模式<br>动态原型模式<br>稳妥构造函数模式</p>
+<p>工厂模式<br>用函数来封装一个对象的创建<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createPerson</span>(<span class="params">name, age, job</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> o = <span class="keyword">new</span> <span class="built_in">Object</span>();</span><br><span class="line">    o.name = name;</span><br><span class="line">    o.age = age;</span><br><span class="line">    o.job = job;</span><br><span class="line">    o.sayName = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        alert(<span class="keyword">this</span>.name);</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">return</span> o;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> person1 = createPerson(<span class="string">"james"</span>，<span class="number">9</span>，<span class="string">"student"</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> person2 = createPerson(<span class="string">"kobe"</span>，<span class="number">9</span>，<span class="string">"student"</span>);</span><br></pre></td></tr></table></figure></p>
+<p>优点：解决了创建多个相似对象时，代码的复用问题<br>缺点：使用工厂模式创建的对象，没有解决对象识别的问题（就是怎样知道一个对象的类型是什么）</p>
+<p>构造函数模式<br>构造函数可用来创建特定类型的对象。像 Object 和 Array 这样的原生构造函数，在运行时会自动出现在执行环境中。<br>创建自定义的构造函数，从而定义对象类型的属性和方法<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createPerson</span>(<span class="params">name, age, job</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.name = name;</span><br><span class="line">    <span class="keyword">this</span>.age = age;</span><br><span class="line">    <span class="keyword">this</span>.job = job;</span><br><span class="line">    <span class="keyword">this</span>.sayName = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        alert(<span class="keyword">this</span>.name);</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">return</span> o;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> person1 = <span class="keyword">new</span> createPerson(<span class="string">"james"</span>，<span class="number">9</span>，<span class="string">"student"</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> person2 = <span class="keyword">new</span> createPerson(<span class="string">"kobe"</span>，<span class="number">9</span>，<span class="string">"student"</span>);</span><br></pre></td></tr></table></figure></p>
+<p>当我们使用构造函数实例化一个对象的时候，对象中会包含一个 <strong>proto</strong> 属性指向构造函数原型对象，而原型对象中则包含一个 constructor 属性指向构造函数。因此在实例对象中我们可以通过原型链来访问到 constructor 属性，从而判断对象的类型。<br>优点：解决了工厂模式中对象类型无法识别的问题，并且创建自定义的构造函数意味着将来可以将它的实例标识为一种特定的类型。<br>缺点：我们知道 ECMAScript 中的函数是对象，在使用构造函数创建对象时，每个方法都会在实例对象中重新创建一遍。拿上面的例子举例，这意味着每创建一个对象，我们就会创建一个 sayName 函数的实例，但它们其实做的都是同样的工作，因此这样便会造成内存的浪费。</p>
+<p>原型模式<br>因为每一个函数都有一个 prototype 属性，这个属性指向函数的原型对象，这个对象的用途是包含可以由特定类型的所有实例共享的属性和方法。我们通过使用原型对象可以让所有的对象实例共享它所包含的属性和方法，因此这样也解决了代码的复用问题。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Person.prototype.name = <span class="string">"james"</span>;</span><br><span class="line">Person.prototype.age = <span class="number">9</span>;</span><br><span class="line">Person.prototype.job = <span class="string">"student"</span>;</span><br><span class="line">Person.prototype.sayName = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    alert(<span class="keyword">this</span>.name);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> person1 = <span class="keyword">new</span> Person();</span><br><span class="line">person1.sayName(); <span class="comment">// "james"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> person2 = <span class="keyword">new</span> Person();</span><br><span class="line">person2.sayName(); <span class="comment">// "james"</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(person1.sayName === person2.sayName) <span class="comment">// true</span></span><br></pre></td></tr></table></figure></p>
+<p>优点：解决了构造函数模式中多次创建相同函数对象的问题，所有的实例可以共享同一组属性和函数。<br>缺点：<br>原型模式省略了构造函数模式传递初始化参数的过程，所有的实例在默认情况下都会取得默认的属性值。<br>因为所有的实例都是共享一组属性，对于包含基本值的属性来说没有问题，但是对于包含引用类型的值来说（例如数组对象），所有的实例都是对同一个引用类型进行操作，那么属性的操作就不是独立的，最后导致读写的混乱。我们创建的实例一般都是要有属于自己的全部属性的，因此单独使用原型模式的情况是很少存在的。</p>
+<p>组合使用构造函数模式和原型模式<br>创建自定义类型的最常见方式，就是组合使用构造函数模式和原型模式。<br>构造函数模式用于定义实例属性，而原型模式用于定义方法和共享的属性。支持向构造函数传递参数。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">name, age, job</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.name = name;</span><br><span class="line">    <span class="keyword">this</span>.age = age;</span><br><span class="line">    <span class="keyword">this</span>.job = job;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Person.prototype = &#123;</span><br><span class="line">    <span class="keyword">constructor</span>: Person,</span><br><span class="line">    sayName: function()&#123;</span><br><span class="line">        alert(<span class="keyword">this</span>.name);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> person1 = <span class="keyword">new</span> createPerson(<span class="string">"james"</span>，<span class="number">9</span>，<span class="string">"student"</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> person2 = <span class="keyword">new</span> createPerson(<span class="string">"kobe"</span>，<span class="number">9</span>，<span class="string">"student"</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(person1.name); <span class="comment">// "james"</span></span><br><span class="line"><span class="built_in">console</span>.log(person2.name); <span class="comment">// "kobe"</span></span><br><span class="line"><span class="built_in">console</span>.log(person1.sayName === person2.sayName); <span class="comment">// true</span></span><br></pre></td></tr></table></figure></p>
+<p>优点：采用了构造函数模式和原型模式的优点，这种混成模式是目前使用最广泛，认同度最高的一种创建自定类型的方法。<br>缺点：由于使用了两种模式，因此对于代码的封装性来说不是很好。</p>
+<p>动态原型模式<br>由于上面混成模式存在封装性的问题，动态原型模式是解决这个问题的一个方案。这个方法把所有信息都封装到了构造函数中，而在构造函数中通过判断只初始化一次原型。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">name, age, job</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.name = name;</span><br><span class="line">    <span class="keyword">this</span>.age = age;</span><br><span class="line">    <span class="keyword">this</span>.job = job;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(<span class="keyword">typeof</span> <span class="keyword">this</span>.sayName !== <span class="string">"function"</span> )&#123;</span><br><span class="line"></span><br><span class="line">        Person.prototype.sayName: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">            alert(<span class="keyword">this</span>.name);</span><br><span class="line">        &#125; </span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> person1 = <span class="keyword">new</span> createPerson(<span class="string">"james"</span>，<span class="number">9</span>，<span class="string">"student"</span>);</span><br><span class="line"></span><br><span class="line">person1.sayName(); <span class="comment">// "james"</span></span><br></pre></td></tr></table></figure></p>
+<p>优点：解决了混成模式中封装性的问题</p>
+<p>寄生构造函数模式<br>创建一个函数，该函数的作用仅仅是封装创建对象的代码，然后返回新创建的对象。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">name, age, job</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> o = <span class="keyword">new</span> <span class="built_in">Object</span>();</span><br><span class="line">    o.name = name;</span><br><span class="line">    o.age = age;</span><br><span class="line">    o.job = job;</span><br><span class="line">    o.sayName = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        alert(<span class="keyword">this</span>.name);</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">return</span> o;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> person1 = <span class="keyword">new</span> Person(<span class="string">"james"</span>，<span class="number">9</span>，<span class="string">"student"</span>);</span><br></pre></td></tr></table></figure></p>
+<p>通过上面的例子我们可以发现，其实这个模式和工厂模式基本上是一摸一样的，只不过我们是采用 new 操作符最后来创建对象。f<br>返回的对象与构造函数之间没有关系。<br>缺点：和工厂模式一样的问题，不能依赖 instanceof 操作符来确定对象的类型。</p>
+<p>稳妥构造函数模式（工厂？）<br>稳妥对象指是没有公共属性，而且其方法也不使用 this 的对象。稳妥对象最适合在一些安全的环境中（这些环境中会禁止使用 this 和 new），或者在防止数据被其他应用程序改动时使用。<br>稳妥构造函数遵循与寄生构造函数类似的模式，但有两点不同：一是新创建的对象的实例方法不引用 this ；二是不使用 new 操作符调用构造函数。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">name, age, job</span>)</span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//创建要返回的对象</span></span><br><span class="line">    <span class="keyword">var</span> o = <span class="keyword">new</span> <span class="built_in">Object</span>();</span><br><span class="line"></span><br><span class="line">    <span class="comment">//可以在这里定义私有变量和函数</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">//添加方法</span></span><br><span class="line">    o.sayName = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.name);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//返回对象</span></span><br><span class="line">    <span class="keyword">return</span> o;</span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> person1 =  Person(<span class="string">"james"</span>，<span class="number">9</span>，<span class="string">"student"</span>);</span><br><span class="line"></span><br><span class="line">person1.sayName(); <span class="comment">// "james"</span></span><br></pre></td></tr></table></figure></p>
+<p>优点：以上面为例，除了 sayName 方法外，没有别的方法可以访问数据成员，这就是稳妥构造函数提供的安全性。<br>缺点：和寄生构造函数一样，没有办法使用 instanceof 操作符来判断对象的类型</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://Q-Quiet.github.io/2020/12/22/js-创建对象的几种方法/" data-id="cklqizem2001gasupl2kegjxy" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-js-undefined" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2020/12/21/js-undefined/" class="article-date">
@@ -101,10 +154,10 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/12/21/js-undefined/" data-id="cklqap32r0018uguphtegg3al" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/12/21/js-undefined/" data-id="cklqizel30015asupaffgcbvl" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/复习/">复习</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
 
     </footer>
   </div>
@@ -141,7 +194,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/12/21/js-有哪些对象/" data-id="cklqap335001pugupezucmeds" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/12/21/js-有哪些对象/" data-id="cklqizemw001qasupj6f8k40i" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
@@ -188,7 +241,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/12/20/js-内部属性-class/" data-id="cklqap32h000wugupq901no49" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/12/20/js-内部属性-class/" data-id="cklqizelv001easuphonmwp12" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
@@ -231,7 +284,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/12/17/js-基本属性-堆栈/" data-id="cklqap333001nugupm9phlvte" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/12/17/js-基本属性-堆栈/" data-id="cklqizemq001oasupejubf5kf" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
@@ -287,7 +340,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/12/15/js-微任务、宏任务与Event-Loop/" data-id="cklqap33b001xugupm8zma9wz" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/12/15/js-微任务、宏任务与Event-Loop/" data-id="cklqizeo40022asupqotqsd1u" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
@@ -328,7 +381,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/12/15/async-await/" data-id="cklqap31p0005ugupkijo39t7" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/12/15/async-await/" data-id="cklqizeiv000hasuphju445ge" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
@@ -377,7 +430,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/12/14/为什么操作DOM慢/" data-id="cklqap33l0029ugup9u3h18d1" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/12/14/为什么操作DOM慢/" data-id="cklqizeok002dasuptnjysi68" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/浏览器/">浏览器</a></li></ul>
@@ -418,7 +471,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/12/13/浏览器-渲染机制/" data-id="cklqap33t002iugupiyw5fvj7" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/12/13/浏览器-渲染机制/" data-id="cklqizeoi002basupkx1pqph8" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/浏览器/">浏览器</a></li></ul>
@@ -470,56 +523,7 @@ return function (...args2) {
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/12/09/js-函数柯里化/" data-id="cklqap32p0016ugupvqlvo1xt" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-js-数组扁平化" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/12/08/js-数组扁平化/" class="article-date">
-  <time datetime="2020-12-08T09:15:34.000Z" itemprop="datePublished">2020-12-08</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/12/08/js-数组扁平化/">js-数组扁平化</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>toString &amp; split<br>join &amp; split<br>reduce<br>扩展运算符<br>递归<br>es6提供的新方法 flat(depth)<br>使用 stack 无限反嵌套多层嵌套数组<br>flatMap()<br>方法一 toString &amp; split<br>let arr = [1, [2, 3, [4, 5]]]<br>// 经过数组扁平化之后变为<br>[1, 2, 3, 4, 5]<br>对于 arr 调用 toString 方法后会得到<br>‘1, 2, 3, 4, 5’<br>因此我们可以利用 split 方法再将其转换为数组，然后再将其变成 Number 类型即可。<br>//toString &amp; split<br>function flatten (arr) {<br>  return arr.toString().split(‘,’).map(item =&gt; {<br>    return parseInt(item)<br>  })<br>}</p>
-<p>方法二  join &amp; split<br>和上面的toString一样，join也可以将数组转换为字符串<br>function flatten(arr) {<br>    return arr.join(‘,’).split(‘,’).map(function(item) {<br>        return parseInt(item);<br>    })<br>}</p>
-<p>方法三 reduce<br>利用递归结合 reduce 方法，如果遍历的每一个元素中还有数组，那么就进行递归将这些数组再进行扁平化操作。<br>function flatten(arr) {<br>  return arr.reduce((result, item)=&gt; {<br>    // 递归终止条件 Array.isArray(item) ? flatten(item) : item<br>    return result.concat(Array.isArray(item) ? flatten(item) : item);<br>  }, []);<br>}</p>
-<p>方法四 扩展运算符<br>利用数组的 some 方法，数组的 some 方法作用是遍历数组的每一项直到回调函数中返回的是 true。<br>如果是数组，sone 方法的回调返回 true，some 遍历就截止，进入 while 循环利用扩展运算符将数组进行扁平化，注意扩展运算符只能拆一层<br>let arr = [1, [2, [3, 4]]]<br>…arr // [1, 2, [3, 4]]</p>
-<p>此时会利用改变后的 arr 执行 some 方法。<br>如果不是数组，some 方法回调的返回值是 false，会继续执行 some 方法，此时不会进入 while 循环。</p>
-<p>function flatte (arr) {<br>  while(arr.some(item =&gt; Array.isArray(item))) {<br>    arr = [].concat(…arr);<br>  }<br>  return arr;<br>}</p>
-<p>方法五 递归<br>递归的遍历每一项，若为数组则继续遍历，否则concat<br>function flatten(arr) {<br>    var res = [];<br>    arr.map(item =&gt; {<br>        if(Array.isArray(item)) {<br>            res = res.concat(flatten(item));<br>        } else {<br>            res.push(item);<br>        }<br>    });<br>    return res;<br>}</p>
-<p>方法六 es6提供的新方法 flat(depth)<br>flat(depth) 方法中的参数depth，代表展开嵌套数组的深度，默认是1    如果我们可以提前知道数组的维度，对这个数组进行扁平化处理，参数depth的值就是数组的维度减一。<br>let a = [1,[2,3,[4,[5]]]];<br>a.flat(4-1); // [1,2,3,4,5]  a是4维数组</p>
-<p>depth的值设置为Infinity。<br>let a = [1,[2,3,[4,[5]]]];<br>a.flat(Infinity); // [1,2,3,4,5]  a是4维数组</p>
-<p>方法七 使用 stack 无限反嵌套多层嵌套数组<br>  var arr1 = [1, 2, [3], [1, 2, 3, [4, [2, 3, 4]]]];<br>  function flatten(input) {<br>      const stack = […input]; //保证不会破坏原数组<br>      const result = [];<br>      while (stack.length) {<br>        const first = stack.shift();<br>        if (Array.isArray(first)) {<br>          stack.unshift(…first);<br>        } else {<br>          result.push(first);<br>        }<br>      }<br>      return result;<br>      }<br>    flatten(arr1); //[1, 2, 3, 1, 2, 3, 4, 2, 3, 4]</p>
-<p>方法八 flatMap()<br>数组的es6的新方法flatMap();可以用来展开2维数组。 flatMap()方法类似先执行数组的map()（相当于执行Array.prototype.map()），然后对返回值组成的数组执行flat()方法（展开一层）。<br>  var arr = [[“今”, “天”, “天”, “气”, “不”, “错”],[“”],[“早”, “上”, “好”]];<br>  arr.flatMap(item =&gt; item);<br>  //[“今”, “天”, “天”, “气”, “不”, “错”, “”, “早”, “上”, “好”]</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/12/08/js-数组扁平化/" data-id="cklqap331001kugupcvukvc6m" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/12/09/js-函数柯里化/" data-id="cklqizelb0018asup8qy96slm" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
@@ -549,7 +553,7 @@ return function (...args2) {
   <div class="widget-wrap">
     <h3 class="widget-title">标签</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ES6/">ES6</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vue/">Vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/">css</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/es6/">es6</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ts/">ts</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/">vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/复习/">复习</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/浏览器/">浏览器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网络/">网络</a></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ES6/">ES6</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vue/">Vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/">css</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/es6/">es6</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ts/">ts</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/">vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/浏览器/">浏览器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网络/">网络</a></li></ul>
     </div>
   </div>
 
@@ -559,7 +563,7 @@ return function (...args2) {
   <div class="widget-wrap">
     <h3 class="widget-title">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/tags/ES6/" style="font-size: 14px;">ES6</a> <a href="/tags/Vue/" style="font-size: 10px;">Vue</a> <a href="/tags/css/" style="font-size: 16px;">css</a> <a href="/tags/es6/" style="font-size: 18px;">es6</a> <a href="/tags/js/" style="font-size: 20px;">js</a> <a href="/tags/ts/" style="font-size: 14px;">ts</a> <a href="/tags/vue/" style="font-size: 10px;">vue</a> <a href="/tags/复习/" style="font-size: 12px;">复习</a> <a href="/tags/浏览器/" style="font-size: 16px;">浏览器</a> <a href="/tags/网络/" style="font-size: 10px;">网络</a>
+      <a href="/tags/ES6/" style="font-size: 15px;">ES6</a> <a href="/tags/Vue/" style="font-size: 10px;">Vue</a> <a href="/tags/css/" style="font-size: 15px;">css</a> <a href="/tags/es6/" style="font-size: 17.5px;">es6</a> <a href="/tags/js/" style="font-size: 20px;">js</a> <a href="/tags/ts/" style="font-size: 12.5px;">ts</a> <a href="/tags/vue/" style="font-size: 10px;">vue</a> <a href="/tags/浏览器/" style="font-size: 15px;">浏览器</a> <a href="/tags/网络/" style="font-size: 10px;">网络</a>
     </div>
   </div>
 
@@ -581,6 +585,10 @@ return function (...args2) {
       <ul>
         
           <li>
+            <a href="/2021/03/01/ES6-Promise/">ES6-Promise</a>
+          </li>
+        
+          <li>
             <a href="/2021/03/01/ES6-Reflect/">ES6-Reflect</a>
           </li>
         
@@ -594,10 +602,6 @@ return function (...args2) {
         
           <li>
             <a href="/2021/02/28/ES6-Set和Map/">ES6-Set和Map</a>
-          </li>
-        
-          <li>
-            <a href="/2021/02/27/js-防抖节流/">js-防抖节流</a>
           </li>
         
       </ul>
