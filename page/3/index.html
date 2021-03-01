@@ -68,6 +68,46 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-js-判断浏览器类型" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2021/01/26/js-判断浏览器类型/" class="article-date">
+  <time datetime="2021-01-26T14:39:04.000Z" itemprop="datePublished">2021-01-26</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/01/26/js-判断浏览器类型/">js-判断浏览器类型</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>一、使用浏览器的userAgent来判断<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> explorer = <span class="built_in">window</span>.navigator.userAgent ;</span><br><span class="line">         <span class="comment">//判断是否为IE浏览器</span></span><br><span class="line">        <span class="keyword">if</span> (explorer.indexOf(<span class="string">"MSIE"</span>) &gt;= <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="string">'ie'</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//判断是否为Firefox浏览器</span></span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (explorer.indexOf(<span class="string">"Firefox"</span>) &gt;= <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="string">'Firefox'</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//判断是否为Chrome浏览器</span></span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(explorer.indexOf(<span class="string">"Chrome"</span>) &gt;= <span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="string">'Chrome'</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//判断是否为Opera浏览器</span></span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(explorer.indexOf(<span class="string">"Opera"</span>) &gt;= <span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="string">'Opera'</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//判断是否为Safari浏览器</span></span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(explorer.indexOf(<span class="string">"Safari"</span>) &gt;= <span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="string">'Safari'</span>;</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure></p>
+<p>实际上，通过检测 userAgent 的值来判断浏览器类型是不可靠的，也是不推荐的，因为用户可以修改userAgent 的值。<br>Firefox 中，你可以通过在 about:config 页面添加并修改general.useragent.override选项的值来覆盖默认的用户代理字符串。一些Firefox扩展也可以用其他方式修改这个值，但它们通常只会修改发送到服务器的User-Agent请求头的值，而不会影响 JavaScript 代码中获取的 window.navigator.userAgent 属性的值。<br>Opera 6+ 中允许用户通过菜单选择不同的用户代理字符串。<br>Microsoft Internet Explorer 使用注册表来配置自己的用户代理字符串。<br>Safari 和 iCab 也允许用户修改其用户代理字符串，来将自己伪装成 Internet Explorer 或 Netscape。<br>二、可以通过各个浏览器之间的特征来判断<br>IE<br>只有IE支持创建ActiveX控件，它有一个其他浏览器没有的东西，就是ActiveXObject函数。只要判断window对象存在ActiveXObject函数，就可以明确判断出当前浏览器是IE<br>Safari<br>Safari浏览器中有一个其他浏览器没有的openDatabase函数，可做为判断Safari的标志<br>Chrome<br>Chrome有一个MessageEvent函数，但Firefox也有。不过，好在Chrome并没有Firefox的getBoxObjectFor函数，根据这个条件还是可以准确判断出Chrome浏览器的<br>Firefox<br>Firefox中的DOM元素都有一个getBoxObjectFor函数，用来获取该DOM元素的位置和大小（IE对应的中是getBoundingClientRect函数）。这是Firefox独有的，判断它即可知道是当前浏览器是Firefox<br>Opera<br>Opera提供了专门的浏览器标志，就是window.opera属性<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (<span class="built_in">window</span>.ActiveXObject)</span><br><span class="line"><span class="keyword">return</span> <span class="string">"IE"</span>;</span><br><span class="line"><span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">document</span>.getBoxObjectFor)</span><br><span class="line"><span class="keyword">return</span> <span class="string">"Firefox"</span>;</span><br><span class="line"><span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">window</span>.MessageEvent &amp;&amp; !<span class="built_in">document</span>.getBoxObjectFor)</span><br><span class="line"><span class="keyword">return</span> <span class="string">"Chrome"</span>;</span><br><span class="line"><span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">window</span>.opera)</span><br><span class="line"><span class="keyword">return</span> <span class="string">"Opera"</span>;</span><br><span class="line"><span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">window</span>.openDatabase)</span><br><span class="line"><span class="keyword">return</span> <span class="string">"Safari"</span>;</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://Q-Quiet.github.io/2021/01/26/js-判断浏览器类型/" data-id="cklqoa088001mm4updsuwxov9" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-网络-TCP" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2021/01/23/网络-TCP/" class="article-date">
@@ -95,7 +135,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/01/23/网络-TCP/" data-id="cklqj6b2u002mm4up4kt54t5t" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2021/01/23/网络-TCP/" data-id="cklqoa09k0031m4upwcqrv64x" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/网络/">网络</a></li></ul>
@@ -138,7 +178,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/01/22/浏览器存储/" data-id="cklqj6b2g002cm4up16awavzi" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2021/01/22/浏览器存储/" data-id="cklqoa09b002qm4up20fm91o4" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/浏览器/">浏览器</a></li></ul>
@@ -178,7 +218,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/01/21/vue-router的两种模式/" data-id="cklqj6b2n002hm4upirqjgxxm" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2021/01/21/vue-router的两种模式/" data-id="cklqoa09f002vm4upche6ech7" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vue/">vue</a></li></ul>
@@ -225,7 +265,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/01/03/js-垃圾回收机制/" data-id="cklqj6b1i001mm4up0cp0pfu6" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2021/01/03/js-垃圾回收机制/" data-id="cklqoa08m001ym4upkfhcd798" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
@@ -273,7 +313,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/12/30/缓存机制/" data-id="cklqj6b3b0033m4upei48mqbe" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/12/30/缓存机制/" data-id="cklqoa09i002ym4upeqb1rlte" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/浏览器/">浏览器</a></li></ul>
@@ -322,7 +362,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/12/29/js的几种模块规范/" data-id="cklqj6b21001ym4upfdzonw1n" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/12/29/js的几种模块规范/" data-id="cklqoa098002nm4upumq103y5" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
@@ -439,7 +479,7 @@ cookieDomainRewrite: &apos;www.domain1.com&apos;  // 可以为false，表示不�
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/12/28/浏览器的同源政策及其规避方法/" data-id="cklqj6b3q003em4uppa98v2cu" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/12/28/浏览器的同源政策及其规避方法/" data-id="cklqoa09x003cm4upviumkmvu" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/浏览器/">浏览器</a></li></ul>
@@ -480,7 +520,7 @@ cookieDomainRewrite: &apos;www.domain1.com&apos;  // 可以为false，表示不�
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/12/26/js-原型-原型链/" data-id="cklqj6b16001cm4up9wjmoih5" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/12/26/js-原型-原型链/" data-id="cklqoa08b001om4upy667csu1" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
@@ -535,70 +575,7 @@ cookieDomainRewrite: &apos;www.domain1.com&apos;  // 可以为false，表示不�
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/12/25/js-转换规则/" data-id="cklqj6b270023m4up5td6wzuh" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-js-事件委托" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/12/24/js-事件委托/" class="article-date">
-  <time datetime="2020-12-24T13:12:41.000Z" itemprop="datePublished">2020-12-24</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/12/24/js-事件委托/">事件委托</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>1.事件模型各阶段<br>DOM0级模型<br>又称为原始事件模型，在该模型中，事件不会传播，即没有事件流的概念。事件绑定监听函数比较简单, 有两种方式:<br>HTML代码中直接绑定:</p>
-<input type="button" onclick="fun()">
-
-<p>通过JS代码指定属性值:<br>var btn = document.getElementById(‘.btn’);<br>btn.onclick = fun;</p>
-<p>移除监听函数：<br>btn.onclick = null;</p>
-<p>这种方式所有浏览器都兼容，但是逻辑与显示并没有分离。<br>IE事件模型<br>IE事件模型共有两个过程:<br>事件处理阶段(target phase)。事件到达目标元素, 触发目标元素的监听函数。<br>事件冒泡阶段(bubbling phase)。事件从目标元素冒泡到document, 依次检查经过的节点是否绑定了事件监听函数，如果有则执行。<br>事件绑定监听函数的方式如下:<br>attachEvent(eventType, handler)</p>
-<p>事件移除监听函数的方式如下:<br>detachEvent(eventType, handler)</p>
-<p>参数说明:<br>eventType指定事件类型(注意加on)<br>handler是事件处理函数<br>Example:<br>var btn = document.getElementById(‘.btn’);<br>btn.attachEvent(‘onclick’, showMessage);<br>btn.detachEvent(‘onclick’, showMessage);</p>
-<p>DOM2级模型<br>属于W3C标准模型，现代浏览器(除IE6-8之外的浏览器)都支持该模型。在该事件模型中，一次事件共有三个过程:<br>事件捕获阶段(capturing phase)。事件从document一直向下传播到目标元素, 依次检查经过的节点是否绑定了事件监听函数，如果有则执行。<br>事件处理阶段(target phase)。事件到达目标元素, 触发目标元素的监听函数。<br>事件冒泡阶段(bubbling phase)。事件从目标元素冒泡到document, 依次检查经过的节点是否绑定了事件监听函数，如果有则执行。<br>事件绑定监听函数的方式如下:<br>addEventListener(eventType, handler, useCapture)</p>
-<p>事件移除监听函数的方式如下:<br>removeEventListener(eventType, handler, useCapture)</p>
-<p>Example:<br>var btn = document.getElementById(‘.btn’);<br>btn.addEventListener(‘click’, showMessage, false);<br>btn.removeEventListener(‘click’, showMessage, false);</p>
-<p>参数说明:<br>eventType指定事件类型(不要加on)<br>handler是事件处理函数<br>useCapture是一个boolean用于指定是否在捕获阶段进行处理，一般设置为false与IE浏览器保持一致。<br>事件对象<br>当一个事件被触发时，会创建一个事件对象(Event Object), 这个对象里面包含了与该事件相关的属性或者方法。该对象会作为第一个参数传递给监听函数。<br>DOM事件模型中的事件对象常用属性:<br>type用于获取事件类型<br>target获取事件目标<br>stopPropagation()阻止事件冒泡<br>preventDefault()阻止事件默认行为<br>IE事件模型中的事件对象常用属性:<br>type用于获取事件类型<br>srcElement获取事件目标<br>cancelBubble阻止事件冒泡<br>returnValue阻止事件默认行为<br>Event Wrapper（事件监听函数）<br>由于事件模型的差异以及Event对象的不同，为了达到兼容各个浏览器的目的，我们可以增加一个Event Wrapper, 它对各个浏览器应当提供一致的事件操作接口。<br>const EventUtils = {<br>  // 视能力分别使用dom0||dom2||IE方式 来绑定事件<br>  // 添加事件<br>  addEvent: function(element, type, handler) {<br>    if (element.addEventListener) {<br>      element.addEventListener(type, handler, false);<br>    } else if (element.attachEvent) {<br>      element.attachEvent(“on” + type, handler);<br>    } else {<br>      element[“on” + type] = handler;<br>    }<br>  },</p>
-<p>  // 移除事件<br>  removeEvent: function(element, type, handler) {<br>    if (element.removeEventListener) {<br>      element.removeEventListener(type, handler, false);<br>    } else if (element.detachEvent) {<br>      element.detachEvent(“on” + type, handler);<br>    } else {<br>      element[“on” + type] = null;<br>    }<br>  },</p>
-<p>  // 获取事件目标<br>  getTarget: function(event) {<br>    return event.target || event.srcElement;<br>  },</p>
-<p>  // 获取 event 对象的引用，取到事件的所有信息，确保随时能使用 event<br>  getEvent: function(event) {<br>    return event || window.event;<br>  },</p>
-<p>  // 阻止事件（主要是事件冒泡，因为 IE 不支持事件捕获）<br>  stopPropagation: function(event) {<br>    if (event.stopPropagation) {<br>      event.stopPropagation();<br>    } else {<br>      event.cancelBubble = true;<br>    }<br>  },</p>
-<p>  // 取消事件的默认行为<br>  preventDefault: function(event) {<br>    if (event.preventDefault) {<br>      event.preventDefault();<br>    } else {<br>      event.returnValue = false;<br>    }<br>  }<br>};</p>
-<p>事件代理<br>事件在冒泡过程中会上传到父节点，因此可以把子节点的监听函数定义在父节点上，由父节点的监听函数统一处理多个子元素的事件，这种方式称为事件代理(Event delegation)。</p>
-<div id="box"><br>    <input type="button" value="按钮" id="btn"><br>    <input type="button" value="按钮2" id="btn2"><br>    <input type="button" value="按钮3" id="btn3"><br></div>
-
-<p>var box = document.getElementById(‘box’);</p>
-<p>box.addEventListener(‘click’, function(event) {<br>  if (event.target.tagName.toLowerCase() === ‘input’) {<br>    // some code<br>  }<br>});</p>
-<p>自定义事件<br>JS中已经内置了很多事件，如click, mouseover等等，但是内置事件毕竟有限，有时候我们想自己定义一些事件，例如三连击，threeclick。<br>var event = new Event(‘threeclick’, {“bubbles”:true, “cancelable”:false});</p>
-<p>target.addEventListener(‘threeclick’,hello,flase);</p>
-<p>target.dispatchEvent(event);</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/12/24/js-事件委托/" data-id="cklqj6b0n000ym4upyf8sgjwi" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/12/25/js-转换规则/" data-id="cklqoa08t0026m4up9ptyuajq" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
@@ -660,6 +637,10 @@ cookieDomainRewrite: &apos;www.domain1.com&apos;  // 可以为false，表示不�
       <ul>
         
           <li>
+            <a href="/2021/03/01/js-深浅拷贝/">js-深浅拷贝</a>
+          </li>
+        
+          <li>
             <a href="/2021/03/01/ES6-Promise/">ES6-Promise</a>
           </li>
         
@@ -673,10 +654,6 @@ cookieDomainRewrite: &apos;www.domain1.com&apos;  // 可以为false，表示不�
         
           <li>
             <a href="/2021/02/28/ES6-解构赋值/">ES6-解构赋值</a>
-          </li>
-        
-          <li>
-            <a href="/2021/02/28/ES6-Set和Map/">ES6-Set和Map</a>
           </li>
         
       </ul>

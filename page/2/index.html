@@ -68,6 +68,50 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-css-flex" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2021/02/25/css-flex/" class="article-date">
+  <time datetime="2021-02-25T14:57:55.000Z" itemprop="datePublished">2021-02-25</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/02/25/css-flex/">css-flex</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Flex布局（弹性布局）默认就是首行左对齐。<br>容器默认存在两根轴：水平的主轴（main axis）和垂直的交叉轴（cross axis）。<br>flex-direction属性决定主轴的方向（即项目的排列方向）。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.box &#123;</span><br><span class="line">  flex-direction: row | row-reverse | column | column-reverse;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>flex-wrap属性定义，如果一条轴线排不下，如何换行。<br>nowrap 不换行 | wrap 换行，第一行在上方| wrap-reverse 换行，第一行在下方<br>flex-flow属性是flex-direction属性和flex-wrap属性的简写形式，默认值为row nowrap。<br>justify-content属性定义了项目在主轴上的对齐方式。（水平方向的对齐方式）<br> flex-start | flex-end | center | space-between 两端对齐，项目之间的间隔都相等| space-around 每个项目两侧的间隔相等。所以，项目之间的间隔比项目与边框的间隔大一倍。<br>align-items属性定义项目在交叉轴上如何对齐。（垂直方向）<br>flex-start | flex-end | center | baseline  项目的第一行文字的基线对齐| stretch（默认值）：如果项目未设置高度或设为auto，将占满整个容器的高度。;</p>
+<p><img src="/picture/CSS-flex/baseline.jpg" alt="baseline"><br>align-content属性定义了多根轴线的对齐方式。如果项目只有一根轴线，该属性不起作用。<br>项目的属性<br>以下6个属性设置在项目上。<br>order           ： 定义项目的排列顺序。数值越小，排列越靠前，默认为0。<br>flex-grow     ：定义项目的放大比例，默认为0，即如果存在剩余空间，也不放大<br>flex-shrink   ：定义了项目的缩小比例，默认为1，即如果空间不足，该项目将缩小。<br>flex-basis    ：定义了在分配多余空间之前，项目占据的主轴空间（main size）。浏览器根据这个属性，计算主轴是否有多余空间。它的默认值为auto，即项目的本来大小。<br>    flex-basis为auto时, 初始宽度为元素内容大小或者设置的宽度值（盒子模型中的占用宽度）。<br>    flex-basis为像素值时，初始宽度为flex-basis的值。<br>    flex-basis为百分比时，初始宽度为占父容器的比例。<br>    flex-basis为0或0%时，初始宽度为0。<br>flex             ：是flex-grow, flex-shrink 和 flex-basis的简写，默认值为0 1 auto。后两个属性可选。<br>align-self    ：允许单个项目有与其他项目不一样的对齐方式，可覆盖align-items属性。（垂直方向）<br>flex的取值<br>当 flex 取值为 none，则计算值为 0 0 auto；<br>当 flex 取值为 auto，则计算值为 1 1 auto，<br>当 flex 取值为一个非负数字，则该数字为 flex-grow 值，flex-shrink 取 1，flex-basis 取 0%；<br>当 flex 取值为一个长度或百分比，则视为 flex-basis 值，flex-grow 取 1，flex-shrink 取 1；<br>当 flex 取值为两个非负数字，则分别视为 flex-grow 和 flex-shrink 的值，flex-basis 取 0%，如下是等同的；<br>当 flex 取值为一个非负数字和一个长度或百分比，则分别视为 flex-grow 和 flex-basis 的值，flex-shrink 取 1，如下是等同的：</p>
+<p>flex：1 === flex：1 1 0；效果图：</p>
+<p><img src="/picture/CSS-flex/flex1.jpg" alt="flex:1"><br>flex:1 1 auto;效果图：</p>
+<p><img src="/picture/CSS-flex/flex11auto.jpg" alt="flex:1 1 auto"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://Q-Quiet.github.io/2021/02/25/css-flex/" data-id="cklqoa06k000jm4up5df52y6h" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/css/">css</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-css-水平垂直居中" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2021/02/25/css-水平垂直居中/" class="article-date">
@@ -100,7 +144,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/02/25/css-水平垂直居中/" data-id="cklqj6b05000km4upoikbursl" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2021/02/25/css-水平垂直居中/" data-id="cklqoa06g000hm4upav6rlytw" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/css/">css</a></li></ul>
@@ -143,7 +187,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/02/24/css-垂直居中/" data-id="cklqj6azz000gm4up1szpnv3h" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2021/02/24/css-垂直居中/" data-id="cklqoa068000dm4up4lm649i2" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/css/">css</a></li></ul>
@@ -183,7 +227,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/02/24/css-水平居中/" data-id="cklqj6b07000mm4upjkuuheox" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2021/02/24/css-水平居中/" data-id="cklqoa06n000mm4upg6paq7f4" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/css/">css</a></li></ul>
@@ -225,7 +269,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/02/23/js-箭头函数和普通函数的区别/" data-id="cklqj6b1z001wm4updkoqhgto" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2021/02/23/js-箭头函数和普通函数的区别/" data-id="cklqoa08y002cm4uph9id8v2k" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
@@ -267,7 +311,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/02/22/js-for-in-for-of/" data-id="cklqj6b0t0012m4up4xh9wjmc" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2021/02/22/js-for-in-for-of/" data-id="cklqoa0760014m4up1g29uo6g" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
@@ -334,7 +378,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/01/31/ts-进阶-枚举/" data-id="cklqj6b2e002am4upwvcv02q7" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2021/01/31/ts-进阶-枚举/" data-id="cklqoa097002mm4upu2ngem1w" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ts/">ts</a></li></ul>
@@ -400,7 +444,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/01/29/ts-基础-类型断言/" data-id="cklqj6b3l003cm4upvxhoa77v" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2021/01/29/ts-基础-类型断言/" data-id="cklqoa09v003am4upgz1i9pxr" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ts/">ts</a></li></ul>
@@ -451,7 +495,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/01/29/ts-基础-函数的类型/" data-id="cklqj6b2b0027m4upiv8r9fac" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2021/01/29/ts-基础-函数的类型/" data-id="cklqoa092002gm4upweeqo4nv" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ts/">ts</a></li></ul>
@@ -508,50 +552,10 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/01/28/ts-基础-原始数据类型/" data-id="cklqj6b290025m4upk8achk6j" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2021/01/28/ts-基础-原始数据类型/" data-id="cklqoa095002km4up6wofsofl" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ts/">ts</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-js-判断浏览器类型" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2021/01/26/js-判断浏览器类型/" class="article-date">
-  <time datetime="2021-01-26T14:39:04.000Z" itemprop="datePublished">2021-01-26</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/01/26/js-判断浏览器类型/">js-判断浏览器类型</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>一、使用浏览器的userAgent来判断<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> explorer = <span class="built_in">window</span>.navigator.userAgent ;</span><br><span class="line">         <span class="comment">//判断是否为IE浏览器</span></span><br><span class="line">        <span class="keyword">if</span> (explorer.indexOf(<span class="string">"MSIE"</span>) &gt;= <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="string">'ie'</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//判断是否为Firefox浏览器</span></span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (explorer.indexOf(<span class="string">"Firefox"</span>) &gt;= <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="string">'Firefox'</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//判断是否为Chrome浏览器</span></span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(explorer.indexOf(<span class="string">"Chrome"</span>) &gt;= <span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="string">'Chrome'</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//判断是否为Opera浏览器</span></span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(explorer.indexOf(<span class="string">"Opera"</span>) &gt;= <span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="string">'Opera'</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//判断是否为Safari浏览器</span></span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(explorer.indexOf(<span class="string">"Safari"</span>) &gt;= <span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="string">'Safari'</span>;</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure></p>
-<p>实际上，通过检测 userAgent 的值来判断浏览器类型是不可靠的，也是不推荐的，因为用户可以修改userAgent 的值。<br>Firefox 中，你可以通过在 about:config 页面添加并修改general.useragent.override选项的值来覆盖默认的用户代理字符串。一些Firefox扩展也可以用其他方式修改这个值，但它们通常只会修改发送到服务器的User-Agent请求头的值，而不会影响 JavaScript 代码中获取的 window.navigator.userAgent 属性的值。<br>Opera 6+ 中允许用户通过菜单选择不同的用户代理字符串。<br>Microsoft Internet Explorer 使用注册表来配置自己的用户代理字符串。<br>Safari 和 iCab 也允许用户修改其用户代理字符串，来将自己伪装成 Internet Explorer 或 Netscape。<br>二、可以通过各个浏览器之间的特征来判断<br>IE<br>只有IE支持创建ActiveX控件，它有一个其他浏览器没有的东西，就是ActiveXObject函数。只要判断window对象存在ActiveXObject函数，就可以明确判断出当前浏览器是IE<br>Safari<br>Safari浏览器中有一个其他浏览器没有的openDatabase函数，可做为判断Safari的标志<br>Chrome<br>Chrome有一个MessageEvent函数，但Firefox也有。不过，好在Chrome并没有Firefox的getBoxObjectFor函数，根据这个条件还是可以准确判断出Chrome浏览器的<br>Firefox<br>Firefox中的DOM元素都有一个getBoxObjectFor函数，用来获取该DOM元素的位置和大小（IE对应的中是getBoundingClientRect函数）。这是Firefox独有的，判断它即可知道是当前浏览器是Firefox<br>Opera<br>Opera提供了专门的浏览器标志，就是window.opera属性<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (<span class="built_in">window</span>.ActiveXObject)</span><br><span class="line"><span class="keyword">return</span> <span class="string">"IE"</span>;</span><br><span class="line"><span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">document</span>.getBoxObjectFor)</span><br><span class="line"><span class="keyword">return</span> <span class="string">"Firefox"</span>;</span><br><span class="line"><span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">window</span>.MessageEvent &amp;&amp; !<span class="built_in">document</span>.getBoxObjectFor)</span><br><span class="line"><span class="keyword">return</span> <span class="string">"Chrome"</span>;</span><br><span class="line"><span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">window</span>.opera)</span><br><span class="line"><span class="keyword">return</span> <span class="string">"Opera"</span>;</span><br><span class="line"><span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">window</span>.openDatabase)</span><br><span class="line"><span class="keyword">return</span> <span class="string">"Safari"</span>;</span><br></pre></td></tr></table></figure></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/01/26/js-判断浏览器类型/" data-id="cklqj6b1c001hm4upeiyp8pdy" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
 
     </footer>
   </div>
@@ -610,6 +614,10 @@
       <ul>
         
           <li>
+            <a href="/2021/03/01/js-深浅拷贝/">js-深浅拷贝</a>
+          </li>
+        
+          <li>
             <a href="/2021/03/01/ES6-Promise/">ES6-Promise</a>
           </li>
         
@@ -623,10 +631,6 @@
         
           <li>
             <a href="/2021/02/28/ES6-解构赋值/">ES6-解构赋值</a>
-          </li>
-        
-          <li>
-            <a href="/2021/02/28/ES6-Set和Map/">ES6-Set和Map</a>
           </li>
         
       </ul>
