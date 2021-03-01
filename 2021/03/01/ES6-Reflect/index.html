@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>ES6-Reflect | Q-Quiet</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Reflect 是一个内置的对象，它提供拦截JavaScript 操作的方法。这些方法与proxy handlers的方法相同。123456789101112131415let exam = &amp;#123;    name: &quot;Tom&quot;,    age: 24,    get info()&amp;#123;        return this.name + this.age;    &amp;#125;&amp;#12">
+<meta name="keywords" content="ES6">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ES6-Reflect">
+<meta property="og:url" content="https://Q-Quiet.github.io/2021/03/01/ES6-Reflect/index.html">
+<meta property="og:site_name" content="Q-Quiet">
+<meta property="og:description" content="Reflect 是一个内置的对象，它提供拦截JavaScript 操作的方法。这些方法与proxy handlers的方法相同。123456789101112131415let exam = &amp;#123;    name: &quot;Tom&quot;,    age: 24,    get info()&amp;#123;        return this.name + this.age;    &amp;#125;&amp;#12">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2021-03-01T08:03:10.483Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ES6-Reflect">
+<meta name="twitter:description" content="Reflect 是一个内置的对象，它提供拦截JavaScript 操作的方法。这些方法与proxy handlers的方法相同。123456789101112131415let exam = &amp;#123;    name: &quot;Tom&quot;,    age: 24,    get info()&amp;#123;        return this.name + this.age;    &amp;#125;&amp;#12">
+  
+    <link rel="alternate" href="/atom.xml" title="Q-Quiet" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="shortcut icon" href="ban.jpeg" type="image/x-icon">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Q-Quiet</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">言语笑靥迎来情</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://Q-Quiet.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-ES6-Reflect" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2021/03/01/ES6-Reflect/" class="article-date">
+  <time datetime="2021-03-01T08:02:19.000Z" itemprop="datePublished">2021-03-01</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      ES6-Reflect
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Reflect 是一个内置的对象，它提供拦截JavaScript 操作的方法。这些方法与proxy handlers的方法相同。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> exam = &#123;</span><br><span class="line">    name: <span class="string">"Tom"</span>,</span><br><span class="line">    age: <span class="number">24</span>,</span><br><span class="line">    <span class="keyword">get</span> info()&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.name + <span class="keyword">this</span>.age;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">Reflect</span>.get(exam, <span class="string">'name'</span>); <span class="comment">// "Tom"</span></span><br><span class="line"> </span><br><span class="line"><span class="comment">// 当 target 对象中存在 name 属性的 getter 方法， getter 方法的 this 会绑定 // receiver</span></span><br><span class="line"><span class="keyword">let</span> receiver = &#123;</span><br><span class="line">    name: <span class="string">"Jerry"</span>,</span><br><span class="line">    age: <span class="number">20</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">Reflect</span>.get(exam, <span class="string">'info'</span>, receiver); <span class="comment">// Jerry20</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="区别："><a href="#区别：" class="headerlink" title="区别："></a>区别：</h2><p>Proxy的函数负责的是：拦截并定义拦截时具体的操作；<br>Reflect的静态函数负责的是：最终执行对象的操作<br>栗子：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> obj = &#123;</span><br><span class="line">  a: <span class="string">'1'</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> handler = &#123;</span><br><span class="line">  <span class="comment">//下一行中的set是Proxy支持的操作，意思是需要拦截target的设置值的操作，</span></span><br><span class="line">  <span class="comment">//同时定义了设置值操作被拦截后会执行的操作，本例中就是输出‘set’,然后执行Reflect.set函数</span></span><br><span class="line">  <span class="keyword">set</span>(target, key, value, receiver) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"set"</span>);</span><br><span class="line">    <span class="comment">//下一行执行的是Reflect的set函数，是它最终执行了对target对象属性的操作。</span></span><br><span class="line">    <span class="built_in">Reflect</span>.set(target, key, <span class="number">100</span>, receiver)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> objProxy = <span class="keyword">new</span> <span class="built_in">Proxy</span>(obj, handler);</span><br><span class="line">objProxy.a = <span class="string">'2'</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(objProxy.a);    <span class="comment">//set,100</span></span><br><span class="line">obj.a=<span class="number">10</span>;</span><br><span class="line"><span class="built_in">console</span>.log(objProxy.a);    <span class="comment">//10</span></span><br></pre></td></tr></table></figure></p>
+<p>Reflect对象一共有 13 个静态方法。<br>Reflect.apply(target, thisArg, args)<br>Reflect.construct(target, args)<br>Reflect.get(target, name, receiver)<br>Reflect.set(target, name, value, receiver)<br>Reflect.defineProperty(target, name, desc)<br>Reflect.deleteProperty(target, name)<br>Reflect.has(target, name)<br>Reflect.ownKeys(target)<br>Reflect.isExtensible(target)<br>Reflect.preventExtensions(target)<br>Reflect.getOwnPropertyDescriptor(target, name)<br>Reflect.getPrototypeOf(target)<br>Reflect.setPrototypeOf(target, prototype)<br>上面这些方法的作用，大部分与Object对象的同名方法的作用都是相同的，而且它与Proxy对象的方法是一一对应的。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://Q-Quiet.github.io/2021/03/01/ES6-Reflect/" data-id="cklqap31m0003ugup5kwvtoht" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ES6/">ES6</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2021/02/28/ES6-Proxy/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">ES6-Proxy</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ES6/">ES6</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vue/">Vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/">css</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/es6/">es6</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ts/">ts</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/">vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/复习/">复习</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/浏览器/">浏览器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网络/">网络</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/ES6/" style="font-size: 14px;">ES6</a> <a href="/tags/Vue/" style="font-size: 10px;">Vue</a> <a href="/tags/css/" style="font-size: 16px;">css</a> <a href="/tags/es6/" style="font-size: 18px;">es6</a> <a href="/tags/js/" style="font-size: 20px;">js</a> <a href="/tags/ts/" style="font-size: 14px;">ts</a> <a href="/tags/vue/" style="font-size: 10px;">vue</a> <a href="/tags/复习/" style="font-size: 12px;">复习</a> <a href="/tags/浏览器/" style="font-size: 16px;">浏览器</a> <a href="/tags/网络/" style="font-size: 10px;">网络</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">三月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">二月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">一月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">十月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">三月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2021/03/01/ES6-Reflect/">ES6-Reflect</a>
+          </li>
+        
+          <li>
+            <a href="/2021/02/28/ES6-Proxy/">ES6-Proxy</a>
+          </li>
+        
+          <li>
+            <a href="/2021/02/28/ES6-解构赋值/">ES6-解构赋值</a>
+          </li>
+        
+          <li>
+            <a href="/2021/02/28/ES6-Set和Map/">ES6-Set和Map</a>
+          </li>
+        
+          <li>
+            <a href="/2021/02/27/js-防抖节流/">js-防抖节流</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2021 Q-Quiet<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

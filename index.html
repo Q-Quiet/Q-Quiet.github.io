@@ -68,6 +68,47 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-ES6-Reflect" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2021/03/01/ES6-Reflect/" class="article-date">
+  <time datetime="2021-03-01T08:02:19.000Z" itemprop="datePublished">2021-03-01</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/03/01/ES6-Reflect/">ES6-Reflect</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Reflect 是一个内置的对象，它提供拦截JavaScript 操作的方法。这些方法与proxy handlers的方法相同。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> exam = &#123;</span><br><span class="line">    name: <span class="string">"Tom"</span>,</span><br><span class="line">    age: <span class="number">24</span>,</span><br><span class="line">    <span class="keyword">get</span> info()&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.name + <span class="keyword">this</span>.age;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">Reflect</span>.get(exam, <span class="string">'name'</span>); <span class="comment">// "Tom"</span></span><br><span class="line"> </span><br><span class="line"><span class="comment">// 当 target 对象中存在 name 属性的 getter 方法， getter 方法的 this 会绑定 // receiver</span></span><br><span class="line"><span class="keyword">let</span> receiver = &#123;</span><br><span class="line">    name: <span class="string">"Jerry"</span>,</span><br><span class="line">    age: <span class="number">20</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">Reflect</span>.get(exam, <span class="string">'info'</span>, receiver); <span class="comment">// Jerry20</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="区别："><a href="#区别：" class="headerlink" title="区别："></a>区别：</h2><p>Proxy的函数负责的是：拦截并定义拦截时具体的操作；<br>Reflect的静态函数负责的是：最终执行对象的操作<br>栗子：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> obj = &#123;</span><br><span class="line">  a: <span class="string">'1'</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> handler = &#123;</span><br><span class="line">  <span class="comment">//下一行中的set是Proxy支持的操作，意思是需要拦截target的设置值的操作，</span></span><br><span class="line">  <span class="comment">//同时定义了设置值操作被拦截后会执行的操作，本例中就是输出‘set’,然后执行Reflect.set函数</span></span><br><span class="line">  <span class="keyword">set</span>(target, key, value, receiver) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"set"</span>);</span><br><span class="line">    <span class="comment">//下一行执行的是Reflect的set函数，是它最终执行了对target对象属性的操作。</span></span><br><span class="line">    <span class="built_in">Reflect</span>.set(target, key, <span class="number">100</span>, receiver)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> objProxy = <span class="keyword">new</span> <span class="built_in">Proxy</span>(obj, handler);</span><br><span class="line">objProxy.a = <span class="string">'2'</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(objProxy.a);    <span class="comment">//set,100</span></span><br><span class="line">obj.a=<span class="number">10</span>;</span><br><span class="line"><span class="built_in">console</span>.log(objProxy.a);    <span class="comment">//10</span></span><br></pre></td></tr></table></figure></p>
+<p>Reflect对象一共有 13 个静态方法。<br>Reflect.apply(target, thisArg, args)<br>Reflect.construct(target, args)<br>Reflect.get(target, name, receiver)<br>Reflect.set(target, name, value, receiver)<br>Reflect.defineProperty(target, name, desc)<br>Reflect.deleteProperty(target, name)<br>Reflect.has(target, name)<br>Reflect.ownKeys(target)<br>Reflect.isExtensible(target)<br>Reflect.preventExtensions(target)<br>Reflect.getOwnPropertyDescriptor(target, name)<br>Reflect.getPrototypeOf(target)<br>Reflect.setPrototypeOf(target, prototype)<br>上面这些方法的作用，大部分与Object对象的同名方法的作用都是相同的，而且它与Proxy对象的方法是一一对应的。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://Q-Quiet.github.io/2021/03/01/ES6-Reflect/" data-id="cklqap31m0003ugup5kwvtoht" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ES6/">ES6</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-ES6-Proxy" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2021/02/28/ES6-Proxy/" class="article-date">
@@ -107,7 +148,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/02/28/ES6-Proxy/" data-id="cklp70nf70003dwupw5pwkjh1" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2021/02/28/ES6-Proxy/" data-id="cklqap31i0001ugupe0uj23mn" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ES6/">ES6</a></li></ul>
@@ -161,7 +202,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/02/28/ES6-解构赋值/" data-id="cklp70nff0009dwupfdu73vrr" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2021/02/28/ES6-解构赋值/" data-id="cklqap31o0004ugupva1nofq3" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ES6/">ES6</a></li></ul>
@@ -213,7 +254,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/02/28/ES6-Set和Map/" data-id="cklp70nf90004dwupo6tjmkvh" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2021/02/28/ES6-Set和Map/" data-id="cklqap31s0008ugupvjfmxqhg" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ES6/">ES6</a></li></ul>
@@ -263,7 +304,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/02/27/js-防抖节流/" data-id="cklp70ngv001zdwuprl80ilih" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2021/02/27/js-防抖节流/" data-id="cklqap33f0022ugupn0b819hz" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
@@ -307,7 +348,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/02/27/js-继承/" data-id="cklp70ngy0022dwup214ls821" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2021/02/27/js-继承/" data-id="cklqap337001sugupxeiokzov" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
@@ -352,7 +393,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/02/27/js-Symbol/" data-id="cklp70nfx000rdwupbjixa316" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2021/02/27/js-Symbol/" data-id="cklqap32i000yugupc5ye53fo" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
@@ -393,7 +434,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/02/26/css-响应式布局-媒体/" data-id="cklp70nfm000fdwupfixgi8q0" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2021/02/26/css-响应式布局-媒体/" data-id="cklqap31y000eugupwekconmh" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/css/">css</a></li></ul>
@@ -437,7 +478,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/02/25/css-flex/" data-id="cklp70nfa0005dwup1quy5ic7" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2021/02/25/css-flex/" data-id="cklqap31w000cugupkhrqya6l" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/css/">css</a></li></ul>
@@ -481,50 +522,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/02/25/css-水平垂直居中/" data-id="cklp70nfe0008dwuphshwu6fk" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/css/">css</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-css-垂直居中" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2021/02/24/css-垂直居中/" class="article-date">
-  <time datetime="2021-02-24T14:57:25.000Z" itemprop="datePublished">2021-02-24</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/02/24/css-垂直居中/">css-垂直居中</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>1.单行内联元素垂直居中<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"box"</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">span</span>&gt;</span>单行内联元素垂直居中。<span class="tag">&lt;/<span class="name">span</span>&gt;</span>。</span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined"> #box &#123;</span></span><br><span class="line"><span class="undefined">    height: 120px;</span></span><br><span class="line"><span class="undefined">    line-height: 120px;</span></span><br><span class="line"><span class="undefined">    border: 2px dashed #f69c55;</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>2.多行内联元素垂直居中<br>①利用flex布局（flex）<br>利用flex布局实现垂直居中，其中flex-direction: column定义主轴方向为纵向。这种方式在较老的浏览器存在兼容性问题。<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"parent"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>Dance like nobody is watching, code like everybody is.</span><br><span class="line">    Dance like nobody is watching, code like everybody is.</span><br><span class="line">    Dance like nobody is watching, code like everybody is.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">    .parent &#123;</span></span><br><span class="line"><span class="undefined">        height: 140px;</span></span><br><span class="line"><span class="undefined">        display: flex;</span></span><br><span class="line"><span class="undefined">        flex-direction: column;</span></span><br><span class="line"><span class="undefined">        justify-content: center;</span></span><br><span class="line"><span class="undefined">        border: 2px dashed #f69c55;</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>②利用表布局（table）<br>利用表布局的vertical-align: middle可以实现子元素的垂直居中<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"parent"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">"child"</span>&gt;</span>The more technology you learn, the more you realize how little you know.</span><br><span class="line">    The more technology you learn, the more you realize how little you know.</span><br><span class="line">    The more technology you learn, the more you realize how little you know.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">    .parent &#123;</span></span><br><span class="line"><span class="undefined">        display: table;</span></span><br><span class="line"><span class="undefined">        height: 140px;</span></span><br><span class="line"><span class="undefined">        border: 2px dashed #f69c55;</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined">    .child &#123;</span></span><br><span class="line"><span class="undefined">        display: table-cell;</span></span><br><span class="line"><span class="undefined">        vertical-align: middle;</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>3.块级元素垂直居中<br>①使用absolute+负margin(已知高度宽度)<br>通过绝对定位元素距离顶部50%，并设置margin-top向上偏移元素高度的一半，就可以实现了。<br>②使用absolute+transform<br>当垂直居中的元素的高度和宽度未知时，可以借助CSS3中的transform属性向Y轴反向偏移50%的方法实现垂直居中。但是部分浏览器存在兼容性的问题。<br>③使用flex+align-items<br>通过设置flex布局中的属性align-items：center，使子元素垂直居中。<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"parent"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"child"</span>&gt;</span>Demo<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">  .parent &#123;</span></span><br><span class="line"><span class="undefined">    display: table-cell;</span></span><br><span class="line"><span class="undefined">    vertical-align: middle;</span></span><br><span class="line"><span class="undefined">  &#125;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>④使用table-cell+vertical-align<br>通过将父元素转化为一个表格单元格显示（类似 <td> 和 <th>），再通过设置 vertical-align属性，使表格单元格内容垂直居中。<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"parent"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"child"</span>&gt;</span>Demo<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">  .parent &#123;</span></span><br><span class="line"><span class="undefined">    display: table-cell;</span></span><br><span class="line"><span class="undefined">    vertical-align: middle;</span></span><br><span class="line"><span class="undefined">  &#125;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br></pre></td></tr></table></figure></th></td></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/02/24/css-垂直居中/" data-id="cklp70nfi000bdwupmpmw2vwl" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2021/02/25/css-水平垂直居中/" data-id="cklqap31t0009ugupcck7mvtn" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/css/">css</a></li></ul>
@@ -564,7 +562,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/tags/ES6/" style="font-size: 13.33px;">ES6</a> <a href="/tags/Vue/" style="font-size: 10px;">Vue</a> <a href="/tags/css/" style="font-size: 16.67px;">css</a> <a href="/tags/es6/" style="font-size: 18.33px;">es6</a> <a href="/tags/js/" style="font-size: 20px;">js</a> <a href="/tags/ts/" style="font-size: 15px;">ts</a> <a href="/tags/vue/" style="font-size: 10px;">vue</a> <a href="/tags/复习/" style="font-size: 11.67px;">复习</a> <a href="/tags/浏览器/" style="font-size: 16.67px;">浏览器</a> <a href="/tags/网络/" style="font-size: 10px;">网络</a>
+      <a href="/tags/ES6/" style="font-size: 14px;">ES6</a> <a href="/tags/Vue/" style="font-size: 10px;">Vue</a> <a href="/tags/css/" style="font-size: 16px;">css</a> <a href="/tags/es6/" style="font-size: 18px;">es6</a> <a href="/tags/js/" style="font-size: 20px;">js</a> <a href="/tags/ts/" style="font-size: 14px;">ts</a> <a href="/tags/vue/" style="font-size: 10px;">vue</a> <a href="/tags/复习/" style="font-size: 12px;">复习</a> <a href="/tags/浏览器/" style="font-size: 16px;">浏览器</a> <a href="/tags/网络/" style="font-size: 10px;">网络</a>
     </div>
   </div>
 
@@ -573,7 +571,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">归档</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">二月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">一月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">十月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">三月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">三月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">二月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">一月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">十月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">三月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li></ul>
     </div>
   </div>
 
@@ -584,6 +582,10 @@
     <h3 class="widget-title">最新文章</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2021/03/01/ES6-Reflect/">ES6-Reflect</a>
+          </li>
         
           <li>
             <a href="/2021/02/28/ES6-Proxy/">ES6-Proxy</a>
@@ -599,10 +601,6 @@
         
           <li>
             <a href="/2021/02/27/js-防抖节流/">js-防抖节流</a>
-          </li>
-        
-          <li>
-            <a href="/2021/02/27/js-继承/">js-继承</a>
           </li>
         
       </ul>

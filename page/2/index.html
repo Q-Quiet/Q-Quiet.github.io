@@ -68,6 +68,49 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-css-垂直居中" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2021/02/24/css-垂直居中/" class="article-date">
+  <time datetime="2021-02-24T14:57:25.000Z" itemprop="datePublished">2021-02-24</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/02/24/css-垂直居中/">css-垂直居中</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>1.单行内联元素垂直居中<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"box"</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">span</span>&gt;</span>单行内联元素垂直居中。<span class="tag">&lt;/<span class="name">span</span>&gt;</span>。</span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined"> #box &#123;</span></span><br><span class="line"><span class="undefined">    height: 120px;</span></span><br><span class="line"><span class="undefined">    line-height: 120px;</span></span><br><span class="line"><span class="undefined">    border: 2px dashed #f69c55;</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>2.多行内联元素垂直居中<br>①利用flex布局（flex）<br>利用flex布局实现垂直居中，其中flex-direction: column定义主轴方向为纵向。这种方式在较老的浏览器存在兼容性问题。<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"parent"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>Dance like nobody is watching, code like everybody is.</span><br><span class="line">    Dance like nobody is watching, code like everybody is.</span><br><span class="line">    Dance like nobody is watching, code like everybody is.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">    .parent &#123;</span></span><br><span class="line"><span class="undefined">        height: 140px;</span></span><br><span class="line"><span class="undefined">        display: flex;</span></span><br><span class="line"><span class="undefined">        flex-direction: column;</span></span><br><span class="line"><span class="undefined">        justify-content: center;</span></span><br><span class="line"><span class="undefined">        border: 2px dashed #f69c55;</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>②利用表布局（table）<br>利用表布局的vertical-align: middle可以实现子元素的垂直居中<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"parent"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">"child"</span>&gt;</span>The more technology you learn, the more you realize how little you know.</span><br><span class="line">    The more technology you learn, the more you realize how little you know.</span><br><span class="line">    The more technology you learn, the more you realize how little you know.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">    .parent &#123;</span></span><br><span class="line"><span class="undefined">        display: table;</span></span><br><span class="line"><span class="undefined">        height: 140px;</span></span><br><span class="line"><span class="undefined">        border: 2px dashed #f69c55;</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined">    .child &#123;</span></span><br><span class="line"><span class="undefined">        display: table-cell;</span></span><br><span class="line"><span class="undefined">        vertical-align: middle;</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>3.块级元素垂直居中<br>①使用absolute+负margin(已知高度宽度)<br>通过绝对定位元素距离顶部50%，并设置margin-top向上偏移元素高度的一半，就可以实现了。<br>②使用absolute+transform<br>当垂直居中的元素的高度和宽度未知时，可以借助CSS3中的transform属性向Y轴反向偏移50%的方法实现垂直居中。但是部分浏览器存在兼容性的问题。<br>③使用flex+align-items<br>通过设置flex布局中的属性align-items：center，使子元素垂直居中。<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"parent"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"child"</span>&gt;</span>Demo<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">  .parent &#123;</span></span><br><span class="line"><span class="undefined">    display: table-cell;</span></span><br><span class="line"><span class="undefined">    vertical-align: middle;</span></span><br><span class="line"><span class="undefined">  &#125;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>④使用table-cell+vertical-align<br>通过将父元素转化为一个表格单元格显示（类似 <td> 和 <th>），再通过设置 vertical-align属性，使表格单元格内容垂直居中。<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"parent"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"child"</span>&gt;</span>Demo<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">  .parent &#123;</span></span><br><span class="line"><span class="undefined">    display: table-cell;</span></span><br><span class="line"><span class="undefined">    vertical-align: middle;</span></span><br><span class="line"><span class="undefined">  &#125;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br></pre></td></tr></table></figure></th></td></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://Q-Quiet.github.io/2021/02/24/css-垂直居中/" data-id="cklqap321000gugupn4a6fc0z" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/css/">css</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-css-水平居中" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2021/02/24/css-水平居中/" class="article-date">
@@ -96,7 +139,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/02/24/css-水平居中/" data-id="cklp70nfk000ddwup5gq6vj8a" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2021/02/24/css-水平居中/" data-id="cklqap324000iugup9zcazml3" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/css/">css</a></li></ul>
@@ -138,7 +181,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/02/23/js-箭头函数和普通函数的区别/" data-id="cklp70ngm001ndwuprsz5t495" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2021/02/23/js-箭头函数和普通函数的区别/" data-id="cklqap32z001iugupggodtv2n" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
@@ -180,7 +223,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/02/22/js-for-in-for-of/" data-id="cklp70ng40011dwuph650hyq9" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2021/02/22/js-for-in-for-of/" data-id="cklqap32f000uugupqslvlyi9" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
@@ -247,7 +290,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/01/31/ts-进阶-枚举/" data-id="cklp70nh10027dwup7gb10nti" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2021/01/31/ts-进阶-枚举/" data-id="cklqap33j0026ugupzfzqu1lg" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ts/">ts</a></li></ul>
@@ -313,7 +356,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/01/29/ts-基础-类型断言/" data-id="cklp70nhy0037dwupqcpxy2dd" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2021/01/29/ts-基础-类型断言/" data-id="cklqap34p003bugupammaay5k" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ts/">ts</a></li></ul>
@@ -364,7 +407,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/01/29/ts-基础-函数的类型/" data-id="cklp70ngt001xdwup4e2o6rt9" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2021/01/29/ts-基础-函数的类型/" data-id="cklqap33h0024ugupv1ri3wb2" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ts/">ts</a></li></ul>
@@ -421,7 +464,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/01/28/ts-基础-原始数据类型/" data-id="cklp70ngz0024dwupcu87pxhu" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2021/01/28/ts-基础-原始数据类型/" data-id="cklqap33n002bugup3cxwu0p2" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ts/">ts</a></li></ul>
@@ -461,7 +504,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/01/26/js-判断浏览器类型/" data-id="cklp70ngg001fdwupzy7vigfp" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2021/01/26/js-判断浏览器类型/" data-id="cklqap32m0013ugupnbtyo3na" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
@@ -500,53 +543,10 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/01/23/网络-TCP/" data-id="cklp70nhq002ydwupo3aaopio" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2021/01/23/网络-TCP/" data-id="cklqap33v002lugup862w8im4" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/网络/">网络</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-浏览器存储" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2021/01/22/浏览器存储/" class="article-date">
-  <time datetime="2021-01-22T07:57:03.000Z" itemprop="datePublished">2021-01-22</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/01/22/浏览器存储/">浏览器存储</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>现在最常见的有三种存储方案：<br>Cookie<br>web存储（localStorage和seesionStorage)<br>IndexedDB<br><img src="/picture/浏览器存储/1.png" alt="avatar"><br>cookie<br>h5之前存储主要用cookies，缺点是在请求头上带着数据导致流量增加，大小限制为4k，<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">document</span>.cookie = <span class="string">"username=John Doe; expires=Thu, 18 Dec 2013 12:00:00 GMT; path=/"</span>    <span class="comment">// 设置cookie</span></span><br><span class="line"><span class="built_in">document</span>.cookie = <span class="string">"username=; expires=Thu, 01 Jan 1970 00:00:00 GMT"</span>    <span class="comment">// 删除cookie</span></span><br></pre></td></tr></table></figure></p>
-<p>其中的参数：<br>expires：过期时间，如果不设置过期时间，那么这个cookie的生命周期为浏览器会话期间，当关闭浏览器窗口cookie消失。<br>path:值可以是一个目录或一个路径。<br>在指定路径的时候，凡是来自同一服务器，URL里有相同路径的所有WEB页面都可以共享cookies。<br>domain：主机名，指同一个域下的不同主机。<br>localStorage<br>以键值对(Key-Value)的方式存储，永久存储，永不失效，除非手动删除。IE8+支持，每个域名限制5M<br>打开同域的新页面也能访问得到</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.localStorage.username = <span class="string">'hehe'</span>                   <span class="comment">// 设置</span></span><br><span class="line"><span class="built_in">window</span>.localStorage.setItem(<span class="string">'username'</span>, <span class="string">'hehe'</span>)         <span class="comment">// 设置</span></span><br><span class="line"><span class="built_in">window</span>.localStorage.getItem(<span class="string">'username'</span>)                 <span class="comment">// 读取</span></span><br><span class="line"><span class="built_in">window</span>.localStorage.removeItem(<span class="string">'username'</span>)             <span class="comment">// 删除</span></span><br><span class="line"><span class="built_in">window</span>.localStorage.key(<span class="number">1</span>)                             <span class="comment">// 读取索引为1的值</span></span><br><span class="line"><span class="built_in">window</span>.localStorage.clear()                            <span class="comment">// 清除所有</span></span><br></pre></td></tr></table></figure>
-<p>sessionStorage<br>sessionStorage操作的方法与localStroage是一样的，区别在于 sessionStorage 在关闭页面后即被清空，而 localStorage 则会一直保存。很多时候数据只需要在用户浏览一组页面期间使用，关闭窗口后数据就可以丢弃了，这种情况使用sessionStorage就比较方便。<br>注意，刷新页面sessionStorage不会清除，但是打开同域新页面访问不到</p>
-<p> cookie、localStorage、sessionStorage之间的区别<br>都是保存在浏览器端的存储方式<br>区别：<br>cookie数据始终在同源的http请求中携带，即cookie在浏览器和服务器间来回传递。而sessionStorage和localStorage不会自动把数据发给服务器，仅在本地保存。cookie数据还有路径（path）的概念，可以限制cookie只属于某个路径下。<br>存储大小限制不用，cookie 不能超过4k，sessionStorage和localStorage 虽然也有存储大小的限制，但比cookie大得多，可以达到5M或更大。<br>数据有效期不同，sessionStorage：仅在当前浏览器窗口关闭前有效。localStorage:始终有效，窗口或浏览器关闭也一直保存，因此则用作持久数据；cookie：在过期时间之前一直有效，即使窗口或浏览器关闭。<br>作用域不同，sessionStorage不在不用的浏览器页面中共享，localStorage 在所有同源窗口中都是共享的；cookie也是在所有同源窗口中都是共享的。<br>Web Storage 支持事件通知机制，可以将数据更新的通知发送给监听者。<br>Web Storage 的 api 接口使用更方便，cookie的原生接口不友好，需要自己封a装。<br>安全性<br>需要注意的是，不是什么数据都适合放在 Cookie、localStorage 和 sessionStorage 中的，因为它们保存在本地容易被篡改，使用它们的时候，需要时刻注意是否有代码存在 XSS 注入的风险。所以千万不要用它们存储你系统中的敏感数据。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/01/22/浏览器存储/" data-id="cklp70nha002hdwup2rf2w803" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/浏览器/">浏览器</a></li></ul>
 
     </footer>
   </div>
@@ -583,7 +583,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/tags/ES6/" style="font-size: 13.33px;">ES6</a> <a href="/tags/Vue/" style="font-size: 10px;">Vue</a> <a href="/tags/css/" style="font-size: 16.67px;">css</a> <a href="/tags/es6/" style="font-size: 18.33px;">es6</a> <a href="/tags/js/" style="font-size: 20px;">js</a> <a href="/tags/ts/" style="font-size: 15px;">ts</a> <a href="/tags/vue/" style="font-size: 10px;">vue</a> <a href="/tags/复习/" style="font-size: 11.67px;">复习</a> <a href="/tags/浏览器/" style="font-size: 16.67px;">浏览器</a> <a href="/tags/网络/" style="font-size: 10px;">网络</a>
+      <a href="/tags/ES6/" style="font-size: 14px;">ES6</a> <a href="/tags/Vue/" style="font-size: 10px;">Vue</a> <a href="/tags/css/" style="font-size: 16px;">css</a> <a href="/tags/es6/" style="font-size: 18px;">es6</a> <a href="/tags/js/" style="font-size: 20px;">js</a> <a href="/tags/ts/" style="font-size: 14px;">ts</a> <a href="/tags/vue/" style="font-size: 10px;">vue</a> <a href="/tags/复习/" style="font-size: 12px;">复习</a> <a href="/tags/浏览器/" style="font-size: 16px;">浏览器</a> <a href="/tags/网络/" style="font-size: 10px;">网络</a>
     </div>
   </div>
 
@@ -592,7 +592,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">归档</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">二月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">一月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">十月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">三月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">三月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">二月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">一月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">十月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">三月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li></ul>
     </div>
   </div>
 
@@ -603,6 +603,10 @@
     <h3 class="widget-title">最新文章</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2021/03/01/ES6-Reflect/">ES6-Reflect</a>
+          </li>
         
           <li>
             <a href="/2021/02/28/ES6-Proxy/">ES6-Proxy</a>
@@ -618,10 +622,6 @@
         
           <li>
             <a href="/2021/02/27/js-防抖节流/">js-防抖节流</a>
-          </li>
-        
-          <li>
-            <a href="/2021/02/27/js-继承/">js-继承</a>
           </li>
         
       </ul>

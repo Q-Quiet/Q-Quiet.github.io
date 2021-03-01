@@ -68,6 +68,51 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-js-undefined" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/12/21/js-undefined/" class="article-date">
+  <time datetime="2020-12-21T08:07:30.000Z" itemprop="datePublished">2020-12-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/12/21/js-undefined/">js-undefined</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>如何获取安全的 undefined 值？<br>因为 undefined 是一个标识符，所以可以被当作变量来使用和赋值，但是这样会影响 undefined 的正常判断。<br>表达式 void ___ 没有返回值，因此返回结果是 undefined。void 并不改变表达式的结果，只是让表达式不返回值。<br>按惯例我们用 void 0 来获得 undefined。</p>
+<p>undefined 与 undeclared 的区别？<br>已在作用域中声明但还没有赋值的变量，是 undefined 的。相反，还没有在作用域中声明过的变量，是 undeclared 的。</p>
+<p>对于 undeclared 变量的引用，浏览器会报引用错误，如 ReferenceError: b is not defined 。但是我们可以使用 typ<br>eof 的安全防范机制来避免报错，因为对于 undeclared（或者 not defined ）变量，typeof 会返回 “undefined”。</p>
+<p>null 和 undefined 的区别？<br>首先 Undefined 和 Null 都是基本数据类型，这两个基本数据类型分别都只有一个值，就是 undefined 和 null。</p>
+<p>undefined 代表的含义是未定义，null 代表的含义是空对象。一般变量声明了但还没有定义的时候会返回 undefined，null<br>主要用于赋值给一些可能会返回对象的变量，作为初始化。</p>
+<p>undefined 在 js 中不是一个保留字，这意味着我们可以使用 undefined 来作为一个变量名，这样的做法是非常危险的，它<br>会影响我们对 undefined 值的判断。但是我们可以通过一些方法获得安全的 undefined 值，比如说 void 0。</p>
+<p>当我们对两种类型使用 typeof 进行判断的时候，Null 类型化会返回 “object”，这是一个历史遗留的问题。当我们使用双等<br>号对两种类型的值进行比较时会返回 true，使用三个等号时会返回 false。<br><a href="http://cavszhouyou.top/JavaScript%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E4%B9%8Bundefined%E4%B8%8Enull.html" target="_blank" rel="noopener">http://cavszhouyou.top/JavaScript%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E4%B9%8Bundefined%E4%B8%8Enull.html</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://Q-Quiet.github.io/2020/12/21/js-undefined/" data-id="cklqap32r0018uguphtegg3al" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/复习/">复习</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-js-有哪些对象" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2020/12/21/js-有哪些对象/" class="article-date">
@@ -96,7 +141,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/12/21/js-有哪些对象/" data-id="cklp70ngo001pdwup4w7sd23u" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/12/21/js-有哪些对象/" data-id="cklqap335001pugupezucmeds" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
@@ -143,7 +188,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/12/20/js-内部属性-class/" data-id="cklp70nfy000tdwup23akg2y5" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/12/20/js-内部属性-class/" data-id="cklqap32h000wugupq901no49" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
@@ -186,7 +231,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/12/17/js-基本属性-堆栈/" data-id="cklp70ngi001idwupwo0rkel6" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/12/17/js-基本属性-堆栈/" data-id="cklqap333001nugupm9phlvte" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
@@ -242,7 +287,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/12/15/js-微任务、宏任务与Event-Loop/" data-id="cklp70nge001ddwupevw8gerx" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/12/15/js-微任务、宏任务与Event-Loop/" data-id="cklqap33b001xugupm8zma9wz" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
@@ -283,7 +328,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/12/15/async-await/" data-id="cklp70nf30001dwup6p9m8i1f" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/12/15/async-await/" data-id="cklqap31p0005ugupkijo39t7" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
@@ -332,7 +377,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/12/14/为什么操作DOM慢/" data-id="cklp70nh6002cdwupog7ebmk6" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/12/14/为什么操作DOM慢/" data-id="cklqap33l0029ugup9u3h18d1" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/浏览器/">浏览器</a></li></ul>
@@ -373,7 +418,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/12/13/浏览器-渲染机制/" data-id="cklp70nh30029dwup4333fpi2" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/12/13/浏览器-渲染机制/" data-id="cklqap33t002iugupiyw5fvj7" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/浏览器/">浏览器</a></li></ul>
@@ -425,7 +470,7 @@ return function (...args2) {
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/12/09/js-函数柯里化/" data-id="cklp70ng2000ydwupfih8c9r2" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/12/09/js-函数柯里化/" data-id="cklqap32p0016ugupvqlvo1xt" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
@@ -474,68 +519,10 @@ return function (...args2) {
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/12/08/js-数组扁平化/" data-id="cklp70ngc001bdwupc68ocn0c" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/12/08/js-数组扁平化/" data-id="cklqap331001kugupcvukvc6m" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-1-Vue复习" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/10/11/1-Vue复习/" class="article-date">
-  <time datetime="2020-10-11T03:38:17.000Z" itemprop="datePublished">2020-10-11</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/10/11/1-Vue复习/">1-Vue复习</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="一、计算属性"><a href="#一、计算属性" class="headerlink" title="一、计算属性"></a>一、计算属性</h2><h3 id="1-1计算属性的本质"><a href="#1-1计算属性的本质" class="headerlink" title="1.1计算属性的本质"></a>1.1计算属性的本质</h3><ul>
-<li>fullname: {set(),get()}<h3 id="1-2-计算属性和methods对比"><a href="#1-2-计算属性和methods对比" class="headerlink" title="1.2 计算属性和methods对比"></a>1.2 计算属性和methods对比</h3></li>
-<li>计算属性在多次使用时，只会调用一次</li>
-<li>它是有缓存的</li>
-</ul>
-<h2 id="二、事件监听"><a href="#二、事件监听" class="headerlink" title="二、事件监听"></a>二、事件监听</h2><h3 id="2-1事件监听基本使用"><a href="#2-1事件监听基本使用" class="headerlink" title="2.1事件监听基本使用"></a>2.1事件监听基本使用</h3><h3 id="2-2参数问题"><a href="#2-2参数问题" class="headerlink" title="2.2参数问题"></a>2.2参数问题</h3><ul>
-<li>btnClick</li>
-<li>btnClick(event)</li>
-<li>btnClick(abc,event)-&gt;$event</li>
-</ul>
-<h3 id="2-3修饰符"><a href="#2-3修饰符" class="headerlink" title="2.3修饰符"></a>2.3修饰符</h3><ul>
-<li>stop</li>
-<li>prevent</li>
-<li>.enter</li>
-<li>.once</li>
-<li>.native</li>
-</ul>
-<h2 id="三、条件判断"><a href="#三、条件判断" class="headerlink" title="三、条件判断"></a>三、条件判断</h2><h3 id="3-1-v-if-v-if-else-v-else"><a href="#3-1-v-if-v-if-else-v-else" class="headerlink" title="3.1 v-if/v-if-else/v-else"></a>3.1 v-if/v-if-else/v-else</h3><h3 id="3-2-登录小案例"><a href="#3-2-登录小案例" class="headerlink" title="3.2 登录小案例"></a>3.2 登录小案例</h3><h3 id="3-3-v-show"><a href="#3-3-v-show" class="headerlink" title="3.3 v-show"></a>3.3 v-show</h3><ul>
-<li>v-show和v-if的区别</li>
-</ul>
-<h2 id="循环遍历"><a href="#循环遍历" class="headerlink" title="循环遍历"></a>循环遍历</h2>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/10/11/1-Vue复习/" data-id="cklp70net0000dwupv00c0fz3" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Vue/">Vue</a></li></ul>
 
     </footer>
   </div>
@@ -572,7 +559,7 @@ return function (...args2) {
   <div class="widget-wrap">
     <h3 class="widget-title">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/tags/ES6/" style="font-size: 13.33px;">ES6</a> <a href="/tags/Vue/" style="font-size: 10px;">Vue</a> <a href="/tags/css/" style="font-size: 16.67px;">css</a> <a href="/tags/es6/" style="font-size: 18.33px;">es6</a> <a href="/tags/js/" style="font-size: 20px;">js</a> <a href="/tags/ts/" style="font-size: 15px;">ts</a> <a href="/tags/vue/" style="font-size: 10px;">vue</a> <a href="/tags/复习/" style="font-size: 11.67px;">复习</a> <a href="/tags/浏览器/" style="font-size: 16.67px;">浏览器</a> <a href="/tags/网络/" style="font-size: 10px;">网络</a>
+      <a href="/tags/ES6/" style="font-size: 14px;">ES6</a> <a href="/tags/Vue/" style="font-size: 10px;">Vue</a> <a href="/tags/css/" style="font-size: 16px;">css</a> <a href="/tags/es6/" style="font-size: 18px;">es6</a> <a href="/tags/js/" style="font-size: 20px;">js</a> <a href="/tags/ts/" style="font-size: 14px;">ts</a> <a href="/tags/vue/" style="font-size: 10px;">vue</a> <a href="/tags/复习/" style="font-size: 12px;">复习</a> <a href="/tags/浏览器/" style="font-size: 16px;">浏览器</a> <a href="/tags/网络/" style="font-size: 10px;">网络</a>
     </div>
   </div>
 
@@ -581,7 +568,7 @@ return function (...args2) {
   <div class="widget-wrap">
     <h3 class="widget-title">归档</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">二月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">一月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">十月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">三月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">三月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">二月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">一月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">十月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">三月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li></ul>
     </div>
   </div>
 
@@ -592,6 +579,10 @@ return function (...args2) {
     <h3 class="widget-title">最新文章</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2021/03/01/ES6-Reflect/">ES6-Reflect</a>
+          </li>
         
           <li>
             <a href="/2021/02/28/ES6-Proxy/">ES6-Proxy</a>
@@ -607,10 +598,6 @@ return function (...args2) {
         
           <li>
             <a href="/2021/02/27/js-防抖节流/">js-防抖节流</a>
-          </li>
-        
-          <li>
-            <a href="/2021/02/27/js-继承/">js-继承</a>
           </li>
         
       </ul>
