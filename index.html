@@ -68,6 +68,53 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-ES6-Iterator-for-of" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2021/03/02/ES6-Iterator-for-of/" class="article-date">
+  <time datetime="2021-03-02T13:09:43.000Z" itemprop="datePublished">2021-03-02</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/03/02/ES6-Iterator-for-of/">ES6-Iterator--for-of</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Iterator"><a href="#Iterator" class="headerlink" title="Iterator"></a>Iterator</h2><p>是一种接口，为各种不同的数据结构提供统一的访问机制。<br>任何数据结构只要部署 Iterator 接口，就可以完成遍历操作</p>
+<h3 id="作用："><a href="#作用：" class="headerlink" title="作用："></a>作用：</h3><p>1.为各种数据结构，提供一个统一的、简便的访问接口。<br>2.使得数据结构的成员能够按某种次序排列。<br>3.ES6 创造了一种新的遍历命令for…of循环，Iterator 接口主要供for…of消费。</p>
+<h3 id="遍历过程："><a href="#遍历过程：" class="headerlink" title="遍历过程："></a>遍历过程：</h3><p>（1）创建一个指针对象，指向当前数据结构的起始位置。也就是说，遍历器对象本质上，就是一个指针对象。<br>（2）第一次调用指针对象的next方法，可以将指针指向数据结构的第一个成员。<br>（3）第二次调用指针对象的next方法，指针就指向数据结构的第二个成员。<br>（4）不断调用指针对象的next方法，直到它指向数据结构的结束位置。<br>每一次调用next方法，都会返回数据结构的当前成员的信息。其中，value属性是当前成员的值，done属性是一个布尔值，表示遍历是否结束。<br>模拟next()<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> it = makeIterator([<span class="string">'a'</span>, <span class="string">'b'</span>]);</span><br><span class="line"></span><br><span class="line">it.next() <span class="comment">// &#123; value: "a", done: false &#125;</span></span><br><span class="line">it.next() <span class="comment">// &#123; value: "b", done: false &#125;</span></span><br><span class="line">it.next() <span class="comment">// &#123; value: undefined, done: true &#125;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">makeIterator</span>(<span class="params">array</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> nextIndex = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    next: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> nextIndex &lt; array.length ?</span><br><span class="line">        &#123;<span class="attr">value</span>: array[nextIndex++], <span class="attr">done</span>: <span class="literal">false</span>&#125; :</span><br><span class="line">        &#123;<span class="attr">value</span>: <span class="literal">undefined</span>, <span class="attr">done</span>: <span class="literal">true</span>&#125;;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="原生具备-Iterator-接口的数据结构如下。"><a href="#原生具备-Iterator-接口的数据结构如下。" class="headerlink" title="原生具备 Iterator 接口的数据结构如下。"></a>原生具备 Iterator 接口的数据结构如下。</h3><p>Array、Map、Set、String、TypedArray、函数的 arguments 对象、NodeList 对象<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> arr = [<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>];</span><br><span class="line"><span class="keyword">let</span> iter = arr[<span class="built_in">Symbol</span>.iterator]();</span><br><span class="line">iter.next();</span><br></pre></td></tr></table></figure></p>
+<p> 由于数组的遍历会调用遍历器接口，所以任何接受数组作为参数的场合，其实都调用了遍历器接口。下面是一些例子。<br>for…of、Array.from()、Map(), Set(), WeakMap(), WeakSet()（比如new Map([[‘a’,1],[‘b’,2]])）、Promise.all()、Promise.race()</p>
+<h2 id="for…of循环"><a href="#for…of循环" class="headerlink" title="for…of循环"></a>for…of循环</h2><p>for…of循环内部调用的是数据结构的Symbol.iterator方法。<br>JavaScript 原有的for…in循环，只能获得对象的键名，不能直接获取键值。ES6 提供for…of循环，允许遍历获得键值。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> arr = [<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>, <span class="string">'d'</span>];</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> a <span class="keyword">in</span> arr) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(a); <span class="comment">// 0 1 2 3</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> a <span class="keyword">of</span> arr) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(a); <span class="comment">// a b c d</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>对于普通的对象，for…of结构不能直接使用，会报错，必须部署了 Iterator 接口后才能使用。但是，这样情况下，for…in循环依然可以用来遍历键名。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> es6 = &#123;</span><br><span class="line">  edition: <span class="number">6</span>,</span><br><span class="line">  committee: <span class="string">"TC39"</span>,</span><br><span class="line">  standard: <span class="string">"ECMA-262"</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> e <span class="keyword">in</span> es6) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(e);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// edition</span></span><br><span class="line"><span class="comment">// committee</span></span><br><span class="line"><span class="comment">// standard</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> e <span class="keyword">of</span> es6) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(e);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// TypeError: es6[Symbol.iterator] is not a function</span></span><br></pre></td></tr></table></figure></p>
+<p>一种解决方法是，使用Object.keys方法将对象的键名生成一个数组，然后遍历这个数组。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> key <span class="keyword">of</span> <span class="built_in">Object</span>.keys(someObject)) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(key + <span class="string">': '</span> + someObject[key]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>另一个方法是使用 Generator 函数将对象重新包装一下。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span>* <span class="title">entries</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> key <span class="keyword">of</span> <span class="built_in">Object</span>.keys(obj)) &#123;</span><br><span class="line">    <span class="keyword">yield</span> [key, obj[key]];</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> [key, value] <span class="keyword">of</span> entries(obj)) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(key, <span class="string">'-&gt;'</span>, value);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// a -&gt; 1</span></span><br><span class="line"><span class="comment">// b -&gt; 2</span></span><br><span class="line"><span class="comment">// c -&gt; 3</span></span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://Q-Quiet.github.io/2021/03/02/ES6-Iterator-for-of/" data-id="ckls3pdwz0001rgup7d1aqcz9" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ES6/">ES6</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-js-常见的几种遍历" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2021/03/02/js-常见的几种遍历/" class="article-date">
@@ -102,7 +149,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/03/02/js-常见的几种遍历/" data-id="ckls005r4001vzkupa7buguz5" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2021/03/02/js-常见的几种遍历/" data-id="ckls3pdzr001xrgupm2t9d2rg" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
@@ -148,7 +195,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/03/01/js-深浅拷贝/" data-id="ckls005rs002dzkuptc2d71q2" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2021/03/01/js-深浅拷贝/" data-id="ckls3pe000025rgupwoqd949w" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
@@ -204,7 +251,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/03/01/ES6-Promise/" data-id="ckls005np0000zkupdriz3rxd" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2021/03/01/ES6-Promise/" data-id="ckls3pdx90005rgupouoxvzcc" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ES6/">ES6</a></li></ul>
@@ -245,7 +292,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/03/01/ES6-Reflect/" data-id="ckls005nw0001zkupg0cnnkms" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2021/03/01/ES6-Reflect/" data-id="ckls3pdx70004rgupj13cinyi" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ES6/">ES6</a></li></ul>
@@ -296,7 +343,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/02/28/ES6-Proxy/" data-id="ckls005o20004zkup4jgmx6k1" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2021/02/28/ES6-Proxy/" data-id="ckls3pdx50003rgupf53f9p0a" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ES6/">ES6</a></li></ul>
@@ -350,7 +397,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/02/28/ES6-解构赋值/" data-id="ckls005oa0008zkupbl82zu5t" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2021/02/28/ES6-解构赋值/" data-id="ckls3pdxj000crgupzo05fw1w" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ES6/">ES6</a></li></ul>
@@ -402,7 +449,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/02/28/ES6-Set和Map/" data-id="ckls005o30005zkupkq6ewjqn" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2021/02/28/ES6-Set和Map/" data-id="ckls3pdxd0008rguprxlkxzho" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ES6/">ES6</a></li></ul>
@@ -452,7 +499,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/02/27/js-防抖节流/" data-id="ckls005rw002hzkupwjff0d71" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2021/02/27/js-防抖节流/" data-id="ckls3pe08002frgup0zew2lc0" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
@@ -496,52 +543,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/02/27/js-继承/" data-id="ckls005rq002bzkupmwbexl15" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-js-Symbol" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2021/02/27/js-Symbol/" class="article-date">
-  <time datetime="2021-02-27T07:20:04.000Z" itemprop="datePublished">2021-02-27</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/02/27/js-Symbol/">js-Symbol</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Symbol()函数会返回symbol类型的值，该类型具有静态属性和静态方法。每个从Symbol()返回的symbol值都是唯一的。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Symbol</span>(<span class="string">"foo"</span>) === <span class="built_in">Symbol</span>(<span class="string">"foo"</span>); <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
-<p>全局共享的symbol<br>使用 Symbol.for() 方法和  Symbol.keyFor() 方法从全局的symbol注册表设置和取得symbol。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建一个全局 Symbol</span></span><br><span class="line"><span class="keyword">var</span> globalSym = <span class="built_in">Symbol</span>.for(<span class="string">"foo"</span>);</span><br><span class="line"><span class="built_in">Symbol</span>.keyFor(globalSym); <span class="comment">// "foo"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> localSym = <span class="built_in">Symbol</span>();</span><br><span class="line"><span class="built_in">Symbol</span>.keyFor(localSym); <span class="comment">// undefined，</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 以下Symbol不是保存在全局Symbol注册表中</span></span><br><span class="line"><span class="built_in">Symbol</span>.keyFor(<span class="built_in">Symbol</span>.iterator) <span class="comment">// undefined</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">Object</span>.getOwnPropertySymbols() 查找对象中的symbol属性。</span><br><span class="line"><span class="keyword">var</span> obj = &#123;&#125;;</span><br><span class="line"><span class="keyword">var</span> a = <span class="built_in">Symbol</span>(<span class="string">"a"</span>);</span><br><span class="line"><span class="keyword">var</span> b = <span class="built_in">Symbol</span>.for(<span class="string">"b"</span>);</span><br><span class="line"></span><br><span class="line">obj[a] = <span class="string">"localSymbol"</span>;</span><br><span class="line">obj[b] = <span class="string">"globalSymbol"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> objectSymbols = <span class="built_in">Object</span>.getOwnPropertySymbols(obj);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(objectSymbols.length); <span class="comment">// 2</span></span><br><span class="line"><span class="built_in">console</span>.log(objectSymbols)         <span class="comment">// [Symbol(a), Symbol(b)]</span></span><br><span class="line"><span class="built_in">console</span>.log(objectSymbols[<span class="number">0</span>])      <span class="comment">// Symbol(a)</span></span><br></pre></td></tr></table></figure></p>
-<p>属性：<br>Symbol.length：长度属性，值为0。<br>Symbol.prototype：symbol构造函数的原型<br>迭代symbols：<br>Symbol.iterator 一个返回一个对象默认迭代器的方法。被 for…of 使用。<br>Symbol.asyncIterator 一个返回对象默认的异步迭代器的方法。被 for await of 使用。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> myIterable = &#123;&#125;</span><br><span class="line">myIterable[<span class="built_in">Symbol</span>.iterator] = <span class="function"><span class="keyword">function</span>* (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">yield</span> <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">yield</span> <span class="number">2</span>;</span><br><span class="line">    <span class="keyword">yield</span> <span class="number">3</span>;</span><br><span class="line">&#125;;</span><br><span class="line">[...myIterable] <span class="comment">// [1, 2, 3]</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> myAsyncIterable = <span class="keyword">new</span> <span class="built_in">Object</span>();</span><br><span class="line">myAsyncIterable[<span class="built_in">Symbol</span>.asyncIterator] = <span class="keyword">async</span> <span class="function"><span class="keyword">function</span>*(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">yield</span> <span class="string">"hello"</span>;</span><br><span class="line">    <span class="keyword">yield</span> <span class="string">"async"</span>;</span><br><span class="line">    <span class="keyword">yield</span> <span class="string">"iteration!"</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">(<span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">    <span class="keyword">for</span> <span class="keyword">await</span> (<span class="keyword">const</span> x <span class="keyword">of</span> myAsyncIterable) &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(x);</span><br><span class="line">        <span class="comment">// expected output:</span></span><br><span class="line">        <span class="comment">//    "hello"</span></span><br><span class="line">        <span class="comment">//    "async"</span></span><br><span class="line">        <span class="comment">//    "iteration!"</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure></p>
-<p>正则表达式<br>Symbol.match ：指定了匹配的是正则表达式而不是字符串。<br>Symbol.replace：指定了当一个字符串替换所匹配字符串时所调用的方法。<br>Symbol.search : 指定了一个搜索方法，这个方法接受用户输入的正则表达式，<br>Symbol.split :一个在匹配正则表达式的索引处拆分一个字符串的方法.。<br>Symbols 在 for…in 迭代中不可枚举。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123;&#125;;</span><br><span class="line"></span><br><span class="line">obj[<span class="built_in">Symbol</span>(<span class="string">"a"</span>)] = <span class="string">"a"</span>;</span><br><span class="line">obj[<span class="built_in">Symbol</span>.for(<span class="string">"b"</span>)] = <span class="string">"b"</span>;</span><br><span class="line">obj[<span class="string">"c"</span>] = <span class="string">"c"</span>;</span><br><span class="line">obj.d = <span class="string">"d"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i <span class="keyword">in</span> obj) &#123;</span><br><span class="line">   <span class="built_in">console</span>.log(i); <span class="comment">// logs "c" and "d"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>当使用 JSON.stringify() 时，以 symbol 值作为键的属性会被完全忽略</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/02/27/js-Symbol/" data-id="ckls005qr001lzkup0qez5y55" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2021/02/27/js-继承/" data-id="ckls3pe020027rgup0ubzlst6" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
@@ -581,7 +583,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/tags/ES6/" style="font-size: 15px;">ES6</a> <a href="/tags/Vue/" style="font-size: 10px;">Vue</a> <a href="/tags/css/" style="font-size: 15px;">css</a> <a href="/tags/es6/" style="font-size: 17.5px;">es6</a> <a href="/tags/js/" style="font-size: 20px;">js</a> <a href="/tags/ts/" style="font-size: 12.5px;">ts</a> <a href="/tags/vue/" style="font-size: 10px;">vue</a> <a href="/tags/浏览器/" style="font-size: 15px;">浏览器</a> <a href="/tags/网络/" style="font-size: 10px;">网络</a>
+      <a href="/tags/ES6/" style="font-size: 16px;">ES6</a> <a href="/tags/Vue/" style="font-size: 10px;">Vue</a> <a href="/tags/css/" style="font-size: 14px;">css</a> <a href="/tags/es6/" style="font-size: 18px;">es6</a> <a href="/tags/js/" style="font-size: 20px;">js</a> <a href="/tags/ts/" style="font-size: 12px;">ts</a> <a href="/tags/vue/" style="font-size: 10px;">vue</a> <a href="/tags/浏览器/" style="font-size: 14px;">浏览器</a> <a href="/tags/网络/" style="font-size: 10px;">网络</a>
     </div>
   </div>
 
@@ -603,6 +605,10 @@
       <ul>
         
           <li>
+            <a href="/2021/03/02/ES6-Iterator-for-of/">ES6-Iterator--for-of</a>
+          </li>
+        
+          <li>
             <a href="/2021/03/02/js-常见的几种遍历/">js-常见的几种遍历</a>
           </li>
         
@@ -616,10 +622,6 @@
         
           <li>
             <a href="/2021/03/01/ES6-Reflect/">ES6-Reflect</a>
-          </li>
-        
-          <li>
-            <a href="/2021/02/28/ES6-Proxy/">ES6-Proxy</a>
           </li>
         
       </ul>
