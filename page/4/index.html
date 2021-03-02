@@ -68,6 +68,123 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-浏览器的同源政策及其规避方法" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/12/28/浏览器的同源政策及其规避方法/" class="article-date">
+  <time datetime="2020-12-28T08:41:29.000Z" itemprop="datePublished">2020-12-28</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/12/28/浏览器的同源政策及其规避方法/">浏览器的同源政策及其规避方法</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>定义<br>它的含义是指，A网页设置的 Cookie，B网页不能打开，除非这两个网页”同源”。<br>所谓”同源”指的是”三个相同”：协议相同、域名相同、端口相同<br>举例来说，<a href="http://www.example.com/dir/page.html这个网址，协议是http://，域名是www.example.com，端口是80（默认端口可以省略）。它的同源情况如下。" target="_blank" rel="noopener">http://www.example.com/dir/page.html这个网址，协议是http://，域名是www.example.com，端口是80（默认端口可以省略）。它的同源情况如下。</a><br><a href="http://www.example.com/dir2/other.html：同源" target="_blank" rel="noopener">http://www.example.com/dir2/other.html：同源</a><br><a href="http://example.com/dir/other.html：不同源（域名不同）" target="_blank" rel="noopener">http://example.com/dir/other.html：不同源（域名不同）</a><br><a href="http://v2.www.example.com/dir/other.html：不同源（域名不同）" target="_blank" rel="noopener">http://v2.www.example.com/dir/other.html：不同源（域名不同）</a><br><a href="http://www.example.com:81/dir/other.html：不同源（端口不同）" target="_blank" rel="noopener">http://www.example.com:81/dir/other.html：不同源（端口不同）</a><br>1.2 目的<br>同源政策的目的，是为了保证用户信息的安全，防止恶意的网站窃取数据。<br>如果其他网站可以读取A网站的 Cookie，会发生什么？<br>如果 Cookie 包含隐私（比如存款总额），这些信息就会泄漏。更可怕的是，Cookie 往往用来保存用户的登录状态，如果用户没有退出登录，其他网站就可以冒充用户，为所欲为。因为浏览器同时还规定，提交表单不受同源政策的限制。<br>由此可见，”同源政策”是必需的，否则 Cookie 可以共享，互联网就毫无安全可言了。<br>1.3 限制范围<br>！！！！如果非同源，共有三种行为受到限制。<br>（1） Cookie、LocalStorage 和 IndexDB 无法读取。<br>（2） DOM 无法获得。<br>（3） AJAX 请求不能发送。</p>
+<p>跨域解决方案<br>1、 通过jsonp跨域                jsonp缺点：只能实现get一种请求。<br>2、 document.domain + iframe跨域<br>3、 location.hash + iframe<br>4、 window.name + iframe跨域<br>5、 postMessage跨域<br>6、 跨域资源共享（CORS）<br>7、 nginx代理跨域<br>8、 nodejs中间件代理跨域<br>9、 WebSocket协议跨域<br>二、Cookie<br>Cookie 是服务器写入浏览器的一小段信息，只有同源的网页才能共享。但是，两个网页一级域名相同，只是二级域名不同，浏览器允许通过设置document.domain共享 Cookie。<br>举例来说，A网页是<a href="http://w1.example.com/a.html，B网页是http://w2.example.com/b.html，那么只要设置相同的document.domain，两个网页就可以共享Cookie。" target="_blank" rel="noopener">http://w1.example.com/a.html，B网页是http://w2.example.com/b.html，那么只要设置相同的document.domain，两个网页就可以共享Cookie。</a><br>document.domain = ‘example.com’;<br>现在，A网页通过脚本设置一个 Cookie。<br>document.cookie = “test1=hello”;<br>B网页就可以读到这个 Cookie。<br>var allCookie = document.cookie;<br>这种方法只适用于 Cookie 和 iframe 窗口，LocalStorage 和 IndexDB 无法通过这种方法<br>1.）父窗口：(<a href="http://www.domain.com/a.html" target="_blank" rel="noopener">http://www.domain.com/a.html</a>)</p>
+<p><iframe id="iframe" src="http://child.domain.com/b.html"></iframe></p>
+<script>
+    document.domain = 'domain.com';
+    var user = 'admin';
+</script>
+
+<p>2.）子窗口：(<a href="http://child.domain.com/b.html" target="_blank" rel="noopener">http://child.domain.com/b.html</a>)</p>
+<script>
+    document.domain = 'domain.com';
+    // 获取父窗口中变量
+    alert('get js data from parent ---> ' + window.parent.user);
+</script>
+
+<p>三、iframe<br>如果两个网页不同源，就无法拿到对方的DOM。典型的例子是iframe窗口和window.open方法打开的窗口，它们与父窗口无法通信。<br>对于完全不同源的网站，目前有三种方法，可以解决跨域窗口的通信问题。<br>片段识别符（fragment identifier）<br>window.name<br>跨文档通信API（Cross-document messaging）<br>3.1 片段识别符<br>片段标识符（fragment identifier）指的是，URL的#号后面的部分，比如<a href="http://example.com/x.html#fragment的#fragment。" target="_blank" rel="noopener">http://example.com/x.html#fragment的#fragment。</a><br>如果只是改变片段标识符，页面不会重新刷新。<br>父窗口可以把信息，写入子窗口的片段标识符。<br>var src = originURL + ‘#’ + data;<br>document.getElementById(‘myIFrame’).src = src;</p>
+<p>子窗口通过监听hashchange事件得到通知。<br>window.onhashchange = checkMessage;</p>
+<p>function checkMessage() {<br>  var message = window.location.hash;<br>  // …<br>}</p>
+<p>子窗口也可以改变父窗口的片段标识符。<br>parent.location.href= target + “#” + hash;</p>
+<p>3.2 window.name<br>这个属性的最大特点是，无论是否同源，只要在同一个窗口里，前一个网页设置了这个属性，后一个网页可以读取它。<br>父窗口先打开一个子窗口，载入一个不同源的网页，该网页将信息写入window.name属性。<br>window.name = data;</p>
+<p>接着，子窗口跳回一个与主窗口同域的网址。<br>location = ‘<a href="http://parent.url.com/xxx.html&#39;" target="_blank" rel="noopener">http://parent.url.com/xxx.html&#39;</a>;</p>
+<p>然后，主窗口就可以读取子窗口的window.name了。<br>var data = document.getElementById(‘myFrame’).contentWindow.name;</p>
+<p>这种方法的优点是，window.name容量很大，可以放置非常长的字符串；<br>缺点是必须监听子窗口window.name属性的变化，影响网页性能。<br>3.3 window.postMessage<br>上面两种方法都属于破解，HTML5为了解决这个问题，引入了一个全新的API：跨文档通信 API（Cross-document messaging）。<br>这个API为window对象新增了一个window.postMessage方法，允许跨窗口通信，不论这两个窗口是否同源。<br>举例来说，父窗口<a href="http://aaa.com向子窗口http://bbb.com发消息，调用postMessage方法就可以了。" target="_blank" rel="noopener">http://aaa.com向子窗口http://bbb.com发消息，调用postMessage方法就可以了。</a><br>var popup = window.open(‘<a href="http://bbb.com&#39;" target="_blank" rel="noopener">http://bbb.com&#39;</a>, ‘title’);<br>popup.postMessage(‘Hello World!’, ‘<a href="http://bbb.com&#39;)" target="_blank" rel="noopener">http://bbb.com&#39;)</a>;</p>
+<p>postMessage方法的第一个参数是具体的信息内容，第二个参数是接收消息的窗口的源（origin），即”协议 + 域名 + 端口”。也可以设为*，表示不限制域名，向所有窗口发送。<br>子窗口向父窗口发送消息的写法类似。<br>window.opener.postMessage(‘Nice to see you’, ‘<a href="http://aaa.com&#39;)" target="_blank" rel="noopener">http://aaa.com&#39;)</a>;</p>
+<p>父窗口和子窗口都可以通过message事件，监听对方的消息。<br>window.addEventListener(‘message’, function(e) {<br>  console.log(e.data);<br>},false);</p>
+<p>message事件的事件对象event，提供以下三个属性。<br>event.source：发送消息的窗口<br>event.origin: 消息发向的网址<br>event.data: 消息内容<br>下面的例子是，子窗口通过event.source属性引用父窗口，然后发送消息。<br>window.addEventListener(‘message’, receiveMessage);<br>function receiveMessage(event) {<br>  event.source.postMessage(‘Nice to see you!’, ‘*’);<br>}</p>
+<p>event.origin属性可以过滤不是发给本窗口的消息。<br>window.addEventListener(‘message’, receiveMessage);<br>function receiveMessage(event) {<br>  if (event.origin !== ‘<a href="http://aaa.com&#39;" target="_blank" rel="noopener">http://aaa.com&#39;</a>) return;<br>  if (event.data === ‘Hello World’) {<br>      event.source.postMessage(‘Hello’, event.origin);<br>  } else {<br>    console.log(event.data);<br>  }<br>}</p>
+<p>3.4 LocalStorage<br>通过window.postMessage，读写其他窗口的 LocalStorage 也成为了可能。<br>下面是一个例子，主窗口写入iframe子窗口的localStorage。<br>window.onmessage = function(e) {<br>  if (e.origin !== ‘<a href="http://bbb.com&#39;" target="_blank" rel="noopener">http://bbb.com&#39;</a>) {<br>    return;<br>  }<br>  var payload = JSON.parse(e.data);<br>  localStorage.setItem(payload.key, JSON.stringify(payload.data));<br>};</p>
+<p>上面代码中，子窗口将父窗口发来的消息，写入自己的LocalStorage。<br>父窗口发送消息的代码如下。<br>var win = document.getElementsByTagName(‘iframe’)[0].contentWindow;<br>var obj = { name: ‘Jack’ };<br>win.postMessage(JSON.stringify({key: ‘storage’, data: obj}), ‘<a href="http://bbb.com&#39;)" target="_blank" rel="noopener">http://bbb.com&#39;)</a>;</p>
+<p>加强版的子窗口接收消息的代码如下。<br>window.onmessage = function(e) {<br>  if (e.origin !== ‘<a href="http://bbb.com&#39;" target="_blank" rel="noopener">http://bbb.com&#39;</a>) return;<br>  var payload = JSON.parse(e.data);<br>  switch (payload.method) {<br>    case ‘set’:<br>      localStorage.setItem(payload.key, JSON.stringify(payload.data));<br>      break;<br>    case ‘get’:<br>      var parent = window.parent;<br>      var data = localStorage.getItem(payload.key);<br>      parent.postMessage(data, ‘<a href="http://aaa.com&#39;)" target="_blank" rel="noopener">http://aaa.com&#39;)</a>;<br>      break;<br>    case ‘remove’:<br>      localStorage.removeItem(payload.key);<br>      break;<br>  }<br>};</p>
+<p>加强版的父窗口发送消息代码如下。<br>var win = document.getElementsByTagName(‘iframe’)[0].contentWindow;<br>var obj = { name: ‘Jack’ };<br>// 存入对象<br>win.postMessage(JSON.stringify({key: ‘storage’, method: ‘set’, data: obj}), ‘<a href="http://bbb.com&#39;)" target="_blank" rel="noopener">http://bbb.com&#39;)</a>;<br>// 读取对象<br>win.postMessage(JSON.stringify({key: ‘storage’, method: “get”}), “*”);<br>window.onmessage = function(e) {<br>  if (e.origin != ‘<a href="http://aaa.com&#39;" target="_blank" rel="noopener">http://aaa.com&#39;</a>) return;<br>  // “Jack”<br>  console.log(JSON.parse(e.data).name);<br>};</p>
+<p>四、AJAX<br>同源政策规定，AJAX请求只能发给同源的网址，否则就报错。<br>除了架设服务器代理（浏览器请求同源服务器，再由后者请求外部服务），有三种方法规避这个限制。<br>JSONP<br>WebSocket<br>CORS<br>4.1 JSONP<br>JSONP是服务器与客户端跨源通信的常用方法。最大特点就是简单适用，老式浏览器全部支持，服务器改造非常小。<br>它的基本思想是，网页通过添加一个<script>元素，向服务器请求JSON数据，这种做法不受同源政策限制；服务器收到请求后，将数据放在一个指定名字的回调函数里传回来。<br>首先，网页动态插入<script>元素，由它向跨源网址发出请求。<br>function addScriptTag(src) {<br>  var script = document.createElement(‘script’);<br>  script.setAttribute(“type”,”text/javascript”);<br>  script.src = src;<br>  document.body.appendChild(script);<br>}</p>
+<p>window.onload = function () {<br>  addScriptTag(‘<a href="http://example.com/ip?callback=foo&#39;)">http://example.com/ip?callback=foo&#39;)</a>;<br>}</p>
+<p>function foo(data) {<br>  console.log(‘Your public IP address is: ‘ + data.ip);<br>};</p>
+<p>上面代码通过动态添加<script>元素，向服务器example.com发出请求。注意，该请求的查询字符串有一个callback参数，用来指定回调函数的名字，这对于JSONP是必需的。<br>服务器收到这个请求以后，会将数据放在回调函数的参数位置返回。<br>foo({<br>  “ip”: “8.8.8.8”<br>});</p>
+<p>由于<script>元素请求的脚本，直接作为代码运行。这时，只要浏览器定义了foo函数，该函数就会立即调用。作为参数的JSON数据被视为JavaScript对象，而不是字符串，因此避免了使用JSON.parse的步骤。</p>
+<p>4.2 WebSocket<br>WebSocket是一种通信协议，使用ws://（非加密）和wss://（加密）作为协议前缀。该协议不实行同源政策，只要服务器支持，就可以通过它进行跨源通信。<br>下面是一个例子，浏览器发出的WebSocket请求的头信息（摘自维基百科）。</p>
+<p>GET /chat HTTP/1.1<br>Host: server.example.com<br>Upgrade: websocket<br>Connection: Upgrade<br>Sec-WebSocket-Key: x3JJHMbDL1EzLkh9GBhXDw==<br>Sec-WebSocket-Protocol: chat, superchat<br>Sec-WebSocket-Version: 13<br>Origin: <a href="http://example.com">http://example.com</a><br>上面代码中，有一个字段是Origin，表示该请求的请求源（origin），即发自哪个域名。</p>
+<p>正是因为有了Origin这个字段，所以WebSocket才没有实行同源政策。因为服务器可以根据这个字段，判断是否许可本次通信。如果该域名在白名单内，服务器就会做出如下回应。</p>
+<p>HTTP/1.1 101 Switching Protocols<br>Upgrade: websocket<br>Connection: Upgrade<br>Sec-WebSocket-Accept: HSmrc0sMlYUkAGmm5OPpG2HaGWk=<br>Sec-WebSocket-Protocol: chat<br>4.3 CORS<br>普通跨域请求：只服务端设置Access-Control-Allow-Origin即可，前端无须设置，若要带cookie请求：前后端都需要设置。<br>CORS也已经成为主流的跨域解决方案。<br>1、 前端设置：<br>1.）原生ajax<br>// 前端设置是否带cookie<br>xhr.withCredentials = true;</p>
+<p>示例代码：</p>
+<p>var xhr = new XMLHttpRequest(); // IE8/9需用window.XDomainRequest兼容</p>
+<p>// 前端设置是否带cookie<br>xhr.withCredentials = true;</p>
+<p>xhr.open(‘post’, ‘<a href="http://www.domain2.com:8080/login&#39;">http://www.domain2.com:8080/login&#39;</a>, true);<br>xhr.setRequestHeader(‘Content-Type’, ‘application/x-www-form-urlencoded’);<br>xhr.send(‘user=admin’);</p>
+<p>xhr.onreadystatechange = function() {<br>    if (xhr.readyState == 4 &amp;&amp; xhr.status == 200) {<br>        alert(xhr.responseText);<br>    }<br>};</p>
+<p>2.）vue框架<br>a.) axios设置：<br>axios.defaults.withCredentials = true</p>
+<p>b.) vue-resource设置：<br>Vue.http.options.credentials = true</p>
+<p>七、 nginx代理跨域<br>1、 nginx配置解决iconfont跨域<br>浏览器跨域访问js、css、img等常规静态资源被同源策略许可，但iconfont字体文件(eot|otf|ttf|woff|svg)例外，此时可在nginx的静态资源服务器中加入以下配置。<br>location / {<br>  add_header Access-Control-Allow-Origin *;<br>}</p>
+<p>2、 nginx反向代理接口跨域<br>跨域原理： 同源策略是浏览器的安全策略，不是HTTP协议的一部分。服务器端调用HTTP接口只是使用HTTP协议，不会执行JS脚本，不需要同源策略，也就不存在跨越问题。<br>实现思路：通过nginx配置一个代理服务器（域名与domain1相同，端口不同）做跳板机，反向代理访问domain2接口，并且可以顺便修改cookie中domain信息，方便当前域cookie写入，实现跨域登录。<br>nginx具体配置：</p>
+<p>#proxy服务器<br>server {<br>    listen       81;<br>    server_name  <a href="http://www.domain1.com">www.domain1.com</a>;</p>
+<pre><code>location / {
+    proxy_pass   http://www.domain2.com:8080;  #反向代理
+    proxy_cookie_domain www.domain2.com www.domain1.com; #修改cookie里域名
+    index  index.html index.htm;
+
+    # 当用webpack-dev-server等中间件代理接口访问nignx时，此时无浏览器参与，故没有同源限制，下面的跨域配置可不启用
+    add_header Access-Control-Allow-Origin http://www.domain1.com;  #当前端只跨域不带cookie时，可为*
+    add_header Access-Control-Allow-Credentials true;
+}
+</code></pre><p>}</p>
+<p>1.) 前端代码示例：<br>var xhr = new XMLHttpRequest();</p>
+<p>// 前端开关：浏览器是否读写cookie<br>xhr.withCredentials = true;</p>
+<p>// 访问nginx中的代理服务器<br>xhr.open(‘get’, ‘<a href="http://www.domain1.com:81/?user=admin&#39;">http://www.domain1.com:81/?user=admin&#39;</a>, true);<br>xhr.send();</p>
+<p>八、 Nodejs中间件代理跨域<br>node中间件实现跨域代理，原理大致与nginx相同，都是通过启一个代理服务器，实现数据的转发，也可以通过设置cookieDomainRewrite参数修改响应头中cookie中域名，实现当前域的cookie写入，方便接口登录认证。<br>1、 非vue框架的跨域（2次跨域）<br>利用node + express + http-proxy-middleware搭建一个proxy服务器。<br>1.）前端代码示例：<br>var xhr = new XMLHttpRequest();</p>
+<p>// 前端开关：浏览器是否读写cookie<br>xhr.withCredentials = true;</p>
+<p>// 访问http-proxy-middleware代理服务器<br>xhr.open(‘get’, ‘<a href="http://www.domain1.com:3000/login?user=admin&#39;">http://www.domain1.com:3000/login?user=admin&#39;</a>, true);<br>xhr.send();</p>
+<p>2.）中间件服务器：<br>var express = require(‘express’);<br>var proxy = require(‘http-proxy-middleware’);<br>var app = express();</p>
+<p>app.use(‘/‘, proxy({<br>    // 代理跨域目标接口<br>    target: ‘<a href="http://www.domain2.com:8080&#39;">http://www.domain2.com:8080&#39;</a>,<br>    changeOrigin: true,</p>
+<pre><code>// 修改响应头信息，实现跨域并允许带cookie
+onProxyRes: function(proxyRes, req, res) {
+    res.header(&apos;Access-Control-Allow-Origin&apos;, &apos;http://www.domain1.com&apos;);
+    res.header(&apos;Access-Control-Allow-Credentials&apos;, &apos;true&apos;);
+},
+
+// 修改响应信息中的cookie域名
+cookieDomainRewrite: &apos;www.domain1.com&apos;  // 可以为false，表示不修改
+</code></pre><p>}));</p>
+<p>app.listen(3000);<br>console.log(‘Proxy server is listen at port 3000…’);</p>
+<p>2、 vue框架的跨域（1次跨域）<br>利用node + webpack + webpack-dev-server代理接口跨域。在开发环境下，由于vue渲染服务和接口代理服务都是webpack-dev-server同一个，所以页面与代理接口之间不再跨域，无须设置headers跨域信息了。<br>webpack.config.js部分配置：<br>module.exports = {<br>    entry: {},<br>    module: {},<br>    …<br>    devServer: {<br>        historyApiFallback: true,<br>        proxy: [{<br>            context: ‘/login’,<br>            target: ‘<a href="http://www.domain2.com:8080&#39;">http://www.domain2.com:8080&#39;</a>,  // 代理跨域目标接口<br>            changeOrigin: true,<br>            secure: false,  // 当代理某些https服务报错时用<br>            cookieDomainRewrite: ‘<a href="http://www.domain1.com&#39;">www.domain1.com&#39;</a>  // 可以为false，表示不修改<br>        }],<br>        noInfo: true<br>    }<br>}</p>
+</script></p>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://Q-Quiet.github.io/2020/12/28/浏览器的同源政策及其规避方法/" data-id="ckls3zc6d003o98upid8f9sbm" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/浏览器/">浏览器</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="js-原型-js-原型-原型链" class="article article-type-js-原型" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2020/12/26/js-原型-原型链/" class="article-date">
@@ -97,7 +214,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/12/26/js-原型-原型链/" data-id="ckls3pdzc001nrgupnb0ndxtr" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/12/26/js-原型-原型链/" data-id="ckls3zc3v001j98upypr827tw" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
@@ -152,7 +269,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/12/25/js-转换规则/" data-id="ckls3pe0a002hrgup2d8kbgo4" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/12/25/js-转换规则/" data-id="ckls3zc5a002j98up12246yik" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
@@ -215,7 +332,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/12/24/js-事件委托/" data-id="ckls3pdz9001lrgupc0f731x5" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/12/24/js-事件委托/" data-id="ckls3zc3l001998up16rniuc8" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
@@ -268,7 +385,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/12/22/js-创建对象的几种方法/" data-id="ckls3pdz8001jrgup3h2l5cxa" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/12/22/js-创建对象的几种方法/" data-id="ckls3zc3n001b98upv0p9qum8" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
@@ -313,7 +430,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/12/21/js-undefined/" data-id="ckls3pdz6001hrgupi79gox25" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/12/21/js-undefined/" data-id="ckls3zc3j001698up1zjg1dog" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
@@ -353,7 +470,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/12/21/js-有哪些对象/" data-id="ckls3pdzv0021rguphjl30l8i" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/12/21/js-有哪些对象/" data-id="ckls3zc57002f98up87mkdr2i" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
@@ -400,7 +517,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/12/20/js-内部属性-class/" data-id="ckls3pdz4001frguplrd83j9p" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/12/20/js-内部属性-class/" data-id="ckls3zc3x001l98up5zfwbzlz" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
@@ -443,7 +560,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/12/17/js-基本属性-堆栈/" data-id="ckls3pdzi001trgupkyq2o8k9" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/12/17/js-基本属性-堆栈/" data-id="ckls3zc50002798upxok9uvf4" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
@@ -499,48 +616,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/12/15/js-微任务、宏任务与Event-Loop/" data-id="ckls3pdzy0023rgup36llz042" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-async-await" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/12/15/async-await/" class="article-date">
-  <time datetime="2020-12-15T13:58:08.000Z" itemprop="datePublished">2020-12-15</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/12/15/async-await/">async-await</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>async函数是使用async关键字声明的函数。 async函数是AsyncFunction构造函数的实例， 并且其中允许使用await关键字。async和await关键字让我们可以用一种更简洁的方式写出基于Promise的异步行为，而无需刻意地链式调用promise。<br>async函数可能包含0个或者多个await表达式。await表达式会暂停整个async函数的执行进程并出让其控制权，只有当其等待的基于promise的异步操作被兑现或被拒绝之后才会恢复进程。<br>async function async1() {<br>    console.log(‘async1 start’);<br>    await async2();<br>    console.log(‘async1 end’);<br>}<br>async异步执行<br>await同步（仅在async内)<br> console.log(‘async1 end’);相当于.then</p>
-<p>使用async函数重写 promise 链<br>返回 Promise的 API 将会产生一个 promise 链，它将函数肢解成许多部分。例如下面的代码：<br>function getProcessedData(url) {<br>  return downloadData(url) // 返回一个 promise 对象<br>    .catch(e =&gt; {<br>      return downloadFallbackData(url)  // 返回一个 promise 对象<br>    })<br>    .then(v =&gt; {<br>      return processDataInWorker(v); // 返回一个 promise 对象<br>    });<br>}</p>
-<p>可以重写为单个async函数：<br>async function getProcessedData(url) {<br>  let v;<br>  try {<br>    v = await downloadData(url);<br>  } catch (e) {<br>    v = await downloadFallbackData(url);<br>  }<br>  return processDataInWorker(v);<br>}</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/12/15/async-await/" data-id="ckls3pdxf0009rgupib6zhtrs" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/12/15/js-微任务、宏任务与Event-Loop/" data-id="ckls3zc53002b98up47fwfa53" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
@@ -602,6 +678,10 @@
       <ul>
         
           <li>
+            <a href="/2021/03/02/ES6-Generator/">ES6-Generator</a>
+          </li>
+        
+          <li>
             <a href="/2021/03/02/ES6-Iterator-for-of/">ES6-Iterator--for-of</a>
           </li>
         
@@ -615,10 +695,6 @@
         
           <li>
             <a href="/2021/03/01/ES6-Promise/">ES6-Promise</a>
-          </li>
-        
-          <li>
-            <a href="/2021/03/01/ES6-Reflect/">ES6-Reflect</a>
           </li>
         
       </ul>
