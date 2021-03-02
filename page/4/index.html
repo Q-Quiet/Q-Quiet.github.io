@@ -68,6 +68,61 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-js-转换规则" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/12/25/js-转换规则/" class="article-date">
+  <time datetime="2020-12-25T15:18:32.000Z" itemprop="datePublished">2020-12-25</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/12/25/js-转换规则/">js-转换规则</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <ol start="17">
+<li><p>其他值到字符串的转换规则？<br>规范的 9.8 节中定义了抽象操作 ToString ，它负责处理非字符串到字符串的强制类型转换。<br>（1）Null 和 Undefined 类型 ，null 转换为 “null”，undefined 转换为 “undefined”，<br>（2）Boolean 类型，true 转换为 “true”，false 转换为 “false”。<br>（3）Number 类型的值直接转换，不过那些极小和极大的数字会使用指数形式。<br>（4）Symbol 类型的值直接转换，但是只允许显式强制类型转换，使用隐式强制类型转换会产生错误。<br>（3）对普通对象来说，除非自行定义 toString() 方法，否则会调用 toString()（Object.prototype.toString()）<br>来返回内部属性 [[Class]] 的值，如”[object Object]”。如果对象有自己的 toString() 方法，字符串化时就会调用该方法并使用其返回值。</p>
+</li>
+<li><p>其他值到数字值的转换规则？<br>有时我们需要将非数字值当作数字来使用，比如数学运算。为此 ES5 规范在 9.3 节定义了抽象操作 ToNumber。<br>（1）Undefined 类型的值转换为 NaN。<br>（2）Null 类型的值转换为 0。<br>（3）Boolean 类型的值，true 转换为 1，false 转换为 0。<br>（4）String 类型的值转换如同使用 Number() 函数进行转换，如果包含非数字值则转换为 NaN，空字符串为 0。<br>（5）Symbol 类型的值不能转换为数字，会报错。<br>（6）对象（包括数组）会首先被转换为相应的基本类型值，如果返回的是非数字的基本类型值，则再遵循以上规则将其强制转换为数字。<br>为了将值转换为相应的基本类型值，抽象操作 ToPrimitive 会首先（通过内部操作 DefaultValue）检查该值是否有valueOf() 方法。如果有并且返回基本类型值，就使用该值进行强制类型转换。如果没有就使用 toString() 的返回值（如果存在）来进行强制类型转换。<br>如果 valueOf() 和 toString() 均不返回基本类型值，会产生 TypeError 错误。</p>
+</li>
+<li><p>其他值到布尔类型的值的转换规则？<br>ES5 规范 9.2 节中定义了抽象操作 ToBoolean，列举了布尔强制类型转换所有可能出现的结果。</p>
+</li>
+</ol>
+<p>以下这些是假值：<br>• undefined<br>• null<br>• false<br>• +0、-0 和 NaN<br>• “”</p>
+<p>假值的布尔强制类型转换结果为 false。从逻辑上说，假值列表以外的都应该是真值。</p>
+<ol start="27">
+<li>Symbol 值的强制类型转换？<br>ES6 允许从符号到字符串的显式强制类型转换，然而隐式强制类型转换会产生错误。</li>
+</ol>
+<p>Symbol 值不能够被强制类型转换为数字（显式和隐式都会产生错误），但可以被强制类型转换为布尔值（显式和隐式结果<br>都是 true ）。</p>
+<ol start="28">
+<li>== 操作符的强制类型转换规则？<br>（1）字符串和数字之间的相等比较，将字符串转换为数字之后再进行比较。<br>（2）其他类型和布尔类型之间的相等比较，先将布尔值转换为数字后，再应用其他规则进行比较。<br>（3）null 和 undefined 之间的相等比较，结果为真。其他值和它们进行比较都返回假值。<br>（4）对象和非对象之间的相等比较，对象先调用 ToPrimitive 抽象操作后，再进行比较。<br>（5）如果一个操作值为 NaN ，则相等比较返回 false（ NaN 本身也不等于 NaN ）。<br>（6）如果两个操作值都是对象，则比较它们是不是指向同一个对象。如果两个操作数都指向同一个对象，则相等操作符返回 true，否则，返回 false。</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://Q-Quiet.github.io/2020/12/25/js-转换规则/" data-id="ckls005ru002fzkupn76vwjgd" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-js-事件委托" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2020/12/24/js-事件委托/" class="article-date">
@@ -119,7 +174,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/12/24/js-事件委托/" data-id="cklqoa0790016m4upts5n0ii2" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/12/24/js-事件委托/" data-id="ckls005qm001hzkupn0jeoh57" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
@@ -172,7 +227,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/12/22/js-创建对象的几种方法/" data-id="cklqoa085001km4upb37uo2l1" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/12/22/js-创建对象的几种方法/" data-id="ckls005r0001rzkupcx0h112v" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
@@ -217,7 +272,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/12/21/js-undefined/" data-id="cklqoa0730011m4up6um8a07h" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/12/21/js-undefined/" data-id="ckls005qo001jzkup0z3m6me6" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
@@ -257,7 +312,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/12/21/js-有哪些对象/" data-id="cklqoa08s0024m4upkyago1ui" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/12/21/js-有哪些对象/" data-id="ckls005rk0025zkup326ccvi2" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
@@ -304,7 +359,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/12/20/js-内部属性-class/" data-id="cklqoa080001hm4up93olftbo" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/12/20/js-内部属性-class/" data-id="ckls005qx001pzkupj59x2l4i" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
@@ -347,7 +402,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/12/17/js-基本属性-堆栈/" data-id="cklqoa08o0020m4upy1vxi5l5" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/12/17/js-基本属性-堆栈/" data-id="ckls005ri0023zkup32dcztf4" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
@@ -403,7 +458,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/12/15/js-微任务、宏任务与Event-Loop/" data-id="cklqoa090002em4uppfo1fx13" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/12/15/js-微任务、宏任务与Event-Loop/" data-id="ckls005rg0021zkuphjhnr3cc" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
@@ -444,7 +499,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/12/15/async-await/" data-id="cklqoa0620008m4upbe3zz5hp" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/12/15/async-await/" data-id="ckls005oc000azkupga3keg11" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
@@ -493,48 +548,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/12/14/为什么操作DOM慢/" data-id="cklqoa09g002xm4upfb6su9oh" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/浏览器/">浏览器</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-浏览器-渲染机制" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/12/13/浏览器-渲染机制/" class="article-date">
-  <time datetime="2020-12-13T15:28:12.000Z" itemprop="datePublished">2020-12-13</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/12/13/浏览器-渲染机制/">浏览器-渲染机制</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>一、浏览器渲染<br>将载入的HTML文件解析成DOM树<br>当浏览器接收到这些字节数据以后，它会将这些字节数据转换为字符串，也就是我们写的代码。<br>当数据转换为字符串以后，浏览器会先将这些字符串通过词法分析转换为标记（token），这一过程在词法分析中叫做标记化（tokenization）。<br>当结束标记化后，这些标记会紧接着转换为 Node，最后这些 Node 会根据不同 Node 之前的联系构建为一颗 DOM 树。</p>
-<p>将解析成的DOM树和CSS规则进行关联生成渲染树（Render Tree<br>进入布局阶段，为DOM树的每个节点分配在屏幕上出现的确切坐标<br>进入绘制阶段，对渲染树的每个节点进行绘制，呈现出页面效果<br>不同内核浏览器的DOM解析的差异性</p>
-<p>Webkit内核的浏览器：chrome、Safari<br>Gecko内核的浏览器：Firefox<br>二、客户端渲染渲染CSR<br>html仅仅作为静态文件，客户端在请求时，服务端不做任何处理，直接以原文件的形式返回给客户端，然后根据html上的JavaScript，生成DOM插入html。<br>好处：网络传输数据量小、减少了服务端压力、前后端分离、局部刷新、无需每次请求完整页面、交互好可实现各种效果。<br>坏处：不利于SEO、爬虫看不到完整的程序源码、首屏渲染慢（渲染前需要下载一堆js和css等）<br>三、服务端渲染SSR<br>服务端渲染的模式下，当用户第一次请求页面时，由服务端把需要的组件或页面渲染成HTML字符串，然后把它返回给客户端。客户端拿到手的，是可以直接渲染然后呈现给用户的HTML内容，不需要为了成为DOM内容自己再去跑一遍JS代码。使用服务端渲染的网站，页面上呈现的内容，我们在html源文件里也能找到。<br>好处：首屏渲染快、利于SEO、可以生成缓存片段，生成静态化文件、节能（对比客户端渲染的耗电）<br>坏处：用户体验较差、不容易维护，通常前端改了部分html或者css，后端也需要修改。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/12/13/浏览器-渲染机制/" data-id="cklqoa09c002sm4upg1a2znpg" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/12/14/为什么操作DOM慢/" data-id="ckls005sa002rzkupezp6st4d" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/浏览器/">浏览器</a></li></ul>
@@ -596,6 +610,10 @@
       <ul>
         
           <li>
+            <a href="/2021/03/02/js-常见的几种遍历/">js-常见的几种遍历</a>
+          </li>
+        
+          <li>
             <a href="/2021/03/01/js-深浅拷贝/">js-深浅拷贝</a>
           </li>
         
@@ -609,10 +627,6 @@
         
           <li>
             <a href="/2021/02/28/ES6-Proxy/">ES6-Proxy</a>
-          </li>
-        
-          <li>
-            <a href="/2021/02/28/ES6-解构赋值/">ES6-解构赋值</a>
           </li>
         
       </ul>

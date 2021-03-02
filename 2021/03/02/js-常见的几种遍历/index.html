@@ -5,20 +5,20 @@
   
 
   
-  <title>es6-12-Set | Q-Quiet</title>
+  <title>js-常见的几种遍历 | Q-Quiet</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="1.Set基本用法ES6 提供了新的数据结构 Set。它类似于数组，但是成员的值都是唯一的，没有重复的值。 Set本身是一个构造函数，用来生成 Set 数据结构。 const s = new Set(); [2, 3, 5, 4, 5, 2, 2].forEach(x =&amp;gt; s.add(x)); for (let i of s) {  console.log(i);}// 2 3 5 4上面">
-<meta name="keywords" content="es6">
+  <meta name="description" content="以数组为例：1.for：这种写法比较麻烦123for (var index = 0; index &amp;lt; myArray.length; index++) &amp;#123;  console.log(myArray[index]);&amp;#125;  数组提供内置的forEach方法。123myArray.forEach(function (value) &amp;#123;  console.log(valu">
+<meta name="keywords" content="js">
 <meta property="og:type" content="article">
-<meta property="og:title" content="es6-12-Set">
-<meta property="og:url" content="https://Q-Quiet.github.io/2020/03/06/es6-12-Set/index.html">
+<meta property="og:title" content="js-常见的几种遍历">
+<meta property="og:url" content="https://Q-Quiet.github.io/2021/03/02/js-常见的几种遍历/index.html">
 <meta property="og:site_name" content="Q-Quiet">
-<meta property="og:description" content="1.Set基本用法ES6 提供了新的数据结构 Set。它类似于数组，但是成员的值都是唯一的，没有重复的值。 Set本身是一个构造函数，用来生成 Set 数据结构。 const s = new Set(); [2, 3, 5, 4, 5, 2, 2].forEach(x =&amp;gt; s.add(x)); for (let i of s) {  console.log(i);}// 2 3 5 4上面">
+<meta property="og:description" content="以数组为例：1.for：这种写法比较麻烦123for (var index = 0; index &amp;lt; myArray.length; index++) &amp;#123;  console.log(myArray[index]);&amp;#125;  数组提供内置的forEach方法。123myArray.forEach(function (value) &amp;#123;  console.log(valu">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2021-02-28T09:31:11.120Z">
+<meta property="og:updated_time" content="2021-03-02T12:39:21.181Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="es6-12-Set">
-<meta name="twitter:description" content="1.Set基本用法ES6 提供了新的数据结构 Set。它类似于数组，但是成员的值都是唯一的，没有重复的值。 Set本身是一个构造函数，用来生成 Set 数据结构。 const s = new Set(); [2, 3, 5, 4, 5, 2, 2].forEach(x =&amp;gt; s.add(x)); for (let i of s) {  console.log(i);}// 2 3 5 4上面">
+<meta name="twitter:title" content="js-常见的几种遍历">
+<meta name="twitter:description" content="以数组为例：1.for：这种写法比较麻烦123for (var index = 0; index &amp;lt; myArray.length; index++) &amp;#123;  console.log(myArray[index]);&amp;#125;  数组提供内置的forEach方法。123myArray.forEach(function (value) &amp;#123;  console.log(valu">
   
     <link rel="alternate" href="/atom.xml" title="Q-Quiet" type="application/atom+xml">
   
@@ -70,10 +70,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-es6-12-Set" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-js-常见的几种遍历" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2020/03/06/es6-12-Set/" class="article-date">
-  <time datetime="2020-03-06T08:38:31.000Z" itemprop="datePublished">2020-03-06</time>
+    <a href="/2021/03/02/js-常见的几种遍历/" class="article-date">
+  <time datetime="2021-03-02T12:38:05.000Z" itemprop="datePublished">2021-03-02</time>
 </a>
     
   </div>
@@ -84,7 +84,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      es6-12-Set
+      js-常见的几种遍历
     </h1>
   
 
@@ -92,32 +92,22 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="1-Set"><a href="#1-Set" class="headerlink" title="1.Set"></a>1.Set</h1><h2 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h2><p>ES6 提供了新的数据结构 Set。它类似于数组，但是成员的值都是唯一的，没有重复的值。</p>
-<p>Set本身是一个构造函数，用来生成 Set 数据结构。</p>
-<p>const s = new Set();</p>
-<p>[2, 3, 5, 4, 5, 2, 2].forEach(x =&gt; s.add(x));</p>
-<p>for (let i of s) {<br>  console.log(i);<br>}<br>// 2 3 5 4<br>上面代码通过add()方法向 Set 结构加入成员，结果表明 Set 结构不会添加重复的值。</p>
-<p>Set函数可以接受一个数组（或者具有 iterable 接口的其他数据结构）作为参数，用来初始化。</p>
-<p>// 例一<br>const set = new Set([1, 2, 3, 4, 4]);<br>[…set]<br>// [1, 2, 3, 4]</p>
-<p>// 例二<br>const items = new Set([1, 2, 3, 4, 5, 5, 5, 5]);<br>items.size // 5</p>
-<p>// 例三<br>const set = new Set(document.querySelectorAll(‘div’));<br>set.size // 56</p>
-<p>// 类似于<br>const set = new Set();<br>document<br> .querySelectorAll(‘div’)<br> .forEach(div =&gt; set.add(div));<br>set.size // 56<br>上面代码中，例一和例二都是Set函数接受数组作为参数，例三是接受类似数组的对象作为参数。</p>
-<p>上面代码也展示了一种去除数组重复成员的方法。</p>
-<p>// 去除数组的重复成员<br>[…new Set(array)]<br>上面的方法也可以用于，去除字符串里面的重复字符。</p>
-<p>[…new Set(‘ababbc’)].join(‘’)<br>// “abc”<br>向 Set 加入值的时候，不会发生类型转换，所以5和”5”是两个不同的值。Set 内部判断两个值是否不同，使用的算法叫做“Same-value-zero equality”，它类似于精确相等运算符（===），主要的区别是向 Set 加入值时认为NaN等于自身，而精确相等运算符认为NaN不等于自身。</p>
-<p>let set = new Set();<br>let a = NaN;<br>let b = NaN;<br>set.add(a);<br>set.add(b);<br>set // Set {NaN}<br>上面代码向 Set 实例添加了两次NaN，但是只会加入一个。这表明，在 Set 内部，两个NaN是相等的。</p>
-<p>另外，两个对象总是不相等的。</p>
-<p>let set = new Set();</p>
-<p>set.add({});<br>set.size // 1</p>
-<p>set.add({});<br>set.size // 2<br>上面代码表示，由于两个空对象不相等，所以它们被视为两个值。</p>
+        <p>以数组为例：<br>1.for：这种写法比较麻烦<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> index = <span class="number">0</span>; index &lt; myArray.length; index++) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(myArray[index]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<ol start="2">
+<li>数组提供内置的forEach方法。<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">myArray.forEach(<span class="function"><span class="keyword">function</span> (<span class="params">value</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(value);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>问题在于，无法中途跳出forEach循环，break命令或return命令都不能奏效。<br>3.for…in循环可以遍历数组的键名。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> index <span class="keyword">in</span> myArray) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(myArray[index]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="缺点："><a href="#缺点：" class="headerlink" title="缺点："></a>缺点：</h3><p>数组的键名是数字，但是for…in循环是以字符串作为键名“0”、“1”、“2”等等。<br>for…in循环不仅遍历数字键名，还会遍历手动添加的其他键，甚至包括原型链上的键。<br>某些情况下，for…in循环会以任意顺序遍历键名。<br>for…in循环主要是为遍历对象而设计的，不适用于遍历数组。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> value <span class="keyword">of</span> myArray) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(value);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>优点：<br>有着同for…in一样的简洁语法，但是没有for…in那些缺点。<br>不同于forEach方法，它可以与break、continue和return配合使用。<br>提供了遍历所有数据结构的统一操作接口。</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/03/06/es6-12-Set/" data-id="ckls005p0000tzkupdp7cgr9f" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2021/03/02/js-常见的几种遍历/" data-id="ckls005r4001vzkupa7buguz5" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/es6/">es6</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
 
     </footer>
   </div>
@@ -125,19 +115,10 @@
     
 <nav id="article-nav">
   
-    <a href="/2020/10/11/1-Vue复习/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          1-Vue复习
-        
-      </div>
-    </a>
   
-  
-    <a href="/2020/03/03/es6-11-Symbol/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2021/03/01/js-深浅拷贝/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">es6-11-Symbol</div>
+      <div class="article-nav-title">js-深浅拷贝</div>
     </a>
   
 </nav>
