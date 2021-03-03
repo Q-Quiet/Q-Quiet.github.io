@@ -68,9 +68,9 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-async-await" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-ES6-async-await" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2020/12/15/async-await/" class="article-date">
+    <a href="/2020/12/15/ES6-async-await/" class="article-date">
   <time datetime="2020-12-15T13:58:08.000Z" itemprop="datePublished">2020-12-15</time>
 </a>
     
@@ -82,7 +82,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2020/12/15/async-await/">async-await</a>
+      <a class="article-title" href="/2020/12/15/ES6-async-await/">ES6-async-await</a>
     </h1>
   
 
@@ -90,17 +90,20 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>async函数是使用async关键字声明的函数。 async函数是AsyncFunction构造函数的实例， 并且其中允许使用await关键字。async和await关键字让我们可以用一种更简洁的方式写出基于Promise的异步行为，而无需刻意地链式调用promise。<br>async函数可能包含0个或者多个await表达式。await表达式会暂停整个async函数的执行进程并出让其控制权，只有当其等待的基于promise的异步操作被兑现或被拒绝之后才会恢复进程。<br>async function async1() {<br>    console.log(‘async1 start’);<br>    await async2();<br>    console.log(‘async1 end’);<br>}<br>async异步执行<br>await同步（仅在async内)<br> console.log(‘async1 end’);相当于.then</p>
-<p>使用async函数重写 promise 链<br>返回 Promise的 API 将会产生一个 promise 链，它将函数肢解成许多部分。例如下面的代码：<br>function getProcessedData(url) {<br>  return downloadData(url) // 返回一个 promise 对象<br>    .catch(e =&gt; {<br>      return downloadFallbackData(url)  // 返回一个 promise 对象<br>    })<br>    .then(v =&gt; {<br>      return processDataInWorker(v); // 返回一个 promise 对象<br>    });<br>}</p>
-<p>可以重写为单个async函数：<br>async function getProcessedData(url) {<br>  let v;<br>  try {<br>    v = await downloadData(url);<br>  } catch (e) {<br>    v = await downloadFallbackData(url);<br>  }<br>  return processDataInWorker(v);<br>}</p>
+        <p>async函数是使用async关键字声明的函数。 async函数是AsyncFunction构造函数的实例， 并且其中允许使用await关键字。async和await关键字让我们可以用一种更简洁的方式写出基于Promise的异步行为，而无需刻意地链式调用promise。</p>
+<h3 id="async和Generator比的改进"><a href="#async和Generator比的改进" class="headerlink" title="async和Generator比的改进"></a>async和Generator比的改进</h3><p>（1）内置执行器。<br>Generator 函数的执行必须靠执行器，所以才有了co模块，而async函数自带执行器。（async的执行和普通函数一样）。<br>（2）更好的语义。<br>async和await，比起星号和yield，语义更清楚了。async表示函数里有异步操作，await表示紧跟在后面的表达式需要等待结果。<br>（3）更广的适用性。<br>co模块约定，yield命令后面只能是 Thunk 函数或 Promise 对象，而async函数的await命令后面，可以是 Promise 对象和原始类型的值（数值、字符串和布尔值，但这时会自动转成立即 resolved 的 Promise 对象）。<br>（4）返回值是Promise。<br>async函数的返回值是 Promise 对象，这比 Generator 函数的返回值是 Iterator 对象方便多了。你可以用then方法指定下一步的操作。</p>
+<h3 id="错误处理"><a href="#错误处理" class="headerlink" title="错误处理"></a>错误处理</h3><p>如果await后面的异步操作出错，那么等同于async函数返回的 Promise 对象被reject。</p>
+<p>async函数可能包含0个或者多个await表达式。await表达式会暂停整个async函数的执行进程并出让其控制权，只有当其等待的基于promise的异步操作被兑现或被拒绝之后才会恢复进程。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">async1</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'async1 start'</span>);</span><br><span class="line">    <span class="keyword">await</span> async2();</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'async1 end'</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">async</span>异步执行</span><br><span class="line"><span class="keyword">await</span>同步（仅在<span class="keyword">async</span>内)</span><br><span class="line"> <span class="built_in">console</span>.log(<span class="string">'async1 end'</span>);相当于.then</span><br></pre></td></tr></table></figure></p>
+<p>使用async函数重写 promise 链<br>返回 Promise的 API 将会产生一个 promise 链，它将函数肢解成许多部分。例如下面的代码：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getProcessedData</span>(<span class="params">url</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> downloadData(url) <span class="comment">// 返回一个 promise 对象</span></span><br><span class="line">    .catch(<span class="function"><span class="params">e</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> downloadFallbackData(url)  <span class="comment">// 返回一个 promise 对象</span></span><br><span class="line">    &#125;)</span><br><span class="line">    .then(<span class="function"><span class="params">v</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> processDataInWorker(v); <span class="comment">// 返回一个 promise 对象</span></span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>可以重写为单个async函数：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">getProcessedData</span>(<span class="params">url</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> v;</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    v = <span class="keyword">await</span> downloadData(url);</span><br><span class="line">  &#125; <span class="keyword">catch</span> (e) &#123;</span><br><span class="line">    v = <span class="keyword">await</span> downloadFallbackData(url);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> processDataInWorker(v);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/12/15/async-await/" data-id="ckls3zc2s000e98up7pk8jy6z" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/12/15/ES6-async-await/" data-id="cklt3l5q60008swup5b0pq9lb" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ES6/">ES6</a></li></ul>
 
     </footer>
   </div>
@@ -146,7 +149,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/12/14/为什么操作DOM慢/" data-id="ckls3zc5t003298upkwcej7j7" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/12/14/为什么操作DOM慢/" data-id="cklt3l5vr002vswupimpagks8" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/浏览器/">浏览器</a></li></ul>
@@ -187,7 +190,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/12/13/浏览器-渲染机制/" data-id="ckls3zc5u003398upznsnrorg" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/12/13/浏览器-渲染机制/" data-id="cklt3l5vy0030swup39fdmdtg" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/浏览器/">浏览器</a></li></ul>
@@ -239,7 +242,7 @@ return function (...args2) {
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/12/09/js-函数柯里化/" data-id="ckls3zc3s001g98up0zsv95kw" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/12/09/js-函数柯里化/" data-id="cklt3l5u8001rswupbb5cd5gg" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
@@ -288,7 +291,7 @@ return function (...args2) {
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/12/08/js-数组扁平化/" data-id="ckls3zc55002d98upeqyep2xv" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/12/08/js-数组扁平化/" data-id="cklt3l5uw002bswupvte0dmav" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
@@ -346,7 +349,7 @@ return function (...args2) {
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/10/11/1-Vue复习/" data-id="ckls3zc27000098upmmw4o9bw" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/10/11/1-Vue复习/" data-id="cklt3l5pw0001swup1gg514p8" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Vue/">Vue</a></li></ul>
@@ -402,7 +405,7 @@ return function (...args2) {
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/03/06/es6-12-Set/" data-id="ckls3zc39000w98up0pgqcvzb" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/03/06/es6-12-Set/" data-id="cklt3l5r0000yswupw5quczu5" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/es6/">es6</a></li></ul>
@@ -505,7 +508,7 @@ return function (...args2) {
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/03/03/es6-11-Symbol/" data-id="ckls3zc37000u98uppwo0o5kg" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/03/03/es6-11-Symbol/" data-id="cklt3l5qv000tswup8tmgr6hc" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/es6/">es6</a></li></ul>
@@ -640,7 +643,7 @@ return function (...args2) {
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/02/12/es6-8-数组的扩展/" data-id="ckls3zc4v002198up7eajm0vp" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/02/12/es6-8-数组的扩展/" data-id="cklt3l5ty001jswup6qq4d4ws" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/es6/">es6</a></li></ul>
@@ -738,7 +741,7 @@ return function (...args2) {
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/02/11/es6-7-函数的扩展/" data-id="ckls3zc4y002598upuw7tktky" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/02/11/es6-7-函数的扩展/" data-id="cklt3l5tr001fswupdt23b26f" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/es6/">es6</a></li></ul>
