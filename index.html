@@ -68,6 +68,67 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-vue-diff" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2021/03/06/vue-diff/" class="article-date">
+  <time datetime="2021-03-06T15:57:59.000Z" itemprop="datePublished">2021-03-06</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/03/06/vue-diff/">vue-diff</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>diff算法是一种优化手段，将前后两个模块进行差异对比，修补(更新)差异的过程叫做patch(打补丁)</p>
+<h2 id="为什么会有diff算法？"><a href="#为什么会有diff算法？" class="headerlink" title="为什么会有diff算法？"></a>为什么会有diff算法？</h2><p>因为渲染真实DOM的开销很大。我们想要让修改的数据映射到真实的DOM，做一个最少化的重绘重排。</p>
+<h2 id="virtual-DOM和真实DOM的区别"><a href="#virtual-DOM和真实DOM的区别" class="headerlink" title="virtual DOM和真实DOM的区别"></a>virtual DOM和真实DOM的区别</h2><p>virtual DOM是将真实的DOM的数据抽取出来，以对象的形式模拟树形结构, diff 算法比较的也是virtual DOM</p>
+<p>patch的vnode参数的el最初是null，因为patch之前它还没有对应的真实dom。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&lt;div&gt;</span><br><span class="line">    &lt;p id=<span class="string">"v"</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">"classA"</span>&gt;JS每日一题&lt;<span class="regexp">/p&gt;</span></span><br><span class="line"><span class="regexp">&lt;/</span>div&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 转换成VNode 类似于下面这种</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> Vnode = &#123;</span><br><span class="line">    tagName: <span class="string">'div'</span>,</span><br><span class="line">    el: div,</span><br><span class="line">   children: [</span><br><span class="line">       &#123; <span class="attr">tag</span>: <span class="string">'p'</span>, <span class="attr">text</span>: <span class="string">'JS每日一题'</span>, <span class="attr">sel</span>: <span class="string">'p#v.classA'</span>  <span class="comment">//节点的选择器 &#125;</span></span><br><span class="line">   ],</span><br><span class="line">   data: <span class="literal">null</span>,       <span class="comment">// 一个存储节点属性的对象，对应节点的el[prop]属性，例如onclick , styl</span></span><br><span class="line">   text: <span class="literal">null</span>,    <span class="comment">//如果是文本节点，对应文本节点的textContent，否则为null</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<h2 id="diff-是如何比较的"><a href="#diff-是如何比较的" class="headerlink" title="diff 是如何比较的?"></a>diff 是如何比较的?</h2><p>新旧虚拟dom 的比较，如果有差异就以新的为准，然后再插入的真实的dom中，重新渲染。</p>
+<h3 id="特点："><a href="#特点：" class="headerlink" title="特点："></a>特点：</h3><p>只会做同级比较，不做跨级比较<br>比较过程</p>
+<ul>
+<li>调用patch函数，就像打补丁一样修改真实dom。<br>当不值得比较时，新节点直接把老节点整个替换了<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">patch</span> (<span class="params">oldVnode, vnode</span>) </span>&#123;</span><br><span class="line">    <span class="comment">//判断新旧两个虚拟节点是否值得比较</span></span><br><span class="line">    <span class="keyword">if</span> (sameVnode(oldVnode, vnode)) &#123;</span><br><span class="line">        patchVnode(oldVnode, vnode)</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">const</span> oEl = oldVnode.el</span><br><span class="line">        <span class="comment">//取得oldvnode.el的父节点，parentEle是真实dom</span></span><br><span class="line">        <span class="keyword">let</span> parentEle = api.parentNode(oEl)</span><br><span class="line">        createEle(vnode)<span class="comment">//为vnode创建它的真实dom，令vnode.el =真实dom</span></span><br><span class="line">        <span class="keyword">if</span> (parentEle !== <span class="literal">null</span>) &#123;</span><br><span class="line">            <span class="comment">//将新的dom插入，移除旧的dom</span></span><br><span class="line">            api.insertBefore(parentEle, vnode.el, api.nextSibling(oEl))</span><br><span class="line">            api.removeChild(parentEle, oldVnode.el)</span><br><span class="line">            oldVnode = <span class="literal">null</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> vnode</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">sameVnode</span>(<span class="params">oldVnode, vnode</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> vnode.key === oldVnode.key &amp;&amp; vnode.sel === oldVnode.sel</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>唯一的改变就是之前vnode.el = null, 而现在它引用的是对应的真实dom。</p>
+<h3 id="patchVnode"><a href="#patchVnode" class="headerlink" title="patchVnode"></a>patchVnode</h3><p>const el = vnode.el = oldVnode.el 这是很重要的一步，让vnode.el引用到现在的真实dom，当el修改时，vnode.el会同步变化。<br>节点的比较有5种情况</p>
+<ul>
+<li>if (oldVnode === vnode)，他们的引用一致，可以认为没有变化。</li>
+<li>if(oldVnode.text !== null &amp;&amp; vnode.text !== null &amp;&amp; oldVnode.text !== vnode.text)，文本节点的比较，需要修改，则会调用Node.textContent = vnode.text。</li>
+<li>if( oldCh &amp;&amp; ch &amp;&amp; oldCh !== ch ), 两个节点都有子节点，而且它们不一样，这样我们会调用updateChildren函数比较子节点，这是diff的核心，后边会讲到。</li>
+<li>else if (ch)，只有新的节点有子节点，调用createEle(vnode)，vnode.el已经引用了老的dom节点，createEle函数会在老dom节点上添加子节点。</li>
+<li>else if (oldCh)，新节点没有子节点，老节点有子节点，直接删除老节点。<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">patchVnode (oldVnode, vnode) &#123;</span><br><span class="line">    <span class="keyword">const</span> el = vnode.el = oldVnode.el</span><br><span class="line">    <span class="keyword">let</span> i, oldCh = oldVnode.children, ch = vnode.children</span><br><span class="line">    <span class="keyword">if</span> (oldVnode === vnode) <span class="keyword">return</span></span><br><span class="line">    <span class="keyword">if</span> (oldVnode.text !== <span class="literal">null</span> &amp;&amp; vnode.text !== <span class="literal">null</span> &amp;&amp; oldVnode.text !== vnode.text) &#123;</span><br><span class="line">        api.setTextContent(el, vnode.text)</span><br><span class="line">    &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">        updateEle(el, vnode, oldVnode)</span><br><span class="line">        <span class="keyword">if</span> (oldCh &amp;&amp; ch &amp;&amp; oldCh !== ch) &#123;</span><br><span class="line">            updateChildren(el, oldCh, ch)</span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span> (ch)&#123;</span><br><span class="line">            createEle(vnode) <span class="comment">//create el's children dom</span></span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span> (oldCh)&#123;</span><br><span class="line">            api.removeChildren(el)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="updateChildren"><a href="#updateChildren" class="headerlink" title="updateChildren"></a>updateChildren</h3><p>过程：oldCh和newCh各有两个头尾的变量StartIdx和EndIdx，它们的2个变量相互比较，一共有4种比较方式。如果4种比较都没匹配，如果设置了key，就会用key进行比较，在比较的过程中，变量会往中间靠，一旦StartIdx&gt;EndIdx表明oldCh和newCh至少有一个已经遍历完了，就会结束比较。<br>当oldStartVnode，newStartVnode值得比较<br>当oldEndVnode，newEndVnode值得比较<br>当oldStartVnode，newEndVnode值得比较，说明oldStartVnode.el跑到oldEndVnode.el的后边了。<br>当oldEndVnode，newStartVnode值得比较，oldEndVnode.el跑到了oldStartVnode.el的前边，准确的说应该是oldEndVnode.el需要移动到oldStartVnode.el的前边”。</p>
+<h3 id="key的作用"><a href="#key的作用" class="headerlink" title="key的作用"></a>key的作用</h3><p>设置key和不设置key的区别：<br>不设key，newCh和oldCh只会进行头尾两端的相互比较，设key后，除了头尾两端的比较外，还会从用key生成的对象oldKeyToIdx中查找匹配的节点，所以为节点设置key可以更高效的利用dom。</p>
+<p><img src="/picture/vue-diff/key值.jpg" alt="是否设置key"><br>使用key来给每个节点做一个唯一标识，Diff算法就可以正确的识别此节点，找到正确的位置区插入新的节点。<br>vue中在使用相同标签名元素的过渡切换时，也会使用到key属性，其目的也是为了让vue可以区分它们，否则vue只会替换其内部属性而不会触发过渡效果</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://Q-Quiet.github.io/2021/03/06/vue-diff/" data-id="cklxx2ue6003014uptoj752xx" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vue/">vue</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-vue-NextTick" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2021/03/06/vue-NextTick/" class="article-date">
@@ -99,7 +160,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/03/06/vue-NextTick/" data-id="cklxt5m7n002ftoupxb5atduq" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2021/03/06/vue-NextTick/" data-id="cklxx2ueb003514up7oumlr3x" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vue/">vue</a></li></ul>
@@ -147,7 +208,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/03/04/强缓存-协商缓存/" data-id="cklxt5m850031toupgf0g5a7o" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2021/03/04/强缓存-协商缓存/" data-id="cklxx2ued003814upe0el6axz" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/计网/">计网</a></li></ul>
@@ -200,7 +261,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/03/02/ES6-Generator/" data-id="cklxt5m590001toupyy9yhu0w" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2021/03/02/ES6-Generator/" data-id="cklxx2u99000114upeaf116un" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ES6/">ES6</a></li></ul>
@@ -247,7 +308,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/03/02/ES6-Iterator-for-of/" data-id="cklxt5m510000toupww03qqzc" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2021/03/02/ES6-Iterator-for-of/" data-id="cklxx2u9l000914up7udi7r84" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ES6/">ES6</a></li></ul>
@@ -293,7 +354,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/03/02/js-常见的几种遍历/" data-id="cklxt5m75001ytoupgxyvllbj" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2021/03/02/js-常见的几种遍历/" data-id="cklxx2uda002614uphxp87ox5" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
@@ -339,7 +400,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/03/01/js-深浅拷贝/" data-id="cklxt5m7f0025toup6sqrfp3o" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2021/03/01/js-深浅拷贝/" data-id="cklxx2udp002k14upv8jysdy0" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
@@ -395,7 +456,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/03/01/ES6-Promise/" data-id="cklxt5m5f0004toupppxhuvmo" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2021/03/01/ES6-Promise/" data-id="cklxx2u9r000e14uptdr27hff" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ES6/">ES6</a></li></ul>
@@ -436,7 +497,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/03/01/ES6-Reflect/" data-id="cklxt5m5g0005touprovod6tw" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2021/03/01/ES6-Reflect/" data-id="cklxx2u9e000314upjtzty1ml" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ES6/">ES6</a></li></ul>
@@ -487,61 +548,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/02/28/ES6-Proxy/" data-id="cklxt5m5d0003toup2o42fyml" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ES6/">ES6</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-ES6-解构赋值" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2021/02/28/ES6-解构赋值/" class="article-date">
-  <time datetime="2021-02-28T09:51:11.000Z" itemprop="datePublished">2021-02-28</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/02/28/ES6-解构赋值/">ES6-解构赋值</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="什么是解构赋值？"><a href="#什么是解构赋值？" class="headerlink" title="什么是解构赋值？"></a>什么是解构赋值？</h3><p>解构赋值给我们一种新的变量赋值方式，主要可以利用数组解构赋值和对象解构赋值。 它的用途包括：交换变量值，提取函数返回值，函数参数定义，默认值设定等等。<br>1.交换变量的值<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> x = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">let</span> y = <span class="number">2</span>;</span><br><span class="line">[x, y] = [y, x];</span><br></pre></td></tr></table></figure></p>
-<p>2.从函数返回多个值<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">example</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>];</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> [a, b, c] = example();</span><br></pre></td></tr></table></figure></p>
-<p>3.函数参数的定义<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 参数是一组无次序的值</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params">&#123;x, y, z&#125;</span>) </span>&#123; ... &#125;</span><br><span class="line">f(&#123;<span class="attr">z</span>: <span class="number">3</span>, <span class="attr">y</span>: <span class="number">2</span>, <span class="attr">x</span>: <span class="number">1</span>&#125;);</span><br></pre></td></tr></table></figure></p>
-<p>4.提取json数据<br>5.函数参数的默认值<br>6.遍历Map结构<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> map = <span class="keyword">new</span> <span class="built_in">Map</span>();</span><br><span class="line">map.set(<span class="string">'first'</span>, <span class="string">'hello'</span>);</span><br><span class="line">map.set(<span class="string">'second'</span>, <span class="string">'world'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> [key, value] <span class="keyword">of</span> map) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(key + <span class="string">" is "</span> + value);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// first is hello</span></span><br><span class="line"><span class="comment">// second is world</span></span><br></pre></td></tr></table></figure></p>
-<p>7.输入模块的指定方法<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> &#123; SourceMapConsumer, SourceNode &#125; = <span class="built_in">require</span>(<span class="string">"source-map"</span>);</span><br></pre></td></tr></table></figure></p>
-<h3 id="数组默认值"><a href="#数组默认值" class="headerlink" title="数组默认值"></a>数组默认值</h3><p>如果默认值是一个表达式，那么这个表达式是惰性求值的，即只有在用到的时候，才会求值。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'aaa'</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> [x = f()] = [<span class="number">1</span>];</span><br></pre></td></tr></table></figure></p>
-<p>因为x能取到值，所以函数f根本不会执行</p>
-<p>只有当一个数组成员严格等于undefined，默认值才会生效。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> [x = <span class="number">1</span>] = [<span class="literal">undefined</span>];</span><br><span class="line">x <span class="comment">// 1</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> [x = <span class="number">1</span>] = [<span class="literal">null</span>];</span><br><span class="line">x <span class="comment">// null</span></span><br></pre></td></tr></table></figure></p>
-<p>对象的解构与数组有一个重要的不同。数组的元素是按次序排列的，变量的取值由它的位置决定；而对象的属性没有次序，变量必须与属性同名，才能取到正确的值。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> &#123; <span class="attr">foo</span>: baz &#125; = &#123; <span class="attr">foo</span>: <span class="string">'aaa'</span>, <span class="attr">bar</span>: <span class="string">'bbb'</span> &#125;;</span><br><span class="line">baz <span class="comment">// "aaa"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> obj = &#123; <span class="attr">first</span>: <span class="string">'hello'</span>, <span class="attr">last</span>: <span class="string">'world'</span> &#125;;</span><br><span class="line"><span class="keyword">let</span> &#123; <span class="attr">first</span>: f, <span class="attr">last</span>: l &#125; = obj;</span><br><span class="line">f <span class="comment">// 'hello'</span></span><br><span class="line">l <span class="comment">// 'world'</span></span><br></pre></td></tr></table></figure></p>
-<p>如果p也要作为变量赋值，可以写成下面这样。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> obj = &#123;</span><br><span class="line">  p: [</span><br><span class="line">    <span class="string">'Hello'</span>,</span><br><span class="line">    &#123; <span class="attr">y</span>: <span class="string">'World'</span> &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> &#123; p, <span class="attr">p</span>: [x, &#123; y &#125;] &#125; = obj;</span><br><span class="line">x <span class="comment">// "Hello"</span></span><br><span class="line">y <span class="comment">// "World"</span></span><br><span class="line">p <span class="comment">// ["Hello", &#123;y: "World"&#125;]</span></span><br></pre></td></tr></table></figure></p>
-<p>默认值生效的条件是，对象的属性值严格等于undefined。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> &#123;x = <span class="number">3</span>&#125; = &#123;<span class="attr">x</span>: <span class="literal">undefined</span>&#125;;</span><br><span class="line">x <span class="comment">// 3</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> &#123;x = <span class="number">3</span>&#125; = &#123;<span class="attr">x</span>: <span class="literal">null</span>&#125;;</span><br><span class="line">x <span class="comment">// null</span></span><br></pre></td></tr></table></figure></p>
-<h2 id="注意点"><a href="#注意点" class="headerlink" title="注意点"></a>注意点</h2><p>将一个已经声明的变量用于解构赋值，只有不将大括号写在行首，避免 JavaScript 将其解释为代码块，才能解决这个问题。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 错误的写法</span></span><br><span class="line"><span class="keyword">let</span> x;</span><br><span class="line">&#123;x&#125; = &#123;<span class="attr">x</span>: <span class="number">1</span>&#125;;</span><br><span class="line"><span class="comment">// SyntaxError: syntax error</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 正确的写法</span></span><br><span class="line"><span class="keyword">let</span> x;</span><br><span class="line">(&#123;x&#125; = &#123;<span class="attr">x</span>: <span class="number">1</span>&#125;);</span><br></pre></td></tr></table></figure></p>
-<p>解构赋值允许等号左边的模式之中，不放置任何变量名。虽然毫无意义，但是语法是合法的，可以执行。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">(&#123;&#125; = [<span class="literal">true</span>, <span class="literal">false</span>]);</span><br><span class="line">(&#123;&#125; = <span class="string">'abc'</span>);</span><br><span class="line">(&#123;&#125; = []);</span><br></pre></td></tr></table></figure></p>
-<p>由于数组本质是特殊的对象，因此可以对数组进行对象属性的解构。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> arr = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>];</span><br><span class="line"><span class="keyword">let</span> &#123;<span class="number">0</span> : first, [arr.length - <span class="number">1</span>] : last&#125; = arr;</span><br><span class="line">first <span class="comment">// 1</span></span><br><span class="line">last <span class="comment">// 3</span></span><br></pre></td></tr></table></figure></p>
-<p>可以使用圆括号的情况<br>只有一种：赋值语句的非模式部分，可以使用圆括号。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[(b)] = [<span class="number">3</span>]; <span class="comment">// 正确</span></span><br><span class="line">(&#123; <span class="attr">p</span>: (d) &#125; = &#123;&#125;); <span class="comment">// 正确</span></span><br><span class="line">[(<span class="built_in">parseInt</span>.prop)] = [<span class="number">3</span>]; <span class="comment">// 正确</span></span><br></pre></td></tr></table></figure></p>
-<p>上面三行语句都可以正确执行，因为首先它们都是赋值语句，而不是声明语句；其次它们的圆括号都不属于模式的一部分。第一行语句中，模式是取数组的第一个成员，跟圆括号无关；第二行语句中，模式是p，而不是d；第三行语句与第一行语句的性质一致。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/02/28/ES6-解构赋值/" data-id="cklxt5m5q000dtoupkruuk31z" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2021/02/28/ES6-Proxy/" data-id="cklxx2u9g000414ups4q9552c" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ES6/">ES6</a></li></ul>
@@ -581,7 +588,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/tags/ES6/" style="font-size: 16.67px;">ES6</a> <a href="/tags/Vue/" style="font-size: 10px;">Vue</a> <a href="/tags/css/" style="font-size: 15px;">css</a> <a href="/tags/es6/" style="font-size: 18.33px;">es6</a> <a href="/tags/js/" style="font-size: 20px;">js</a> <a href="/tags/ts/" style="font-size: 13.33px;">ts</a> <a href="/tags/vue/" style="font-size: 11.67px;">vue</a> <a href="/tags/浏览器/" style="font-size: 15px;">浏览器</a> <a href="/tags/计网/" style="font-size: 11.67px;">计网</a>
+      <a href="/tags/ES6/" style="font-size: 17.14px;">ES6</a> <a href="/tags/Vue/" style="font-size: 10px;">Vue</a> <a href="/tags/css/" style="font-size: 15.71px;">css</a> <a href="/tags/es6/" style="font-size: 18.57px;">es6</a> <a href="/tags/js/" style="font-size: 20px;">js</a> <a href="/tags/ts/" style="font-size: 14.29px;">ts</a> <a href="/tags/vue/" style="font-size: 12.86px;">vue</a> <a href="/tags/浏览器/" style="font-size: 15.71px;">浏览器</a> <a href="/tags/计网/" style="font-size: 11.43px;">计网</a>
     </div>
   </div>
 
@@ -603,6 +610,10 @@
       <ul>
         
           <li>
+            <a href="/2021/03/06/vue-diff/">vue-diff</a>
+          </li>
+        
+          <li>
             <a href="/2021/03/06/vue-NextTick/">vue-NextTick</a>
           </li>
         
@@ -616,10 +627,6 @@
         
           <li>
             <a href="/2021/03/02/ES6-Iterator-for-of/">ES6-Iterator--for-of</a>
-          </li>
-        
-          <li>
-            <a href="/2021/03/02/js-常见的几种遍历/">js-常见的几种遍历</a>
           </li>
         
       </ul>

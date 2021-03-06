@@ -68,6 +68,53 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-js-垃圾回收机制" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2021/01/03/js-垃圾回收机制/" class="article-date">
+  <time datetime="2021-01-03T15:29:56.000Z" itemprop="datePublished">2021-01-03</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/01/03/js-垃圾回收机制/">js-垃圾回收机制</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>垃圾回收基于两个原理：<br>考虑某个变量或对象在未来的程序运行中将不会被访问、<br>向这些对象要求归还内存<br>V8的垃圾回收策略基于分代回收机制，该机制又基于世代假说。该假说有两个特点：<br>大部分新生对象倾向于早死；<br>不死的对象，会活得更久。<br>V8的内存分代<br>在V8中，将内存分为了新生代（new space）和老生代（old space）。它们特点如下：<br>新生代：对象的存活时间较短。新生对象或只经过一次垃圾回收的对象。<br>老生代：对象存活时间较长。经历过一次或多次垃圾回收的对象。<br>V8堆的空间等于新生代空间加上老生代空间。<br>我们可以通过 –max-old-space-size命令设置老生代空间的最大值，–max-new-space-size 命令设置新生代空间的最大值。老生代与新生代的空间大小在程序初始化时设置，一旦生效则不能动态改变。<br>node –max-old-space-size=1700 test.js // 单位为 MB<br>node –max-new-space-size=1024 test.js // 单位为KB</p>
+<p>默认设置下，64位系统的老生代大小为1400M，32位系统为700M。<br>内部算法主要有两种方式：引用计数和标记清除。<br>引用计数（reference counting）<br>在内存管理环境中，对象 A 如果有访问对象 B 的权限，叫做对象 A 引用对象 B。引用计数的策略是将“对象是否不再需要”简化成“对象有没有其他对象引用到它”，如果没有对象引用这个对象，那么这个对象将会被回收。<br>let obj1 = { a: 1 }; // 一个对象（称之为 A）被创建，赋值给 obj1，A 的引用个数为 1<br>let obj2 = obj1; // A 的引用个数变为 2</p>
+<p>obj1 = 0; // A 的引用个数变为 1<br>obj2 = 0; // A 的引用个数变为 0，此时对象 A 就可以被垃圾回收了</p>
+<p>引用计数的问题：循环引用<br>function func() {<br>    let obj1 = {};<br>    let obj2 = {};<br>    obj1.a = obj2;// obj1 引用 obj2<br>    obj2.a = obj1;// obj2 引用 obj1<br>}</p>
+<p>当函数 func 执行结束后，返回值为 undefined，所以整个函数以及内部的变量都应该被回收，但根据引用计数方法，obj1 和 obj2 的引用次数都不为 0，所以他们不会被回收。<br>所以只能是在不使用他们的时候手动将他们设置为空。<br>标记-清除<br>基本的垃圾回收算法称为“标记-清除”，定期执行以下“垃圾回收”步骤:<br>垃圾回收器获取根并“标记”(记住)它们。<br>然后它访问并“标记”所有来自它们的引用。<br>然后它访问标记的对象并标记它们的引用。所有被访问的对象都被记住，以便以后不再访问同一个对象两次。<br>以此类推，直到有未访问的引用(可以从根访问)为止。<br>除标记的对象外，所有对象都被删除。<br>标记清除有一个问题，就是在清除之后，内存空间是不连续的，即出现了内存碎片。<br>一些优化:<br>分代回收——对象分为两组:“新对象”和“旧对象”。许多对象出现，完成它们的工作并迅速结 ，它们很快就会被清理干净。那些活得足够久的对象，会变“老”，并且很少接受检查。<br>增量回收——如果有很多对象，并且我们试图一次遍历并标记整个对象集，那么可能会花费一些时间，并在执行中会有一定的延迟。因此，引擎试图将垃圾回收分解为多个部分。然后，各个部分分别执行。这需要额外的标记来跟踪变化，这样有很多微小的延迟，而不是很大的延迟。<br>空闲时间收集——垃圾回收器只在 CPU 空闲时运行，以减少对执行的可能影响。<br>内存泄漏<br>内存泄漏是指计算机可用的内存越来越少，主要是因为程序不能释放那些不再使用的内存。<br>循环引用<br>最好通过将其值设为 null 来释放其引用，这个方法被称为“解除引用”。<br>无意的全局变量<br>那么不会回收<br>被遗忘的计时器和回调函数<br>let someResource = getData();<br>setInterval(() =&gt; {<br>    const node = document.getElementById(‘Node’);<br>    if(node) {<br>        node.innerHTML = JSON.stringify(someResource));<br>    }<br>}, 1000);</p>
+<p>当不需要 interval 或者 timeout 时，最好调用 clearInterval 或者 clearTimeout。<br>DOM<br>在 IE8 以下的版本里，DOM 对象经常会跟 JavaScript 之间产生循环引用。<br>function setHandler() {<br>    const ele = document.getElementById(‘id’);<br>    ele.onclick = function() {};<br>}</p>
+<p>DOM 对象通过 onclick 引用了一个函数，然而这个函数通过外部的词法环境引用了这个 DOM 对象，形成了循环引用。不过现在不必担心，因为所有现代浏览器都采用了标记－整理方法，避免了循环引用的问题。<br>当我们需要多次访问同一个 DOM 元素时，一个好的做法是将 DOM 元素用一个变量存储在内存中，因为访问 DOM 的效率一般比较低，应该避免频繁地反问 DOM 元素。所以我们会这样写：<br>const button = document.getElementById(‘button’);</p>
+<p>document.body.removeChild(document.getElementById(‘button’));</p>
+<p>虽然这样看起来删除了这个 DOM 元素，但这个 DOM 元素仍然被 button 这个变量引用，所以在内存上，这个 DOM 元素是没法被回收的。所以在使用结束后，还需要将 button 设成 null。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://Q-Quiet.github.io/2021/01/03/js-垃圾回收机制/" data-id="cklxx2udc002814up9rkvipsr" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-缓存机制" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2020/12/30/缓存机制/" class="article-date">
@@ -104,7 +151,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/12/30/缓存机制/" data-id="cklxt5m890036toupxhcxkd4e" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/12/30/缓存机制/" data-id="cklxx2uej003f14upc5lst4hu" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/浏览器/">浏览器</a></li></ul>
@@ -153,7 +200,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/12/29/js的几种模块规范/" data-id="cklxt5m7h0028touprhukt62r" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/12/29/js的几种模块规范/" data-id="cklxx2udv002q14upfal5ruyx" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
@@ -270,7 +317,7 @@ cookieDomainRewrite: &apos;www.domain1.com&apos;  // 可以为false，表示不�
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/12/28/浏览器的同源政策及其规避方法/" data-id="cklxt5m93003stoup2rp9sn2k" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/12/28/浏览器的同源政策及其规避方法/" data-id="cklxx2uey003w14up4icvan37" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/浏览器/">浏览器</a></li></ul>
@@ -311,7 +358,7 @@ cookieDomainRewrite: &apos;www.domain1.com&apos;  // 可以为false，表示不�
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/12/26/js-原型-原型链/" data-id="cklxt5m6u001ltoupgonivtpb" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/12/26/js-原型-原型链/" data-id="cklxx2ud8002414upk6vs3oqr" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
@@ -366,7 +413,7 @@ cookieDomainRewrite: &apos;www.domain1.com&apos;  // 可以为false，表示不�
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/12/25/js-转换规则/" data-id="cklxt5m7d0023toupwm34j5wl" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/12/25/js-转换规则/" data-id="cklxx2udr002m14uparagv5we" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
@@ -429,7 +476,7 @@ cookieDomainRewrite: &apos;www.domain1.com&apos;  // 可以为false，表示不�
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/12/24/js-事件委托/" data-id="cklxt5m6i0017toupxccsu7ca" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/12/24/js-事件委托/" data-id="cklxx2ucx001s14upjzp023mz" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
@@ -482,7 +529,7 @@ cookieDomainRewrite: &apos;www.domain1.com&apos;  // 可以为false，表示不�
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/12/22/js-创建对象的几种方法/" data-id="cklxt5m6j0019toupxz44jl9i" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/12/22/js-创建对象的几种方法/" data-id="cklxx2ud3001y14up319bnmp0" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
@@ -527,7 +574,7 @@ cookieDomainRewrite: &apos;www.domain1.com&apos;  // 可以为false，表示不�
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/12/21/js-undefined/" data-id="cklxt5m6s001jtoupcmjfaxun" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/12/21/js-undefined/" data-id="cklxx2uba001814upsihzdumt" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
@@ -567,54 +614,7 @@ cookieDomainRewrite: &apos;www.domain1.com&apos;  // 可以为false，表示不�
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/12/21/js-有哪些对象/" data-id="cklxt5m7a0020toupridvce12" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-js-内部属性-class" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/12/20/js-内部属性-class/" class="article-date">
-  <time datetime="2020-12-20T15:20:59.000Z" itemprop="datePublished">2020-12-20</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/12/20/js-内部属性-class/">js-内部属性[[class]]</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>对象内部属性[[class]]<br>所有typeof返回值为“object”的对象（如数组）都包含一个内部属性[[class]]，这个属性无法直接访问，一般通过Object.prototype.toString(..)来查看。<br>console.log(Object.prototype.toString.call([1,2,3]));<br>console.log(Object.prototype.toString.call(/regex-literal/i));</p>
-<p>//[object Array]<br>//[object RegExp]</p>
-<p>数组的内部[[class]]属性值是”Array”,正则表达式是”RegExp”,多数情况下,对象的内部[[class]]属性和创建该对象的内建原生构造函数相对应,但并非总是如此。<br>基本数值类型<br>console.log(Object.prototype.toString.call(null))<br>console.log(Object.prototype.toString.call(undefined))</p>
-<p>//[object Null]<br>//[object Undefined]</p>
-<p>虽然Null()和Undefined()这样的原生构造函数并不存在,但是内部[[class]]属性值仍然是”Null”和”Undefined”.<br>其他基本类型值<br>其他基本类型值<br>console.log(Object.prototype.toString.call(“abc”))<br>console.log(Object.prototype.toString.call(123))<br>console.log(Object.prototype.toString.call(123))</p>
-<p>//[object String]<br>//[object Number]<br>//[object Boolean]</p>
-<p>基本类型值被各自的封装对象自动包装,所以他们的内部[[class]]属性值分别为”String”,”Number”和”Boolean”<br>封装对象包装<br>由于基本类型值没有.length 和 .toString()这样的属性和方法,需要通过封装对象才能访问,此时JavaScript会自动为基本类型值包装一个封装对象;<br>var a = “abc”<br>console.log(a.length)  //3<br>console.log(a.toUpperCase());  //ABC</p>
-<p>一般情况下,我们不需要直接使用封装对象,最好的办法是让JavaScript引擎自己决定什么时候使用封装对象,如优先考虑使用”abc”和123这样的基本类型值,而不是new String(“abc”)和new String(123)<br>拆封<br>如果想要得到封装对象中的基本类型值,可以使用valueOf()函数:<br>var a = new String(“abc”)<br>var b = new Number(123)<br>var c = new Boolean(true)</p>
-<p>a.valueOf()  // abc<br>b.valueOf()  // 123<br>c.valueOf()  // true</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/12/20/js-内部属性-class/" data-id="cklxt5m6n001dtoup4a92ymsv" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2020/12/21/js-有哪些对象/" data-id="cklxx2udi002e14uph57mp6hh" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
@@ -654,7 +654,7 @@ cookieDomainRewrite: &apos;www.domain1.com&apos;  // 可以为false，表示不�
   <div class="widget-wrap">
     <h3 class="widget-title">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/tags/ES6/" style="font-size: 16.67px;">ES6</a> <a href="/tags/Vue/" style="font-size: 10px;">Vue</a> <a href="/tags/css/" style="font-size: 15px;">css</a> <a href="/tags/es6/" style="font-size: 18.33px;">es6</a> <a href="/tags/js/" style="font-size: 20px;">js</a> <a href="/tags/ts/" style="font-size: 13.33px;">ts</a> <a href="/tags/vue/" style="font-size: 11.67px;">vue</a> <a href="/tags/浏览器/" style="font-size: 15px;">浏览器</a> <a href="/tags/计网/" style="font-size: 11.67px;">计网</a>
+      <a href="/tags/ES6/" style="font-size: 17.14px;">ES6</a> <a href="/tags/Vue/" style="font-size: 10px;">Vue</a> <a href="/tags/css/" style="font-size: 15.71px;">css</a> <a href="/tags/es6/" style="font-size: 18.57px;">es6</a> <a href="/tags/js/" style="font-size: 20px;">js</a> <a href="/tags/ts/" style="font-size: 14.29px;">ts</a> <a href="/tags/vue/" style="font-size: 12.86px;">vue</a> <a href="/tags/浏览器/" style="font-size: 15.71px;">浏览器</a> <a href="/tags/计网/" style="font-size: 11.43px;">计网</a>
     </div>
   </div>
 
@@ -676,6 +676,10 @@ cookieDomainRewrite: &apos;www.domain1.com&apos;  // 可以为false，表示不�
       <ul>
         
           <li>
+            <a href="/2021/03/06/vue-diff/">vue-diff</a>
+          </li>
+        
+          <li>
             <a href="/2021/03/06/vue-NextTick/">vue-NextTick</a>
           </li>
         
@@ -689,10 +693,6 @@ cookieDomainRewrite: &apos;www.domain1.com&apos;  // 可以为false，表示不�
         
           <li>
             <a href="/2021/03/02/ES6-Iterator-for-of/">ES6-Iterator--for-of</a>
-          </li>
-        
-          <li>
-            <a href="/2021/03/02/js-常见的几种遍历/">js-常见的几种遍历</a>
           </li>
         
       </ul>
