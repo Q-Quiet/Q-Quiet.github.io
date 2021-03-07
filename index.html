@@ -68,6 +68,91 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-vue-extend-extends" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2021/03/07/vue-extend-extends/" class="article-date">
+  <time datetime="2021-03-07T08:34:58.000Z" itemprop="datePublished">2021-03-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/03/07/vue-extend-extends/">vue-extend-extends</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Extend"><a href="#Extend" class="headerlink" title="Extend"></a>Extend</h2><p>使用基础 Vue 构造器，创建一个“子类”。参数是一个包含组件选项的对象。<br>data 选项是特例，需要注意 - 在 Vue.extend() 中它必须是函数。<br>data必须是函数是为了防止各个实例的数据混乱，闭包的应用。</p>
+<h3 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h3><p>1.基础用法<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id=<span class="string">"mount-point"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="comment">// 创建构造器</span></span><br><span class="line"><span class="keyword">var</span> Profile = Vue.extend(&#123;</span><br><span class="line">  template: <span class="string">'&lt;p&gt;&#123;&#123;firstName&#125;&#125; &#123;&#123;lastName&#125;&#125; aka &#123;&#123;alias&#125;&#125;&lt;/p&gt;'</span>,</span><br><span class="line">  data: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      firstName: <span class="string">'Walter'</span>,</span><br><span class="line">      lastName: <span class="string">'White'</span>,</span><br><span class="line">      alias: <span class="string">'Heisenberg'</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">// 创建 Profile 实例，并挂载到一个元素上。</span></span><br><span class="line"><span class="keyword">new</span> Profile().$mount(<span class="string">'#mount-point'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 结果如下：</span></span><br><span class="line">&lt;p&gt;Walter White aka Heisenberg&lt;<span class="regexp">/p&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>2.在创建实例的时候传入一个元素，生成的组件将会挂载到这个元素上，跟 $mount 差不多。<br>当我们不需要全局去混入一些配置，比如，我们想要获得一个component。我们可以使用Vue.component(),也可以使用Vue.extend()。extend得到的是一个Vue的子类，也就是构造函数。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1. 定义一个vue模版 </span></span><br><span class="line"><span class="keyword">let</span>  tem =&#123;</span><br><span class="line">    template:<span class="string">'&#123;&#123;firstName&#125;&#125; &#123;&#123;lastName&#125;&#125; aka &#123;&#123;alias&#125;&#125;'</span>,</span><br><span class="line">    data:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;    </span><br><span class="line">    <span class="keyword">return</span>&#123;    </span><br><span class="line">	    firstName:<span class="string">'Walter'</span>,   </span><br><span class="line">	    lastName:<span class="string">'White'</span>,    </span><br><span class="line">	    alias:<span class="string">'Heisenberg'</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 2. 调用</span></span><br><span class="line"><span class="keyword">const</span> TemConstructor = Vue.extend(tem) </span><br><span class="line"><span class="keyword">const</span> intance = <span class="keyword">new</span> TemConstructor(&#123;<span class="attr">el</span>:<span class="string">"#app"</span>&#125;) <span class="comment">// 生成一个实例，并且挂载在 #app 上</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="extends"><a href="#extends" class="headerlink" title="extends"></a>extends</h2><p>extends用法和mixins很相似,只不过接收的参数是简单的选项对象或构造函数,所以extends只能单次扩展一个组件。主要是为了便于扩展单文件组件。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">extends:extend</span><br></pre></td></tr></table></figure></p>
+<p>1.extends执行顺序为:extends&gt;mixins&gt;mixinTwo&gt;created<br>2.选项中数据属性如data,methods,后面执行的会覆盖前面的,而生命周期钩子都会执行<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> extend=&#123;</span><br><span class="line">    data:&#123;<span class="attr">extendData</span>:<span class="string">'我是extend的data'</span>&#125;,</span><br><span class="line">    created:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">'这是extend的created'</span>);</span><br><span class="line">    &#125;,</span><br><span class="line">    methods:&#123;</span><br><span class="line">      getSum:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'这是extend的getSum里面的方法'</span>);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">var</span> mixin=&#123;</span><br><span class="line">    data:&#123;<span class="attr">mixinData</span>:<span class="string">'我是mixin的data'</span>&#125;,</span><br><span class="line">    created:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">'这是mixin的created'</span>);</span><br><span class="line">    &#125;,</span><br><span class="line">    methods:&#123;</span><br><span class="line">      getSum:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'这是mixin的getSum里面的方法'</span>);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">    </span><br><span class="line">  <span class="keyword">var</span> vm=<span class="keyword">new</span> Vue(&#123;</span><br><span class="line">    el:<span class="string">'#app'</span>,</span><br><span class="line">    data:&#123;<span class="attr">mixinData</span>:<span class="string">'我是vue实例的data'</span>&#125;,</span><br><span class="line">    created:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">'这是vue实例的created'</span>);</span><br><span class="line">    &#125;,</span><br><span class="line">    methods:&#123;</span><br><span class="line">      getSum:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'这是vue实例里面getSum的方法'</span>);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    mixins:[mixin],</span><br><span class="line">    extends:extend</span><br><span class="line">  &#125;)</span><br><span class="line">  </span><br><span class="line">  <span class="comment">//打印结果</span></span><br><span class="line">  这是extend的created</span><br><span class="line">  这是mixin的created</span><br><span class="line">  这是vue实例的created</span><br><span class="line">  这是vue实例的getSum里面的方法</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://Q-Quiet.github.io/2021/03/07/vue-extend-extends/" data-id="cklywtlw5002tp4upycqt65j0" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vue/">vue</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-vue-mixin-mixins" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2021/03/07/vue-mixin-mixins/" class="article-date">
+  <time datetime="2021-03-07T08:33:16.000Z" itemprop="datePublished">2021-03-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/03/07/vue-mixin-mixins/">vue-mixin和mixins</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="mixin"><a href="#mixin" class="headerlink" title="mixin"></a>mixin</h2><p>用来分发Vue组件中的可复用功能。一个混入对象可以包含任意组件选项。当组件使用混入对象时，所有混入对象的选项将被“混合”进入该组件本身的选项。<br>也可以进行全局注册。mixin只是对我们在初始化Vue实例时传递的配置对象的一个扩展。<br>或者我们想要去监听在什么阶段时什么组件被加载了，被卸载了等等，我们可以这么做：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Vue.mixin(&#123;</span><br><span class="line">     mounted() &#123;</span><br><span class="line">         <span class="built_in">console</span>.log(<span class="string">`<span class="subst">$&#123;<span class="keyword">this</span>.$route.name&#125;</span> component mounted!`</span>)</span><br><span class="line">     &#125;,</span><br><span class="line">     destroyed() &#123;</span><br><span class="line">         <span class="built_in">console</span>.log(<span class="string">`<span class="subst">$&#123;<span class="keyword">this</span>.$route.name&#125;</span> component destroyed!`</span>)</span><br><span class="line">     &#125;</span><br><span class="line"> &#125;)</span><br></pre></td></tr></table></figure></p>
+<p>如果我们并不想给每一个组件实例都混入这些配置options，而只是个别的组件，最好不要使用mixin，它可能会影响到我们组件的性能。</p>
+<h2 id="mixins"><a href="#mixins" class="headerlink" title="mixins"></a>mixins</h2><p>值可以是一个混合对象数组,混合实例可以包含选项,将在extend将相同的选项合并。<br>方法和参数在各组件中不共享<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mixins:[mixin,mixinTwo]</span><br></pre></td></tr></table></figure></p>
+<p>1.mixins执行的顺序为mixins&gt;mixinTwo&gt;created(vue实例的生命周期钩子);<br>2.选项中数据属性如data,methods,后面执行的会覆盖前面的,而生命周期钩子都会执行。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://Q-Quiet.github.io/2021/03/07/vue-mixin-mixins/" data-id="cklywtlwa002xp4upccb01cta" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vue/">vue</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-vue-diff" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2021/03/06/vue-diff/" class="article-date">
@@ -117,7 +202,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/03/06/vue-diff/" data-id="cklxx2ue6003014uptoj752xx" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2021/03/06/vue-diff/" data-id="cklywtlw8002wp4ups7vg8us1" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vue/">vue</a></li></ul>
@@ -160,7 +245,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/03/06/vue-NextTick/" data-id="cklxx2ueb003514up7oumlr3x" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2021/03/06/vue-NextTick/" data-id="cklywtlw2002sp4up8pc3dghq" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vue/">vue</a></li></ul>
@@ -208,7 +293,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/03/04/强缓存-协商缓存/" data-id="cklxx2ued003814upe0el6axz" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2021/03/04/强缓存-协商缓存/" data-id="cklywtlwj0035p4upmpfbiowd" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/计网/">计网</a></li></ul>
@@ -261,7 +346,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/03/02/ES6-Generator/" data-id="cklxx2u99000114upeaf116un" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2021/03/02/ES6-Generator/" data-id="cklywtlsj0001p4uphbmf0ofk" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ES6/">ES6</a></li></ul>
@@ -308,7 +393,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/03/02/ES6-Iterator-for-of/" data-id="cklxx2u9l000914up7udi7r84" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2021/03/02/ES6-Iterator-for-of/" data-id="cklywtlsd0000p4upk3mohpdl" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ES6/">ES6</a></li></ul>
@@ -354,7 +439,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/03/02/js-常见的几种遍历/" data-id="cklxx2uda002614uphxp87ox5" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2021/03/02/js-常见的几种遍历/" data-id="cklywtlvc0027p4up2in8no7i" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
@@ -400,7 +485,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/03/01/js-深浅拷贝/" data-id="cklxx2udp002k14upv8jysdy0" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2021/03/01/js-深浅拷贝/" data-id="cklywtlvj002dp4up9g6i260t" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
@@ -456,99 +541,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/03/01/ES6-Promise/" data-id="cklxx2u9r000e14uptdr27hff" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ES6/">ES6</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-ES6-Reflect" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2021/03/01/ES6-Reflect/" class="article-date">
-  <time datetime="2021-03-01T08:02:19.000Z" itemprop="datePublished">2021-03-01</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/03/01/ES6-Reflect/">ES6-Reflect</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Reflect 是一个内置的对象，它提供拦截JavaScript 操作的方法。这些方法与proxy handlers的方法相同。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> exam = &#123;</span><br><span class="line">    name: <span class="string">"Tom"</span>,</span><br><span class="line">    age: <span class="number">24</span>,</span><br><span class="line">    <span class="keyword">get</span> info()&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.name + <span class="keyword">this</span>.age;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">Reflect</span>.get(exam, <span class="string">'name'</span>); <span class="comment">// "Tom"</span></span><br><span class="line"> </span><br><span class="line"><span class="comment">// 当 target 对象中存在 name 属性的 getter 方法， getter 方法的 this 会绑定 // receiver</span></span><br><span class="line"><span class="keyword">let</span> receiver = &#123;</span><br><span class="line">    name: <span class="string">"Jerry"</span>,</span><br><span class="line">    age: <span class="number">20</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">Reflect</span>.get(exam, <span class="string">'info'</span>, receiver); <span class="comment">// Jerry20</span></span><br></pre></td></tr></table></figure></p>
-<h2 id="区别："><a href="#区别：" class="headerlink" title="区别："></a>区别：</h2><p>Proxy的函数负责的是：拦截并定义拦截时具体的操作；<br>Reflect的静态函数负责的是：最终执行对象的操作<br>栗子：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> obj = &#123;</span><br><span class="line">  a: <span class="string">'1'</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> handler = &#123;</span><br><span class="line">  <span class="comment">//下一行中的set是Proxy支持的操作，意思是需要拦截target的设置值的操作，</span></span><br><span class="line">  <span class="comment">//同时定义了设置值操作被拦截后会执行的操作，本例中就是输出‘set’,然后执行Reflect.set函数</span></span><br><span class="line">  <span class="keyword">set</span>(target, key, value, receiver) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"set"</span>);</span><br><span class="line">    <span class="comment">//下一行执行的是Reflect的set函数，是它最终执行了对target对象属性的操作。</span></span><br><span class="line">    <span class="built_in">Reflect</span>.set(target, key, <span class="number">100</span>, receiver)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> objProxy = <span class="keyword">new</span> <span class="built_in">Proxy</span>(obj, handler);</span><br><span class="line">objProxy.a = <span class="string">'2'</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(objProxy.a);    <span class="comment">//set,100</span></span><br><span class="line">obj.a=<span class="number">10</span>;</span><br><span class="line"><span class="built_in">console</span>.log(objProxy.a);    <span class="comment">//10</span></span><br></pre></td></tr></table></figure></p>
-<p>Reflect对象一共有 13 个静态方法。<br>Reflect.apply(target, thisArg, args)<br>Reflect.construct(target, args)<br>Reflect.get(target, name, receiver)<br>Reflect.set(target, name, value, receiver)<br>Reflect.defineProperty(target, name, desc)<br>Reflect.deleteProperty(target, name)<br>Reflect.has(target, name)<br>Reflect.ownKeys(target)<br>Reflect.isExtensible(target)<br>Reflect.preventExtensions(target)<br>Reflect.getOwnPropertyDescriptor(target, name)<br>Reflect.getPrototypeOf(target)<br>Reflect.setPrototypeOf(target, prototype)<br>上面这些方法的作用，大部分与Object对象的同名方法的作用都是相同的，而且它与Proxy对象的方法是一一对应的。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/03/01/ES6-Reflect/" data-id="cklxx2u9e000314upjtzty1ml" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ES6/">ES6</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-ES6-Proxy" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2021/02/28/ES6-Proxy/" class="article-date">
-  <time datetime="2021-02-28T13:02:50.000Z" itemprop="datePublished">2021-02-28</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/02/28/ES6-Proxy/">ES6-Proxy</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>用于创建一个对象的代理，从而实现基本操作的拦截和自定义。Proxy 不仅是拦截了行为，更是用自己定义的行为覆盖了组件的原始行为。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> proxy = <span class="keyword">new</span> <span class="built_in">Proxy</span>(target, handler);</span><br></pre></td></tr></table></figure></p>
-<p>target参数表示所要拦截的目标对象，<br>如果target为{},表示操作原来要访问的就是这个对象<br>handler参数也是一个对象，用来定制拦截行为。</p>
-<p>如果handler没有设置任何拦截，那就等同于直接通向原对象。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> target = &#123;&#125;;</span><br><span class="line"><span class="keyword">var</span> handler = &#123;&#125;;</span><br><span class="line"><span class="keyword">var</span> proxy = <span class="keyword">new</span> <span class="built_in">Proxy</span>(target, handler);</span><br><span class="line">proxy.a = <span class="string">'b'</span>;</span><br><span class="line">target.a <span class="comment">// "b"</span></span><br><span class="line">handler是一个空对象，没有任何拦截效果，访问proxy就等同于访问target。</span><br></pre></td></tr></table></figure></p>
-<h2 id="Proxy-对比-defineProperty"><a href="#Proxy-对比-defineProperty" class="headerlink" title="Proxy 对比 defineProperty"></a>Proxy 对比 defineProperty</h2><ol>
-<li>Object.defineProperty只能监听到对象属性的读取或者是写入，而Proxy除读写外还可以监听对象中属性的删除，对对象当中方法的调用等等。</li>
-<li>对于数组对象进行监视，通常我们通过Object.defineProperty监视数组的变化，基本要依靠重写数组方法。而可以直接使用Proxy对象来对数组进行监视。定义一个list数组，然后对这个list数组进行Proxy监视。</li>
-</ol>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> list = [];</span><br><span class="line"><span class="keyword">const</span> listproxy = <span class="keyword">new</span> <span class="built_in">Proxy</span>(list,&#123;</span><br><span class="line">    <span class="keyword">set</span>(target,property,value) &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(target, property, value);</span><br><span class="line">        target[property] = value;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line">listproxy.push(<span class="number">100</span>);</span><br></pre></td></tr></table></figure>
-<ol start="3">
-<li>Proxy是以非入侵的方式监管了对象的读写，那也就是说一个已经定义好的对象我们不需要对对象本身去做任何的操作，就可以监视到他内部成员的读写，而defineProperty的方式就要求我们必须按特定的方式单独去定义对象当中那些被监视的属性。</li>
-</ol>
-<h3 id="proxy拦截get和set操作"><a href="#proxy拦截get和set操作" class="headerlink" title="proxy拦截get和set操作"></a>proxy拦截get和set操作</h3><p>示例代码如下：receiver，指的是原始的操作行为所在的那个对象，一般情况下是proxy实例本身。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> handler = &#123;</span><br><span class="line">    <span class="keyword">get</span>: function(target, key, receiver) &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">`getter <span class="subst">$&#123;key&#125;</span>!`</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">Reflect</span>.get(target, key, receiver)</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="keyword">set</span>: function(target, key, value, receiver) &#123;</span><br><span class="line">    	<span class="built_in">console</span>.log(<span class="string">`setter <span class="subst">$&#123;key&#125;</span>=<span class="subst">$&#123;value&#125;</span>`</span>)</span><br><span class="line">		<span class="keyword">return</span> <span class="built_in">Reflect</span>.set(target, key, value, receiver)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> obj = <span class="keyword">new</span> <span class="built_in">Proxy</span>(&#123;&#125;, handler)</span><br><span class="line">obj.a = <span class="number">1</span>          <span class="comment">// setter a=1</span></span><br><span class="line">obj.b = <span class="literal">undefined</span>  <span class="comment">// setter b=undefined</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(obj.a, obj.b) </span><br><span class="line"><span class="comment">// getter a!</span></span><br><span class="line"><span class="comment">// getter b!</span></span><br><span class="line"><span class="comment">// 1 undefined</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'c'</span> <span class="keyword">in</span> obj, obj.c)	</span><br><span class="line"><span class="comment">// getter c!</span></span><br><span class="line"><span class="comment">// false undefined</span></span><br></pre></td></tr></table></figure></p>
-<h2 id="Proxy-handle方法"><a href="#Proxy-handle方法" class="headerlink" title="Proxy handle方法"></a>Proxy handle方法</h2><p>1、get(target, key, receiver)：拦截 target 属性的读取<br>2、set(target, key, value, receiver)：拦截 target 属性的设置<br>3、has(target, key)：拦截 key in proxy 的操作，并返回是否存在（boolean值）<br>4、deleteProperty(target, key)：拦截 delete proxy[key]的操作，并返回结果（boolean值）<br>5、ownKeys(target)：拦截Object.getOwnPropertyName(proxy)、Object.getOwnPropertySymbols(proxy)、Object.keys(proxy)、for … in循环。并返回目标对象所有自身属性的属性名数组。注意：Object.keys()的返回结果数组中只包含目标对象自身的可遍历属性<br>6、getOwnPropertyDescriptor(target, key)：拦截 Object.getOwnPropertyDescriptor(proxy, key)，返回属性的描述对象<br>7、defineProperty(target, key, desc)：拦截Object.defineProperty(proxy, key, desc)、Object.defineProperties(proxy, descs)，返回一个 boolean 值<br>8、preventExtensions(target)：拦截Object.preventExtensions(proxy)，返回一个 boolean 值<br>9、getPrototypeOf(target)：拦截Object.getPrototypeOf(proxy)，返回一个对象<br>10、isExtensible(target)：拦截Object.isExtensible(proxy)，返回一个 boolean 值<br>11、setPrototypeOf(target, key)：拦截Object.setPrototypeOf(proxy, key)，返回一个 boolean 值。如果目标对象是函数，则还有两种额外操作可以被拦截<br>12、apply(target, object, args)：拦截 Proxy 实例作为函数调用的操作，比如proxy(…args)、proxy.call(object, …args)、proxy.apply(…)<br>13、construct(target, args)：拦截 Proxy 实例作为构造函数调用的操作，比如new proxy(…args)</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/02/28/ES6-Proxy/" data-id="cklxx2u9g000414ups4q9552c" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2021/03/01/ES6-Promise/" data-id="cklywtlsp0004p4upwjfdzr9m" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ES6/">ES6</a></li></ul>
@@ -564,7 +557,7 @@
 
   <nav id="page-nav">
     
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/2/">下一页 &raquo;</a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/2/">下一页 &raquo;</a>
   </nav>
 
 </section>
@@ -588,7 +581,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/tags/ES6/" style="font-size: 17.14px;">ES6</a> <a href="/tags/Vue/" style="font-size: 10px;">Vue</a> <a href="/tags/css/" style="font-size: 15.71px;">css</a> <a href="/tags/es6/" style="font-size: 18.57px;">es6</a> <a href="/tags/js/" style="font-size: 20px;">js</a> <a href="/tags/ts/" style="font-size: 14.29px;">ts</a> <a href="/tags/vue/" style="font-size: 12.86px;">vue</a> <a href="/tags/浏览器/" style="font-size: 15.71px;">浏览器</a> <a href="/tags/计网/" style="font-size: 11.43px;">计网</a>
+      <a href="/tags/ES6/" style="font-size: 16.67px;">ES6</a> <a href="/tags/Vue/" style="font-size: 10px;">Vue</a> <a href="/tags/css/" style="font-size: 15px;">css</a> <a href="/tags/es6/" style="font-size: 18.33px;">es6</a> <a href="/tags/js/" style="font-size: 20px;">js</a> <a href="/tags/ts/" style="font-size: 13.33px;">ts</a> <a href="/tags/vue/" style="font-size: 15px;">vue</a> <a href="/tags/浏览器/" style="font-size: 15px;">浏览器</a> <a href="/tags/计网/" style="font-size: 11.67px;">计网</a>
     </div>
   </div>
 
@@ -610,6 +603,14 @@
       <ul>
         
           <li>
+            <a href="/2021/03/07/vue-extend-extends/">vue-extend-extends</a>
+          </li>
+        
+          <li>
+            <a href="/2021/03/07/vue-mixin-mixins/">vue-mixin和mixins</a>
+          </li>
+        
+          <li>
             <a href="/2021/03/06/vue-diff/">vue-diff</a>
           </li>
         
@@ -619,14 +620,6 @@
         
           <li>
             <a href="/2021/03/04/强缓存-协商缓存/">强缓存-协商缓存</a>
-          </li>
-        
-          <li>
-            <a href="/2021/03/02/ES6-Generator/">ES6-Generator</a>
-          </li>
-        
-          <li>
-            <a href="/2021/03/02/ES6-Iterator-for-of/">ES6-Iterator--for-of</a>
           </li>
         
       </ul>
