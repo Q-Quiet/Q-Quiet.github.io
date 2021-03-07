@@ -68,6 +68,49 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-vue-自定义指令" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2021/03/07/vue-自定义指令/" class="article-date">
+  <time datetime="2021-03-07T11:47:56.000Z" itemprop="datePublished">2021-03-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/03/07/vue-自定义指令/">vue-自定义指令</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="钩子函数"><a href="#钩子函数" class="headerlink" title="钩子函数"></a>钩子函数</h2><p>bind：只调用一次，指令第一次绑定到元素时调用。在这里可以进行一次性的初始化设置。<br>inserted：被绑定元素插入父节点时调用 (仅保证父节点存在，但不一定已被插入文档中)。<br>update：所在组件的 VNode 更新时调用，但是可能发生在其子 VNode 更新之前。指令的值可能发生了改变，也可能没有。但是你可以通过比较更新前后的值来忽略不必要的模板更新 (详细的钩子函数参数见下)。<br>componentUpdated：指令所在组件的 VNode 及其子 VNode 全部更新后调用。<br>unbind：只调用一次，指令与元素解绑时调用。</p>
+<h3 id="钩子函数的参数-即-el、binding、vnode-和-oldVnode"><a href="#钩子函数的参数-即-el、binding、vnode-和-oldVnode" class="headerlink" title="钩子函数的参数 (即 el、binding、vnode 和 oldVnode"></a>钩子函数的参数 (即 el、binding、vnode 和 oldVnode</h3><p>el：指令所绑定的元素，可以用来直接操作 DOM 。<br>binding：一个对象，包含以下属性：<br>name：指令名，不包括 v- 前缀。<br>value：指令的绑定值，例如：v-my-directive=”1 + 1” 中，绑定值为 2。<br>oldValue：指令绑定的前一个值，仅在 update 和 componentUpdated 钩子中可用。无论值是否改变都可用。<br>expression：字符串形式的指令表达式。例如 v-my-directive=”1 + 1” 中，表达式为 “1 + 1”。<br>arg：传给指令的参数，可选。例如 v-my-directive:foo 中，参数为 “foo”。<br>modifiers：一个包含修饰符的对象。例如：v-my-directive.foo.bar 中，修饰符对象为 { foo: true, bar: true }。<br>vnode：Vue 编译生成的虚拟节点。移步 VNode API 来了解更多详情。<br>oldVnode：上一个虚拟节点，仅在 update 和 componentUpdated 钩子中可用。</p>
+<h3 id="全局自定义指令"><a href="#全局自定义指令" class="headerlink" title="全局自定义指令"></a>全局自定义指令</h3><p>对于全局自定义指令的创建，我们需要使用 Vue.directive接口<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Vue.directive(<span class="string">'demo'</span>, Opt)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> Opt = &#123;</span><br><span class="line">    bind:<span class="function"><span class="keyword">function</span>(<span class="params">el,binding,vnode</span>)</span>&#123; &#125;,</span><br><span class="line">    inserted:<span class="function"><span class="keyword">function</span>(<span class="params">el,binding,vnode</span>)</span>&#123; &#125;,</span><br><span class="line">    update:<span class="function"><span class="keyword">function</span>(<span class="params">el,binding,vnode</span>)</span>&#123; &#125;,</span><br><span class="line">    componentUpdated:<span class="function"><span class="keyword">function</span>(<span class="params">el,binding,vnode</span>)</span>&#123; &#125;,</span><br><span class="line">    unbind:<span class="function"><span class="keyword">function</span>(<span class="params">el,binding,vnode</span>)</span>&#123; &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="局部自定义指令"><a href="#局部自定义指令" class="headerlink" title="局部自定义指令"></a>局部自定义指令</h3><p>对于局部组件，我们需要在组件的钩子函数directives中进行声明<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Directives: &#123;</span><br><span class="line">    Demo:     Opt</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>栗子：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">Vue.directive(<span class="string">'my-click'</span>,&#123;</span><br><span class="line">    bind:<span class="function"><span class="keyword">function</span>(<span class="params">el, binding, vnode, oldVnode</span>)</span>&#123;</span><br><span class="line">        <span class="comment">//点击事件的回调挂在在元素myClick属性上</span></span><br><span class="line">    el.myClick &amp;&amp; el.removeEventListener(<span class="string">'click'</span>, el.myClick);</span><br><span class="line">         el.addEventListener(<span class="string">'click'</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">            <span class="built_in">console</span>.log(el, binding.value)</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&lt;ul&gt;</span><br><span class="line">    &lt;li v-<span class="keyword">for</span>=<span class="string">"(item,index) in arr"</span> :key=<span class="string">"index"</span> v-my-click=<span class="string">"item"</span>&gt;&#123;&#123;item&#125;&#125;&lt;<span class="regexp">/li&gt;</span></span><br><span class="line"><span class="regexp">&lt;/u</span>l&gt;</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://Q-Quiet.github.io/2021/03/07/vue-自定义指令/" data-id="cklz3fg9r002wecupwo5svguu" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vue/">vue</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-vue-extend-extends" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2021/03/07/vue-extend-extends/" class="article-date">
@@ -99,7 +142,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/03/07/vue-extend-extends/" data-id="cklywtlw5002tp4upycqt65j0" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2021/03/07/vue-extend-extends/" data-id="cklz3fg9x0032ecup50htl4if" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vue/">vue</a></li></ul>
@@ -141,7 +184,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/03/07/vue-mixin-mixins/" data-id="cklywtlwa002xp4upccb01cta" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2021/03/07/vue-mixin-mixins/" data-id="cklz3fg9p002uecupf652jkqr" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vue/">vue</a></li></ul>
@@ -202,7 +245,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/03/06/vue-diff/" data-id="cklywtlw8002wp4ups7vg8us1" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2021/03/06/vue-diff/" data-id="cklz3fg9u002zecupwx87cpw3" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vue/">vue</a></li></ul>
@@ -245,7 +288,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/03/06/vue-NextTick/" data-id="cklywtlw2002sp4up8pc3dghq" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2021/03/06/vue-NextTick/" data-id="cklz3fg9v0031ecupagrs8vay" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vue/">vue</a></li></ul>
@@ -293,7 +336,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/03/04/强缓存-协商缓存/" data-id="cklywtlwj0035p4upmpfbiowd" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2021/03/04/强缓存-协商缓存/" data-id="cklz3fga9003cecuprka4sewy" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/计网/">计网</a></li></ul>
@@ -346,7 +389,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/03/02/ES6-Generator/" data-id="cklywtlsj0001p4uphbmf0ofk" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2021/03/02/ES6-Generator/" data-id="cklz3fg5p0004ecupkddaq872" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ES6/">ES6</a></li></ul>
@@ -393,7 +436,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/03/02/ES6-Iterator-for-of/" data-id="cklywtlsd0000p4upk3mohpdl" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2021/03/02/ES6-Iterator-for-of/" data-id="cklz3fg5r0005ecupajhs5ovc" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ES6/">ES6</a></li></ul>
@@ -439,7 +482,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/03/02/js-常见的几种遍历/" data-id="cklywtlvc0027p4up2in8no7i" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2021/03/02/js-常见的几种遍历/" data-id="cklz3fg8r001vecupqsw18skq" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
@@ -485,66 +528,10 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/03/01/js-深浅拷贝/" data-id="cklywtlvj002dp4up9g6i260t" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2021/03/01/js-深浅拷贝/" data-id="cklz3fg99002decupce8ihd3t" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-ES6-Promise" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2021/03/01/ES6-Promise/" class="article-date">
-  <time datetime="2021-03-01T11:49:25.000Z" itemprop="datePublished">2021-03-01</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/03/01/ES6-Promise/">ES6-Promise</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="Promise的含义"><a href="#Promise的含义" class="headerlink" title="Promise的含义"></a>Promise的含义</h2><p>Promise是一个对象，它代表了一个异步操作的最终完成或者失败。简单说就是一个容器，里面保存着某个未来才会结束的事件（通常是一个异步操作）的结果。<br>有三种状态：pendiing（进行中）、fulfilled（已成功）、rejected（已失败）。<br>Promise对象的状态改变，只有两种可能：从pending变为fulfilled和从pending变为rejected。<br>Promise对象有以下两个特点<br>（1）对象的状态不受外界影响。<br>（2）一旦状态改变，就不会再变，任何时候都可以得到这个结果。<br>优缺点：<br>优：有了Promise对象，就可以将异步操作以同步操作的流程表达出来，避免了层层嵌套的回调函数。<br>缺：1.无法取消Promise，一旦新建它就会立即执行，无法中途取消。<br>2.如果不设置回调函数，Promise内部抛出的错误，不会反应到外部。<br>3.当处于pending状态时，无法得知目前进展到哪一个阶段（刚刚开始还是即将完成）。</p>
-<h3 id="Promise-prototype-then"><a href="#Promise-prototype-then" class="headerlink" title="Promise.prototype.then()"></a>Promise.prototype.then()</h3><p>then方法是定义在原型对象Promise.prototype上的。它的作用是为 Promise 实例添加状态改变时的回调函数。then方法返回的是一个新的Promise实例。</p>
-<h3 id="Promise-prototype-catch"><a href="#Promise-prototype-catch" class="headerlink" title="Promise.prototype.catch()"></a>Promise.prototype.catch()</h3><p>Promise.prototype.catch()方法是用于指定发生错误时的回调函数。<br>Promise 对象的错误具有“冒泡”性质，会一直向后传递，直到被捕获为止。也就是说，错误总是会被下一个catch语句捕获。</p>
-<h3 id="Promise-prototype-finally"><a href="#Promise-prototype-finally" class="headerlink" title="Promise.prototype.finally()"></a>Promise.prototype.finally()</h3><p>用于指定不管 Promise 对象最后状态如何，都会执行的操作。<br>不接受任何参数，所以finally里的操作是  ==与状态无关的。==<br>手写实现<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Promise</span>.prototype.finally = <span class="function"><span class="keyword">function</span> (<span class="params">callback</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> P = <span class="keyword">this</span>.constructor;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">this</span>.then(</span><br><span class="line">    value  =&gt; P.resolve(callback()).then(<span class="function"><span class="params">()</span> =&gt;</span> value),</span><br><span class="line">    reason =&gt; P.resolve(callback()).then(<span class="function"><span class="params">()</span> =&gt;</span> &#123; <span class="keyword">throw</span> reason &#125;)</span><br><span class="line">  );</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
-<h3 id="Promise-all"><a href="#Promise-all" class="headerlink" title="Promise.all()"></a>Promise.all()</h3><p>将多个Promise实例包装成一个新的Promise实例。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> p = <span class="built_in">Promise</span>.all([p1, p2, p3]);</span><br></pre></td></tr></table></figure></p>
-<p>当p1,p2,p3的状态全部变为resolved时，P的状态才发生改变，此时p1、p2、p3的返回值组成一个数组，传递给p的回调函数。<br>只要p1、p2、p3之中有一个被rejected，p的状态就变成rejected，此时第一个被reject的实例的返回值，会传递给p的回调函数。<br> ==全部成功才算成功，要么一个失败直接失败==<br>如果作为参数的Promise 实例，自己定义了catch方法，那么它一旦被rejected，并不会触发Promise.all()的catch方法。</p>
-<h3 id="Promise-race"><a href="#Promise-race" class="headerlink" title="Promise.race()"></a>Promise.race()</h3><p>将多个Promise实例包装成一个新的Promise实例。<br>只要p1、p2、p3之中有一个实例率先改变状态，p的状态就跟着改变。新实例的执行结果与第一个先改变状态的Promise状态保持一致。<br> ==某个 Promise 变成rejected状态而结束。==<br>如果指定时间内没有获得结果，就将 Promise 的状态变为reject，否则变为resolve。</p>
-<h3 id="Promise-allSettled"><a href="#Promise-allSettled" class="headerlink" title="Promise.allSettled()"></a>Promise.allSettled()</h3><p>接受一组 Promise 实例作为参数，包装成一个新的 Promise 实例。<br>只有等到所有这些参数实例都返回结果，不管是fulfilled还是rejected，包装实例才会结束。 ==一旦结束，状态总是fulfilled== ，不会变成rejected。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> promises = [</span><br><span class="line">  fetch(<span class="string">'/api-1'</span>),</span><br><span class="line">  fetch(<span class="string">'/api-2'</span>),</span><br><span class="line">  fetch(<span class="string">'/api-3'</span>),</span><br><span class="line">];</span><br><span class="line"></span><br><span class="line"><span class="keyword">await</span> <span class="built_in">Promise</span>.allSettled(promises);</span><br><span class="line">removeLoadingIndicator();</span><br></pre></td></tr></table></figure></p>
-<p>上面代码对服务器发出三个请求，等到三个请求都结束，不管请求成功还是失败，加载的滚动图标就会消失。</p>
-<h3 id="Promise-any"><a href="#Promise-any" class="headerlink" title="Promise.any()"></a>Promise.any()</h3><p>接受一组 Promise 实例作为参数，包装成一个新的 Promise 实例返回。 ==只要参数实例有一个变成fulfilled状态，包装实例就会变成fulfilled状态；如果所有参数实例都变成rejected状态，包装实例就会变成rejected状态。== </p>
-<h3 id="Promise-resolve"><a href="#Promise-resolve" class="headerlink" title="Promise.resolve()"></a>Promise.resolve()</h3><p>将现有对象转为 Promise 对象<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> jsPromise = <span class="built_in">Promise</span>.resolve($.ajax(<span class="string">'/whatever.json'</span>));</span><br></pre></td></tr></table></figure></p>
-<p>（1）参数是一个 Promise 实例<br>不做修改、原封不动的返回。<br>（2）参数是一个thenable对象<br>thenable对象指的是具有then方法的对象<br>Promise.resolve()方法会将这个对象转为 Promise 对象，然后就立即执行thenable对象的then()方法。<br>（3）参数不是具有then()方法的对象，或根本就不是对象<br>返回一个新的 Promise 对象，状态为resolved。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> p = <span class="built_in">Promise</span>.resolve(<span class="string">'Hello'</span>);</span><br><span class="line"></span><br><span class="line">p.then(<span class="function"><span class="keyword">function</span> (<span class="params">s</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(s)</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">// Hello</span></span><br></pre></td></tr></table></figure></p>
-<p>（4）不带参数<br>直接返回一个resolved状态的 Promise 对象。</p>
-<h3 id="Promise-reject"><a href="#Promise-reject" class="headerlink" title="Promise.reject()"></a>Promise.reject()</h3><p>返回一个新的 Promise 实例，该实例的状态为rejected。<br>Promise.reject()方法的参数，会原封不动地作为reject的理由，变成后续方法的参数。</p>
-<h3 id="Promise-try"><a href="#Promise-try" class="headerlink" title="Promise.try()"></a>Promise.try()</h3><p>可以不管f是否包含异步操作，都用then方法指定下一步流程，用catch方法处理f抛出的错误。<br>让同步函数同步执行，异步函数异步执行，并且让它们具有统一的 API .<br>第一种写法是用async函数来写。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> f = <span class="function"><span class="params">()</span> =&gt;</span> <span class="built_in">console</span>.log(<span class="string">'now'</span>);</span><br><span class="line">(<span class="keyword">async</span> () =&gt; f())();</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'next'</span>);</span><br><span class="line"><span class="comment">// now</span></span><br><span class="line"><span class="comment">// next</span></span><br></pre></td></tr></table></figure></p>
-<p>第二种写法是使用new Promise()。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> f = <span class="function"><span class="params">()</span> =&gt;</span> <span class="built_in">console</span>.log(<span class="string">'now'</span>);</span><br><span class="line">(</span><br><span class="line">  () =&gt; <span class="keyword">new</span> <span class="built_in">Promise</span>(</span><br><span class="line">    resolve =&gt; resolve(f())</span><br><span class="line">  )</span><br><span class="line">)();   等于  <span class="built_in">Promise</span>.try(f);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'next'</span>);</span><br><span class="line"><span class="comment">// now</span></span><br><span class="line"><span class="comment">// next</span></span><br></pre></td></tr></table></figure></p>
-<h2 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h2><p>1.加载图片<br>将图片的加载写成一个Promise，一旦加载完成，Promise的状态就发生变化。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> preloadImage = <span class="function"><span class="keyword">function</span> (<span class="params">path</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span> (<span class="params">resolve, reject</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> image = <span class="keyword">new</span> Image();</span><br><span class="line">    image.onload  = resolve;</span><br><span class="line">    image.onerror = reject;</span><br><span class="line">    image.src = path;</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
-<p>2.Generator 函数与 Promise 的结合<br>使用 Generator 函数管理流程，遇到异步操作的时候，通常返回一个Promise对象。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getFoo</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span> (<span class="params">resolve, reject</span>)</span>&#123;</span><br><span class="line">    resolve(<span class="string">'foo'</span>);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> g = <span class="function"><span class="keyword">function</span>* (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> foo = <span class="keyword">yield</span> getFoo();</span><br><span class="line">    <span class="built_in">console</span>.log(foo);</span><br><span class="line">  &#125; <span class="keyword">catch</span> (e) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(e);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">run</span> (<span class="params">generator</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> it = generator();</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">go</span>(<span class="params">result</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (result.done) <span class="keyword">return</span> result.value;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> result.value.then(<span class="function"><span class="keyword">function</span> (<span class="params">value</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> go(it.next(value));</span><br><span class="line">    &#125;, <span class="function"><span class="keyword">function</span> (<span class="params">error</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> go(it.throw(error));</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  go(it.next());</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">run(g);</span><br></pre></td></tr></table></figure></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/03/01/ES6-Promise/" data-id="cklywtlsp0004p4upwjfdzr9m" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ES6/">ES6</a></li></ul>
 
     </footer>
   </div>
@@ -581,7 +568,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/tags/ES6/" style="font-size: 16.67px;">ES6</a> <a href="/tags/Vue/" style="font-size: 10px;">Vue</a> <a href="/tags/css/" style="font-size: 15px;">css</a> <a href="/tags/es6/" style="font-size: 18.33px;">es6</a> <a href="/tags/js/" style="font-size: 20px;">js</a> <a href="/tags/ts/" style="font-size: 13.33px;">ts</a> <a href="/tags/vue/" style="font-size: 15px;">vue</a> <a href="/tags/浏览器/" style="font-size: 15px;">浏览器</a> <a href="/tags/计网/" style="font-size: 11.67px;">计网</a>
+      <a href="/tags/ES6/" style="font-size: 17.14px;">ES6</a> <a href="/tags/Vue/" style="font-size: 10px;">Vue</a> <a href="/tags/css/" style="font-size: 14.29px;">css</a> <a href="/tags/es6/" style="font-size: 18.57px;">es6</a> <a href="/tags/js/" style="font-size: 20px;">js</a> <a href="/tags/ts/" style="font-size: 12.86px;">ts</a> <a href="/tags/vue/" style="font-size: 15.71px;">vue</a> <a href="/tags/浏览器/" style="font-size: 14.29px;">浏览器</a> <a href="/tags/计网/" style="font-size: 11.43px;">计网</a>
     </div>
   </div>
 
@@ -603,6 +590,10 @@
       <ul>
         
           <li>
+            <a href="/2021/03/07/vue-自定义指令/">vue-自定义指令</a>
+          </li>
+        
+          <li>
             <a href="/2021/03/07/vue-extend-extends/">vue-extend-extends</a>
           </li>
         
@@ -616,10 +607,6 @@
         
           <li>
             <a href="/2021/03/06/vue-NextTick/">vue-NextTick</a>
-          </li>
-        
-          <li>
-            <a href="/2021/03/04/强缓存-协商缓存/">强缓存-协商缓存</a>
           </li>
         
       </ul>
