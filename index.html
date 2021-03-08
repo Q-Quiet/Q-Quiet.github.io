@@ -68,6 +68,115 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-vue-修饰符" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2021/03/08/vue-修饰符/" class="article-date">
+  <time datetime="2021-03-08T08:13:26.000Z" itemprop="datePublished">2021-03-08</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/03/08/vue-修饰符/">vue-修饰符</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <ul>
+<li>表单修饰符</li>
+<li>事件修饰符</li>
+<li>鼠标按键修饰符</li>
+<li>键值修饰符</li>
+<li>v-bind修饰符<h2 id="表单修饰符"><a href="#表单修饰符" class="headerlink" title="表单修饰符"></a>表单修饰符</h2>(和v-model)<br>.lazy: 在我们输入完所有东西，光标离开才更新视图。<br>.trim: 过滤首位空格。<br>.number: 限制输入数字或者输入的东西转换成数字，<br>如果你先输入数字，那它就会限制你输入的只能是数字。<br>如果你先输入字符串，那它就相当于没有加.number<h2 id="事件修饰符"><a href="#事件修饰符" class="headerlink" title="事件修饰符"></a>事件修饰符</h2>.stop: 由于事件冒泡的机制，我们给元素绑定点击事件的时候，也会触发父级的点击事件.一键阻止事件冒泡，相当于调用了event.stopPropagation()方法。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;div @click=&quot;shout(2)&quot;&gt;</span><br><span class="line">  &lt;button @click.stop=&quot;shout(1)&quot;&gt;ok&lt;/button&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>.prevent: 用于阻止事件的默认行为，相当于调用了event.preventDefault()方法。<br>.self: 只当事件是从事件绑定的元素本身触发时才触发回调。<br>.once: 只能用一次，绑定了事件以后只能触发一次，第二次就不会触发。<br>.capture: 事件触发从包含这个元素的顶层开始往下触发。<br>.passive: 当我们在监听元素滚动事件的时候，会一直触发onscroll事件，在pc端是没啥问题的，但是在移动端，会让我们的网页变卡，因此我们使用这个修饰符的时候,相当于给onscroll事件整了一个.lazy修饰符<br>.native: 把一个vue组件转化为一个普通的HTML标签，<br>注意：使用.native修饰符来操作普通HTML标签是会令事件失效的</p>
+<h2 id="鼠标按钮修饰符"><a href="#鼠标按钮修饰符" class="headerlink" title="鼠标按钮修饰符"></a>鼠标按钮修饰符</h2><p>.left 左键点击<br>.right 右键点击<br>.middle 中键点击</p>
+<h2 id="键值修饰符"><a href="#键值修饰符" class="headerlink" title="键值修饰符"></a>键值修饰符</h2><p>.keyCode:按下特定键触发<br>为了方便我们使用，vue给一些常用的键提供了别名<br>//普通键<br>.enter  .tab  .delete //(捕获“删除”和“退格”键)  .space  .esc  .up  .down  .left  .right<br>//系统修饰键<br>.ctrl   .alt   .meta  .shift<br>.exact （2.5新增）只需要或者只能按一个系统修饰键来触发</p>
+<h2 id="v-bind修饰符"><a href="#v-bind修饰符" class="headerlink" title="v-bind修饰符"></a>v-bind修饰符</h2><p>.sync(2.3+新增）<br>1.使用sync的时候，子组件传递的事件名必须为update:value，其中value必须与子组件中props中声明的名称完全一致(如上例中的myMessage，不能使用my-message)<br>2.注意带有 .sync 修饰符的 v-bind 不能和表达式一起使用 (例如 v-bind:title.sync=”doc.title + ‘!’” 是无效的)。取而代之的是，你只能提供你想要绑定的属性名，类似 v-model。<br>3.将 v-bind.sync 用在一个字面量的对象上，例如 v-bind.sync=”{ title: doc.title }”，是无法正常工作的，因为在解析一个像这样的复杂表达式的时候，有很多边缘情况需要考虑。<br>.prop: v-bind 默认绑定到 DOM 节点的 attribute 上，使用 .prop 修饰符后，会绑定到 property<br>.camel : 允许在使用 DOM 模板时将 v-bind 属性名称驼峰化</p>
+<h2 id="Property-与-Attribute-的差别"><a href="#Property-与-Attribute-的差别" class="headerlink" title="Property 与 Attribute 的差别"></a>Property 与 Attribute 的差别</h2><p>Property：节点对象在内存中存储的属性，可以访问和设置。<br>Attribute：节点对象的其中一个属性( property )，值是一个对象，可以通过点访问法 document.getElementById(‘xx’).attributes 或者 document.getElementById(‘xx’).getAttributes(‘xx’) 读取，通过 document.getElementById(‘xx’).setAttribute(‘xx’,value) 新增和修改。<br>在标签里定义的所有属性包括 HTML 属性和自定义属性都会在 attributes 对象里以键值对的方式存在。<br>1、Attribute 对象包含标签里定义的所有属性，Property 只包含 HTML 标准的属性，不包含自定义属性。<br>2、Attribute 里的属性的值是 html 标签上原始的值，除非使用 setAttribute() 方法更改，不会根据用户输入而改变（eg: input 标签）。Property 在页面初始化时会映射并创建 Attribute 对象里的标准属性，从而节点对象能以对象的访问方式获取标准属性。在用户输入内容修改了原始值后，Property 里对应的属性会随之变化。即，查看原始值使用 Attribute，查看最新值使用 Property。（input 的 value 值也可以通过 input.defaultValue 查看原始值）<br>3、Property 与 Attribute 的某些属性名称是完全一样的，例如 ref, id ；某些名称有些轻微差别，例如 Attribute 里的 for、class 属性映射出来对应 Property 里的 htmlFor、className；某些属性名称一样，但是属性值会有限制或者修改，不会完全一样，相关的属性有 src, href, disabled, multiple 等。<br>4、由于 Property 不能读取自定义属性，如果标签在开始的时候对标准属性定义了非标准范围内的值，Property 会默认选择一个标准值代替，导致与 Attribute 里的属性不完全相等。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://Q-Quiet.github.io/2021/03/08/vue-修饰符/" data-id="ckm0bck480031r0up1avfw01c" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vue/">vue</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-vue-组件通信" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2021/03/08/vue-组件通信/" class="article-date">
+  <time datetime="2021-03-08T07:26:29.000Z" itemprop="datePublished">2021-03-08</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/03/08/vue-组件通信/">vue-组件通信</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Vue-组件之间数据传递的几种方式："><a href="#Vue-组件之间数据传递的几种方式：" class="headerlink" title="Vue 组件之间数据传递的几种方式："></a>Vue 组件之间数据传递的几种方式：</h2><ul>
+<li>父组件向子组件传递数据，使用props属性；子组件向父组件中传递数据，在子组件中使用$emit派发事件，父组件中使用v-on 监听事件；缺点：组件嵌套层次多的话，传递数据比较麻烦。</li>
+<li>祖先组件通过依赖注入(inject / provide)的方式，向其所有子孙后代传递数据；缺点：无法监听数据修改的来源，不支持响应式。</li>
+<li>通过属性$root / $parent / $children / ref，访问根组件、父级组件、子组件中的数据；缺点：要求组件之间要有传递性。</li>
+<li>通过事件总线(event bus)的方式，可以实现任意两个组件间进行数据传递；缺点：不支持响应式，这个概念是vue1.0版本中的，现在已经废弃。</li>
+<li>通过 VueJs 的状态管理模式 Vuex，实现多个组件进行数据共享，推荐使用这种方式进行项目中各组件间的数据传递。<h2 id="1-props-emit"><a href="#1-props-emit" class="headerlink" title="1. props/$emit"></a>1. props/$emit</h2><h3 id="父组件向子组件中传递数据"><a href="#父组件向子组件中传递数据" class="headerlink" title="父组件向子组件中传递数据"></a>父组件向子组件中传递数据</h3>在子组件中设置props属性来接收数据。<h3 id="子组件向父组件传递数据"><a href="#子组件向父组件传递数据" class="headerlink" title="子组件向父组件传递数据"></a>子组件向父组件传递数据</h3>子组件向父组件传递数据，通过 $emit派发事件，父组件中通过 v-on 接收该事件，拿到传递的数据。<br>第一个参数为事件名称，需要跟父组件中 v-on 监听的事件名称一致；第二个参数为要传递的数据。<h3 id="sync修饰符"><a href="#sync修饰符" class="headerlink" title=".sync修饰符"></a>.sync修饰符</h3>会被扩展为一个自动更新父组件属性的 v-on 监听器。<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">comp</span> <span class="attr">:foo.sync</span>=<span class="string">"bar"</span>&gt;</span><span class="tag">&lt;/<span class="name">comp</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>等于<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;comp :foo=&quot;bar&quot; @update:foo=&quot;val =&gt; bar = val&quot;&gt;&lt;/comp&gt;</span><br></pre></td></tr></table></figure></p>
+<p>this.$emit(‘update:countchange’,num)</p>
+<h2 id="2-依赖注入-provide-inject"><a href="#2-依赖注入-provide-inject" class="headerlink" title="2. 依赖注入 provide inject"></a>2. 依赖注入 provide inject</h2><p>2.2.0版本新增的。需要一起使用，它允许一个祖先组件向其所有子孙后代注入一个依赖，不论组件层次有多深，并在起上下游关系成立的时间里始终生效。<br>在祖先组件中增加属性 provide，它的属性值是一个对象或返回一个对象的函数。该对象包含了给子组件要传递的数据。<br>在子组件中增加属性 inject ，用来接收数据，它的选项是一个字符串数组，或一个对象。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> blogCount=&#123;</span><br><span class="line">    	<span class="comment">//子组件中使用inject属性来接收数据</span></span><br><span class="line">        inject:[<span class="string">"num"</span>],</span><br><span class="line">        template:<span class="string">`&lt;div&gt;&#123;&#123;num&#125;&#125;&lt;/div&gt;`</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">var</span> vm=<span class="keyword">new</span> Vue(&#123;</span><br><span class="line">        el:<span class="string">"#app"</span>,</span><br><span class="line">        data:&#123;</span><br><span class="line">            num:<span class="number">10</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="comment">//父组件中使用provide属性存放要传递的数据</span></span><br><span class="line">        provide:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">            <span class="keyword">return</span> &#123;</span><br><span class="line">                num:<span class="keyword">this</span>.num</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        components:&#123;</span><br><span class="line">            blogCount</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br></pre></td></tr></table></figure></p>
+<h3 id="3-root-parent-children-ref"><a href="#3-root-parent-children-ref" class="headerlink" title="3.$root / $parent / $children / ref"></a>3.$root / $parent / $children / ref</h3><ul>
+<li>通过 $root 属性访问根实例 new Vue()。</li>
+<li>通过$parent 属性访问父组件的实例。</li>
+<li>通过$children 属性访问当前实例的直接子组件。需要注意 $children 并不保证顺序，也不是响应式的。</li>
+<li>通过 $refs 属性访问子组件中的数据，子组件标签上加 ref 的属性。例如在子组件的dom元素上增加属性 ref = “abc”，就可以使用this.$refs.abc 拿到这个子组件的实例。</li>
+<li>ref，如果在普通的 DOM 元素上使用，引用指向的就是 DOM 元素；如果用在子组件上，引用就指向组件实例。</li>
+<li>$refs 只会在组件渲染完成之后生效，并且它们不是响应式的。<h2 id="4-event-bus事件总线"><a href="#4-event-bus事件总线" class="headerlink" title="4.event bus事件总线"></a>4.event bus事件总线</h2>通过一个空的实例 new Vue()作为事件总线（事件中心），用它来派发和监听事件，可以实现任何组件间的通信，包括父子、兄弟、跨级。<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//创建一个空的vue实例</span></span><br><span class="line">    <span class="keyword">const</span> eventbus=<span class="keyword">new</span> Vue();</span><br><span class="line">	<span class="comment">//子组件</span></span><br><span class="line">    <span class="keyword">const</span> blogCount=&#123;</span><br><span class="line">        data()&#123;</span><br><span class="line">            <span class="keyword">return</span> &#123;<span class="attr">num</span>:<span class="number">1</span>&#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        template:<span class="string">`&lt;div&gt;&#123;&#123;num&#125;&#125;&lt;/div&gt;`</span>,</span><br><span class="line">        mounted() &#123;</span><br><span class="line">        	<span class="comment">//监听事件</span></span><br><span class="line">            eventbus.$on(<span class="string">"message"</span>,(msg)=&gt;&#123;</span><br><span class="line">                <span class="keyword">this</span>.num=msg;</span><br><span class="line">            &#125;)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">var</span> vm=<span class="keyword">new</span> Vue(&#123;</span><br><span class="line">        el:<span class="string">"#app"</span>,</span><br><span class="line">        data:&#123;</span><br><span class="line">            num:<span class="number">10</span></span><br><span class="line">        &#125;,</span><br><span class="line">        components:&#123;</span><br><span class="line">            blogCount</span><br><span class="line">        &#125;,</span><br><span class="line">        methods: &#123;</span><br><span class="line">            clickHandle()&#123;</span><br><span class="line">            	<span class="comment">//派发事件</span></span><br><span class="line">                eventbus.$emit(<span class="string">'message'</span>,<span class="keyword">this</span>.num)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://Q-Quiet.github.io/2021/03/08/vue-组件通信/" data-id="ckm0bck4a0033r0up3630zeon" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vue/">vue</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-vue-自定义指令" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2021/03/07/vue-自定义指令/" class="article-date">
@@ -99,7 +208,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/03/07/vue-自定义指令/" data-id="cklz3fg9r002wecupwo5svguu" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2021/03/07/vue-自定义指令/" data-id="ckm0bck46002yr0upswzlndr3" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vue/">vue</a></li></ul>
@@ -142,7 +251,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/03/07/vue-extend-extends/" data-id="cklz3fg9x0032ecup50htl4if" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2021/03/07/vue-extend-extends/" data-id="ckm0bck42002tr0up481ncnn7" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vue/">vue</a></li></ul>
@@ -184,7 +293,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/03/07/vue-mixin-mixins/" data-id="cklz3fg9p002uecupf652jkqr" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2021/03/07/vue-mixin-mixins/" data-id="ckm0bck4c0035r0upv1il3l80" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vue/">vue</a></li></ul>
@@ -245,7 +354,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/03/06/vue-diff/" data-id="cklz3fg9u002zecupwx87cpw3" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2021/03/06/vue-diff/" data-id="ckm0bck4f0039r0up46am8exk" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vue/">vue</a></li></ul>
@@ -288,7 +397,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/03/06/vue-NextTick/" data-id="cklz3fg9v0031ecupagrs8vay" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2021/03/06/vue-NextTick/" data-id="ckm0bck3w002or0uphwmhoyb0" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vue/">vue</a></li></ul>
@@ -336,7 +445,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/03/04/强缓存-协商缓存/" data-id="cklz3fga9003cecuprka4sewy" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2021/03/04/强缓存-协商缓存/" data-id="ckm0bck4h003cr0uplta41185" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/计网/">计网</a></li></ul>
@@ -389,7 +498,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/03/02/ES6-Generator/" data-id="cklz3fg5p0004ecupkddaq872" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2021/03/02/ES6-Generator/" data-id="ckm0bck0d0000r0upuyn0k233" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ES6/">ES6</a></li></ul>
@@ -436,102 +545,10 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/03/02/ES6-Iterator-for-of/" data-id="cklz3fg5r0005ecupajhs5ovc" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2021/03/02/ES6-Iterator-for-of/" data-id="ckm0bck0s0003r0upnuagqmb1" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ES6/">ES6</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-js-常见的几种遍历" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2021/03/02/js-常见的几种遍历/" class="article-date">
-  <time datetime="2021-03-02T12:38:05.000Z" itemprop="datePublished">2021-03-02</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/03/02/js-常见的几种遍历/">js-常见的几种遍历</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>以数组为例：<br>1.for：这种写法比较麻烦<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> index = <span class="number">0</span>; index &lt; myArray.length; index++) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(myArray[index]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<ol start="2">
-<li>数组提供内置的forEach方法。<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">myArray.forEach(<span class="function"><span class="keyword">function</span> (<span class="params">value</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(value);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>问题在于，无法中途跳出forEach循环，break命令或return命令都不能奏效。<br>3.for…in循环可以遍历数组的键名。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> index <span class="keyword">in</span> myArray) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(myArray[index]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h3 id="缺点："><a href="#缺点：" class="headerlink" title="缺点："></a>缺点：</h3><p>数组的键名是数字，但是for…in循环是以字符串作为键名“0”、“1”、“2”等等。<br>for…in循环不仅遍历数字键名，还会遍历手动添加的其他键，甚至包括原型链上的键。<br>某些情况下，for…in循环会以任意顺序遍历键名。<br>for…in循环主要是为遍历对象而设计的，不适用于遍历数组。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> value <span class="keyword">of</span> myArray) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(value);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>优点：<br>有着同for…in一样的简洁语法，但是没有for…in那些缺点。<br>不同于forEach方法，它可以与break、continue和return配合使用。<br>提供了遍历所有数据结构的统一操作接口。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/03/02/js-常见的几种遍历/" data-id="cklz3fg8r001vecupqsw18skq" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-js-深浅拷贝" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2021/03/01/js-深浅拷贝/" class="article-date">
-  <time datetime="2021-03-01T14:21:34.000Z" itemprop="datePublished">2021-03-01</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/03/01/js-深浅拷贝/">js-深浅拷贝</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>深浅拷贝只是针对引用类型的，因为引用类型是存放在堆内存中，在栈地址有一个或者多个地址来指向推内存的某一数据。<br>浅拷贝：<br>被复制对象的所有变量都含有与原来的对象相同的值，而所有的对其他对象的引用仍然指向原来的对象。<br>浅拷贝仅仅复制所考虑的对象，而不复制它所引用的对象，如果你修改了“副本”的值，那么原来的对象也会被修改<br>深拷贝：<br>深拷贝把要复制的对象所引用的对象都复制了一遍。如果你修改了“副本”的值，那么原来的对象不会被修改，两者是相互独立的。<br>深拷贝把要复制的对象所引用的对象都复制了一遍。如果你修改了“副本”的值，那么原来的对象不会被修改，两者是相互独立的。</p>
-<h2 id="赋值实现浅拷贝"><a href="#赋值实现浅拷贝" class="headerlink" title="赋值实现浅拷贝"></a>赋值实现浅拷贝</h2><p>对于引用类型，赋值操作符只是把存放在栈内容中的指针赋值给另外一个变量。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> arr = [<span class="number">22</span>, <span class="number">44</span>, <span class="number">66</span>, <span class="number">88</span>];</span><br><span class="line"><span class="keyword">let</span> co = arr;</span><br><span class="line">co[<span class="number">0</span>] = <span class="number">11</span>;</span><br></pre></td></tr></table></figure></p>
-<h3 id="JSON实现深拷贝"><a href="#JSON实现深拷贝" class="headerlink" title="JSON实现深拷贝"></a>JSON实现深拷贝</h3><p>缺陷：我们可以发现有些属性被忽略了：<br>undefined<br>symbol<br>function<br>可以看得出来JSON实现深拷贝也有不足之处<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> arr = [<span class="number">22</span>, <span class="number">44</span>, <span class="number">66</span>, <span class="number">88</span>];</span><br><span class="line"><span class="keyword">let</span> jso = <span class="built_in">JSON</span>.parse(<span class="built_in">JSON</span>.stringify(arr));</span><br><span class="line">jso[<span class="number">0</span>] = <span class="number">11</span>;</span><br><span class="line"><span class="built_in">console</span>.log(arr, jso);</span><br></pre></td></tr></table></figure></p>
-<p>原理：<br>JSON.parse() 方法用于将一个 JSON 字符串转换为对象。<br>JSON.stringify() 方法用于将 JavaScript 值（通常为对象或数组）转换为 JSON 字符串。<br>在JSON.stringify()完成后，对象就转为了字符串，也就可以说实实在在的复制了一个值，不存在引用之说。<br>再利用JSON.parse()转为对象，这样达到深拷贝的目的<br>ES6新特性实现拷贝</p>
-<h2 id="Object-assign"><a href="#Object-assign" class="headerlink" title="Object.assign()"></a>Object.assign()</h2><p>Object.assign方法用于对象的合并，将源对象（source）的所有可枚举属性，复制到目标对象（target）。<br>Object.assign(target, …sources)<br>target目标对象。 sources源对象。 返回的是目标对象<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> obj = &#123;</span><br><span class="line">    a: &#123;</span><br><span class="line">        a1: <span class="string">'a1'</span></span><br><span class="line">    &#125;,</span><br><span class="line">    b: <span class="string">'b'</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> ass = <span class="built_in">Object</span>.assign(&#123;&#125;, obj);</span><br><span class="line">ass.a.a1 = <span class="string">'aaa'</span>;</span><br><span class="line">ass.b = <span class="string">'bbb'</span>;</span><br><span class="line">aconsole.log(obj, ass);</span><br></pre></td></tr></table></figure></p>
-<p>Obejct.assign()只能对一层进行深拷贝<br>如果拷贝的层数超过了一层的话，那么就会进行浅拷贝</p>
-<h2 id="展开运算符-…"><a href="#展开运算符-…" class="headerlink" title="展开运算符(…)"></a>展开运算符(…)</h2><p>对象的扩展运算符（…）用于取出参数对象的所有可遍历属性，拷贝到当前对象之中。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> obj = &#123;</span><br><span class="line">    a: &#123;</span><br><span class="line">        a1: <span class="string">'a1'</span></span><br><span class="line">    &#125;,</span><br><span class="line">    b: <span class="string">'b'</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> ass = &#123;...obj&#125;;</span><br><span class="line">ass.a.a1 = <span class="string">'aaa'</span>;</span><br><span class="line">ass.b = <span class="string">'bbb'</span></span><br></pre></td></tr></table></figure></p>
-<p>扩展运算符只能对一层进行深拷贝<br>如果拷贝的层数超过了一层的话，那么就会进行浅拷贝<br>递归<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">deepClone</span>(<span class="params">source</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> targetObj = source.constructor === <span class="built_in">Array</span> ? [] : &#123;&#125;;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">let</span> keys <span class="keyword">in</span> source) &#123;</span><br><span class="line">        <span class="keyword">if</span>(source.hasOwnProperty(keys)) &#123;</span><br><span class="line">            <span class="keyword">if</span>(source[keys] &amp;&amp; <span class="keyword">typeof</span> source[keys] === <span class="string">'object'</span>) &#123;</span><br><span class="line">                targetObj[keys] = source[keys].constructor === <span class="built_in">Array</span> ? [] : &#123;&#125;;</span><br><span class="line">                targetObj[keys] = deepClone(source[keys]);</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                targetObj[keys] = source[keys];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> targetObj;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/03/01/js-深浅拷贝/" data-id="cklz3fg99002decupce8ihd3t" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
 
     </footer>
   </div>
@@ -568,7 +585,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/tags/ES6/" style="font-size: 17.14px;">ES6</a> <a href="/tags/Vue/" style="font-size: 10px;">Vue</a> <a href="/tags/css/" style="font-size: 14.29px;">css</a> <a href="/tags/es6/" style="font-size: 18.57px;">es6</a> <a href="/tags/js/" style="font-size: 20px;">js</a> <a href="/tags/ts/" style="font-size: 12.86px;">ts</a> <a href="/tags/vue/" style="font-size: 15.71px;">vue</a> <a href="/tags/浏览器/" style="font-size: 14.29px;">浏览器</a> <a href="/tags/计网/" style="font-size: 11.43px;">计网</a>
+      <a href="/tags/ES6/" style="font-size: 16.67px;">ES6</a> <a href="/tags/Vue/" style="font-size: 10px;">Vue</a> <a href="/tags/css/" style="font-size: 15px;">css</a> <a href="/tags/es6/" style="font-size: 18.33px;">es6</a> <a href="/tags/js/" style="font-size: 20px;">js</a> <a href="/tags/ts/" style="font-size: 13.33px;">ts</a> <a href="/tags/vue/" style="font-size: 16.67px;">vue</a> <a href="/tags/浏览器/" style="font-size: 15px;">浏览器</a> <a href="/tags/计网/" style="font-size: 11.67px;">计网</a>
     </div>
   </div>
 
@@ -590,6 +607,14 @@
       <ul>
         
           <li>
+            <a href="/2021/03/08/vue-修饰符/">vue-修饰符</a>
+          </li>
+        
+          <li>
+            <a href="/2021/03/08/vue-组件通信/">vue-组件通信</a>
+          </li>
+        
+          <li>
             <a href="/2021/03/07/vue-自定义指令/">vue-自定义指令</a>
           </li>
         
@@ -599,14 +624,6 @@
         
           <li>
             <a href="/2021/03/07/vue-mixin-mixins/">vue-mixin和mixins</a>
-          </li>
-        
-          <li>
-            <a href="/2021/03/06/vue-diff/">vue-diff</a>
-          </li>
-        
-          <li>
-            <a href="/2021/03/06/vue-NextTick/">vue-NextTick</a>
           </li>
         
       </ul>

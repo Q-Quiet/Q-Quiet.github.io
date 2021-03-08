@@ -68,6 +68,98 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-js-常见的几种遍历" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2021/03/02/js-常见的几种遍历/" class="article-date">
+  <time datetime="2021-03-02T12:38:05.000Z" itemprop="datePublished">2021-03-02</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/03/02/js-常见的几种遍历/">js-常见的几种遍历</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>以数组为例：<br>1.for：这种写法比较麻烦<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> index = <span class="number">0</span>; index &lt; myArray.length; index++) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(myArray[index]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<ol start="2">
+<li>数组提供内置的forEach方法。<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">myArray.forEach(<span class="function"><span class="keyword">function</span> (<span class="params">value</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(value);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>问题在于，无法中途跳出forEach循环，break命令或return命令都不能奏效。<br>3.for…in循环可以遍历数组的键名。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> index <span class="keyword">in</span> myArray) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(myArray[index]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="缺点："><a href="#缺点：" class="headerlink" title="缺点："></a>缺点：</h3><p>数组的键名是数字，但是for…in循环是以字符串作为键名“0”、“1”、“2”等等。<br>for…in循环不仅遍历数字键名，还会遍历手动添加的其他键，甚至包括原型链上的键。<br>某些情况下，for…in循环会以任意顺序遍历键名。<br>for…in循环主要是为遍历对象而设计的，不适用于遍历数组。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> value <span class="keyword">of</span> myArray) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(value);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>优点：<br>有着同for…in一样的简洁语法，但是没有for…in那些缺点。<br>不同于forEach方法，它可以与break、continue和return配合使用。<br>提供了遍历所有数据结构的统一操作接口。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://Q-Quiet.github.io/2021/03/02/js-常见的几种遍历/" data-id="ckm0bck3g0028r0upj7e7ndtr" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-js-深浅拷贝" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2021/03/01/js-深浅拷贝/" class="article-date">
+  <time datetime="2021-03-01T14:21:34.000Z" itemprop="datePublished">2021-03-01</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/03/01/js-深浅拷贝/">js-深浅拷贝</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>深浅拷贝只是针对引用类型的，因为引用类型是存放在堆内存中，在栈地址有一个或者多个地址来指向推内存的某一数据。<br>浅拷贝：<br>被复制对象的所有变量都含有与原来的对象相同的值，而所有的对其他对象的引用仍然指向原来的对象。<br>浅拷贝仅仅复制所考虑的对象，而不复制它所引用的对象，如果你修改了“副本”的值，那么原来的对象也会被修改<br>深拷贝：<br>深拷贝把要复制的对象所引用的对象都复制了一遍。如果你修改了“副本”的值，那么原来的对象不会被修改，两者是相互独立的。<br>深拷贝把要复制的对象所引用的对象都复制了一遍。如果你修改了“副本”的值，那么原来的对象不会被修改，两者是相互独立的。</p>
+<h2 id="赋值实现浅拷贝"><a href="#赋值实现浅拷贝" class="headerlink" title="赋值实现浅拷贝"></a>赋值实现浅拷贝</h2><p>对于引用类型，赋值操作符只是把存放在栈内容中的指针赋值给另外一个变量。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> arr = [<span class="number">22</span>, <span class="number">44</span>, <span class="number">66</span>, <span class="number">88</span>];</span><br><span class="line"><span class="keyword">let</span> co = arr;</span><br><span class="line">co[<span class="number">0</span>] = <span class="number">11</span>;</span><br></pre></td></tr></table></figure></p>
+<h3 id="JSON实现深拷贝"><a href="#JSON实现深拷贝" class="headerlink" title="JSON实现深拷贝"></a>JSON实现深拷贝</h3><p>缺陷：我们可以发现有些属性被忽略了：<br>undefined<br>symbol<br>function<br>可以看得出来JSON实现深拷贝也有不足之处<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> arr = [<span class="number">22</span>, <span class="number">44</span>, <span class="number">66</span>, <span class="number">88</span>];</span><br><span class="line"><span class="keyword">let</span> jso = <span class="built_in">JSON</span>.parse(<span class="built_in">JSON</span>.stringify(arr));</span><br><span class="line">jso[<span class="number">0</span>] = <span class="number">11</span>;</span><br><span class="line"><span class="built_in">console</span>.log(arr, jso);</span><br></pre></td></tr></table></figure></p>
+<p>原理：<br>JSON.parse() 方法用于将一个 JSON 字符串转换为对象。<br>JSON.stringify() 方法用于将 JavaScript 值（通常为对象或数组）转换为 JSON 字符串。<br>在JSON.stringify()完成后，对象就转为了字符串，也就可以说实实在在的复制了一个值，不存在引用之说。<br>再利用JSON.parse()转为对象，这样达到深拷贝的目的<br>ES6新特性实现拷贝</p>
+<h2 id="Object-assign"><a href="#Object-assign" class="headerlink" title="Object.assign()"></a>Object.assign()</h2><p>Object.assign方法用于对象的合并，将源对象（source）的所有可枚举属性，复制到目标对象（target）。<br>Object.assign(target, …sources)<br>target目标对象。 sources源对象。 返回的是目标对象<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> obj = &#123;</span><br><span class="line">    a: &#123;</span><br><span class="line">        a1: <span class="string">'a1'</span></span><br><span class="line">    &#125;,</span><br><span class="line">    b: <span class="string">'b'</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> ass = <span class="built_in">Object</span>.assign(&#123;&#125;, obj);</span><br><span class="line">ass.a.a1 = <span class="string">'aaa'</span>;</span><br><span class="line">ass.b = <span class="string">'bbb'</span>;</span><br><span class="line">aconsole.log(obj, ass);</span><br></pre></td></tr></table></figure></p>
+<p>Obejct.assign()只能对一层进行深拷贝<br>如果拷贝的层数超过了一层的话，那么就会进行浅拷贝</p>
+<h2 id="展开运算符-…"><a href="#展开运算符-…" class="headerlink" title="展开运算符(…)"></a>展开运算符(…)</h2><p>对象的扩展运算符（…）用于取出参数对象的所有可遍历属性，拷贝到当前对象之中。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> obj = &#123;</span><br><span class="line">    a: &#123;</span><br><span class="line">        a1: <span class="string">'a1'</span></span><br><span class="line">    &#125;,</span><br><span class="line">    b: <span class="string">'b'</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> ass = &#123;...obj&#125;;</span><br><span class="line">ass.a.a1 = <span class="string">'aaa'</span>;</span><br><span class="line">ass.b = <span class="string">'bbb'</span></span><br></pre></td></tr></table></figure></p>
+<p>扩展运算符只能对一层进行深拷贝<br>如果拷贝的层数超过了一层的话，那么就会进行浅拷贝<br>递归<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">deepClone</span>(<span class="params">source</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> targetObj = source.constructor === <span class="built_in">Array</span> ? [] : &#123;&#125;;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">let</span> keys <span class="keyword">in</span> source) &#123;</span><br><span class="line">        <span class="keyword">if</span>(source.hasOwnProperty(keys)) &#123;</span><br><span class="line">            <span class="keyword">if</span>(source[keys] &amp;&amp; <span class="keyword">typeof</span> source[keys] === <span class="string">'object'</span>) &#123;</span><br><span class="line">                targetObj[keys] = source[keys].constructor === <span class="built_in">Array</span> ? [] : &#123;&#125;;</span><br><span class="line">                targetObj[keys] = deepClone(source[keys]);</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                targetObj[keys] = source[keys];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> targetObj;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://Q-Quiet.github.io/2021/03/01/js-深浅拷贝/" data-id="ckm0bck3i002ar0upwjplhtgp" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-ES6-Promise" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2021/03/01/ES6-Promise/" class="article-date">
@@ -112,7 +204,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/03/01/ES6-Promise/" data-id="cklz3fg5o0003ecupd8me4wra" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2021/03/01/ES6-Promise/" data-id="ckm0bck0u0004r0upkx424ok8" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ES6/">ES6</a></li></ul>
@@ -153,7 +245,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/03/01/ES6-Reflect/" data-id="cklz3fg5k0001ecupkkafvvdm" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2021/03/01/ES6-Reflect/" data-id="ckm0bck14000dr0ups0vrnwb3" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ES6/">ES6</a></li></ul>
@@ -204,7 +296,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/02/28/ES6-Proxy/" data-id="cklz3fg61000cecupf6y8o7ji" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2021/02/28/ES6-Proxy/" data-id="ckm0bck0z0008r0upz4qaujdw" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ES6/">ES6</a></li></ul>
@@ -258,7 +350,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/02/28/ES6-解构赋值/" data-id="cklz3fg5x0009ecup8fnghupa" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2021/02/28/ES6-解构赋值/" data-id="ckm0bck19000hr0upt95mpf7a" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ES6/">ES6</a></li></ul>
@@ -310,7 +402,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/02/28/ES6-Set和Map/" data-id="cklz3fg5t0008ecup3d57f003" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2021/02/28/ES6-Set和Map/" data-id="ckm0bck0v0005r0upy6xuh7nt" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ES6/">ES6</a></li></ul>
@@ -360,7 +452,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/02/27/js-防抖节流/" data-id="cklz3fg9a002fecuphjv5086d" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2021/02/27/js-防抖节流/" data-id="ckm0bck3o002gr0upg676ewlh" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
@@ -404,7 +496,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/02/27/js-继承/" data-id="cklz3fg9k002qecupcbuua67r" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2021/02/27/js-继承/" data-id="ckm0bck3z002qr0upobb3pd7f" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
@@ -449,95 +541,10 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/02/27/js-Symbol/" data-id="cklz3fg80001gecupq13d92md" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2021/02/27/js-Symbol/" data-id="ckm0bck23001cr0upvsupj5s5" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-css-响应式布局-媒体" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2021/02/26/css-响应式布局-媒体/" class="article-date">
-  <time datetime="2021-02-26T15:43:59.000Z" itemprop="datePublished">2021-02-26</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/02/26/css-响应式布局-媒体/">css-响应式布局-媒体</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>响应式布局指的是同一页面在不同屏幕尺寸下有不同的布局。<br>1.媒体查询<br>随着屏幕宽度增大或减小的时候，后面的样式会覆盖前面的样式。移动端优先首先使用的是min-width，PC端优先使用的max-width。<br>2.百分比布局<br>通过百分比单位，可以使得浏览器中组件的宽和高随着浏览器的高度的变化而变化，从而实现响应式的效果。（配合媒体查询）<br>3.rem布局<br>rem单位都是相对于根元素html的font-size来决定大小的。（配合媒体查询）<br>rem响应式的布局思想：<br>一般不要给元素设置具体的宽度，但是对于一些小图标可以设定具体宽度值<br>高度值可以设置固定值，设计稿有多大，我们就严格有多大<br>所有设置的固定值都用rem做单位（首先在HTML总设置一个基准值：px和rem的对应比例，然后在效果图上获取px值，布局的时候转化为rem值)<br>js获取真实屏幕的宽度，让其除以设计稿的宽度，算出比例，把之前的基准值按照比例进行重新的设定，这样项目就可以在移动端自适应了<br>4.视口单位<br>使用视口单位来实现响应式有两种做法：<br>1.仅使用vw作为CSS单位<br>无论是文本还是布局宽度、间距等都使用vw作为单位<br>2.搭配vw和rem<br>给根元素大小设置随着视口变化而变化的vw单位，这样就可以实现动态改变其大小<br>限制根元素字体大小的最大最小值，配合body加上最大宽度和最小宽度<br>5.图片响应式<br>一个就是大小自适应，这样能够保证图片在不同的屏幕分辨率下出现压缩、拉伸的情况；<br>一个就是根据不同的屏幕分辨率和设备像素比来尽可能选择高分辨率的图片，也就是当在小屏幕上不需要高清图或大图，这样我们用小图代替，就可以减少网络带宽了。<br>1.使用max-width（图片自适应）:<br>2.使用srcset<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;img srcset=<span class="string">"photo_w350.jpg 1x, photo_w640.jpg 2x"</span> src=<span class="string">"photo_w350.jpg"</span> alt=<span class="string">""</span>&gt;</span><br></pre></td></tr></table></figure></p>
-<p>3.使用background-image<br>4.使用picture标签<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;picture&gt;</span><br><span class="line">    &lt;source srcset=<span class="string">"banner_w1000.jpg"</span> media=<span class="string">"(min-width: 801px)"</span>&gt;</span><br><span class="line">    &lt;source srcset=<span class="string">"banner_w800.jpg"</span> media=<span class="string">"(max-width: 800px)"</span>&gt;</span><br><span class="line">    &lt;img src=<span class="string">"banner_w800.jpg"</span> alt=<span class="string">""</span>&gt;</span><br><span class="line">&lt;<span class="regexp">/picture&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">&lt;!-- picturefill.min.js 解决IE等浏览器不支持 &lt;picture&gt; 的问题 --&gt;</span></span><br><span class="line"><span class="regexp">&lt;script type="text/</span>javascript<span class="string">" src="</span>js/vendor/picturefill.min.js<span class="string">"&gt;&lt;/script&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>响应式布局的实现可以通过媒体查询+px,媒体查询+百分比，媒体查询+rem+js,vm/vh,vm/vh +rem这几种方式来实现。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/02/26/css-响应式布局-媒体/" data-id="cklz3fg68000hecupz87qrngx" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/css/">css</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-css-flex" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2021/02/25/css-flex/" class="article-date">
-  <time datetime="2021-02-25T14:57:55.000Z" itemprop="datePublished">2021-02-25</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/02/25/css-flex/">css-flex</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Flex布局（弹性布局）默认就是首行左对齐。<br>容器默认存在两根轴：水平的主轴（main axis）和垂直的交叉轴（cross axis）。<br>flex-direction属性决定主轴的方向（即项目的排列方向）。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.box &#123;</span><br><span class="line">  flex-direction: row | row-reverse | column | column-reverse;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>flex-wrap属性定义，如果一条轴线排不下，如何换行。<br>nowrap 不换行 | wrap 换行，第一行在上方| wrap-reverse 换行，第一行在下方<br>flex-flow属性是flex-direction属性和flex-wrap属性的简写形式，默认值为row nowrap。<br>justify-content属性定义了项目在主轴上的对齐方式。（水平方向的对齐方式）<br> flex-start | flex-end | center | space-between 两端对齐，项目之间的间隔都相等| space-around 每个项目两侧的间隔相等。所以，项目之间的间隔比项目与边框的间隔大一倍。<br>align-items属性定义项目在交叉轴上如何对齐。（垂直方向）<br>flex-start | flex-end | center | baseline  项目的第一行文字的基线对齐| stretch（默认值）：如果项目未设置高度或设为auto，将占满整个容器的高度。;</p>
-<p><img src="/picture/CSS-flex/baseline.jpg" alt="baseline"><br>align-content属性定义了多根轴线的对齐方式。如果项目只有一根轴线，该属性不起作用。<br>项目的属性<br>以下6个属性设置在项目上。<br>order           ： 定义项目的排列顺序。数值越小，排列越靠前，默认为0。<br>flex-grow     ：定义项目的放大比例，默认为0，即如果存在剩余空间，也不放大<br>flex-shrink   ：定义了项目的缩小比例，默认为1，即如果空间不足，该项目将缩小。<br>flex-basis    ：定义了在分配多余空间之前，项目占据的主轴空间（main size）。浏览器根据这个属性，计算主轴是否有多余空间。它的默认值为auto，即项目的本来大小。<br>    flex-basis为auto时, 初始宽度为元素内容大小或者设置的宽度值（盒子模型中的占用宽度）。<br>    flex-basis为像素值时，初始宽度为flex-basis的值。<br>    flex-basis为百分比时，初始宽度为占父容器的比例。<br>    flex-basis为0或0%时，初始宽度为0。<br>flex             ：是flex-grow, flex-shrink 和 flex-basis的简写，默认值为0 1 auto。后两个属性可选。<br>align-self    ：允许单个项目有与其他项目不一样的对齐方式，可覆盖align-items属性。（垂直方向）<br>flex的取值<br>当 flex 取值为 none，则计算值为 0 0 auto；<br>当 flex 取值为 auto，则计算值为 1 1 auto，<br>当 flex 取值为一个非负数字，则该数字为 flex-grow 值，flex-shrink 取 1，flex-basis 取 0%；<br>当 flex 取值为一个长度或百分比，则视为 flex-basis 值，flex-grow 取 1，flex-shrink 取 1；<br>当 flex 取值为两个非负数字，则分别视为 flex-grow 和 flex-shrink 的值，flex-basis 取 0%，如下是等同的；<br>当 flex 取值为一个非负数字和一个长度或百分比，则分别视为 flex-grow 和 flex-basis 的值，flex-shrink 取 1，如下是等同的：</p>
-<p>flex：1 === flex：1 1 0；效果图：</p>
-<p><img src="/picture/CSS-flex/flex1.jpg" alt="flex:1"><br>flex:1 1 auto;效果图：</p>
-<p><img src="/picture/CSS-flex/flex11auto.jpg" alt="flex:1 1 auto"></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2021/02/25/css-flex/" data-id="cklz3fg6b000jecupsefj72pb" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/css/">css</a></li></ul>
 
     </footer>
   </div>
@@ -574,7 +581,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/tags/ES6/" style="font-size: 17.14px;">ES6</a> <a href="/tags/Vue/" style="font-size: 10px;">Vue</a> <a href="/tags/css/" style="font-size: 14.29px;">css</a> <a href="/tags/es6/" style="font-size: 18.57px;">es6</a> <a href="/tags/js/" style="font-size: 20px;">js</a> <a href="/tags/ts/" style="font-size: 12.86px;">ts</a> <a href="/tags/vue/" style="font-size: 15.71px;">vue</a> <a href="/tags/浏览器/" style="font-size: 14.29px;">浏览器</a> <a href="/tags/计网/" style="font-size: 11.43px;">计网</a>
+      <a href="/tags/ES6/" style="font-size: 16.67px;">ES6</a> <a href="/tags/Vue/" style="font-size: 10px;">Vue</a> <a href="/tags/css/" style="font-size: 15px;">css</a> <a href="/tags/es6/" style="font-size: 18.33px;">es6</a> <a href="/tags/js/" style="font-size: 20px;">js</a> <a href="/tags/ts/" style="font-size: 13.33px;">ts</a> <a href="/tags/vue/" style="font-size: 16.67px;">vue</a> <a href="/tags/浏览器/" style="font-size: 15px;">浏览器</a> <a href="/tags/计网/" style="font-size: 11.67px;">计网</a>
     </div>
   </div>
 
@@ -596,6 +603,14 @@
       <ul>
         
           <li>
+            <a href="/2021/03/08/vue-修饰符/">vue-修饰符</a>
+          </li>
+        
+          <li>
+            <a href="/2021/03/08/vue-组件通信/">vue-组件通信</a>
+          </li>
+        
+          <li>
             <a href="/2021/03/07/vue-自定义指令/">vue-自定义指令</a>
           </li>
         
@@ -605,14 +620,6 @@
         
           <li>
             <a href="/2021/03/07/vue-mixin-mixins/">vue-mixin和mixins</a>
-          </li>
-        
-          <li>
-            <a href="/2021/03/06/vue-diff/">vue-diff</a>
-          </li>
-        
-          <li>
-            <a href="/2021/03/06/vue-NextTick/">vue-NextTick</a>
           </li>
         
       </ul>

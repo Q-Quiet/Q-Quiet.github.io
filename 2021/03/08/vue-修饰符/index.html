@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>vue-修饰符 | Q-Quiet</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="表单修饰符 事件修饰符 鼠标按键修饰符 键值修饰符 v-bind修饰符表单修饰符(和v-model).lazy: 在我们输入完所有东西，光标离开才更新视图。.trim: 过滤首位空格。.number: 限制输入数字或者输入的东西转换成数字，如果你先输入数字，那它就会限制你输入的只能是数字。如果你先输入字符串，那它就相当于没有加.number事件修饰符.stop: 由于事件冒泡的机制，我们给元素绑">
+<meta name="keywords" content="vue">
+<meta property="og:type" content="article">
+<meta property="og:title" content="vue-修饰符">
+<meta property="og:url" content="https://Q-Quiet.github.io/2021/03/08/vue-修饰符/index.html">
+<meta property="og:site_name" content="Q-Quiet">
+<meta property="og:description" content="表单修饰符 事件修饰符 鼠标按键修饰符 键值修饰符 v-bind修饰符表单修饰符(和v-model).lazy: 在我们输入完所有东西，光标离开才更新视图。.trim: 过滤首位空格。.number: 限制输入数字或者输入的东西转换成数字，如果你先输入数字，那它就会限制你输入的只能是数字。如果你先输入字符串，那它就相当于没有加.number事件修饰符.stop: 由于事件冒泡的机制，我们给元素绑">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2021-03-08T08:19:06.010Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="vue-修饰符">
+<meta name="twitter:description" content="表单修饰符 事件修饰符 鼠标按键修饰符 键值修饰符 v-bind修饰符表单修饰符(和v-model).lazy: 在我们输入完所有东西，光标离开才更新视图。.trim: 过滤首位空格。.number: 限制输入数字或者输入的东西转换成数字，如果你先输入数字，那它就会限制你输入的只能是数字。如果你先输入字符串，那它就相当于没有加.number事件修饰符.stop: 由于事件冒泡的机制，我们给元素绑">
+  
+    <link rel="alternate" href="/atom.xml" title="Q-Quiet" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="shortcut icon" href="ban.jpeg" type="image/x-icon">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Q-Quiet</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">言语笑靥迎来情</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://Q-Quiet.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-vue-修饰符" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2021/03/08/vue-修饰符/" class="article-date">
+  <time datetime="2021-03-08T08:13:26.000Z" itemprop="datePublished">2021-03-08</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      vue-修饰符
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <ul>
+<li>表单修饰符</li>
+<li>事件修饰符</li>
+<li>鼠标按键修饰符</li>
+<li>键值修饰符</li>
+<li>v-bind修饰符<h2 id="表单修饰符"><a href="#表单修饰符" class="headerlink" title="表单修饰符"></a>表单修饰符</h2>(和v-model)<br>.lazy: 在我们输入完所有东西，光标离开才更新视图。<br>.trim: 过滤首位空格。<br>.number: 限制输入数字或者输入的东西转换成数字，<br>如果你先输入数字，那它就会限制你输入的只能是数字。<br>如果你先输入字符串，那它就相当于没有加.number<h2 id="事件修饰符"><a href="#事件修饰符" class="headerlink" title="事件修饰符"></a>事件修饰符</h2>.stop: 由于事件冒泡的机制，我们给元素绑定点击事件的时候，也会触发父级的点击事件.一键阻止事件冒泡，相当于调用了event.stopPropagation()方法。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;div @click=&quot;shout(2)&quot;&gt;</span><br><span class="line">  &lt;button @click.stop=&quot;shout(1)&quot;&gt;ok&lt;/button&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>.prevent: 用于阻止事件的默认行为，相当于调用了event.preventDefault()方法。<br>.self: 只当事件是从事件绑定的元素本身触发时才触发回调。<br>.once: 只能用一次，绑定了事件以后只能触发一次，第二次就不会触发。<br>.capture: 事件触发从包含这个元素的顶层开始往下触发。<br>.passive: 当我们在监听元素滚动事件的时候，会一直触发onscroll事件，在pc端是没啥问题的，但是在移动端，会让我们的网页变卡，因此我们使用这个修饰符的时候,相当于给onscroll事件整了一个.lazy修饰符<br>.native: 把一个vue组件转化为一个普通的HTML标签，<br>注意：使用.native修饰符来操作普通HTML标签是会令事件失效的</p>
+<h2 id="鼠标按钮修饰符"><a href="#鼠标按钮修饰符" class="headerlink" title="鼠标按钮修饰符"></a>鼠标按钮修饰符</h2><p>.left 左键点击<br>.right 右键点击<br>.middle 中键点击</p>
+<h2 id="键值修饰符"><a href="#键值修饰符" class="headerlink" title="键值修饰符"></a>键值修饰符</h2><p>.keyCode:按下特定键触发<br>为了方便我们使用，vue给一些常用的键提供了别名<br>//普通键<br>.enter  .tab  .delete //(捕获“删除”和“退格”键)  .space  .esc  .up  .down  .left  .right<br>//系统修饰键<br>.ctrl   .alt   .meta  .shift<br>.exact （2.5新增）只需要或者只能按一个系统修饰键来触发</p>
+<h2 id="v-bind修饰符"><a href="#v-bind修饰符" class="headerlink" title="v-bind修饰符"></a>v-bind修饰符</h2><p>.sync(2.3+新增）<br>1.使用sync的时候，子组件传递的事件名必须为update:value，其中value必须与子组件中props中声明的名称完全一致(如上例中的myMessage，不能使用my-message)<br>2.注意带有 .sync 修饰符的 v-bind 不能和表达式一起使用 (例如 v-bind:title.sync=”doc.title + ‘!’” 是无效的)。取而代之的是，你只能提供你想要绑定的属性名，类似 v-model。<br>3.将 v-bind.sync 用在一个字面量的对象上，例如 v-bind.sync=”{ title: doc.title }”，是无法正常工作的，因为在解析一个像这样的复杂表达式的时候，有很多边缘情况需要考虑。<br>.prop: v-bind 默认绑定到 DOM 节点的 attribute 上，使用 .prop 修饰符后，会绑定到 property<br>.camel : 允许在使用 DOM 模板时将 v-bind 属性名称驼峰化</p>
+<h2 id="Property-与-Attribute-的差别"><a href="#Property-与-Attribute-的差别" class="headerlink" title="Property 与 Attribute 的差别"></a>Property 与 Attribute 的差别</h2><p>Property：节点对象在内存中存储的属性，可以访问和设置。<br>Attribute：节点对象的其中一个属性( property )，值是一个对象，可以通过点访问法 document.getElementById(‘xx’).attributes 或者 document.getElementById(‘xx’).getAttributes(‘xx’) 读取，通过 document.getElementById(‘xx’).setAttribute(‘xx’,value) 新增和修改。<br>在标签里定义的所有属性包括 HTML 属性和自定义属性都会在 attributes 对象里以键值对的方式存在。<br>1、Attribute 对象包含标签里定义的所有属性，Property 只包含 HTML 标准的属性，不包含自定义属性。<br>2、Attribute 里的属性的值是 html 标签上原始的值，除非使用 setAttribute() 方法更改，不会根据用户输入而改变（eg: input 标签）。Property 在页面初始化时会映射并创建 Attribute 对象里的标准属性，从而节点对象能以对象的访问方式获取标准属性。在用户输入内容修改了原始值后，Property 里对应的属性会随之变化。即，查看原始值使用 Attribute，查看最新值使用 Property。（input 的 value 值也可以通过 input.defaultValue 查看原始值）<br>3、Property 与 Attribute 的某些属性名称是完全一样的，例如 ref, id ；某些名称有些轻微差别，例如 Attribute 里的 for、class 属性映射出来对应 Property 里的 htmlFor、className；某些属性名称一样，但是属性值会有限制或者修改，不会完全一样，相关的属性有 src, href, disabled, multiple 等。<br>4、由于 Property 不能读取自定义属性，如果标签在开始的时候对标准属性定义了非标准范围内的值，Property 会默认选择一个标准值代替，导致与 Attribute 里的属性不完全相等。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://Q-Quiet.github.io/2021/03/08/vue-修饰符/" data-id="ckm0bck480031r0up1avfw01c" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vue/">vue</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2021/03/08/vue-组件通信/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">vue-组件通信</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ES6/">ES6</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vue/">Vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/">css</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/es6/">es6</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ts/">ts</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/">vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/浏览器/">浏览器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/计网/">计网</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/ES6/" style="font-size: 16.67px;">ES6</a> <a href="/tags/Vue/" style="font-size: 10px;">Vue</a> <a href="/tags/css/" style="font-size: 15px;">css</a> <a href="/tags/es6/" style="font-size: 18.33px;">es6</a> <a href="/tags/js/" style="font-size: 20px;">js</a> <a href="/tags/ts/" style="font-size: 13.33px;">ts</a> <a href="/tags/vue/" style="font-size: 16.67px;">vue</a> <a href="/tags/浏览器/" style="font-size: 15px;">浏览器</a> <a href="/tags/计网/" style="font-size: 11.67px;">计网</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">三月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">二月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">一月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">十月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">三月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2021/03/08/vue-修饰符/">vue-修饰符</a>
+          </li>
+        
+          <li>
+            <a href="/2021/03/08/vue-组件通信/">vue-组件通信</a>
+          </li>
+        
+          <li>
+            <a href="/2021/03/07/vue-自定义指令/">vue-自定义指令</a>
+          </li>
+        
+          <li>
+            <a href="/2021/03/07/vue-extend-extends/">vue-extend-extends</a>
+          </li>
+        
+          <li>
+            <a href="/2021/03/07/vue-mixin-mixins/">vue-mixin和mixins</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2021 Q-Quiet<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
