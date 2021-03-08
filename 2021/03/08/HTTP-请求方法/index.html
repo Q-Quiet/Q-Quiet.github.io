@@ -5,20 +5,20 @@
   
 
   
-  <title>js-undefined | Q-Quiet</title>
+  <title>HTTP-请求方法 | Q-Quiet</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="如何获取安全的 undefined 值？因为 undefined 是一个标识符，所以可以被当作变量来使用和赋值，但是这样会影响 undefined 的正常判断。表达式 void ___ 没有返回值，因此返回结果是 undefined。void 并不改变表达式的结果，只是让表达式不返回值。按惯例我们用 void 0 来获得 undefined。 undefined 与 undeclared 的区别？">
-<meta name="keywords" content="js">
+  <meta name="description" content="HTTP 1.0：HEAD、GET和POSTHTTP 1.1：新增了：OPTIONS、PUT、DELETE、TRACE、CONNECT五种HTTP请求方法。HTTP/1.1标准制定之后：PATCH • GET： 向特定的资源发送请求，返回相应的数据• HEAD： 和get 请求类似，只不过对应 head 而言，服务器不会返回响应体。我们可以不传输全部内容的情况下，就可以获取服务器的响应头信息。HE">
+<meta name="keywords" content="HTTP">
 <meta property="og:type" content="article">
-<meta property="og:title" content="js-undefined">
-<meta property="og:url" content="https://Q-Quiet.github.io/2020/12/21/js-undefined/index.html">
+<meta property="og:title" content="HTTP-请求方法">
+<meta property="og:url" content="https://Q-Quiet.github.io/2021/03/08/HTTP-请求方法/index.html">
 <meta property="og:site_name" content="Q-Quiet">
-<meta property="og:description" content="如何获取安全的 undefined 值？因为 undefined 是一个标识符，所以可以被当作变量来使用和赋值，但是这样会影响 undefined 的正常判断。表达式 void ___ 没有返回值，因此返回结果是 undefined。void 并不改变表达式的结果，只是让表达式不返回值。按惯例我们用 void 0 来获得 undefined。 undefined 与 undeclared 的区别？">
+<meta property="og:description" content="HTTP 1.0：HEAD、GET和POSTHTTP 1.1：新增了：OPTIONS、PUT、DELETE、TRACE、CONNECT五种HTTP请求方法。HTTP/1.1标准制定之后：PATCH • GET： 向特定的资源发送请求，返回相应的数据• HEAD： 和get 请求类似，只不过对应 head 而言，服务器不会返回响应体。我们可以不传输全部内容的情况下，就可以获取服务器的响应头信息。HE">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2021-03-01T08:05:17.839Z">
+<meta property="og:updated_time" content="2021-03-08T13:39:07.726Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="js-undefined">
-<meta name="twitter:description" content="如何获取安全的 undefined 值？因为 undefined 是一个标识符，所以可以被当作变量来使用和赋值，但是这样会影响 undefined 的正常判断。表达式 void ___ 没有返回值，因此返回结果是 undefined。void 并不改变表达式的结果，只是让表达式不返回值。按惯例我们用 void 0 来获得 undefined。 undefined 与 undeclared 的区别？">
+<meta name="twitter:title" content="HTTP-请求方法">
+<meta name="twitter:description" content="HTTP 1.0：HEAD、GET和POSTHTTP 1.1：新增了：OPTIONS、PUT、DELETE、TRACE、CONNECT五种HTTP请求方法。HTTP/1.1标准制定之后：PATCH • GET： 向特定的资源发送请求，返回相应的数据• HEAD： 和get 请求类似，只不过对应 head 而言，服务器不会返回响应体。我们可以不传输全部内容的情况下，就可以获取服务器的响应头信息。HE">
   
     <link rel="alternate" href="/atom.xml" title="Q-Quiet" type="application/atom+xml">
   
@@ -70,10 +70,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-js-undefined" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-HTTP-请求方法" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2020/12/21/js-undefined/" class="article-date">
-  <time datetime="2020-12-21T08:07:30.000Z" itemprop="datePublished">2020-12-21</time>
+    <a href="/2021/03/08/HTTP-请求方法/" class="article-date">
+  <time datetime="2021-03-08T13:37:59.000Z" itemprop="datePublished">2021-03-08</time>
 </a>
     
   </div>
@@ -84,7 +84,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      js-undefined
+      HTTP-请求方法
     </h1>
   
 
@@ -92,21 +92,16 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>如何获取安全的 undefined 值？<br>因为 undefined 是一个标识符，所以可以被当作变量来使用和赋值，但是这样会影响 undefined 的正常判断。<br>表达式 void ___ 没有返回值，因此返回结果是 undefined。void 并不改变表达式的结果，只是让表达式不返回值。<br>按惯例我们用 void 0 来获得 undefined。</p>
-<p>undefined 与 undeclared 的区别？<br>已在作用域中声明但还没有赋值的变量，是 undefined 的。相反，还没有在作用域中声明过的变量，是 undeclared 的。</p>
-<p>对于 undeclared 变量的引用，浏览器会报引用错误，如 ReferenceError: b is not defined 。但是我们可以使用 typ<br>eof 的安全防范机制来避免报错，因为对于 undeclared（或者 not defined ）变量，typeof 会返回 “undefined”。</p>
-<p>null 和 undefined 的区别？<br>首先 Undefined 和 Null 都是基本数据类型，这两个基本数据类型分别都只有一个值，就是 undefined 和 null。</p>
-<p>undefined 代表的含义是未定义，null 代表的含义是空对象。一般变量声明了但还没有定义的时候会返回 undefined，null<br>主要用于赋值给一些可能会返回对象的变量，作为初始化。</p>
-<p>undefined 在 js 中不是一个保留字，这意味着我们可以使用 undefined 来作为一个变量名，这样的做法是非常危险的，它<br>会影响我们对 undefined 值的判断。但是我们可以通过一些方法获得安全的 undefined 值，比如说 void 0。</p>
-<p>当我们对两种类型使用 typeof 进行判断的时候，Null 类型化会返回 “object”，这是一个历史遗留的问题。当我们使用双等<br>号对两种类型的值进行比较时会返回 true，使用三个等号时会返回 false。<br><a href="http://cavszhouyou.top/JavaScript%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E4%B9%8Bundefined%E4%B8%8Enull.html" target="_blank" rel="noopener">http://cavszhouyou.top/JavaScript%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E4%B9%8Bundefined%E4%B8%8Enull.html</a></p>
+        <p>HTTP 1.0：HEAD、GET和POST<br>HTTP 1.1：新增了：OPTIONS、PUT、DELETE、TRACE、CONNECT五种HTTP请求方法。<br>HTTP/1.1标准制定之后：PATCH</p>
+<p>• GET： 向特定的资源发送请求，返回相应的数据<br>• HEAD： 和get 请求类似，只不过对应 head 而言，服务器不会返回响应体。我们可以不传输全部内容的情况下，就可以获取服务器的响应头信息。HEAD方法常被用于客户端查看服务器的性能。<br>• POST：向指定的资源提交数据进行处理请求（上传文件或表单请求）<br>• OPTIONS：预检请求，获取服务器所支持的通信选项（请求方式）<br>• PUT：请求替换目标的资源<br>• DELETE： 删除指定的资源<br>• CONNECT：开启一个客户端到所请求资源之间的一个通道，通常用于SSL加密服务器的链接与非加密的HTTP代理服务器的通信。<br>• TRACE:  请求的服务器返回其受到的请求信息，主要用来做 http 的测试和诊断<br>• PATCH： 对指定的资源进行部分修改。与put类似，但是有以下两点不同：<br>    1.PATCH一般用于资源的部分更新，而PUT一般用于资源的整体更新<br>    2.当资源不存在时，PATCH会创建一个新的资源，而PUT只会对已在资源进行更新。</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://Q-Quiet.github.io/2020/12/21/js-undefined/" data-id="ckm0ms4sa001crkup7g358k22" class="article-share-link">Share</a>
+      <a data-url="https://Q-Quiet.github.io/2021/03/08/HTTP-请求方法/" data-id="ckm0ms4ow000crkupecp2fyjw" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HTTP/">HTTP</a></li></ul>
 
     </footer>
   </div>
@@ -114,19 +109,10 @@
     
 <nav id="article-nav">
   
-    <a href="/2020/12/22/js-创建对象的几种方法/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          js-创建对象的几种方法
-        
-      </div>
-    </a>
   
-  
-    <a href="/2020/12/21/js-有哪些对象/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2021/03/08/vue-修饰符/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">js-有哪些对象</div>
+      <div class="article-nav-title">vue-修饰符</div>
     </a>
   
 </nav>
